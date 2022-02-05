@@ -4,11 +4,11 @@ using UnityEngine;
 public class CharacterRotation : MonoBehaviour
 {
     [SerializeField] private LayerMask cubeMask;
-    [SerializeField] private Camera mainCam;
     [SerializeField] private PlaceholderFeedback placeholderFeedback;
     [SerializeField] private GameObject diorama; 
-    [SerializeField, Range(0.25f, 5f)] private float sensitivity = 1.5f; 
+    [SerializeField, Range(0.25f, 5f)] private float sensitivity = 1.5f;
 
+    private Camera mainCam;
     private Vector3 cameraOrigin;
 
     // important (but still not used)
@@ -18,11 +18,7 @@ public class CharacterRotation : MonoBehaviour
     private void Start()
     {
         angularSpeed = sensitivity * 360f; 
-
-        if (!mainCam)
-        {
-            mainCam = Camera.main; 
-        }
+        mainCam = Camera.main; 
     }
 
     // WARNING -> this rotation is mathematically accurate, but NOT intuitive at all from a player's perspective.. 

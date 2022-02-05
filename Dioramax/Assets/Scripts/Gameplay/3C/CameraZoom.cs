@@ -5,68 +5,106 @@ public class CameraZoom : MonoBehaviour
     private Camera mainCam;
     [SerializeField, Range(15, 40)] private float maxZoomIn = 25;
     [SerializeField, Range (70, 120)] private float maxZoomOut = 100;
+    [SerializeField, Range(1f, 10f)] private float zoomForceSensibility = 3f;
 
-    private Vector2 bottomPinchStart;
-    private Vector2 topPinchStart;
+    private Vector2 touch0PinchStart;
+    private Vector2 touch1PinchStart;
 
-    private Vector2 bottomPinchCurrent;
-    private Vector2 topPinchCurrent;
+    private float touch0PinchCurrent;
+    private float touch1PinchCurrent;
 
     private bool startIsRegistered;
 
-    private float zoomForce;
-    private float distance;
+    private float top;
+    private float bottom;
 
-    private Touch bottomTouch;
-    private Touch topTouch;
+    private float currentTopPosition;
+    private float currentBottomPosition;
+
+    private float camFOV; 
+
+    private float zoomForce; // not used
+    // private float distance; // not set
+
+    private Touch touch0;
+    private Touch touch1;
+
+    private bool zoomingIn; 
+
+    // DEBUG
+    private Vector2 bottomDelta, topDelta;
 
     private void Start()
     {
         mainCam = Camera.main;
         Input.multiTouchEnabled = true;
+        camFOV = mainCam.fieldOfView;
     }
 
     private void Update()
     {
-        if (mainCam.fieldOfView < maxZoomIn)
+        if (mainCam.fieldOfView > maxZoomOut)
         {
-            mainCam.fieldOfView = maxZoomIn;
+
         }
-        else if (mainCam.fieldOfView > maxZoomOut)
+        else if (mainCam.fieldOfView < maxZoomIn)
         {
-            mainCam.fieldOfView = maxZoomOut;
+
+        }
+    }
+
+    public void SetPinchRegisterValue(bool value)
+    {
+        startIsRegistered = value;
+    }
+
+    public void UpdatePinch(Touch _touch0, Touch _touch1)
+    {
+        touch0 = _touch0;
+        touch1 = _touch1;
+
+        // on first frame
+        if (!startIsRegistered)
+        {
+            touch0PinchStart = touch0.position; 
+            touch1PinchStart = touch1.position;
+
+            touch0PinchCurrent = touch0PinchStart.y; 
+            touch1PinchCurrent = touch1PinchStart.y;
         }
 
-        if (Input.touchCount >= 1 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
+        if (touch0.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Moved)
         {
-            startIsRegistered = false;
-        }
+            Debug.Log("updating zoom force");  
+            touch0PinchCurrent = touch0.position.y; // useless ?
+            touch1PinchCurrent = touch1.position.y; // useless ?
 
-        if (Input.touchCount == 2)
-        {
-            startIsRegistered = true; 
+            top = Mathf.Max(touch0PinchCurrent, touch1PinchCurrent);
+            bottom = Mathf.Min(touch0PinchCurrent, touch1PinchCurrent);
 
-            if (!startIsRegistered)
+            // LOGIC ERROR FOR ZOOMINGIN
+            zoomingIn = top < currentTopPosition || bottom > currentBottomPosition; 
+            // too sensible !! (sometimes zoom in for two or three frames during zoom out or vice versa
+            if (zoomingIn)
             {
-                bottomTouch = Input.GetTouch(0);
-                topTouch = Input.GetTouch(1); 
-
-                bottomPinchStart = bottomTouch.position;
-                topPinchStart = topTouch.position;
-
-                bottomPinchCurrent = bottomPinchStart;
-                topPinchCurrent = topPinchStart; 
+                Debug.Log("zooming in");
+                mainCam.fieldOfView += Time.deltaTime * zoomForceSensibility;
             }
 
-            if (bottomTouch.phase == TouchPhase.Moved || topTouch.phase == TouchPhase.Moved) 
+             if (!zoomingIn)
             {
-                bottomPinchCurrent = bottomTouch.position;
-                topPinchCurrent = topTouch.position;
+                Debug.Log("zooming out");
+                mainCam.fieldOfView += Time.deltaTime * -zoomForceSensibility;
+            }   
+                
+            // DEBUG
+            bottomDelta = touch0.deltaPosition;
+            topDelta = touch1.deltaPosition;
+            // end of DEBUG
 
-                zoomForce = Vector2.Max(bottomTouch.deltaPosition, topTouch.deltaPosition).normalized.magnitude; // 0 to 1
-
-                // update zoom -> mainCam.fieldOfView
-            }
+            currentTopPosition = Mathf.Max(touch0PinchCurrent, touch1PinchCurrent);
+            currentBottomPosition = Mathf.Min(touch0PinchCurrent, touch1PinchCurrent);
         }
     }
 }

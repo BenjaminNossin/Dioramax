@@ -20,35 +20,47 @@ public class Controls : MonoBehaviour
     [SerializeField] private CharacterRotation characterRotation;
     [SerializeField] private CameraZoom cameraZoom;
 
-    private Touch currentTouch1;
-    // private Touch currentTouch2;
+    private Touch currentTouch0;
+    // private Touch currentTouch1;
 
-    private Vector3 touch1StartPosition;
-    private Vector3 currentTouch1Position;
+    private Vector3 touch0StartPosition;
+    private Vector3 currentTouch0Position;
 
-    // private Vector3 touch2StartPosition;
-    // private Vector3 current2TouchPosition;
+    // private Vector3 touch1StartPosition;
+    // private Vector3 current1TouchPosition;
 
     private void Update()
     {
+        // ROTATION
         if (Input.touchCount == 1)
         {
-            currentTouch1 = Input.GetTouch(0);
-            currentTouch1Position = currentTouch1.position; 
+            currentTouch0 = Input.GetTouch(0);
+            currentTouch0Position = currentTouch0.position; 
 
-            if (currentTouch1.phase == TouchPhase.Began)
+            if (currentTouch0.phase == TouchPhase.Began)
             {
-                touch1StartPosition = currentTouch1Position; 
-                characterRotation.Initialize(touch1StartPosition, currentTouch1Position); 
+                touch0StartPosition = currentTouch0Position; 
+                characterRotation.Initialize(touch0StartPosition, currentTouch0Position); 
             }
-            else if (currentTouch1.phase == TouchPhase.Moved && Vector2.Distance(touch1StartPosition, currentTouch1.deltaPosition) > 10f)
+            else if (currentTouch0.phase == TouchPhase.Moved && Vector2.Distance(touch0StartPosition, currentTouch0.deltaPosition) > 10f)
             {
-                characterRotation.UpdateRotation(touch1StartPosition, currentTouch1Position);
+                characterRotation.UpdateRotation(touch0StartPosition, currentTouch0Position);
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                characterRotation.EndRotationUpdate(touch1StartPosition, currentTouch1Position);
+                characterRotation.EndRotationUpdate(touch0StartPosition, currentTouch0Position);
                 // Debug.Log($"distance from start is {Vector2.Distance(touchStart, currentTouchPosition)}");
+            }
+        }
+        // ZOOM IN and OUT
+        else if (Input.touchCount == 2)
+        {
+            cameraZoom.UpdatePinch(Input.GetTouch(0), Input.GetTouch(1)); // bad to read Input.GetTouch() again 
+            cameraZoom.SetPinchRegisterValue(true);
+
+            if (Input.GetTouch(1).phase == TouchPhase.Ended)
+            {
+                cameraZoom.SetPinchRegisterValue(false);
             }
         }
     }
