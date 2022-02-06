@@ -55,7 +55,7 @@ public class CameraZoom : MonoBehaviour
         // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
         {
-            zoomingIn = Mathf.Sign(touchTop.deltaPosition.y) == 1 || Mathf.Sign(touchBottom.deltaPosition.y) == -1;
+            zoomingIn = Mathf.Sign(touchTop.deltaPosition.y) == -1 || Mathf.Sign(touchBottom.deltaPosition.y) == 1;
             touchTopDelta = touchTop.deltaPosition.y;
             touchBottomDelta = touchBottom.deltaPosition.y; 
             // too sensible !! (sometimes zoom in for two or three frames during zoom out or vice versa
