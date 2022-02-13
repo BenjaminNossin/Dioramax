@@ -17,8 +17,9 @@ Cancelled - The touch was interrupted this frame
 
 public class Controls : MonoBehaviour
 {
-    [SerializeField] private CharacterRotation characterRotation;
+    [SerializeField] private CameraRotation cameraRotation;
     [SerializeField] private CameraZoom cameraZoom;
+    [SerializeField] private TouchDetection touchDetection;
 
     private Touch currentTouch0;
     // private Touch currentTouch1;
@@ -53,15 +54,16 @@ public class Controls : MonoBehaviour
             if (currentTouch0.phase == TouchPhase.Began)
             {
                 touch0StartPosition = currentTouch0Position; 
-                characterRotation.Initialize(touch0StartPosition, currentTouch0Position); 
+                cameraRotation.Initialize(touch0StartPosition, currentTouch0Position); // usefull ?
+                touchDetection.TouchFeedback(touch0StartPosition, currentTouch0Position);
             }
-            else if (currentTouch0.phase == TouchPhase.Moved && Vector2.Distance(touch0StartPosition, currentTouch0.deltaPosition) > 10f)
+            else if (currentTouch0.phase == TouchPhase.Moved && Vector2.Distance(touch0StartPosition, currentTouch0Position) > 0.5f)
             {
-                characterRotation.UpdateRotation(touch0StartPosition, currentTouch0Position);
+                cameraRotation.UpdateRotation(touch0StartPosition, currentTouch0Position); 
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                characterRotation.EndRotationUpdate(touch0StartPosition, currentTouch0Position);
+                cameraRotation.EndRotationUpdate(touch0StartPosition, currentTouch0Position);
                 // Debug.Log($"distance from start is {Vector2.Distance(touchStart, currentTouchPosition)}");
             }
         }
