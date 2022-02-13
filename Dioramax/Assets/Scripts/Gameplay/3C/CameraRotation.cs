@@ -49,12 +49,11 @@ public class CameraRotation : MonoBehaviour
         // Debug.Log($"touch start at {camera.ScreenToWorldPoint(new Vector3(touchStart.x, touchStart.y, 30f))}");
     }
 
-    public void UpdateRotation(Vector3 touchStart, Vector3 currentTouchPosition)
+    public void UpdateRotation(Vector3 rotationDirection, float rotationForce)
     {
         // rotation axis is always 90° compared to swipe direction 
-        swipeDirection = touchStart - currentTouchPosition; 
-        rotationAxis = new Vector2(swipeDirection.y, -swipeDirection.x);
-        float angle = Vector2.Angle(rotationAxis, swipeDirection);
+        rotationAxis = new Vector2(rotationDirection.y, -rotationDirection.x);
+        float angle = Vector2.Angle(rotationAxis, swipeDirection); 
 
         // Debug.Log("angle is " + angle);
         // Debug.Log($"rotation axis is {rotationAxis}"); 
@@ -62,15 +61,12 @@ public class CameraRotation : MonoBehaviour
 
         mainCam.transform.RotateAround(
             diorama.transform.position,
-            rotationAxis.normalized,
-            Time.deltaTime * sensitivity); // * Mathf.Sign(Vector3.right.x));
+            rotationAxis,
+            Time.deltaTime * sensitivity * rotationForce); // * Mathf.Sign(Vector3.right.x));
     }
 
     public void EndRotationUpdate(Vector3 touchStart, Vector3 currentTouchPosition)
     {
         currentTouchPosition = Input.GetTouch(0).position;
-
-        touchStart = mainCam.ScreenToWorldPoint(new Vector3(touchStart.x, touchStart.y, 1f));
-        currentTouchPosition = mainCam.ScreenToWorldPoint(new Vector3(currentTouchPosition.x, currentTouchPosition.y, 1f));
     }
 }
