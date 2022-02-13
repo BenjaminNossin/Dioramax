@@ -15,6 +15,8 @@ Ended - A user lifted their finger from the screen this frame
 Cancelled - The touch was interrupted this frame 
 */
 
+public enum TouchState { None, Tap, Hold, DoubleTap, Swipe, Rotating }
+
 public class Controls : MonoBehaviour
 {
     [SerializeField] private CameraRotation cameraRotation;
@@ -24,6 +26,7 @@ public class Controls : MonoBehaviour
     private Camera mainCam;
 
     private Touch currentTouch0;
+    private TouchState touchState; 
     // private Touch currentTouch1;
 
     private Vector3 touch0StartPosition;
@@ -34,13 +37,10 @@ public class Controls : MonoBehaviour
     private bool touch1HasBeenUnregistered; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
                                             // but maybe there is a better solution
 
-    // DEBUG
-    private float distance;
-    private Vector3 screenToWorldPoint1, screentToWorldPoint2; 
-
     private void Start()
     {
         mainCam = Camera.main;
+        touchState = TouchState.None; 
     }
 
     private void Update()
@@ -69,25 +69,27 @@ public class Controls : MonoBehaviour
 
             if (currentTouch0.phase == TouchPhase.Began)
             {
-                touch0StartPosition = mainCam.ScreenToWorldPoint(touch0CurrentPosition);
+                touch0StartPosition = mainCam.ScreenToWorldPoint(touch0CurrentPosition);               
 
-                cameraRotation.Initialize(touch0StartPosition, touch0CurrentPosition); // usefull ?
-                touchDetection.TouchFeedback(touch0StartPosition, touch0CurrentPosition);
+                // if something detected, enter swipe and NOT rotating state
+                if (touchDetection.TryCastToTarget(touch0StartPosition, touch0CurrentPosition))
+                {
+                    touchState = TouchState.Swipe;
+                }
             }
             else if (currentTouch0.phase == TouchPhase.Moved)
             {
-                cameraRotation.UpdateRotation(swipeDirection.normalized, swipeForce * 0.01f);
+                if (touchState != TouchState.Rotating)
+                {
+                    touchState = TouchState.Rotating; 
+                }
 
-                screenToWorldPoint1 = touch0StartPosition;
-                screentToWorldPoint2 = mainCam.ScreenToWorldPoint(touch0CurrentPosition);
-
-                // distance = Vector3.Distance(screenToWorldPoint1, screentToWorldPoint2);
-                // delta can go up to 300
+                cameraRotation.UpdateRotation(swipeDirection.normalized, swipeForce);
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
+                touchState = TouchState.None; 
                 cameraRotation.EndRotationUpdate(touch0StartPosition, touch0CurrentPosition);
-                // Debug.Log($"distance from start is {Vector2.Distance(touchStart, currentTouchPosition)}");
             }
         }
         // ZOOM IN and OUT

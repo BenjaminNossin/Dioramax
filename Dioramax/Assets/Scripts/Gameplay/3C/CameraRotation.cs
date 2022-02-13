@@ -4,13 +4,11 @@ using UnityEngine;
 public class CameraRotation : MonoBehaviour
 {
     [SerializeField] private GameObject diorama; 
-    [SerializeField, Range(5f, 50f)] private float sensitivity = 20f;
-    public Vector2 swipeDirection; 
+    [SerializeField, Range(0.2f, 5f)] private float rotationForce = 2f;
+    [SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
 
+    private Vector2 swipeDirection; 
     private Camera mainCam;
-    private Vector3 cameraOrigin;
-
-    // important (but still not used)
     private Vector2 rotationAxis;
 
     private void Start()
@@ -42,27 +40,18 @@ public class CameraRotation : MonoBehaviour
         // mainCam.transform.RotateAround(diorama.transform.position, new Vector3(1, 1, 0), Time.deltaTime * sensitivity * Mathf.Sign(-1));
     }
 
-
-    public void Initialize(Vector3 touchStart, Vector3 currentTouchPosition)
-    {
-        // initialRotation = diorama.transform.rotation.eulerAngles;
-        // Debug.Log($"touch start at {camera.ScreenToWorldPoint(new Vector3(touchStart.x, touchStart.y, 30f))}");
-    }
-
     public void UpdateRotation(Vector3 rotationDirection, float rotationForce)
     {
-        // rotation axis is always 90° compared to swipe direction 
-        rotationAxis = new Vector2(rotationDirection.y, -rotationDirection.x);
-        float angle = Vector2.Angle(rotationAxis, swipeDirection); 
+        if (rotationForce >= rotationSensitivity)
+        {
+            // to always get an axis that is 90° more than direction
+            rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x);
 
-        // Debug.Log("angle is " + angle);
-        // Debug.Log($"rotation axis is {rotationAxis}"); 
-        Debug.Log("rotating"); 
-
-        mainCam.transform.RotateAround(
-            diorama.transform.position,
-            rotationAxis,
-            Time.deltaTime * sensitivity * rotationForce); // * Mathf.Sign(Vector3.right.x));
+            mainCam.transform.RotateAround(
+                diorama.transform.position,
+                rotationAxis,
+                Time.deltaTime * this.rotationForce * rotationForce);
+        }
     }
 
     public void EndRotationUpdate(Vector3 touchStart, Vector3 currentTouchPosition)

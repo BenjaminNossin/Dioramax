@@ -7,23 +7,26 @@ public class TouchDetection : MonoBehaviour
 
     private Camera mainCam;
     private Vector3 cameraOrigin;
+    private bool ObjectDetected; 
 
     void Start()
     {
         mainCam = Camera.main;
     }
 
-    public void TouchFeedback(Vector3 touchStart, Vector3 toucheEnd)
+    public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
     {
         cameraOrigin = transform.position;
         toucheEnd = mainCam.ScreenToWorldPoint(new Vector3(touchStart.x, touchStart.y, 1f));
 
         Debug.DrawRay(cameraOrigin, (toucheEnd - cameraOrigin) * 100f, Color.red, 0.5f);
+        ObjectDetected = Physics.Raycast(cameraOrigin, (toucheEnd - cameraOrigin), out RaycastHit hitInfo, 100f, cubeMask); 
 
-        if (Physics.Raycast(cameraOrigin, (toucheEnd - cameraOrigin), out RaycastHit hitInfo, 100f, cubeMask))
+        if (ObjectDetected)
         {
             Debug.DrawRay(cameraOrigin, (toucheEnd - cameraOrigin) * 100f, Color.green, 0.5f);
             placeholderFeedback.ChangeColor();
         }
+        return ObjectDetected;
     }
 }
