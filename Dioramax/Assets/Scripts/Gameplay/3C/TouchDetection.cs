@@ -7,7 +7,7 @@ public class TouchDetection : MonoBehaviour
 
     private Camera mainCam;
     private Vector3 cameraOrigin;
-    private bool ObjectDetected; 
+    private bool objectDetected; 
 
     void Start()
     {
@@ -20,13 +20,13 @@ public class TouchDetection : MonoBehaviour
         toucheEnd = mainCam.ScreenToWorldPoint(new Vector3(touchStart.x, touchStart.y, 1f));
 
         Debug.DrawRay(cameraOrigin, (toucheEnd - cameraOrigin) * 100f, Color.red, 0.5f);
-        ObjectDetected = Physics.Raycast(cameraOrigin, (toucheEnd - cameraOrigin), out RaycastHit hitInfo, 100f, cubeMask); 
+        objectDetected = Physics.Raycast(cameraOrigin, (toucheEnd - cameraOrigin), out RaycastHit hitInfo, 100f, cubeMask); 
 
-        if (ObjectDetected)
+        if (objectDetected)
         {
             Debug.DrawRay(cameraOrigin, (toucheEnd - cameraOrigin) * 100f, Color.green, 0.5f);
             placeholderFeedback.ChangeColor();
         }
-        return ObjectDetected;
+        return objectDetected;
     }
 }

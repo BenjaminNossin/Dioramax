@@ -17,28 +17,28 @@ public class CameraRotation : MonoBehaviour
         transform.position = diorama.transform.position; // to set dynamically at the start of a level
     }
 
-    public void UpdateRotation(Vector3 rotationDirection, float rotationForce)
+    /// <summary>
+    /// Move the parent along X and Y axis. If you want to only rotate the camera frame, use "UpdateZRotation instead
+    /// </summary>
+    /// <param name="rotationDirection">Direction of camera displacement, based on direction of swipe</param>
+    /// <param name="rotationForce">The speed of displacement</param>
+    public void UpdateXYRotation(Vector3 rotationDirection, float rotationForce)
     {
-        // grand-parent only Y axis
-        // parent only X axis
-        // camera does not rotate
-
         if (rotationForce >= rotationSensitivity) 
         {
             // to always get an axis that is 90° more than direction
             rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
-
-            /* transform.RotateAround(
-                diorama.transform.position,
-                rotationAxis,
-                Time.deltaTime * this.rotationForce * rotationForce); */
-
             transform.Rotate(rotationAxis, Time.deltaTime * this.rotationForce * rotationForce); 
         }
     }
 
-    public void EndRotationUpdate(Vector3 touchStart, Vector3 currentTouchPosition)
+    /// <summary>
+    /// No object moves during this rotation. It is applied to the camera parent, around its Z axis. This is how the physics-based mechanic is triggered
+    /// </summary>
+    /// <param name="topDirection">The direction of swipe from the top finger, usually the index</param>
+    /// <param name="bottomDirection">The direction of swipe from the thumb</param>
+    public void UpdateZRotation(Vector3 topDirection, Vector3 bottomDirection)
     {
-        currentTouchPosition = Input.GetTouch(0).position;
+
     }
 }
