@@ -14,10 +14,10 @@ public class TouchDetection : MonoBehaviour
         mainCam = Camera.main;
     }
 
-    public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
+    public bool TryCastToTarget(Vector3 touchStart, out Vector3 toucheEnd)
     {
         cameraOrigin = transform.position;
-        toucheEnd = mainCam.ScreenToWorldPoint(new Vector3(touchStart.x, touchStart.y, 1f));
+        toucheEnd = mainCam.ScreenToWorldPoint(new Vector3(touchStart.x, touchStart.y, touchStart.z + transform.forward.z));
 
         Debug.DrawRay(cameraOrigin, (toucheEnd - cameraOrigin) * 100f, Color.red, 0.5f);
         objectDetected = Physics.Raycast(cameraOrigin, (toucheEnd - cameraOrigin), out RaycastHit hitInfo, 100f, cubeMask); 

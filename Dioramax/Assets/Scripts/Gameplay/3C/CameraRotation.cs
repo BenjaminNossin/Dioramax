@@ -22,13 +22,19 @@ public class CameraRotation : MonoBehaviour
     /// </summary>
     /// <param name="rotationDirection">Direction of camera displacement, based on direction of swipe</param>
     /// <param name="rotationForce">The speed of displacement</param>
-    public void UpdateXYRotation(Vector3 rotationDirection, float rotationForce)
+    /// <returns>Wether the swipe force is greater than the sensibility settings. Otherwise, it won't rotate</returns>
+    public bool UpdateXYRotation(Vector3 rotationDirection, float rotationForce)
     {
         if (rotationForce >= rotationSensitivity) 
         {
             // to always get an axis that is 90° more than direction
             rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
-            transform.Rotate(rotationAxis, Time.deltaTime * this.rotationForce * rotationForce); 
+            transform.Rotate(rotationAxis, Time.deltaTime * this.rotationForce * rotationForce);
+            return true; 
+        }
+        else
+        {
+            return false;
         }
     }
 

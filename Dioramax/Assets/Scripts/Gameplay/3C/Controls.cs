@@ -13,7 +13,7 @@ Ended - A user lifted their finger from the screen this frame
 Cancelled - The touch was interrupted this frame 
 */
 
-public enum TouchState { None, Tap, Hold, DoubleTap, Swipe, Rotating, Zooming }
+public enum TouchState { None, Tap, Hold, DoubleTap, Drag, Rotating, Zooming, UNDEFINED }
 
 public class Controls : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class Controls : MonoBehaviour
     private TouchState touchState; 
     // private Touch currentTouch1;
 
-    private Vector3 touch0StartPosition;
+    private Vector3 touch0StartPositionToWorldPoint;
     private Vector3 touch0CurrentPosition;
 
 
@@ -64,26 +64,23 @@ public class Controls : MonoBehaviour
 
             if (currentTouch0.phase == TouchPhase.Began)
             {
-                touch0StartPosition = mainCam.ScreenToWorldPoint(touch0CurrentPosition);
+                SetTouchState(TouchState.Tap);
+                touch0StartPositionToWorldPoint = touch0CurrentPosition;
 
                 // if something detected, enter swipe and NOT rotating state
-                if (touchDetection.TryCastToTarget(touch0StartPosition, touch0CurrentPosition))
+                if (touchDetection.TryCastToTarget(touch0StartPositionToWorldPoint, out Vector3 toWorldPoint))
                 {
                     Debug.Log("detected an interactable object"); 
-                    SetTouchState(TouchState.Swipe);
+                    SetTouchState(TouchState.Drag);
                 }
+
+                Debug.Log("touch state is " + touchState);
             }
             else if (currentTouch0.phase == TouchPhase.Stationary)
             {
-                Debug.Log("stationary"); 
                 frameCount++; 
 
-                if (frameCount < frameCountBeforeTapToHold)
-                {
-                    Debug.Log("tap state"); 
-                    SetTouchState(TouchState.Tap);
-                }
-                else
+                if (frameCount >= frameCountBeforeTapToHold)
                 {
                     Debug.Log("transition to Hold state");
                     SetTouchState(TouchState.Hold);
@@ -91,21 +88,17 @@ public class Controls : MonoBehaviour
             }
             else if (currentTouch0.phase == TouchPhase.Moved) 
             {
-                if (touchState != TouchState.Swipe)
+                SetTouchState(TouchState.UNDEFINED); // one way to make up for the super high sensitivity of Stationary/Moved state (no dead zone)
+                if (cameraRotation.UpdateXYRotation(swipeDirection.normalized, swipeForce))
                 {
-                    Debug.Log("not swiping. State is now Rotating"); 
+                    Debug.Log("not swiping. State is now Rotating");
                     SetTouchState(TouchState.Rotating);
                 }
-                else if (touchState == TouchState.Swipe)
-                {
-                    Debug.Log("swiping"); 
-                }
-
-                cameraRotation.UpdateXYRotation(swipeDirection.normalized, swipeForce);
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                Debug.Log("finger was removed from screen"); 
+                Debug.Log("finger was removed from screen");
+                frameCount = 0; 
                 SetTouchState(TouchState.None);
             }
         }
@@ -133,7 +126,7 @@ public class Controls : MonoBehaviour
         Debug.Log("updating monotouch"); 
 
         currentTouch0 = Input.GetTouch(0);
-        touch0CurrentPosition = new Vector3(currentTouch0.position.x, currentTouch0.position.y, mainCam.nearClipPlane);
+        touch0CurrentPosition = mainCam.ScreenToWorldPoint(new Vector3(currentTouch0.position.x, currentTouch0.position.y, transform.position.z + 1f));
 
         swipeDirection = currentTouch0.deltaPosition;
         swipeForce = swipeDirection.magnitude; // can go up to 200
