@@ -26,14 +26,27 @@ public class Controls : MonoBehaviour
     private Vector3 touch0StartPosition;
     private Vector3 currentTouch0Position;
 
-    // private Vector3 touch1StartPosition;
-    // private Vector3 current1TouchPosition;
+    private bool touch1HasBeenUnregistered; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
+                                            // but maybe there is a better solution
 
     private void Update()
     {
+        if (Input.touchCount == 0 && !touch1HasBeenUnregistered)
+        {
+            touch1HasBeenUnregistered = true;
+            cameraZoom.SetPinchRegisterValue(false);
+        }
+
         // ROTATION
         if (Input.touchCount == 1)
         {
+            // end of zoom state
+            if (!touch1HasBeenUnregistered)
+            {
+                touch1HasBeenUnregistered = true;
+                cameraZoom.SetPinchRegisterValue(false);
+            }
+
             currentTouch0 = Input.GetTouch(0);
             currentTouch0Position = currentTouch0.position; 
 
@@ -55,13 +68,9 @@ public class Controls : MonoBehaviour
         // ZOOM IN and OUT
         else if (Input.touchCount == 2)
         {
+            touch1HasBeenUnregistered = false; 
             cameraZoom.UpdatePinch(Input.GetTouch(0), Input.GetTouch(1)); // bad to read Input.GetTouch() again 
             cameraZoom.SetPinchRegisterValue(true);
-
-            if (Input.GetTouch(1).phase == TouchPhase.Ended)
-            {
-                cameraZoom.SetPinchRegisterValue(false);
-            }
         }
     }
 }
