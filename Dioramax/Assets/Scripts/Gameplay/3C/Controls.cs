@@ -17,11 +17,12 @@ public enum TouchState { None, Tap, Hold, DoubleTap, Drag, Rotating, Zooming, UN
 
 public class Controls : MonoBehaviour
 {
+    [SerializeField] private GameObject debugObject; 
     [SerializeField] private CameraRotation cameraRotation;
     [SerializeField] private CameraZoom cameraZoom;
     [SerializeField] private TouchDetection touchDetection;
     [SerializeField, 
-        Tooltip("How much before a tap is considered a hold")] 
+        Tooltip("How much before a tap is considered a hold"), Range(0, 20)] 
     private int frameCountBeforeTapToHold = 10; // no gameplay usage for now, just transition logic
 
     private Camera mainCam;
@@ -30,7 +31,7 @@ public class Controls : MonoBehaviour
     private TouchState touchState; 
     // private Touch currentTouch1;
 
-    private Vector3 touch0StartPositionToWorldPoint;
+    private Vector3 cameraPosition;
     private Vector3 touch0CurrentPosition;
 
 
@@ -40,7 +41,7 @@ public class Controls : MonoBehaviour
     private bool touch1HasBeenUnregistered = true; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
                                                    // but maybe there is a better solution
 
-    private int frameCount; 
+    private int FrameCount { get; set; } 
 
     private void Start()
     {
@@ -65,10 +66,10 @@ public class Controls : MonoBehaviour
             if (currentTouch0.phase == TouchPhase.Began)
             {
                 SetTouchState(TouchState.Tap);
-                touch0StartPositionToWorldPoint = touch0CurrentPosition;
+                cameraPosition = mainCam.transform.position;
 
                 // if something detected, enter swipe and NOT rotating state
-                if (touchDetection.TryCastToTarget(touch0StartPositionToWorldPoint, out Vector3 toWorldPoint))
+                if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition))
                 {
                     Debug.Log("detected an interactable object"); 
                     SetTouchState(TouchState.Drag);
@@ -78,9 +79,9 @@ public class Controls : MonoBehaviour
             }
             else if (currentTouch0.phase == TouchPhase.Stationary)
             {
-                frameCount++; 
+                FrameCount++; 
 
-                if (frameCount >= frameCountBeforeTapToHold)
+                if (FrameCount >= frameCountBeforeTapToHold)
                 {
                     Debug.Log("transition to Hold state");
                     SetTouchState(TouchState.Hold);
@@ -98,7 +99,7 @@ public class Controls : MonoBehaviour
             else if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 Debug.Log("finger was removed from screen");
-                frameCount = 0; 
+                FrameCount = 0; 
                 SetTouchState(TouchState.None);
             }
         }
@@ -126,7 +127,10 @@ public class Controls : MonoBehaviour
         Debug.Log("updating monotouch"); 
 
         currentTouch0 = Input.GetTouch(0);
-        touch0CurrentPosition = mainCam.ScreenToWorldPoint(new Vector3(currentTouch0.position.x, currentTouch0.position.y, transform.position.z + 1f));
+        touch0CurrentPosition = mainCam.ScreenToWorldPoint(new Vector3(
+            currentTouch0.position.x, 
+            currentTouch0.position.y, 
+            mainCam.nearClipPlane)); 
 
         swipeDirection = currentTouch0.deltaPosition;
         swipeForce = swipeDirection.magnitude; // can go up to 200

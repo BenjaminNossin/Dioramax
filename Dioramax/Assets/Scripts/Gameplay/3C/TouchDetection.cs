@@ -6,7 +6,6 @@ public class TouchDetection : MonoBehaviour
     [SerializeField] private PlaceholderFeedback placeholderFeedback;
 
     private Camera mainCam;
-    private Vector3 cameraOrigin;
     private bool objectDetected; 
 
     void Start()
@@ -14,17 +13,16 @@ public class TouchDetection : MonoBehaviour
         mainCam = Camera.main;
     }
 
-    public bool TryCastToTarget(Vector3 touchStart, out Vector3 toucheEnd)
+    public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
     {
-        cameraOrigin = transform.position;
-        toucheEnd = mainCam.ScreenToWorldPoint(new Vector3(touchStart.x, touchStart.y, touchStart.z + transform.forward.z));
-
-        Debug.DrawRay(cameraOrigin, (toucheEnd - cameraOrigin) * 100f, Color.red, 0.5f);
-        objectDetected = Physics.Raycast(cameraOrigin, (toucheEnd - cameraOrigin), out RaycastHit hitInfo, 100f, cubeMask); 
+        Debug.Log($"casting from {touchStart} to {toucheEnd}"); 
+        Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.red, 0.5f);
+        objectDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit hitInfo, 100f, cubeMask); 
+        // use hit info
 
         if (objectDetected)
         {
-            Debug.DrawRay(cameraOrigin, (toucheEnd - cameraOrigin) * 100f, Color.green, 0.5f);
+            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
             placeholderFeedback.ChangeColor();
         }
         return objectDetected;

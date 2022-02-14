@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1925177115}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -271,9 +271,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70355df5a5bce84408dd20696f42693e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugObject: {fileID: 2502672763357436352, guid: 44fd1873201fd2e4d877a0c253755434, type: 3}
   cameraRotation: {fileID: 2121899256}
   cameraZoom: {fileID: 1046078187}
   touchDetection: {fileID: 1046078190}
+  frameCountBeforeTapToHold: 10
 --- !u!114 &1046078190
 MonoBehaviour:
   m_ObjectHideFlags: 0
