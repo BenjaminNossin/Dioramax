@@ -15,7 +15,6 @@ public class TouchDetection : MonoBehaviour
 
     public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
     {
-        Debug.Log($"casting from {touchStart} to {toucheEnd}"); 
         Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.red, 0.5f);
         objectDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit hitInfo, 100f, cubeMask); 
         // use hit info
@@ -25,6 +24,7 @@ public class TouchDetection : MonoBehaviour
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
             placeholderFeedback.ChangeColor();
         }
+
         return objectDetected;
     }
 }
