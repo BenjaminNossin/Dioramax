@@ -32,13 +32,17 @@ public class Controls : MonoBehaviour
 
     private Vector3 cameraPosition;
     private Vector3 touch0CurrentPosition;
+    private Vector3 touch1CurrentPosition;
 
+    private Vector3 touch0Direction;
+    private Vector3 touch1Direction;
 
-    private Vector3 swipeDirection;
-    private float swipeForce;
+    private float maxTouchForce;
 
     private bool touch1HasBeenUnregistered = true; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
                                                    // but maybe there is a better solution
+
+    private float topPosition;
 
     private int FrameCount { get; set; } 
 
@@ -58,60 +62,67 @@ public class Controls : MonoBehaviour
         }
 
         // ROTATION
-        if (Input.touchCount == 1)
+        if (Input.touchCount != 0)
         {
-            UpdateMonotouch();
+            UpdateTouch(Input.touchCount);
 
-            if (currentTouch0.phase == TouchPhase.Began)
+            if (Input.touchCount == 1)
             {
-                SetTouchState(TouchState.Tap);
-                cameraPosition = mainCam.transform.position;
-
-                // if something detected, enter swipe and NOT rotating state
-                if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition))
+                if (currentTouch0.phase == TouchPhase.Began)
                 {
-                    Debug.Log("detected an interactable object"); 
-                    SetTouchState(TouchState.Drag);
+                    SetTouchState(TouchState.Tap);
+                    cameraPosition = mainCam.transform.position;
+
+                    // if something detected, enter swipe and NOT rotating state
+                    if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition))
+                    {
+                        Debug.Log("detected an interactable object");
+                        SetTouchState(TouchState.Drag);
+                    }
+
+                    Debug.Log("touch state is " + touchState);
                 }
-
-                Debug.Log("touch state is " + touchState);
-            }
-            else if (currentTouch0.phase == TouchPhase.Stationary)
-            {
-                FrameCount++; 
-
-                if (FrameCount >= frameCountBeforeTapToHold)
+                else if (currentTouch0.phase == TouchPhase.Stationary)
                 {
-                    Debug.Log("transition to Hold state");
-                    SetTouchState(TouchState.Hold);
+                    FrameCount++;
+
+                    if (FrameCount >= frameCountBeforeTapToHold)
+                    {
+                        Debug.Log("transition to Hold state");
+                        SetTouchState(TouchState.Hold);
+                    }
                 }
-            }
-            else if (currentTouch0.phase == TouchPhase.Moved) 
-            {
-                SetTouchState(TouchState.UNDEFINED); // one way to make up for the super high sensitivity of Stationary/Moved state (no dead zone)
-                if (cameraRotation.UpdateXYRotation(swipeDirection.normalized, swipeForce))
+                else if (currentTouch0.phase == TouchPhase.Moved)
                 {
-                    Debug.Log("not swiping. State is now Rotating");
-                    SetTouchState(TouchState.Rotating);
+                    SetTouchState(TouchState.UNDEFINED); // one way to make up for the super high sensitivity of Stationary/Moved state (no dead zone)
+                    if (cameraRotation.UpdateXYRotation(touch0Direction.normalized, maxTouchForce))
+                    {
+                        Debug.Log("not swiping. State is now Rotating");
+                        SetTouchState(TouchState.Rotating);
+                    }
+                }
+                else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    Debug.Log("finger was removed from screen");
+                    FrameCount = 0;
+                    SetTouchState(TouchState.None);
                 }
             }
-            else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            // ZOOM IN/OUT and Z ROTATION
+            else if (Input.touchCount == 2)
             {
-                Debug.Log("finger was removed from screen");
-                FrameCount = 0; 
-                SetTouchState(TouchState.None);
+                // 21.02.2022 FIND PROPER ENTRY CONDITION 
+
+                currentTouch1 = Input.GetTouch(1);
+
+                // SetPinch(false, true);
+                // cameraZoom.UpdatePinch(Input.GetTouch(0), currentTouch1, out topPosition); // bad to read Input.GetTouch() again 
+
+
+                Debug.Log("Z ROTATION");
+                cameraRotation.UpdateZRotation(Input.GetTouch(0), currentTouch1, out topPosition, maxTouchForce);
+
             }
-        }
-        // ZOOM IN and OUT
-        else if (Input.touchCount == 2)
-        {
-            Debug.Log("Two fingers are on the screen");
-
-            currentTouch1 = Input.GetTouch(1); 
-            SetPinch(false, true);
-            cameraZoom.UpdatePinch(Input.GetTouch(0), currentTouch1); // bad to read Input.GetTouch() again 
-
-            // Z rotation
         }
     }
 
@@ -121,18 +132,35 @@ public class Controls : MonoBehaviour
     }
 
     // use input.touches:Touch[] instead ? But means I have to recreate an array every time touchCount changes.. 
-    private void UpdateMonotouch()
+    private void UpdateTouch(int touchCount)
     {
-        Debug.Log("updating monotouch"); 
-
         currentTouch0 = Input.GetTouch(0);
         touch0CurrentPosition = mainCam.ScreenToWorldPoint(new Vector3(
-            currentTouch0.position.x, 
-            currentTouch0.position.y, 
-            mainCam.nearClipPlane)); 
+            currentTouch0.position.x,
+            currentTouch0.position.y,
+            mainCam.nearClipPlane));
 
-        swipeDirection = currentTouch0.deltaPosition;
-        swipeForce = swipeDirection.magnitude; // can go up to 200
+        touch0Direction = currentTouch0.deltaPosition;
+
+        if (touchCount == 2)
+        {
+            Debug.Log("updating double touch");
+
+            currentTouch1 = Input.GetTouch(1);
+            touch1CurrentPosition = mainCam.ScreenToWorldPoint(new Vector3(
+                currentTouch1.position.x,
+                currentTouch1.position.y,
+                mainCam.nearClipPlane));
+
+            touch1Direction = currentTouch1.deltaPosition;
+        }
+        // DEBUG
+        else if (touchCount == 1)
+        {
+            Debug.Log("updating mono touch");
+        }
+
+        maxTouchForce = touchCount == 1 ? touch0Direction.magnitude : Mathf.Max(touch0Direction.magnitude, touch1Direction.magnitude); 
     }
 
     private void SetPinch(bool _touch1HasBeenUnregistered, bool _cameraPinchRegisterValueTo)

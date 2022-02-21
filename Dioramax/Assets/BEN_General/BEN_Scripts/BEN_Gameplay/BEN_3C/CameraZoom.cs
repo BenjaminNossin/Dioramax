@@ -12,7 +12,6 @@ public class CameraZoom : MonoBehaviour
 
     private bool zoomStartIsRegistered;
 
-    private float topPositionStartY;
     private bool zoomingIn;
 
     // DEBUG
@@ -34,19 +33,17 @@ public class CameraZoom : MonoBehaviour
         zoomStartIsRegistered = value;
     }
 
-    public void UpdatePinch(Touch _touch0, Touch _touch1)
+    public void UpdatePinch(Touch _touch0, Touch _touch1, out float topPosition)
     {
-        // on first frame
-
-        topPositionStartY = Mathf.Max(_touch0.position.y, _touch1.position.y);
+        topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
 
         // stupid to do this every frame. But how to keep reference to the arguments each frame ?
-        if (topPositionStartY == _touch0.position.y)
+        if (topPosition == _touch0.position.y)
         {
             touchTop = _touch0;
             touchBottom = _touch1;
         }
-        else if (topPositionStartY == _touch1.position.y)
+        else if (topPosition == _touch1.position.y)
         {
             touchTop = _touch1;
             touchBottom = _touch0;
