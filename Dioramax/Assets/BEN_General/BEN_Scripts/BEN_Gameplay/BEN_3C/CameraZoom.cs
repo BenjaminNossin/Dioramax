@@ -12,20 +12,18 @@ public class CameraZoom : MonoBehaviour
 
     private bool zoomStartIsRegistered;
 
-    private bool zoomingIn;
+    private bool zoomingOut;
+    private bool canZoomIn;
+    private bool canZoomOut;
 
-    // DEBUG
-    private float touchTopDelta, touchBottomDelta; 
+    private Vector3 zoomPoint;
+    private float zoomValue; 
 
     private void Start()
     {
         mainCam = Camera.main;
         Input.multiTouchEnabled = true;
-    }
-
-    private void Update()
-    {
-        mainCam.fieldOfView = Mathf.Clamp(mainCam.fieldOfView, maxZoomIn, maxZoomOut);
+        zoomValue = mainCam.fieldOfView; 
     }
 
     public void SetPinchRegisterValue(bool value)
@@ -33,6 +31,7 @@ public class CameraZoom : MonoBehaviour
         zoomStartIsRegistered = value;
     }
 
+    private const float moveSpeed = 10f; 
     public void UpdatePinch(Touch _touch0, Touch _touch1, out float topPosition)
     {
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
@@ -49,22 +48,43 @@ public class CameraZoom : MonoBehaviour
             touchBottom = _touch0;
         }
 
+        Vector3 middlePoint = Vector3.Lerp(touchTop.position, touchBottom.position, 0.5f);
+        zoomPoint = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 0f));
+        zoomPoint += new Vector3(0f, 0f, transform.InverseTransformDirection(mainCam.transform.forward).z);
+
         // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
+        // use touchTop.deltaPosition : NO NEED FOR IF/ELSE
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
         {
-            zoomingIn = Mathf.Sign(touchTop.deltaPosition.y) == -1 || Mathf.Sign(touchBottom.deltaPosition.y) == 1;
-            touchTopDelta = touchTop.deltaPosition.y;
-            touchBottomDelta = touchBottom.deltaPosition.y; 
+            zoomingOut = Mathf.Sign(touchTop.deltaPosition.y) == -1 || Mathf.Sign(touchBottom.deltaPosition.y) == 1;
+
             // too sensible !! (sometimes zoom in for two or three frames during zoom out or vice versa
-            if (zoomingIn)
+            canZoomIn = zoomValue > maxZoomIn;
+            canZoomOut = zoomValue < maxZoomOut; 
+            if (zoomingOut)
             {
-                Debug.Log("zooming in");
-                mainCam.fieldOfView += zoomForceSensibility;
+                Debug.Log("zooming out");
+                /* mainCam.fieldOfView = currentCamFieldOfView < maxZoomOut - zoomForceSensibility ?
+                    currentCamFieldOfView + zoomForceSensibility :
+                    maxZoomOut; */
+
+                if (canZoomOut)
+                {
+                    zoomValue++;
+                    mainCam.transform.Translate((zoomPoint - mainCam.transform.position).normalized * -Time.deltaTime * moveSpeed, Space.Self);
+                }
             }
             else
             {
-                Debug.Log("zooming out");
-                mainCam.fieldOfView -= zoomForceSensibility;
+                Debug.Log("zooming in");
+                /* mainCam.fieldOfView = currentCamFieldOfView > maxZoomIn + zoomForceSensibility ?
+                    currentCamFieldOfView - zoomForceSensibility :
+                    maxZoomIn; */
+                if (canZoomIn)
+                {
+                    zoomValue--;
+                    mainCam.transform.Translate((zoomPoint - mainCam.transform.position).normalized * Time.deltaTime * moveSpeed, Space.Self);
+                }
             }
         }
     }
