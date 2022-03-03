@@ -56,7 +56,6 @@ public class CameraRotation : MonoBehaviour
             touchTop = _touch1;
         }
 
-        // Debug.Log("current top position is : " + touchTop.deltaPosition.x); 
         transform.Rotate(transform.forward, Time.deltaTime * ZForceMultiplier * rotationForce * MathF.Sign(touchTop.deltaPosition.x));
     }   
 }
