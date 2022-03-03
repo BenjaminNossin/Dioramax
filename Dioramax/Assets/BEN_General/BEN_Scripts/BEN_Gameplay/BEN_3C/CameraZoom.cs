@@ -3,9 +3,10 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour
 {
     private Camera mainCam;
-    [SerializeField, Range(15, 40)] private float maxZoomIn = 25;
-    [SerializeField, Range (70, 120)] private float maxZoomOut = 100;
+    [SerializeField, Range(15, 50)] private float maxZoomIn = 45;
+    [SerializeField, Range (70, 120)] private float maxZoomOut = 70;
     [SerializeField, Range(0.5f, 5f)] private float zoomForceSensibility = 2.5f;
+    [SerializeField] private GameObject debugObject; 
 
     private Touch touchTop;
     private Touch touchBottom; 
@@ -16,7 +17,9 @@ public class CameraZoom : MonoBehaviour
     private bool canZoomIn;
     private bool canZoomOut;
 
-    private Vector3 zoomPoint;
+    private Vector3 zoomPointStart;
+    private Vector3 zoomPointEnd;
+
     private float zoomValue; 
 
     private void Start()
@@ -49,9 +52,8 @@ public class CameraZoom : MonoBehaviour
         }
 
         Vector3 middlePoint = Vector3.Lerp(touchTop.position, touchBottom.position, 0.5f);
-        zoomPoint = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 0f));
-        zoomPoint += new Vector3(0f, 0f, transform.InverseTransformDirection(mainCam.transform.forward).z);
 
+        zoomPointEnd = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 10f)); 
         // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
         // use touchTop.deltaPosition : NO NEED FOR IF/ELSE
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
@@ -64,26 +66,20 @@ public class CameraZoom : MonoBehaviour
             if (zoomingOut)
             {
                 Debug.Log("zooming out");
-                /* mainCam.fieldOfView = currentCamFieldOfView < maxZoomOut - zoomForceSensibility ?
-                    currentCamFieldOfView + zoomForceSensibility :
-                    maxZoomOut; */
-
                 if (canZoomOut)
                 {
                     zoomValue++;
-                    mainCam.transform.Translate((zoomPoint - mainCam.transform.position).normalized * -Time.deltaTime * moveSpeed, Space.Self);
+
+                    transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * moveSpeed; 
                 }
             }
             else
             {
                 Debug.Log("zooming in");
-                /* mainCam.fieldOfView = currentCamFieldOfView > maxZoomIn + zoomForceSensibility ?
-                    currentCamFieldOfView - zoomForceSensibility :
-                    maxZoomIn; */
                 if (canZoomIn)
                 {
                     zoomValue--;
-                    mainCam.transform.Translate((zoomPoint - mainCam.transform.position).normalized * Time.deltaTime * moveSpeed, Space.Self);
+                    transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * moveSpeed;
                 }
             }
         }
