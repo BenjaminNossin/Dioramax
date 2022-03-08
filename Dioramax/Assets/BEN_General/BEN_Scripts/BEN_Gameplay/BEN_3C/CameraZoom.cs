@@ -1,5 +1,8 @@
 using UnityEngine;
 
+// reçoit un event touch up
+    // démarre un script qui lit valeur de courbe pendant x secondes
+
 public class CameraZoom : MonoBehaviour
 {
     private Camera mainCam;
@@ -35,6 +38,7 @@ public class CameraZoom : MonoBehaviour
     }
 
     private const float moveSpeed = 10f; 
+
     public void UpdatePinch(Touch _touch0, Touch _touch1, out float topPosition)
     {
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
@@ -52,7 +56,6 @@ public class CameraZoom : MonoBehaviour
         }
 
         Vector3 middlePoint = Vector3.Lerp(touchTop.position, touchBottom.position, 0.5f);
-
         zoomPointEnd = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 10f)); 
         // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
         // use touchTop.deltaPosition : NO NEED FOR IF/ELSE

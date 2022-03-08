@@ -25,7 +25,7 @@ public class CameraRotation : MonoBehaviour
     /// <param name="rotationDirection">Direction of camera displacement, based on direction of swipe</param>
     /// <param name="rotationForce">The speed of displacement</param>
     /// <returns>Wether the swipe force is greater than the sensibility settings. Otherwise, it won't rotate</returns>
-    public bool UpdateXYRotation(Vector3 rotationDirection, float rotationForce)
+    public void UpdateXYRotation(Vector3 rotationDirection, float rotationForce)
     {
         if (rotationForce >= rotationSensitivity) 
         {
@@ -33,8 +33,6 @@ public class CameraRotation : MonoBehaviour
             rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
             transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
         }
-
-        return rotationForce >= rotationSensitivity; 
     }
 
     /// <summary>

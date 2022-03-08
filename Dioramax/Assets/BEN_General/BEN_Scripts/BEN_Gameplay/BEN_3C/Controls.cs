@@ -1,17 +1,6 @@
 using UnityEngine;
 
-// Input.touches to track multiple fingers -> zoom
-// touchCount
-// touchSupported
-// GetTouch -> .tapCount, .position, .phase, .deltaTime, .deltaPosition
-/* The touch lifecycle describes the state of a touch in any given frame:
-
-Began - A user has touched their finger to the screen this frame
-Stationary - A finger is on the screen but the user has not moved it this frame
-Moved - A user moved their finger this frame
-Ended - A user lifted their finger from the screen this frame
-Cancelled - The touch was interrupted this frame 
-*/
+// Keep controls and gamefeel SEPARATE. 
 
 public enum TouchState { None, Tap, Hold, DoubleTap, Drag, Rotating, Zooming, UNDEFINED }
 
@@ -95,11 +84,12 @@ public class Controls : MonoBehaviour
                 else if (currentTouch0.phase == TouchPhase.Moved)
                 {
                     SetTouchState(TouchState.UNDEFINED); // one way to make up for the super high sensitivity of Stationary/Moved state (no dead zone)
-                    if (cameraRotation.UpdateXYRotation(touch0Direction.normalized, maxTouchForce))
+                    if (maxTouchForce > 3f) // BAD HARDCODED. But this script shouldn't know about cameraRotation.rotationSensitivity
                     {
                         // Debug.Log("not swiping. State is now Rotating");
+                        cameraRotation.UpdateXYRotation(touch0Direction.normalized, maxTouchForce); 
                         SetTouchState(TouchState.Rotating);
-                    }
+                    } 
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
