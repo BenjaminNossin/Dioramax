@@ -16,8 +16,9 @@ public class Controls : MonoBehaviour
     private Camera mainCam;
 
     private Touch currentTouch0, currentTouch1; 
-    private TouchState touchState; 
-    // private Touch currentTouch1;
+    public static TouchState CurrentState { get; private set; }
+    public static TouchState PreviousState { get; private set; }
+
 
     private Vector3 cameraPosition;
     private Vector3 touch0CurrentPosition;
@@ -38,7 +39,7 @@ public class Controls : MonoBehaviour
     private void Start()
     {
         mainCam = Camera.main;
-        touchState = TouchState.None; 
+        CurrentState = TouchState.None; 
     }
 
     private void Update()
@@ -91,29 +92,35 @@ public class Controls : MonoBehaviour
                         SetTouchState(TouchState.Rotating);
                     } 
                 }
-                else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                else if (currentTouch0.phase == TouchPhase.Ended)
                 {
                     // Debug.Log("finger was removed from screen");
                     FrameCount = 0;
                     SetTouchState(TouchState.None);
                 }
             }
-            // ZOOM IN/OUT and Z ROTATION
-            // TOO ACCURATE
+            // TOO ACCURATE. A single pixel-sized movement is enough -> feels like glitching when you put your fingers on the screen
             else if (Input.touchCount == 2)
             {
-                currentTouch1 = Input.GetTouch(1);
+                if (currentTouch1.phase == TouchPhase.Ended)
+                {
+                    // Debug.Log("finger was removed from screen");
+                    FrameCount = 0;
+                    SetTouchState(TouchState.None);
+                }
 
+                // ZOOM IN/OUT 
                 if (Mathf.Abs(currentTouch1.deltaPosition.x) > Mathf.Abs(currentTouch1.deltaPosition.y))
                 {
                     Debug.Log("Z rotation");
-                    cameraRotation.UpdateZRotation(Input.GetTouch(0), currentTouch1, out topPosition, maxTouchForce);
+                    cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, out topPosition, maxTouchForce);
                 }
+                // Z ROTATION
                 else
                 {
                     Debug.Log("zooming");
                     SetPinch(false, true);
-                    cameraZoom.UpdatePinch(Input.GetTouch(0), currentTouch1, out topPosition); // bad to read Input.GetTouch() again 
+                    cameraZoom.UpdatePinch(currentTouch0, currentTouch1, out topPosition);
                 }
             }
         }
@@ -121,7 +128,8 @@ public class Controls : MonoBehaviour
 
     private void SetTouchState(TouchState newState)
     {
-        touchState = newState;
+        PreviousState = CurrentState; 
+        CurrentState = newState;
     }
 
     // use input.touches:Touch[] instead ? But means I have to recreate an array every time touchCount changes.. 

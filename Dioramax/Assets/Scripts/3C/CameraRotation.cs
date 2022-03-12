@@ -1,22 +1,27 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// This Class allows to rotate a camera around a crane, that acts as it center of rotation.
+/// Put this script on the crane, with a camera as child
+/// </summary>
 public class CameraRotation : MonoBehaviour
 {
     [SerializeField] private GameObject diorama;
 
-    [SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
+    [Space, SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
     [SerializeField, Range(3f, 12f)] private float ZForceMultiplier = 8f;
 
-    [SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
-
+    [Space, SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
     private Vector2 rotationAxis;
-
     private Touch touchTop;
+
+    [Header("Gamefeel")]
+    [SerializeField] CurveEvaluator gamefeelCurve;
 
     private void Start()
     {
-        transform.position = diorama.transform.position; // to set dynamically at the start of a level
+        transform.position = diorama.transform.position; // TODO : set dynamically at the start of a level
     }
 
     /// <summary>

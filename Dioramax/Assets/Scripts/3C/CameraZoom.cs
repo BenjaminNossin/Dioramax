@@ -1,15 +1,16 @@
 using UnityEngine;
 
-// reçoit un event touch up
-    // démarre un script qui lit valeur de courbe pendant x secondes
-
+/// <summary>
+/// This script allows a camera to zoom in and out with a dynamic direction. 
+/// It uses translation instead of fov modification.
+/// Put it on the object with camera componenet, NOT the crane
+/// </summary>
 public class CameraZoom : MonoBehaviour
 {
     private Camera mainCam;
     [SerializeField, Range(15, 50)] private float maxZoomIn = 45;
     [SerializeField, Range (70, 120)] private float maxZoomOut = 70;
     [SerializeField, Range(0.5f, 5f)] private float zoomForceSensibility = 2.5f;
-    [SerializeField] private GameObject debugObject; 
 
     private Touch touchTop;
     private Touch touchBottom; 
