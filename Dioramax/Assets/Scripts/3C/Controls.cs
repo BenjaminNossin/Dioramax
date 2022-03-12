@@ -32,9 +32,8 @@ public class Controls : MonoBehaviour
     private bool touch1HasBeenUnregistered = true; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
                                                    // but maybe there is a better solution
 
-    private float topPosition;
-
-    private int FrameCount { get; set; } 
+    private int FrameCount { get; set; }
+    public static System.Action<TouchState> OnTouchEnded { get; set; } 
 
     private void Start()
     {
@@ -97,6 +96,7 @@ public class Controls : MonoBehaviour
                     // Debug.Log("finger was removed from screen");
                     FrameCount = 0;
                     SetTouchState(TouchState.None);
+                    OnTouchEnded(PreviousState); // was I zooming or rotating ? 
                 }
             }
             // TOO ACCURATE. A single pixel-sized movement is enough -> feels like glitching when you put your fingers on the screen
@@ -113,14 +113,16 @@ public class Controls : MonoBehaviour
                 if (Mathf.Abs(currentTouch1.deltaPosition.x) > Mathf.Abs(currentTouch1.deltaPosition.y))
                 {
                     Debug.Log("Z rotation");
-                    cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, out topPosition, maxTouchForce);
+                    cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, maxTouchForce);
+                    SetTouchState(TouchState.Rotating);
                 }
                 // Z ROTATION
                 else
                 {
                     Debug.Log("zooming");
                     SetPinch(false, true);
-                    cameraZoom.UpdatePinch(currentTouch0, currentTouch1, out topPosition);
+                    cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
+                    SetTouchState(TouchState.Zooming);
                 }
             }
         }

@@ -38,9 +38,10 @@ public class CameraZoom : MonoBehaviour
         zoomStartIsRegistered = value;
     }
 
-    private const float moveSpeed = 10f; 
+    private const float moveSpeed = 10f;
 
-    public void UpdatePinch(Touch _touch0, Touch _touch1, out float topPosition)
+    private float topPosition; 
+    public void UpdatePinch(Touch _touch0, Touch _touch1)
     {
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
 
