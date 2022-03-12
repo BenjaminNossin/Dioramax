@@ -2,7 +2,7 @@ using UnityEngine;
 
 // Keep controls and gamefeel SEPARATE. 
 
-public enum TouchState { None, Tap, Hold, DoubleTap, Drag, Rotating, Zooming, UNDEFINED }
+public enum TouchState { None, Tap, Hold, DoubleTap, Drag, Rotating, Zooming }
 
 public class Controls : MonoBehaviour
 {
@@ -18,6 +18,8 @@ public class Controls : MonoBehaviour
     private Touch currentTouch0, currentTouch1; 
     public static TouchState CurrentState { get; private set; }
     public static TouchState PreviousState { get; private set; }
+
+    private TouchState currentState, previousState; 
 
 
     private Vector3 cameraPosition;
@@ -36,6 +38,11 @@ public class Controls : MonoBehaviour
     public static System.Action OnTouchStarted { get; set; }
     public static System.Action<TouchState> OnTouchEnded { get; set; }
 
+    private Touch[] touchArray;
+    private int touchCount;
+
+
+    private TouchPhase touch0, Touch1; 
 
     private void Start()
     {
@@ -45,6 +52,18 @@ public class Controls : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("touch count is : " + Input.touchCount);
+        if (Input.touchCount != 0)
+        {
+            touch0 = Input.touches[0].phase;
+
+            if (Input.touchCount == 2)
+            {
+                Touch1 = Input.touches[1].phase;
+            }
+        }
+
+
         // MAJ 14.02.2022 -> untested
         if (Input.touchCount < 2 && !touch1HasBeenUnregistered)
         {
@@ -61,7 +80,7 @@ public class Controls : MonoBehaviour
             {
                 if (currentTouch0.phase == TouchPhase.Began)
                 {
-                    OnTouchStarted(); 
+                    OnTouchStarted();
                     SetTouchState(TouchState.Tap);
                     cameraPosition = mainCam.transform.position;
 
@@ -86,19 +105,25 @@ public class Controls : MonoBehaviour
                 }
                 else if (currentTouch0.phase == TouchPhase.Moved)
                 {
-                    SetTouchState(TouchState.UNDEFINED); // one way to make up for the super high sensitivity of Stationary/Moved state (no dead zone)
-                    if (currentTouchMoveForce > 3f) // BAD HARDCODED. But this script shouldn't know about cameraRotation.rotationSensitivity
+                    FrameCount++;
+
+                    if (currentTouchMoveForce >= cameraRotation.RotationSensitivity)
                     {
                         // Debug.Log("not swiping. State is now Rotating");
-                        cameraRotation.UpdateXYRotation(touch0Direction.normalized, currentTouchMoveForce); 
+                        cameraRotation.UpdateXYRotation(touch0Direction.normalized, currentTouchMoveForce);
                         SetTouchState(TouchState.Rotating);
-                    } 
+                    }
+                    else if (FrameCount >= frameCountBeforeTapToHold)
+                    {
+                        SetTouchState(TouchState.Hold);
+                    }
                 }
-                else if (currentTouch0.phase == TouchPhase.Ended)
+                else if (Input.touches[0].phase == TouchPhase.Ended)
                 {
                     // Debug.Log("finger was removed from screen");
                     FrameCount = 0;
-                    SetTouchState(TouchState.None);
+                    Debug.Log("none from mono touch ended"); 
+                    SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
                     OnTouchEnded(PreviousState); // was I zooming or rotating ? 
                 }
             }
@@ -108,8 +133,8 @@ public class Controls : MonoBehaviour
                 if (currentTouch1.phase == TouchPhase.Ended)
                 {
                     // Debug.Log("finger was removed from screen");
+                    Debug.Log("REMOVING SECOND FINGER");
                     FrameCount = 0;
-                    SetTouchState(TouchState.None);
                 }
 
                 // ZOOM IN/OUT 
@@ -120,7 +145,7 @@ public class Controls : MonoBehaviour
                     SetTouchState(TouchState.Rotating);
                 }
                 // Z ROTATION
-                else
+                else if (currentTouch1.phase != TouchPhase.Ended)
                 {
                     Debug.Log("zooming");
                     SetPinch(false, true);
@@ -135,6 +160,9 @@ public class Controls : MonoBehaviour
     {
         PreviousState = CurrentState; 
         CurrentState = newState;
+
+        previousState = PreviousState;
+        currentState = CurrentState; 
     }
 
     // use input.touches:Touch[] instead ? But means I have to recreate an array every time touchCount changes.. 
@@ -173,6 +201,10 @@ public class Controls : MonoBehaviour
     {
         touch1HasBeenUnregistered = _touch1HasBeenUnregistered;
         cameraZoom.SetPinchRegisterValue(_cameraPinchRegisterValueTo);
-        SetTouchState(_cameraPinchRegisterValueTo == false ? TouchState.None : TouchState.Zooming); 
+
+        if (_cameraPinchRegisterValueTo)
+        {
+            SetTouchState(TouchState.Zooming);
+        }
     }
 }

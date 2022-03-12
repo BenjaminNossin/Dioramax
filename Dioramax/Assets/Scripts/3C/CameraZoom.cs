@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// This script allows a camera to zoom in and out with a dynamic direction. 
@@ -11,6 +12,9 @@ public class CameraZoom : MonoBehaviour
     [SerializeField, Range(15, 50)] private float maxZoomIn = 45;
     [SerializeField, Range (70, 120)] private float maxZoomOut = 70;
     [SerializeField, Range(0.5f, 5f)] private float zoomForceSensibility = 2.5f;
+    [SerializeField, Range(1f, 20f)] private float moveSpeed = 10f;
+    private float currentMoveSpeed; 
+
 
     private Touch touchTop;
     private Touch touchBottom; 
@@ -24,7 +28,27 @@ public class CameraZoom : MonoBehaviour
     private Vector3 zoomPointStart;
     private Vector3 zoomPointEnd;
 
-    private float zoomValue; 
+    private float zoomValue;
+
+    [Header("Gamefeel")]
+    [SerializeField] CurveEvaluator gamefeelCurve;
+    private bool updateGamefeelCurve;
+
+    UnityAction OnEvaluationEndedCallback;
+
+    private void OnEnable()
+    {
+        Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
+        Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
+        OnEvaluationEndedCallback += SetToFalse;
+    }
+
+    private void OnDisable()
+    {
+        Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
+        Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
+        OnEvaluationEndedCallback -= SetToFalse;
+    }
 
     private void Start()
     {
@@ -33,12 +57,20 @@ public class CameraZoom : MonoBehaviour
         zoomValue = mainCam.fieldOfView; 
     }
 
+    private void Update()
+    {
+        if (updateGamefeelCurve)
+        {
+            // Debug.Log("zoom gamefeel");
+            currentMoveSpeed = moveSpeed * gamefeelCurve.Evaluate(OnEvaluationEndedCallback); 
+            UpdatePinch(touchTop, touchBottom); // even more stupid to check tose again in the function..  
+        }
+    }
+
     public void SetPinchRegisterValue(bool value)
     {
         zoomStartIsRegistered = value;
     }
-
-    private const float moveSpeed = 10f;
 
     private float topPosition; 
     public void UpdatePinch(Touch _touch0, Touch _touch1)
@@ -70,23 +102,49 @@ public class CameraZoom : MonoBehaviour
             canZoomOut = zoomValue < maxZoomOut; 
             if (zoomingOut)
             {
-                Debug.Log("zooming out");
                 if (canZoomOut)
                 {
                     zoomValue++;
 
-                    transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * moveSpeed; 
+                    transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * 
+                        (updateGamefeelCurve ? 
+                        currentMoveSpeed : 
+                        moveSpeed); 
                 }
             }
             else
             {
-                Debug.Log("zooming in");
                 if (canZoomIn)
                 {
                     zoomValue--;
-                    transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * moveSpeed;
+                    transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                        (updateGamefeelCurve ?
+                        currentMoveSpeed :
+                        moveSpeed);
                 }
             }
         }
+    }
+
+    private void InterruptPreviousCurveOnNewTouch()
+    {
+        if (gamefeelCurve.EvaluateCurve)
+        {
+            gamefeelCurve.EndGamefeelCurve();
+        }
+    }
+
+    private void TriggerGamefeelCurveOnInputStateChange(TouchState previous)
+    {
+        if (previous == TouchState.Zooming)
+        {
+            updateGamefeelCurve = true;
+        }
+    }
+
+    private void SetToFalse()
+    {
+        Debug.Log("on ended zooming callback");
+        updateGamefeelCurve = false;
     }
 }

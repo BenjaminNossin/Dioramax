@@ -14,6 +14,7 @@ public class CameraRotation : MonoBehaviour
     [SerializeField, Range(3f, 12f)] private float ZForceMultiplier = 8f;
 
     [Space, SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
+    public float RotationSensitivity { get; set; }
     private Vector2 rotationAxis;
     private Touch touchTop;
 
@@ -44,6 +45,7 @@ public class CameraRotation : MonoBehaviour
     private void Start()
     {
         transform.position = diorama.transform.position; // TODO : set dynamically at the start of a level
+        RotationSensitivity = rotationSensitivity;
     }
 
     private float forceDebugFloat; 
@@ -78,14 +80,11 @@ public class CameraRotation : MonoBehaviour
         ZRotation = false;
 
         rotationDirection = _rotationDirection;
-        rotationForce = _rotationForce; 
+        rotationForce = _rotationForce;
 
-        if (rotationForce >= rotationSensitivity) 
-        {
-            // to always get an axis that is 90° more than direction
-            rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
-            transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
-        }
+        // to always get an axis that is 90° more than direction
+        rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
+        transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
     }
 
     Touch touch0, touch1;
@@ -136,7 +135,7 @@ public class CameraRotation : MonoBehaviour
 
     private void SetToFalse()
     {
-        Debug.Log("on ended callback"); 
+        Debug.Log("on ended rotation callback"); 
         updateGamefeelCurve = false;
     }
 }
