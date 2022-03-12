@@ -19,23 +19,26 @@ public class CameraRotation : MonoBehaviour
 
     private bool YXRotation, ZRotation;
 
-    UnityAction OnEvaluationEndedCallback; 
+    UnityAction OnEvaluationEndedCallback;
+    private float toucheMoveForceOnEnded; 
 
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
     private bool updateGamefeelCurve; 
 
-    // Subscribing for the gamefeel event should NOT be done here, but on an interface or CurveEvaluator. 
+    // TODO : Subscribing for the gamefeel event should NOT be done here, but on an interface or CurveEvaluator. 
     private void OnEnable()
     {
+        Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch; 
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
         OnEvaluationEndedCallback += SetToFalse; 
     }
 
     private void OnDisable()
     {
+        Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
-        OnEvaluationEndedCallback += SetToFalse;
+        OnEvaluationEndedCallback -= SetToFalse;
     }
 
     private void Start()
@@ -72,7 +75,7 @@ public class CameraRotation : MonoBehaviour
     public void UpdateXYRotation(Vector3 _rotationDirection, float _rotationForce)
     {
         YXRotation = true;
-        ZRotation = false; 
+        ZRotation = false;
 
         rotationDirection = _rotationDirection;
         rotationForce = _rotationForce; 
@@ -80,8 +83,8 @@ public class CameraRotation : MonoBehaviour
         if (rotationForce >= rotationSensitivity) 
         {
             // to always get an axis that is 90° more than direction
-            rotationAxis = new Vector2(-_rotationDirection.y, _rotationDirection.x); // -y
-            transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * _rotationForce);
+            rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
+            transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
         }
     }
 
@@ -115,6 +118,14 @@ public class CameraRotation : MonoBehaviour
         transform.Rotate(transform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
     }   
 
+    private void InterruptPreviousCurveOnNewTouch()
+    {
+        if (gamefeelCurve.EvaluateCurve)
+        {
+            gamefeelCurve.EndGamefeelCurve(); 
+        }
+    }
+
     private void TriggerGamefeelCurveOnInputStateChange(TouchState previous)
     {
         if (previous == TouchState.Rotating)
@@ -126,7 +137,7 @@ public class CameraRotation : MonoBehaviour
     private void SetToFalse()
     {
         Debug.Log("on ended callback"); 
-        updateGamefeelCurve = false; 
+        updateGamefeelCurve = false;
     }
 }
     

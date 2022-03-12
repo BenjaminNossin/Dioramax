@@ -46,9 +46,15 @@ public class CurveEvaluator : MonoBehaviour
         waitForSeconds = new WaitForSeconds(duration); 
         yield return waitForSeconds;
 
+        EndGamefeelCurve(); 
+    }    
+
+    public void EndGamefeelCurve()
+    {
+        StopAllCoroutines(); 
         EvaluateCurve = routineHasBeenCalled = false;
-        time = 0f;
+        time = -0.2f;
         gameFeelCurveEndEnvent?.Invoke();
         gameFeelCurveEndEnvent.RemoveAllListeners(); // why remove all ? store the call instead and remove IT
-    }    
+    }
 }

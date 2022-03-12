@@ -27,13 +27,15 @@ public class Controls : MonoBehaviour
     private Vector3 touch0Direction;
     private Vector3 touch1Direction;
 
-    private float maxTouchForce;
+    private float currentTouchMoveForce;
 
     private bool touch1HasBeenUnregistered = true; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
                                                    // but maybe there is a better solution
 
     private int FrameCount { get; set; }
-    public static System.Action<TouchState> OnTouchEnded { get; set; } 
+    public static System.Action OnTouchStarted { get; set; }
+    public static System.Action<TouchState> OnTouchEnded { get; set; }
+
 
     private void Start()
     {
@@ -59,6 +61,7 @@ public class Controls : MonoBehaviour
             {
                 if (currentTouch0.phase == TouchPhase.Began)
                 {
+                    OnTouchStarted(); 
                     SetTouchState(TouchState.Tap);
                     cameraPosition = mainCam.transform.position;
 
@@ -84,10 +87,10 @@ public class Controls : MonoBehaviour
                 else if (currentTouch0.phase == TouchPhase.Moved)
                 {
                     SetTouchState(TouchState.UNDEFINED); // one way to make up for the super high sensitivity of Stationary/Moved state (no dead zone)
-                    if (maxTouchForce > 3f) // BAD HARDCODED. But this script shouldn't know about cameraRotation.rotationSensitivity
+                    if (currentTouchMoveForce > 3f) // BAD HARDCODED. But this script shouldn't know about cameraRotation.rotationSensitivity
                     {
                         // Debug.Log("not swiping. State is now Rotating");
-                        cameraRotation.UpdateXYRotation(touch0Direction.normalized, maxTouchForce); 
+                        cameraRotation.UpdateXYRotation(touch0Direction.normalized, currentTouchMoveForce); 
                         SetTouchState(TouchState.Rotating);
                     } 
                 }
@@ -113,7 +116,7 @@ public class Controls : MonoBehaviour
                 if (Mathf.Abs(currentTouch1.deltaPosition.x) > Mathf.Abs(currentTouch1.deltaPosition.y))
                 {
                     Debug.Log("Z rotation");
-                    cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, maxTouchForce);
+                    cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
                     SetTouchState(TouchState.Rotating);
                 }
                 // Z ROTATION
@@ -163,7 +166,7 @@ public class Controls : MonoBehaviour
             // Debug.Log("updating mono touch");
         }
 
-        maxTouchForce = touchCount == 1 ? touch0Direction.magnitude : Mathf.Max(touch0Direction.magnitude, touch1Direction.magnitude); 
+        currentTouchMoveForce = touchCount == 1 ? touch0Direction.magnitude : Mathf.Max(touch0Direction.magnitude, touch1Direction.magnitude); 
     }
 
     private void SetPinch(bool _touch1HasBeenUnregistered, bool _cameraPinchRegisterValueTo)
