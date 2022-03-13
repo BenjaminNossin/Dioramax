@@ -123,7 +123,7 @@ public class Controls : MonoBehaviour
                     transitionningOutOfDoubleTouch = false; 
                     FrameCount = 0;
                     SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
-                    // OnTouchEnded(PreviousState); // was I zooming or rotating ? 
+                    OnTouchEnded(PreviousState); // was I zooming or rotating ? 
                 }
             }
             // TOO ACCURATE. A single pixel-sized movement is enough -> feels like glitching when you put your fingers on the screen

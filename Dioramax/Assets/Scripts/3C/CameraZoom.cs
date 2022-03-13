@@ -30,13 +30,14 @@ public class CameraZoom : MonoBehaviour
 
     private float zoomValue;
 
+    // GAMEFEEL STILL WIP (need to check how far I am from min or max zoom value
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
     private bool updateGamefeelCurve;
 
     UnityAction OnEvaluationEndedCallback;
 
-    private void OnEnable()
+    /* private void OnEnable()
     {
         Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
@@ -48,7 +49,7 @@ public class CameraZoom : MonoBehaviour
         Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
         OnEvaluationEndedCallback -= SetToFalse;
-    }
+    } */
 
     private void Start()
     {
@@ -57,7 +58,7 @@ public class CameraZoom : MonoBehaviour
         zoomValue = mainCam.fieldOfView; 
     }
 
-    private void Update()
+    /* private void Update()
     {
         if (updateGamefeelCurve)
         {
@@ -65,7 +66,7 @@ public class CameraZoom : MonoBehaviour
             currentMoveSpeed = moveSpeed * gamefeelCurve.Evaluate(OnEvaluationEndedCallback); 
             UpdatePinch(touchTop, touchBottom); // even more stupid to check tose again in the function..  
         }
-    }
+    } */
 
     public void SetPinchRegisterValue(bool value)
     {
@@ -126,7 +127,7 @@ public class CameraZoom : MonoBehaviour
         }
     }
 
-    private void InterruptPreviousCurveOnNewTouch()
+    /* private void InterruptPreviousCurveOnNewTouch()
     {
         if (gamefeelCurve.EvaluateCurve)
         {
@@ -147,5 +148,5 @@ public class CameraZoom : MonoBehaviour
     {
         Debug.Log("on ended zooming callback");
         updateGamefeelCurve = false;
-    }
+    } */
 }
