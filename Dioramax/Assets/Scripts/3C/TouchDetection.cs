@@ -72,16 +72,43 @@ public class TouchDetection : MonoBehaviour
                 InteractableEntityRemote previousEntity = previousTouched as InteractableEntityRemote;
                 InteractableEntityRemote currentEntity = currentTouched as InteractableEntityRemote;
 
-                equalityArray = new int[previousEntity.entitiesMeshRenderers.Length];
+                previousMeshRendererArray = previousEntity.entitiesMeshRenderers; // 2
+                currentMeshRendererArray = currentEntity.entitiesMeshRenderers; // 4
 
-                previousMeshRendererArray = previousEntity.entitiesMeshRenderers;
-                currentMeshRendererArray = currentEntity.entitiesMeshRenderers;
+                equalityArray = new int[previousMeshRendererArray.Length];
+                for (int i = 0; i < equalityArray.Length; i++)
+                {
+                    equalityArray[i] = 0;
+                }
 
                 for (int i = 0; i < previousMeshRendererArray.Length; i++)
                 {
-                    for (int j = 0; j < currentMeshRendererArray.Length; j++)
+                    if (previousMeshRendererArray.Length > currentMeshRendererArray.Length)
                     {
-                        equalityArray[i] = currentMeshRendererArray[i] == previousMeshRendererArray[i] ? 1 : 0; 
+                        for (int j = 0; j < currentMeshRendererArray.Length; j++)
+                        {
+                            if (i <= j)
+                            {
+                                equalityArray[i] = currentMeshRendererArray[i] == previousMeshRendererArray[i] ? 1 : 0;
+                            }
+                        }
+                    }
+                    else if (previousMeshRendererArray.Length < currentMeshRendererArray.Length)
+                    {
+                        for (int j = 0; j < currentMeshRendererArray.Length; j++)
+                        {
+                            if (i <= j)
+                            {
+                                equalityArray[i] = currentMeshRendererArray[i] == previousMeshRendererArray[i] ? 1 : 0;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < currentMeshRendererArray.Length; j++)
+                        {
+                            equalityArray[i] = currentMeshRendererArray[i] == previousMeshRendererArray[i] ? 1 : 0;                           
+                        }
                     }
                 }
 
