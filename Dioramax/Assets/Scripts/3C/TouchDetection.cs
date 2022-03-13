@@ -7,12 +7,12 @@ using UnityEngine;
 public class TouchDetection : MonoBehaviour
 {
     [SerializeField] private LayerMask interactableMask;
-    [SerializeField] private PlaceholderFeedback placeholderFeedback;
+    [SerializeField] private InteractableEntity placeholderFeedback;
     [SerializeField] private bool changeBackAfterDelay = true;
 
     private Camera mainCam;
     private bool objectDetected;
-    private PlaceholderFeedback previous, currentTouched;
+    private InteractableEntity previous, currentTouched;
 
     void Start()
     {
@@ -28,8 +28,23 @@ public class TouchDetection : MonoBehaviour
         if (objectDetected)
         {
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
-            currentTouched = hitInfo.transform.GetComponent<PlaceholderFeedback>();
-            currentTouched.ChangeColor(changeBackAfterDelay);
+            currentTouched = hitInfo.transform.GetComponent<InteractableEntity>();
+
+            if (previous)
+            {
+                if (previous == currentTouched)
+                {
+                    previous.SwapOrChangeBack(true); // swap
+                }
+                else
+                {
+                    currentTouched.ChangeColor(changeBackAfterDelay);
+                }
+            }
+            else
+            {
+                currentTouched.ChangeColor(changeBackAfterDelay); // will enter here only once
+            }
 
             SetPlaceholderReference(currentTouched);
             previous = currentTouched;
@@ -38,13 +53,13 @@ public class TouchDetection : MonoBehaviour
         return objectDetected;
     }
 
-    private void SetPlaceholderReference(PlaceholderFeedback current)
+    private void SetPlaceholderReference(InteractableEntity current)
     {
         if (!previous) return; 
 
         if (previous != current)
         {
-            previous.ChangeBack(); 
+            previous.SwapOrChangeBack(false); // change back
         }
     }
 }
