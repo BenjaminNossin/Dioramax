@@ -72,8 +72,8 @@ public class TouchDetection : MonoBehaviour
                 InteractableEntityRemote previousEntity = previousTouched as InteractableEntityRemote;
                 InteractableEntityRemote currentEntity = currentTouched as InteractableEntityRemote;
 
-                previousMeshRendererArray = previousEntity.entitiesMeshRenderers; // 2
-                currentMeshRendererArray = currentEntity.entitiesMeshRenderers; // 4
+                previousMeshRendererArray = previousEntity.entitiesMeshRenderers; 
+                currentMeshRendererArray = currentEntity.entitiesMeshRenderers; 
 
                 equalityArray = new int[previousMeshRendererArray.Length];
                 for (int i = 0; i < equalityArray.Length; i++)
