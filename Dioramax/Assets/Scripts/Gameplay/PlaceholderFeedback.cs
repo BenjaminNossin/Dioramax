@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlaceholderFeedback : MonoBehaviour
 {
     public MeshRenderer renderer;
@@ -12,15 +13,25 @@ public class PlaceholderFeedback : MonoBehaviour
         renderer.material.color = Color.red; 
     }
 
-    public void ChangeColor()
+    public void ChangeColor(bool _changeBackAfterDelay = true)
     {
         renderer.material.color = Color.blue;
-        StartCoroutine((nameof(ChangeBack)));
+
+        if (_changeBackAfterDelay)
+        {
+            StartCoroutine((nameof(ChangeBackRoutine)));
+        }
     }
 
-    IEnumerator ChangeBack()
+    private readonly WaitForSeconds colorChangeWFS = new WaitForSeconds(0.5f); 
+    IEnumerator ChangeBackRoutine()
     {
-        yield return new WaitForSeconds(0.5f);
-        renderer.material.color = Color.red; 
+        yield return colorChangeWFS;
+        ChangeBack(); 
+    }
+
+    public void ChangeBack()
+    {
+        renderer.material.color = Color.red;
     }
 }
