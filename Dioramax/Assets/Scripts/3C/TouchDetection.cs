@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// This script is in charge of managing interactable objects state change on tap/hold/drag.
@@ -8,15 +9,22 @@ public class TouchDetection : MonoBehaviour
 {
     [SerializeField] private LayerMask interactableMask;
     [SerializeField] private InteractableEntity placeholderFeedback;
-    [SerializeField] private bool changeBackAfterDelay = true;
 
     private Camera mainCam;
     private bool objectDetected;
-    private InteractableEntity previous, currentTouched;
+    private static InteractableEntity previousTouched, currentTouched;
+
+    private readonly UnityEvent<MeshRenderer[]> OnRequireSharedEvent = new();
+    private UnityAction<MeshRenderer[]> OnRequireSharedCallback;
+
+    private MeshRenderer[] currentMeshRendererArray;
+    private MeshRenderer[] previousMeshRendererArray;
+    private int[] equalityArray; 
 
     void Start()
     {
         mainCam = Camera.main;
+        OnRequireSharedEvent.AddListener(OnRequireSharedCallback); 
     }
 
     public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
@@ -30,24 +38,24 @@ public class TouchDetection : MonoBehaviour
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
             currentTouched = hitInfo.transform.GetComponent<InteractableEntity>();
 
-            if (previous)
+            if (previousTouched)
             {
-                if (previous == currentTouched)
+                if (previousTouched == currentTouched)
                 {
-                    previous.SwapOrChangeBack(true); // swap
+                    previousTouched.SwapOrChangeBack(true); // swap
                 }
                 else
                 {
-                    currentTouched.ChangeColor(changeBackAfterDelay);
+                    currentTouched.ChangeColor();
                 }
             }
             else
             {
-                currentTouched.ChangeColor(changeBackAfterDelay); // will enter here only once
+                currentTouched.ChangeColor(); // will enter here only once
             }
 
             SetPlaceholderReference(currentTouched);
-            previous = currentTouched;
+            previousTouched = currentTouched;
         }
 
         return objectDetected;
@@ -55,11 +63,30 @@ public class TouchDetection : MonoBehaviour
 
     private void SetPlaceholderReference(InteractableEntity current)
     {
-        if (!previous) return; 
+        if (!previousTouched) return; 
 
-        if (previous != current)
+        if (previousTouched != current)
         {
-            previous.SwapOrChangeBack(false); // change back
+            if (currentTouched.InteractablesCanBeShared)
+            {
+                InteractableEntityRemote previousEntity = previousTouched as InteractableEntityRemote;
+                InteractableEntityRemote currentEntity = currentTouched as InteractableEntityRemote;
+
+                equalityArray = new int[previousEntity.entitiesMeshRenderers.Length];
+
+                previousMeshRendererArray = previousEntity.entitiesMeshRenderers;
+                currentMeshRendererArray = currentEntity.entitiesMeshRenderers;
+
+                for (int i = 0; i < previousMeshRendererArray.Length; i++)
+                {
+                    for (int j = 0; j < currentMeshRendererArray.Length; j++)
+                    {
+                        equalityArray[i] = currentMeshRendererArray[i] == previousMeshRendererArray[i] ? 1 : 0; 
+                    }
+                }
+
+                previousTouched.SwapOrChangeBack(false, equalityArray); // change back
+            }
         }
     }
 }
