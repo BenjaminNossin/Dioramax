@@ -471,7 +471,8 @@ MonoBehaviour:
   cameraRotation: {fileID: 2121899256}
   cameraZoom: {fileID: 1046078187}
   touchDetection: {fileID: 1046078190}
-  frameCountBeforeTapToHold: 10
+  frameCountBeforeChangeToHoldState: 10
+  mainCam: {fileID: 1046078182}
 --- !u!114 &1046078190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,6 +944,10 @@ PrefabInstance:
     - target: {fileID: 6952084751916207573, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6952084752941963546, guid: f977003581949954bba2a10444faa0ea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -84.20654
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f977003581949954bba2a10444faa0ea, type: 3}

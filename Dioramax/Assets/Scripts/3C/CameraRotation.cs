@@ -55,12 +55,12 @@ public class CameraRotation : MonoBehaviour
         {
             if (YXRotation)
             {
-                Debug.Log("yx rotation gamefeel"); 
+                //Debug.Log("yx rotation gamefeel"); 
                 UpdateXYRotation(rotationDirection, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback)); 
             }
             else if (ZRotation)
             {
-                Debug.Log("z rotation gamefeel");
+                //Debug.Log("z rotation gamefeel");
                 UpdateZRotation(touch0, touch1, rotationForce); 
             }
         }

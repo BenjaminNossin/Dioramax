@@ -136,6 +136,7 @@ public class CameraZoom : MonoBehaviour
 
     private void TriggerGamefeelCurveOnInputStateChange(TouchState previous)
     {
+        Debug.Log("previous state : " + previous); 
         if (previous == TouchState.Zooming)
         {
             updateGamefeelCurve = true;
