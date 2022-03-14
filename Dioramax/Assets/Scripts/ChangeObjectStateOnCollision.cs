@@ -6,7 +6,7 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
 {
     [SerializeField] private bool onlyChangeOnce;
     [SerializeField, Range(1, 5)] private int hitsBeforeStateChange = 1;
-    [SerializeField, Range(0f, 20f)] private float minSpeedToValidateHit;
+    [SerializeField, Range(0f, 5f)] private float minSpeedToValidateHit;
     [SerializeField] private LayerMask collisionMask;
     private MeshRenderer meshRenderer;
     private BoxCollider boxCollider; 
@@ -14,6 +14,7 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
     private bool isActive; 
 
     public static System.Action OnHit;
+    private EntityPathNavigation collisionEntity; 
 
     private void Awake()
     {
@@ -25,25 +26,37 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
     {
         if (Mathf.Pow(2f, other.gameObject.layer) == collisionMask)
         {
-            hitCount++;
-
-            if (hitCount < hitsBeforeStateChange)
+            if (!collisionEntity)
             {
-                other.transform.GetComponent<EntityPathNavigation>().GoToPreviousPoint();
-                StartCoroutine(nameof(BlinkOnce));
+                collisionEntity = other.transform.GetComponent<EntityPathNavigation>();
             }
-            else 
+
+            if (collisionEntity.MoveSpeed < minSpeedToValidateHit)
             {
-                isActive = !isActive;
-                meshRenderer.material.color = isActive ? Color.blue : Color.red;
-                hitCount = 0; // reset 
+                collisionEntity.GoToPreviousPoint();
+            }
+            else
+            {
+                hitCount++;
 
-                boxCollider.enabled = false;
-                meshRenderer.enabled = false;
-
-                if (!onlyChangeOnce)
+                if (hitCount < hitsBeforeStateChange)
                 {
-                    StartCoroutine(nameof(ResetPhysicsAndVisuals)); 
+                    collisionEntity.GoToPreviousPoint();
+                    StartCoroutine(nameof(BlinkOnce));
+                }
+                else
+                {
+                    isActive = !isActive;
+                    meshRenderer.material.color = isActive ? Color.blue : Color.red;
+                    hitCount = 0; // reset 
+
+                    boxCollider.enabled = false;
+                    meshRenderer.enabled = false;
+
+                    if (!onlyChangeOnce)
+                    {
+                        StartCoroutine(nameof(ResetPhysicsAndVisuals));
+                    }
                 }
             }
         }

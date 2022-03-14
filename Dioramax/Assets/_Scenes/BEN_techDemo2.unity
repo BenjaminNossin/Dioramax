@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPathController: {fileID: 59607482309194277}
-  moveSpeed: 2.2
+  moveSpeed: 2.1
   loopPath: 1
 --- !u!54 &32418547
 Rigidbody:
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onlyChangeOnce: 0
   hitsBeforeStateChange: 3
-  minSpeedToValidateHit: 0
+  minSpeedToValidateHit: 2
   collisionMask:
     serializedVersion: 2
     m_Bits: 64

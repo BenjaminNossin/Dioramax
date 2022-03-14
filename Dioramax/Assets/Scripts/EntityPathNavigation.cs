@@ -8,6 +8,7 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField, Range(0.25f, 5f)] private float moveSpeed = 1f; // on the object, not the path
     [SerializeField] private bool loopPath; 
 
+    public float MoveSpeed { get; set; }
     public int DestPoint { get; private set; }
     private float remainingDistance;
     private Vector3 destinationDirection;
@@ -21,7 +22,7 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, entityPathController.Points[^1].position) < 0.03f &&
+        if (Vector3.Distance(transform.position, entityPathController.Points[^1].position) < 0.05f &&
             DestPoint == entityPathController.Points.Length-1 && !loopPath) return;
 
         /* angleWithCamera = CameraRotation.ZRotation - localXRotationClamped;
@@ -29,6 +30,7 @@ public class EntityPathNavigation : MonoBehaviour
             0.4f * Mathf.Sign(angleWithCamera) : 
             0f; // dead zone if < than angle  */
 
+        MoveSpeed = moveSpeed; 
         remainingDistance = Vector3.Distance(transform.position, entityPathController.Points[DestPoint].position);
         if (remainingDistance < 0.05)
         {
