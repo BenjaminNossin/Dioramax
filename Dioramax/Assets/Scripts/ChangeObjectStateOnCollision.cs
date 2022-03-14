@@ -34,14 +34,16 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
             }
             else 
             {
-                /* isActive = !isActive;
+                isActive = !isActive;
                 meshRenderer.material.color = isActive ? Color.blue : Color.red;
-                hitCount = 0; // reset */
+                hitCount = 0; // reset 
 
-                if (onlyChangeOnce)
+                boxCollider.enabled = false;
+                meshRenderer.enabled = false;
+
+                if (!onlyChangeOnce)
                 {
-                    boxCollider.enabled = false;
-                    meshRenderer.enabled = false;
+                    StartCoroutine(nameof(ResetPhysicsAndVisuals)); 
                 }
             }
         }
@@ -53,5 +55,14 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         meshRenderer.material.color = Color.red; 
+    }
+
+    private IEnumerator ResetPhysicsAndVisuals()
+    {
+        yield return new WaitForSeconds(1f);
+
+        meshRenderer.material.color = Color.red;
+        boxCollider.enabled = true;
+        meshRenderer.enabled = true;
     }
 }
