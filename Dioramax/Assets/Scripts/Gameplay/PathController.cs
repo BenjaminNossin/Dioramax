@@ -3,13 +3,9 @@ using UnityEngine;
 
 public class PathController : MonoBehaviour
 {
-    [SerializeField, Range(0.25f, 5f)] private float moveSpeed = 1f; // on the object, not the path
     public Transform[] Points { get; private set; }
-    public int DestPoint { get; private set; }
 
     public bool IsInactive { get; set; }
-    private float remainingDistance;
-    private Vector3 destination;
 
     private void OnDrawGizmos()
     {
@@ -32,17 +28,9 @@ public class PathController : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
-        DestPoint = 0;
-    }
-
-    private void FixedUpdate()
-    {
-        if (IsInactive) return;
-
-        if (remainingDistance < 0.03f)
-            GotoNextPoint();
+        SetPoints();
     }
 
     private void SetPoints()
@@ -54,16 +42,5 @@ public class PathController : MonoBehaviour
         {
             Points[i] = transform.GetChild(i);
         }
-    }
-
-    private void GotoNextPoint()
-    {
-        if (Points.Length == 0)
-            return;
-
-        destination = (Points[DestPoint].position - transform.position).normalized;
-        transform.Translate(moveSpeed * Time.fixedDeltaTime * destination, Space.Self); 
-
-        DestPoint = (DestPoint + 1) % Points.Length; 
     }
 }
