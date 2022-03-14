@@ -22,10 +22,15 @@ public class EntityPathNavigation : MonoBehaviour
     void Update()
     {
         if (Vector3.Distance(transform.position, entityPathController.Points[^1].position) < 0.03f &&
-            DestPoint == entityPathController.Points.Length-1 && !loopPath) return; 
+            DestPoint == entityPathController.Points.Length-1 && !loopPath) return;
+
+        /* angleWithCamera = CameraRotation.ZRotation - localXRotationClamped;
+            CurrentMoveSpeed = Mathf.Abs(angleWithCamera) >= minAngleToMove ? // between min and max
+            0.4f * Mathf.Sign(angleWithCamera) : 
+            0f; // dead zone if < than angle  */
 
         remainingDistance = Vector3.Distance(transform.position, entityPathController.Points[DestPoint].position);
-        if (remainingDistance < 0.03f)
+        if (remainingDistance < 0.05)
         {
             GotoNextPoint();
         }
@@ -43,5 +48,17 @@ public class EntityPathNavigation : MonoBehaviour
 
         DestPoint = (DestPoint + 1) % entityPathController.Points.Length;
         destinationDirection = (entityPathController.Points[DestPoint].position - transform.position).normalized;
+        transform.LookAt(entityPathController.Points[DestPoint].position);
+    }
+
+    // DEBUG for feature IV
+    public void GoToPreviousPoint()
+    {
+        if (entityPathController.Points.Length == 0)
+            return;
+
+        DestPoint = (DestPoint - 1) % entityPathController.Points.Length;
+        destinationDirection = (entityPathController.Points[DestPoint].position - transform.position).normalized;
+        transform.LookAt(entityPathController.Points[DestPoint].position);
     }
 }
