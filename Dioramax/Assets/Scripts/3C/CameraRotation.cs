@@ -18,10 +18,12 @@ public class CameraRotation : MonoBehaviour
     private Vector2 rotationAxis;
     private Touch touchTop;
 
-    private bool YXRotation, ZRotation;
+    private bool yxRotation, zRotation;
 
     UnityAction OnEvaluationEndedCallback;
-    private float toucheMoveForceOnEnded; 
+    private float toucheMoveForceOnEnded;
+
+    public static float ZRotation; 
 
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
@@ -53,12 +55,12 @@ public class CameraRotation : MonoBehaviour
     {
         if (updateGamefeelCurve)
         {
-            if (YXRotation)
+            if (yxRotation)
             {
                 //Debug.Log("yx rotation gamefeel"); 
                 UpdateXYRotation(rotationDirection, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback)); 
             }
-            else if (ZRotation)
+            else if (zRotation)
             {
                 //Debug.Log("z rotation gamefeel");
                 UpdateZRotation(touch0, touch1, rotationForce); 
@@ -76,8 +78,8 @@ public class CameraRotation : MonoBehaviour
     /// <returns>Wether the swipe force is greater than the sensibility settings. Otherwise, it won't rotate</returns>
     public void UpdateXYRotation(Vector3 _rotationDirection, float _rotationForce)
     {
-        YXRotation = true;
-        ZRotation = false;
+        yxRotation = true;
+        zRotation = false;
 
         rotationDirection = _rotationDirection;
         rotationForce = _rotationForce;
@@ -96,8 +98,8 @@ public class CameraRotation : MonoBehaviour
     /// <param name="bottomDirection">The direction of swipe from the thumb</param>
     public void UpdateZRotation(Touch _touch0, Touch _touch1, float _rotationForce)
     {
-        YXRotation = false;
-        ZRotation = true;
+        yxRotation = false;
+        zRotation = true;
 
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
         touch0 = _touch0;
@@ -115,6 +117,7 @@ public class CameraRotation : MonoBehaviour
         }
 
         transform.Rotate(transform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
+        ZRotation = transform.rotation.eulerAngles.z; 
     }   
 
     private void InterruptPreviousCurveOnNewTouch()
