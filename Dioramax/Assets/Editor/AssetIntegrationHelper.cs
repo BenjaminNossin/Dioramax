@@ -67,19 +67,25 @@ public class CustomAssetImporter : MonoBehaviour
         nomenclatureIndex = Array.IndexOf(extensions, _extensions);
         properNomenclature = nomenclatures[extensionMapper[nomenclatureIndex]];
 
-        pathIndex = Array.IndexOf(nomenclatures, properNomenclature); 
-        newPath = $"Assets/{newPaths[pathMapper[pathIndex]]}" + "/";
+        pathIndex = Array.IndexOf(nomenclatures, properNomenclature);
+        newPath = $"Assets/{newPaths[pathMapper[pathIndex]]}" + "/" + importedAssetName;
+
         Debug.Log($"index of {_extensions} is {nomenclatureIndex}. Proper nomenclature : {properNomenclature}. New path : {newPath}");
     }
 
+    private static (UnityEngine.Object obj, Type type, string path) infos = new();  
     /// <summary>
     /// This method awaits for a button input from AssetIntegrationWindow to be triggered
     /// </summary>
     /// <returns></returns>
-    public static string SetNewPath()
+    public static (UnityEngine.Object obj, Type type, string path) SetNewPath()
     {
-        AssetDatabase.MoveAsset(oldPath, newPath + importedAssetName);
-        AssetDatabase.RenameAsset(newPath + importedAssetName, properNomenclature + importedAssetName);
-        return newPath + importedAssetName;
+        AssetDatabase.MoveAsset(oldPath, newPath);
+        AssetDatabase.RenameAsset(newPath, properNomenclature + importedAssetName);
+
+        infos.type = AssetDatabase.GetMainAssetTypeAtPath(newPath);
+        infos.obj = AssetDatabase.LoadMainAssetAtPath(newPath);
+        infos.path = newPath; 
+        return infos;
     }
 }
