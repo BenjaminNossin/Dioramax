@@ -1,4 +1,3 @@
-using System.IO;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.AssetImporters;
@@ -6,23 +5,28 @@ using UnityEditor.AssetImporters;
 
 public class AssetImporter : MonoBehaviour
 {
-    public static void PlaceAssetAtPath(string oldPath)
+    [MenuItem("Assets/Dioravity/Set Asset Path and Nomenclature")]
+    private static void LoadAdditiveScene()
     {
-        /* string[] fileNames = new[] { "" };
+        AssetIntegrationWindow.Init();
+    }
 
-        for (int i = 0; i < fileNames.Length; ++i)
-        {
-            var unimportedFileName = fileNames[i];
-            var assetsPath = Application.dataPath + "/_Models/" + unimportedFileName;
-            File.WriteAllText(assetsPath, "Testing 123");
-        }
+    public static string oldPath, newPath, importedAssetName; 
+    public static void StoreImportedAssetInfos(string _oldPath)
+    {
+        oldPath = _oldPath; 
 
-        var relativePath = $"Assets/_Models/";
-        AssetDatabase.ImportAsset(relativePath); */
+        importedAssetName = oldPath[(oldPath.LastIndexOf('/') + 1)..]; 
+        newPath = $"Assets/_Models/{importedAssetName}";
 
-        string importedAssetNmame = oldPath[(oldPath.LastIndexOf('/') + 1)..]; 
-        string newPath = $"Assets/_Models/{importedAssetNmame}"; 
+        Debug.Log("setting old and new path"); 
+    }
+
+    public static string SetNewPath()
+    {
         AssetDatabase.MoveAsset(oldPath, newPath);
+        AssetDatabase.RenameAsset(newPath, "_Model" + importedAssetName);
+        return newPath;
     }
 }
 
@@ -41,16 +45,8 @@ public class AssetIntegrationHelper : AssetPostprocessor
             if (importedAssets[i].Contains(".obj"))
             {
                 Debug.Log("preprocessing model : " + importedAssets[i]);
-                AssetImporter.PlaceAssetAtPath(importedAssets[i]);
+                AssetImporter.StoreImportedAssetInfos(importedAssets[i]);
             }
         }
-
-        // Debug.Log("bundle name : " + modelImporter.assetBundleName);
-        // Test();
-    }
-
-    private static void Test()
-    {
-        AssetIntegrationWindow.Init();
     }
 }

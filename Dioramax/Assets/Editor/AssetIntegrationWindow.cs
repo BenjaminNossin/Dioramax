@@ -17,14 +17,16 @@ public class AssetIntegrationWindow : EditorWindow
         window.Show();
     }
 
+    private string newPath; 
     void OnGUI()
     {
-        GUILayout.Label("Base Settings", EditorStyles.boldLabel);
-        myString = EditorGUILayout.TextField("Text Field", myString);
+        GUILayout.Label("Asset Integrator", EditorStyles.boldLabel);
 
-        groupEnabled = EditorGUILayout.BeginToggleGroup("Optional Settings", groupEnabled);
-        myBool = EditorGUILayout.Toggle("Toggle", myBool);
-        myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
-        EditorGUILayout.EndToggleGroup();
+        if (GUILayout.Button("Set Nomenclature and Path"))
+        {
+            newPath = AssetImporter.SetNewPath();
+        }
+
+        EditorGUILayout.TextField("New Path : ", newPath);
     }
 }
