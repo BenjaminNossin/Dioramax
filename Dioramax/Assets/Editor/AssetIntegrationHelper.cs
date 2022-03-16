@@ -1,52 +1,85 @@
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.AssetImporters;
+using System.IO;
+using System;
 
 
-public class AssetImporter : MonoBehaviour
+public class CustomAssetImporter : MonoBehaviour
 {
+    
+    /// <summary>
+    /// This Class filters out assets that should not be repathed (unity scenes, scripts, etc..) and then sends all allowed assets
+    /// to the AssetImporter
+    /// </summary>
+    private class AssetIntegrationHelper : AssetPostprocessor
+    {
+        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        {
+            for (int i = 0; i < importedAssets.Length; i++)
+            {
+                Debug.Log("imported asset is : " + importedAssets[i]);
+                for (int j = 0; j < extensions.Length; j++)
+                {
+                    if (importedAssets[i].Contains(extensions[j]))
+                    {
+                        Debug.Log("this asset must be repathed : " + importedAssets[i]);
+                        StoreImportedAssetInfos(importedAssets[i]);
+                    }
+                }
+            }
+        }
+    }
+
     [MenuItem("Assets/Dioravity/Set Asset Path and Nomenclature")]
-    private static void LoadAdditiveScene()
+    private static void SetAssetPathAndNomenclature()
     {
         AssetIntegrationWindow.Init();
     }
 
-    public static string oldPath, newPath, importedAssetName; 
+    private static string[] nomenclatures = new string[] { "Model_", "T_", "M_", "LightSettings_", "Anim_", "Font_", "Sound_" };
+    private static string[] newPaths = new string[] { "_Models", "Materials & Textures", "Graphics/Lighting", 
+                                                      "Animations", "User Interface/Fonts", "Sounds"};
+    internal static string[] extensions = new string[] { ".obj", ".fbx", ".png", ".jpeg", ".jpg", ".mat", 
+                                                         ".lighting", ".anim", ".ttf", ".mp3", ".ogg", ".wav" };
+    private static int[] extensionMapper = new int[] { 0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 6, 6 }; // maps every extension to the proper nomenclature index 
+    private static int[] pathMapper = new int[] { 0, 1, 1, 2, 3, 4, 5 }; // maps every extension to the proper path
+
+
+    public static string oldPath, newPath, importedAssetName;
     public static void StoreImportedAssetInfos(string _oldPath)
     {
-        oldPath = _oldPath; 
+        oldPath = _oldPath;
 
-        importedAssetName = oldPath[(oldPath.LastIndexOf('/') + 1)..]; 
-        newPath = $"Assets/_Models/{importedAssetName}";
+        importedAssetName = oldPath[(oldPath.LastIndexOf('/') + 1)..];
+        Debug.Log("setting old and new path");
 
-        Debug.Log("setting old and new path"); 
+        MapExtensionToNomenclaturePath(importedAssetName);
     }
 
+    static FileInfo fileInfo;
+    static string _extensions;
+    static int nomenclatureIndex, pathIndex; 
+    static string properNomenclature; 
+    private static void MapExtensionToNomenclaturePath(string fileName)
+    {
+        fileInfo = new(fileName);
+        _extensions = fileInfo.Extension;
+        nomenclatureIndex = Array.IndexOf(extensions, _extensions);
+        properNomenclature = nomenclatures[extensionMapper[nomenclatureIndex]];
+
+        pathIndex = Array.IndexOf(nomenclatures, properNomenclature); 
+        newPath = $"Assets/{newPaths[pathMapper[pathIndex]]}" + "/";
+        Debug.Log($"index of {_extensions} is {nomenclatureIndex}. Proper nomenclature : {properNomenclature}. New path : {newPath}");
+    }
+
+    /// <summary>
+    /// This method awaits for a button input from AssetIntegrationWindow to be triggered
+    /// </summary>
+    /// <returns></returns>
     public static string SetNewPath()
     {
-        AssetDatabase.MoveAsset(oldPath, newPath);
-        AssetDatabase.RenameAsset(newPath, "_Model" + importedAssetName);
-        return newPath;
-    }
-}
-
-public class AssetIntegrationHelper : AssetPostprocessor
-{
-    private ModelImporter modelImporter;
-    private AssetImportContext importContext;
-    // Disable import of materials if the file contains
-    // the @ sign marking it as an animation.
-    static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
-    {
-        for (int i = 0; i < importedAssets.Length; i++)
-        {
-            Debug.Log("imported asset is : " + importedAssets[i]);
-
-            if (importedAssets[i].Contains(".obj"))
-            {
-                Debug.Log("preprocessing model : " + importedAssets[i]);
-                AssetImporter.StoreImportedAssetInfos(importedAssets[i]);
-            }
-        }
+        AssetDatabase.MoveAsset(oldPath, newPath + importedAssetName);
+        AssetDatabase.RenameAsset(newPath + importedAssetName, properNomenclature + importedAssetName);
+        return newPath + importedAssetName;
     }
 }
