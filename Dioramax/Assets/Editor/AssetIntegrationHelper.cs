@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 
 public class CustomAssetImporter : MonoBehaviour
 {
-    
+    private static List<string> oldAssetPaths = new List<string>();
     /// <summary>
     /// This Class filters out assets that should not be repathed (unity scenes, scripts, etc..) and then sends all allowed assets
     /// to the AssetImporter
@@ -17,16 +18,17 @@ public class CustomAssetImporter : MonoBehaviour
         {
             for (int i = 0; i < importedAssets.Length; i++)
             {
-                Debug.Log("imported asset is : " + importedAssets[i]);
                 for (int j = 0; j < extensions.Length; j++)
                 {
                     if (importedAssets[i].Contains(extensions[j]))
                     {
                         Debug.Log("this asset must be repathed : " + importedAssets[i]);
-                        StoreImportedAssetInfos(importedAssets[i]);
+                        oldAssetPaths.Add(importedAssets[i]); 
                     }
                 }
             }
+
+            StoreImportedAssetInfos(oldAssetPaths);
         }
     }
 
@@ -37,23 +39,31 @@ public class CustomAssetImporter : MonoBehaviour
     }
 
     private static string[] nomenclatures = new string[] { "Model_", "T_", "M_", "LightSettings_", "Anim_", "Font_", "Sound_" };
-    private static string[] newPaths = new string[] { "_Models", "Materials & Textures", "Graphics/Lighting", 
+    private static string[] newPaths = new string[] { "_Models", "Materials & Textures", "Graphics/Lighting",
                                                       "Animations", "User Interface/Fonts", "Sounds"};
-    internal static string[] extensions = new string[] { ".obj", ".fbx", ".png", ".jpeg", ".jpg", ".mat", 
+    internal static string[] extensions = new string[] { ".obj", ".fbx", ".png", ".jpeg", ".jpg", ".mat",
                                                          ".lighting", ".anim", ".ttf", ".mp3", ".ogg", ".wav" };
     private static int[] extensionMapper = new int[] { 0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 6, 6 }; // maps every extension to the proper nomenclature index 
     private static int[] pathMapper = new int[] { 0, 1, 1, 2, 3, 4, 5 }; // maps every extension to the proper path
 
 
-    public static string oldPath, newPath, importedAssetName;
-    public static void StoreImportedAssetInfos(string _oldPath)
+    private static string oldPath, newPath;
+    private static string[] oldPathlist; 
+    private static string[] importedAssetName;
+    public static void StoreImportedAssetInfos(List<string> _oldPaths)
     {
-        oldPath = _oldPath;
+        oldPathlist = new string[_oldPaths.Count];
+        importedAssetName = new string[_oldPaths.Count]; 
 
-        importedAssetName = oldPath[(oldPath.LastIndexOf('/') + 1)..];
-        Debug.Log("setting old and new path");
+        for (int i = 0; i < oldPathlist.Length; i++)
+        {
+            oldPathlist[i] = _oldPaths[i];
+            string assetName = oldPathlist[i];
+            importedAssetName[i] = assetName[(assetName.LastIndexOf('/') + 1)..];
+        }
 
-        MapExtensionToNomenclaturePath(importedAssetName);
+        // FINISHI TO TURN THIS INTO ARRAYS
+        // MapExtensionToNomenclaturePath(importedAssetName);
     }
 
     static FileInfo fileInfo;
