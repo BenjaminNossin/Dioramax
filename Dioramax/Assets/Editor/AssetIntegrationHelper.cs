@@ -42,7 +42,7 @@ public class CustomAssetImporter : MonoBehaviour
         }
     }
 
-    [MenuItem("Assets/Dioravity/Set Asset Path and Nomenclature")]
+    [MenuItem("Assets/Dioravity/Asset Integrator")]
     private static void SetAssetPathAndNomenclature()
     {
         AssetIntegrationWindow.Init();

@@ -9,7 +9,8 @@ public class AssetIntegrationWindow : EditorWindow
     [MenuItem("Dioravity/Asset Integrator")]
     public static void Init()
     {
-        IGNORE_CALLBACK = false; 
+        IGNORE_CALLBACK = false;
+
         AssetIntegrationWindow window = (AssetIntegrationWindow)GetWindow(typeof(AssetIntegrationWindow), false, "Asset Integrator", true);
         window.Show();
     }
@@ -17,13 +18,12 @@ public class AssetIntegrationWindow : EditorWindow
     private static (UnityEngine.Object obj, Type type, string path)[] infos;
     void OnGUI()
     {
-        GUILayout.Label("Asset Integrator", EditorStyles.boldLabel);
-
         if (GUILayout.Button("Set Nomenclature and Path"))
         {
             if (CustomAssetImporter.infos == null)
             {
-                Debug.LogWarning("No imported asset have been stored. Please import new assets, or reimport them if they are already in the project"); 
+                Debug.LogWarning("No imported asset have been stored. \n" +
+                    "Please import new assets, or right click -> reimport if they are already in the project"); 
                 return; // BAD ERROR HANDLING : button should be greyed out in this case
             }
 
@@ -34,16 +34,11 @@ public class AssetIntegrationWindow : EditorWindow
             CustomAssetImporter.infos.CopyTo(infos, 0);
         }
 
-        if (GUILayout.Button("Refresh"))
+        if (GUILayout.Button("End Import"))
         {
-            infos = null;
-            EditorGUILayout.TextField("New Path : NONE");
+            infos = CustomAssetImporter.infos = null;
+            IGNORE_CALLBACK = false;
         }
-
-        /* if (GUILayout.Button("Get References"))
-        {
-            CustomAssetImporter.GetNewReferences();
-        } */
 
         // this should be greyed out while button has not been pushed
         if (infos == null) return;
