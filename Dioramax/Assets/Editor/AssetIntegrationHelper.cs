@@ -48,13 +48,13 @@ public class CustomAssetImporter : MonoBehaviour
         AssetIntegrationWindow.Init();
     }
 
-    private static string[] storedNomenclatures = new string[] { "Model_", "T_", "M_", "LightSettings_", "Anim_", "Font_", "Sound_" };
+    private static string[] storedNomenclatures = new string[] { "Model_", "T_", "M_", "LightSettings_", "Anim_", "AnimController_", "Font_", "Sound_" };
     private static string[] storedNewPaths = new string[] { "_Models", "Materials & Textures", "Graphics/Lighting",
                                                       "Animations", "User Interface/Fonts", "Sounds"};
     private static string[] storedExtensions = new string[] { ".obj", ".fbx", ".png", ".jpeg", ".jpg", ".mat",
-                                                         ".lighting", ".anim", ".ttf", ".mp3", ".ogg", ".wav" };
-    private static int[] extensionMapper = new int[] { 0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 6, 6 }; // maps every extension to the proper nomenclature index
-    private static int[] pathMapper = new int[] { 0, 1, 1, 2, 3, 4, 5 }; // maps every extension to the proper path
+                                                         ".lighting", ".anim", ".controller", ".ttf", ".mp3", ".ogg", ".wav" };
+    private static int[] extensionMapper = new int[] { 0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 7, 7, 7 }; // maps every extension to the proper nomenclature index
+    private static int[] pathMapper = new int[] { 0, 1, 1, 2, 3, 3, 4, 5 }; // maps every extension to the proper path
 
 
     private static string[] newPaths;
@@ -100,8 +100,8 @@ public class CustomAssetImporter : MonoBehaviour
             pathIndexes[i] = Array.IndexOf(storedNomenclatures, properNomenclatures[i]);
             newPaths[i] = $"Assets/{storedNewPaths[pathMapper[pathIndexes[i]]]}" + "/" + importedAssetNames[i];
 
-            Debug.Log($"index of {loadedFilesExtensions[i]} is {nomenclatureIndexes[i]}. \n" +
-                $"Proper nomenclature : {properNomenclatures[i]}. New path : {newPaths[i]}");
+            Debug.LogWarning($"Imported asset must be integrated with the Asset Integrator tool. \n" +
+                             $"If you just reimported an asset that is already properly integrated, please ignore this warning");
         }
 
         infos = new (UnityEngine.Object obj, Type type, string path)[newPaths.Length];
@@ -120,8 +120,6 @@ public class CustomAssetImporter : MonoBehaviour
             infos[i].type = AssetDatabase.GetMainAssetTypeAtPath(newPaths[i]);
             infos[i].obj = AssetDatabase.LoadMainAssetAtPath(newPaths[i]);
             infos[i].path = newPaths[i];
-            //Debug.Log("setting new path and nomenclature");
-            Debug.Log($"type : {infos[i].type}. obj : {infos[i].obj}");
 
             AssetDatabase.RenameAsset(newPaths[i], properNomenclatures[i] + importedAssetNames[i]);
         }

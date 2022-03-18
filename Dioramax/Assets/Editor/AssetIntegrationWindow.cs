@@ -18,6 +18,11 @@ public class AssetIntegrationWindow : EditorWindow
     private static (UnityEngine.Object obj, Type type, string path)[] infos;
     void OnGUI()
     {
+        if (GUILayout.Button("See Documentation"))
+        {
+            Application.OpenURL("https://drive.google.com/file/d/1Su1Xa467HHNnmvQXf20gajIQ_DHwPbgV/view?usp=sharing"); 
+        }
+
         if (GUILayout.Button("Set Nomenclature and Path"))
         {
             if (CustomAssetImporter.infos == null)
