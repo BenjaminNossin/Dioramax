@@ -4,7 +4,6 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 
-
 public class CustomAssetImporter : MonoBehaviour
 {
     /// <summary>
@@ -49,13 +48,13 @@ public class CustomAssetImporter : MonoBehaviour
         AssetIntegrationWindow.Init();
     }
 
-    private static readonly string[] storedNomenclatures = new string[] { "Model_", "T_", "M_", "LightSettings_", "Anim_", "Font_", "Sound_" };
-    private static readonly string[] storedNewPaths = new string[] { "_Models", "Materials & Textures", "Graphics/Lighting",
+    private static string[] storedNomenclatures = new string[] { "Model_", "T_", "M_", "LightSettings_", "Anim_", "Font_", "Sound_" };
+    private static string[] storedNewPaths = new string[] { "_Models", "Materials & Textures", "Graphics/Lighting",
                                                       "Animations", "User Interface/Fonts", "Sounds"};
-    private static readonly string[] storedExtensions = new string[] { ".obj", ".fbx", ".png", ".jpeg", ".jpg", ".mat",
+    private static string[] storedExtensions = new string[] { ".obj", ".fbx", ".png", ".jpeg", ".jpg", ".mat",
                                                          ".lighting", ".anim", ".ttf", ".mp3", ".ogg", ".wav" };
-    private static readonly int[] extensionMapper = new int[] { 0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 6, 6 }; // maps every extension to the proper nomenclature index
-    private static readonly int[] pathMapper = new int[] { 0, 1, 1, 2, 3, 4, 5 }; // maps every extension to the proper path
+    private static int[] extensionMapper = new int[] { 0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 6, 6 }; // maps every extension to the proper nomenclature index
+    private static int[] pathMapper = new int[] { 0, 1, 1, 2, 3, 4, 5 }; // maps every extension to the proper path
 
 
     private static string[] newPaths;
@@ -80,6 +79,7 @@ public class CustomAssetImporter : MonoBehaviour
     static string[] loadedFilesExtensions;
     static int[] nomenclatureIndexes, pathIndexes;
     static string[] properNomenclatures;
+    public static (UnityEngine.Object obj, Type type, string path)[] infos;
     private static void MapExtensionToNomenclaturePath(string[] fileNames)
     {
         // CHECK IF I CAN MAKE INITIALIZATION CLEANER
@@ -103,25 +103,27 @@ public class CustomAssetImporter : MonoBehaviour
             Debug.Log($"index of {loadedFilesExtensions[i]} is {nomenclatureIndexes[i]}. \n" +
                 $"Proper nomenclature : {properNomenclatures[i]}. New path : {newPaths[i]}");
         }
+
+        infos = new (UnityEngine.Object obj, Type type, string path)[newPaths.Length];
     }
 
-    public static (UnityEngine.Object obj, Type type, string path)[] infos;
     /// <summary>
     /// This method awaits for a button input from AssetIntegrationWindow to be triggered
     /// </summary>
     /// <returns></returns>
     public static void SetNewPath()
     {
-        infos = new (UnityEngine.Object obj, Type type, string path)[newPaths.Length];
         for (int i = 0; i < newPaths.Length; i++)
         {
             AssetDatabase.MoveAsset(oldPaths[i], newPaths[i]);
-            AssetDatabase.RenameAsset(newPaths[i], properNomenclatures[i] + importedAssetNames[i]);
 
             infos[i].type = AssetDatabase.GetMainAssetTypeAtPath(newPaths[i]);
             infos[i].obj = AssetDatabase.LoadMainAssetAtPath(newPaths[i]);
             infos[i].path = newPaths[i];
-            Debug.Log("setting new path and nomenclature"); 
+            //Debug.Log("setting new path and nomenclature");
+            Debug.Log($"type : {infos[i].type}. obj : {infos[i].obj}");
+
+            AssetDatabase.RenameAsset(newPaths[i], properNomenclatures[i] + importedAssetNames[i]);
         }
     }
 }

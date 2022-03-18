@@ -21,12 +21,29 @@ public class AssetIntegrationWindow : EditorWindow
 
         if (GUILayout.Button("Set Nomenclature and Path"))
         {
+            if (CustomAssetImporter.infos == null)
+            {
+                Debug.LogWarning("No imported asset have been stored. Please import new assets, or reimport them if they are already in the project"); 
+                return; // BAD ERROR HANDLING : button should be greyed out in this case
+            }
+
             IGNORE_CALLBACK = true;
             CustomAssetImporter.SetNewPath();
 
             infos = new (UnityEngine.Object obj, Type type, string path)[CustomAssetImporter.infos.Length];
             CustomAssetImporter.infos.CopyTo(infos, 0);
         }
+
+        if (GUILayout.Button("Refresh"))
+        {
+            infos = null;
+            EditorGUILayout.TextField("New Path : NONE");
+        }
+
+        /* if (GUILayout.Button("Get References"))
+        {
+            CustomAssetImporter.GetNewReferences();
+        } */
 
         // this should be greyed out while button has not been pushed
         if (infos == null) return;
