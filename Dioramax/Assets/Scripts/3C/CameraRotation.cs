@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events; 
+using UnityEngine.Events;
 
 /// <summary>
 /// This Class allows to rotate a camera around a crane, that acts as it center of rotation.
@@ -23,18 +23,18 @@ public class CameraRotation : MonoBehaviour
     UnityAction OnEvaluationEndedCallback;
     private float toucheMoveForceOnEnded;
 
-    public static float ZRotation; 
+    public static float ZRotation;
 
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
-    private bool updateGamefeelCurve; 
+    private bool updateGamefeelCurve;
 
-    // TODO : Subscribing for the gamefeel event should NOT be done here, but on an interface or CurveEvaluator. 
+    // TODO : Subscribing for the gamefeel event should NOT be done here, but on an interface or CurveEvaluator.
     private void OnEnable()
     {
-        Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch; 
+        Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
-        OnEvaluationEndedCallback += SetToFalse; 
+        OnEvaluationEndedCallback += SetToFalse;
     }
 
     private void OnDisable()
@@ -50,20 +50,20 @@ public class CameraRotation : MonoBehaviour
         RotationSensitivity = rotationSensitivity;
     }
 
-    private float forceDebugFloat; 
+    private float forceDebugFloat;
     private void Update()
     {
         if (updateGamefeelCurve)
         {
             if (yxRotation)
             {
-                //Debug.Log("yx rotation gamefeel"); 
-                UpdateXYRotation(rotationDirection, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback)); 
+                //Debug.Log("yx rotation gamefeel");
+                UpdateXYRotation(rotationDirection, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
             else if (zRotation)
             {
                 //Debug.Log("z rotation gamefeel");
-                UpdateZRotation(touch0, touch1, rotationForce); 
+                UpdateZRotation(touch0, touch1, rotationForce);
             }
         }
     }
@@ -84,7 +84,7 @@ public class CameraRotation : MonoBehaviour
         rotationDirection = _rotationDirection;
         rotationForce = _rotationForce;
 
-        // to always get an axis that is 90° more than direction
+        // to always get an axis that is 90ï¿½ more than direction
         rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
         transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
     }
@@ -104,7 +104,7 @@ public class CameraRotation : MonoBehaviour
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
         touch0 = _touch0;
         touch1 = _touch1;
-        rotationForce = _rotationForce; 
+        rotationForce = _rotationForce;
 
         // stupid to do this every frame. But how to keep reference to the arguments each frame ?
         if (topPosition == _touch0.position.y)
@@ -117,14 +117,14 @@ public class CameraRotation : MonoBehaviour
         }
 
         transform.Rotate(transform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
-        ZRotation = transform.rotation.eulerAngles.z; 
-    }   
+        ZRotation = transform.rotation.eulerAngles.z;
+    }
 
     private void InterruptPreviousCurveOnNewTouch()
     {
         if (gamefeelCurve.EvaluateCurve)
         {
-            gamefeelCurve.EndGamefeelCurve(); 
+            gamefeelCurve.EndGamefeelCurve();
         }
     }
 
@@ -132,14 +132,13 @@ public class CameraRotation : MonoBehaviour
     {
         if (previous == TouchState.Rotating)
         {
-            updateGamefeelCurve = true; 
+            updateGamefeelCurve = true;
         }
     }
 
     private void SetToFalse()
     {
-        Debug.Log("on ended rotation callback"); 
+        Debug.Log("on ended rotation callback");
         updateGamefeelCurve = false;
     }
 }
-    
