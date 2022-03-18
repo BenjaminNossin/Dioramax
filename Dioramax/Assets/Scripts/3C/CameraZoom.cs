@@ -12,7 +12,7 @@ public class CameraZoom : MonoBehaviour
     [SerializeField, Range(15, 50)] private float maxZoomIn = 45;
     [SerializeField, Range (70, 120)] private float maxZoomOut = 70;
     [SerializeField, Range(0.5f, 5f)] private float zoomForceSensibility = 2.5f;
-    [SerializeField, Range(1f, 20f)] private float moveSpeed = 10f;
+    [SerializeField, Range(10f, 50f)] private float moveSpeed = 10f;
     private float currentMoveSpeed; 
 
 
@@ -126,27 +126,4 @@ public class CameraZoom : MonoBehaviour
             }
         }
     }
-
-    /* private void InterruptPreviousCurveOnNewTouch()
-    {
-        if (gamefeelCurve.EvaluateCurve)
-        {
-            gamefeelCurve.EndGamefeelCurve();
-        }
-    }
-
-    private void TriggerGamefeelCurveOnInputStateChange(TouchState previous)
-    {
-        Debug.Log("previous state : " + previous); 
-        if (previous == TouchState.Zooming)
-        {
-            updateGamefeelCurve = true;
-        }
-    }
-
-    private void SetToFalse()
-    {
-        Debug.Log("on ended zooming callback");
-        updateGamefeelCurve = false;
-    } */
 }
