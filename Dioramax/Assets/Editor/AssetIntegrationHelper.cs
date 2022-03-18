@@ -48,13 +48,13 @@ public class CustomAssetImporter : MonoBehaviour
         AssetIntegrationWindow.Init();
     }
 
-    private static string[] storedNomenclatures = new string[] { "Model_", "T_", "M_", "LightSettings_", "Anim_", "AnimController_", "Font_", "Sound_" };
+    private static string[] storedNomenclatures = new string[] { "Model_", "T_", "M_", "LightSettings_", "Anim_", "AnimController_", "Font_", "Sound_", "Prefab_" };
     private static string[] storedNewPaths = new string[] { "_Models", "Materials & Textures", "Graphics/Lighting",
-                                                      "Animations", "User Interface/Fonts", "Sounds"};
+                                                      "Animations", "User Interface/Fonts", "Sounds", "Prefabs"};
     private static string[] storedExtensions = new string[] { ".obj", ".fbx", ".png", ".jpeg", ".jpg", ".mat",
-                                                         ".lighting", ".anim", ".controller", ".ttf", ".mp3", ".ogg", ".wav" };
-    private static int[] extensionMapper = new int[] { 0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 7, 7, 7 }; // maps every extension to the proper nomenclature index
-    private static int[] pathMapper = new int[] { 0, 1, 1, 2, 3, 3, 4, 5 }; // maps every extension to the proper path
+                                                         ".lighting", ".anim", ".controller", ".ttf", ".mp3", ".ogg", ".wav", ".prefab" };
+    private static int[] extensionToNomenclatureMapper = new int[] { 0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 7, 7, 7, 8 }; 
+    private static int[] nomenclatureToPathMapper = new int[] { 0, 1, 1, 2, 3, 3, 4, 5, 6 }; 
 
 
     private static string[] newPaths;
@@ -95,16 +95,15 @@ public class CustomAssetImporter : MonoBehaviour
             fileInfos[i] = new(fileNames[i]);
             loadedFilesExtensions[i] = fileInfos[i].Extension;
             nomenclatureIndexes[i] = Array.IndexOf(storedExtensions, loadedFilesExtensions[i]);
-            properNomenclatures[i] = storedNomenclatures[extensionMapper[nomenclatureIndexes[i]]];
+            properNomenclatures[i] = storedNomenclatures[extensionToNomenclatureMapper[nomenclatureIndexes[i]]];
 
             pathIndexes[i] = Array.IndexOf(storedNomenclatures, properNomenclatures[i]);
-            newPaths[i] = $"Assets/{storedNewPaths[pathMapper[pathIndexes[i]]]}" + "/" + importedAssetNames[i];
-
-            Debug.LogWarning($"Imported asset must be integrated with the Asset Integrator tool. \n" +
-                             $"If you just reimported an asset that is already properly integrated, please ignore this warning");
+            newPaths[i] = $"Assets/{storedNewPaths[nomenclatureToPathMapper[pathIndexes[i]]]}" + "/" + importedAssetNames[i];
         }
 
         infos = new (UnityEngine.Object obj, Type type, string path)[newPaths.Length];
+        Debug.LogWarning($"Imported asset(s) must be integrated with the Asset Integrator tool. \n" +
+                 $"If you just reimported one or more asset that are already properly integrated, please ignore this warning");
     }
 
     /// <summary>
