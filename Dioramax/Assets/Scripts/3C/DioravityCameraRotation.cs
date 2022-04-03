@@ -142,7 +142,7 @@ public class DioravityCameraRotation : MonoBehaviour
 
     private void SetToFalse()
     {
-        Debug.Log("on ended rotation callback");
+        // Debug.Log("on ended rotation callback");
         updateGamefeelCurve = false;
     }
 }

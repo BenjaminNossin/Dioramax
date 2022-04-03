@@ -157,7 +157,7 @@ public class Controls : MonoBehaviour
         }
         else if (transitionningOutOfDoubleTouch)
         {
-            Debug.Log("none from out of double touch");
+            // Debug.Log("none from out of double touch");
             transitionningOutOfDoubleTouch = false;
             FrameCount = 0;
             SetTouchState(TouchState.None);
