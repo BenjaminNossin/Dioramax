@@ -23,7 +23,8 @@ public class DioravityCameraRotation : MonoBehaviour
     UnityAction OnEvaluationEndedCallback;
     private float toucheMoveForceOnEnded;
 
-    public static float ZRotation;
+    public static float ZRotation { get; set; }
+    public static float ZAngleWithIdentityRotation { get; set; }
 
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
@@ -118,6 +119,9 @@ public class DioravityCameraRotation : MonoBehaviour
 
         transform.Rotate(transform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
         ZRotation = transform.rotation.eulerAngles.z;
+        ZAngleWithIdentityRotation = ZRotation > 180f ?
+                             360f - ZRotation :
+                             ZRotation;
     }
 
     private void InterruptPreviousCurveOnNewTouch()
