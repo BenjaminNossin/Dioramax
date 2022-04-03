@@ -2,29 +2,34 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-
+[RequireComponent(typeof(MeshRenderer))]
 public partial class InteractableEntity : MonoBehaviour
 {
-    [SerializeField] protected MeshRenderer renderer;
     [SerializeField] private bool changeBackAfterDelay = true;
-    [SerializeField] private bool interactablesCanBeShared = true; 
+    [SerializeField] private bool interactablesCanBeShared = true;
+    protected MeshRenderer meshRenderer; // VISUAL DEBUG
     protected bool isActive;
     public bool InteractablesCanBeShared { get; set; }
 
     private readonly UnityEvent<int[]> OnChangeStateEvent = new(); 
-    protected UnityAction<int[]> OnChangeStateCallback;
+    protected UnityAction<int[]> OnChangeStateCallback { get; set; }
+
+    private void Awake()
+    {
+        meshRenderer = GetComponent<MeshRenderer>(); 
+    }
 
     private void Start()
     {
         InteractablesCanBeShared = interactablesCanBeShared;
-        renderer.material.color = Color.red;
+        meshRenderer.material.color = Color.red;
         OnChangeStateEvent.AddListener(OnChangeStateCallback);
     }
 
     public void ChangeColor()
     {
         isActive = true;
-        renderer.material.color = Color.blue;
+        meshRenderer.material.color = Color.blue;
         OnChangeStateEvent.Invoke(new int[5] { 1, 1, 1, 1, 1 }); 
 
         if (changeBackAfterDelay)
@@ -43,7 +48,7 @@ public partial class InteractableEntity : MonoBehaviour
     public void SwapOrChangeBack(bool swap, int[] remoteChangeArray = null)
     {
         isActive = swap && !isActive;
-        renderer.material.color = isActive ? Color.blue : Color.red;
+        meshRenderer.material.color = isActive ? Color.blue : Color.red;
 
         int[] swapArray = isActive ? new int[5] { 1, 1, 1, 1, 1 } : new int[5] { 0, 0, 0, 0, 0 };
         OnChangeStateEvent.Invoke(remoteChangeArray ?? swapArray);

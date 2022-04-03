@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// This Class allows to rotate a camera around a crane, that acts as it center of rotation.
 /// Put this script on the crane, with a camera as child
 /// </summary>
-public class CameraRotation : MonoBehaviour
+public class DioravityCameraRotation : MonoBehaviour
 {
     [SerializeField] private GameObject diorama;
 

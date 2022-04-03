@@ -13,7 +13,7 @@ public class RotationOnPivot : MonoBehaviour
     {
         if (IsRotatable)
         {
-            transform.rotation = Quaternion.Euler(0f, 0f, CameraRotation.ZRotation);           
+            transform.localRotation = Quaternion.Euler(0f, 0f, DioravityCameraRotation.ZRotation);           
         }
     } 
 }
