@@ -10,9 +10,6 @@ public class WinConditionController : MonoBehaviour
 
     public static int[][] entitiesToValidate;
 
-    [Header("--DEBUG--")]
-    public bool refreshWinConditions = true;
-
     void Awake()
     {
         if (Instance != null)
@@ -25,11 +22,6 @@ public class WinConditionController : MonoBehaviour
         entitiesToValidate = new int[dioramaInfos.puzzleAmount][];
         for (int i = 0; i < entitiesToValidate.Length; i++)
         {
-            if (refreshWinConditions)
-            {
-                dioramaInfos.puzzleInfos[i].winConditionIsMet = false;
-            }
-
             entitiesToValidate[i] = new int[dioramaInfos.puzzleInfos[i].entitiesAmount];
             Debug.Log($"{dioramaInfos.puzzleInfos[i].puzzleName} is of size {dioramaInfos.puzzleInfos[i].entitiesAmount} and at index {i}");
 

@@ -142,7 +142,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647725786}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9063079, w: 0.42261827}
   m_LocalPosition: {x: 4.4752088, y: -1.2181692, z: 10.028907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -150,7 +150,7 @@ Transform:
   - {fileID: 1980398231}
   m_Father: {fileID: 6883228341154844450}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 130}
 --- !u!114 &647725788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +163,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb30a16275bc6a499d49deeb4ceb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 1980398233}
+  dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
   snapValue: 10
+  initialZRotation: 130
+  entityPuzzleName: 0
+  entityNumber: 0
+  winConditionIsMet: 0
+  WinConditionEventIsRegistered: 0
 --- !u!1 &737787446
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +618,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb30a16275bc6a499d49deeb4ceb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 1445513341}
+  dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
   snapValue: 10
+  initialZRotation: 0
+  entityPuzzleName: 0
+  entityNumber: 2
+  winConditionIsMet: 0
+  WinConditionEventIsRegistered: 0
 --- !u!1 &1672046928
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +650,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672046928}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -6.1377916, y: -3.119169, z: 10.010907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -644,7 +658,7 @@ Transform:
   - {fileID: 823200236}
   m_Father: {fileID: 6883228341154844450}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &1672046930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,7 +671,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb30a16275bc6a499d49deeb4ceb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 823200238}
+  dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
   snapValue: 10
+  initialZRotation: 90
+  entityPuzzleName: 0
+  entityNumber: 1
+  winConditionIsMet: 0
+  WinConditionEventIsRegistered: 0
 --- !u!1 &1779809689
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,7 +819,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855170465}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
   m_LocalPosition: {x: -10.353791, y: 0.5368309, z: 10.020907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -806,7 +827,7 @@ Transform:
   - {fileID: 1943879099}
   m_Father: {fileID: 6883228341154844450}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
 --- !u!114 &1855170467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,7 +840,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb30a16275bc6a499d49deeb4ceb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 1943879101}
+  dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
   snapValue: 10
+  initialZRotation: 30
+  entityPuzzleName: 0
+  entityNumber: 3
+  winConditionIsMet: 0
+  WinConditionEventIsRegistered: 0
 --- !u!1 &1943879098
 GameObject:
   m_ObjectHideFlags: 0
@@ -11413,7 +11441,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
-  refreshWinConditions: 1
 --- !u!1 &6178176059754010014
 GameObject:
   m_ObjectHideFlags: 0
