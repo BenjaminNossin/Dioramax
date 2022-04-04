@@ -16,7 +16,7 @@ public class RotationOnPivot : MonoBehaviour
     [Header("-- DEBUG --")]
     [SerializeField] private MeshRenderer meshRenderer;
 
-    public bool IsRotatable { get; set; }
+    public bool IsLocked { get; set; }
     private float distanceFromRequiredAngle;
     private Transform selfTransform;
 
@@ -26,7 +26,7 @@ public class RotationOnPivot : MonoBehaviour
 
     private void Start()
     {
-        IsRotatable = false;
+        IsLocked = false;
         selfTransform = transform;
 
         selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
@@ -39,7 +39,7 @@ public class RotationOnPivot : MonoBehaviour
     {
         winCondition.UpdateWinCondition(selfTransform.localRotation == Quaternion.identity);
 
-        if (IsRotatable)
+        if (!IsLocked)
         {
             distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
 

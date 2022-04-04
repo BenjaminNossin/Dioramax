@@ -42,7 +42,7 @@ public class InteractableEntityRemote : InteractableEntity
         for (int i = 0; i < entitiesMeshRenderers.Length; i++)
         {
             entitiesMeshRenderers[i].material.color = sharedEntitiesWithCurrent[i] == 1 ? Color.blue : Color.red;
-            rotationOnPivots[i].IsRotatable = sharedEntitiesWithCurrent[i] == 1;
+            rotationOnPivots[i].IsLocked = sharedEntitiesWithCurrent[i] == 1; 
         }
     }
 
