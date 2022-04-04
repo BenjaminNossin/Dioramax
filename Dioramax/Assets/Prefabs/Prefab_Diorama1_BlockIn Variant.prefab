@@ -182,6 +182,12 @@ MonoBehaviour:
   winCondition: {fileID: 6432275642158431406}
   snapValue: 20
   initialZRotation: 130
+  multiSnapAngles: 1
+  snapAngleValues:
+  - 0
+  - 90
+  - 270
+  - 360
   meshRenderer: {fileID: 1980398233}
 --- !u!114 &6432275642158431406
 MonoBehaviour:
@@ -1107,6 +1113,8 @@ MonoBehaviour:
   winCondition: {fileID: 6432275642158431404}
   snapValue: 20
   initialZRotation: 0
+  multiSnapAngles: 0
+  snapAngleValues: []
   meshRenderer: {fileID: 1445513341}
 --- !u!114 &6432275642158431404
 MonoBehaviour:
@@ -1171,6 +1179,8 @@ MonoBehaviour:
   winCondition: {fileID: 6432275642158431405}
   snapValue: 20
   initialZRotation: 90
+  multiSnapAngles: 0
+  snapAngleValues: []
   meshRenderer: {fileID: 823200238}
 --- !u!114 &6432275642158431405
 MonoBehaviour:
@@ -1366,6 +1376,8 @@ MonoBehaviour:
   winCondition: {fileID: 6432275642158431403}
   snapValue: 20
   initialZRotation: 30
+  multiSnapAngles: 0
+  snapAngleValues: []
   meshRenderer: {fileID: 1943879101}
 --- !u!114 &6432275642158431403
 MonoBehaviour:

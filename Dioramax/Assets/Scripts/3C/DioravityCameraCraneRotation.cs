@@ -88,9 +88,9 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         rotationDirection = _rotationDirection;
         rotationForce = _rotationForce;
 
-        // to always get an axis that is 90� more than direction
+        // to always get an axis that is 90° more than direction
         rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
-        transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
+        transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce); 
     }
 
     Touch touch0, touch1;
