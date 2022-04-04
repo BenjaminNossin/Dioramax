@@ -49,6 +49,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         OnEvaluationEndedCallback -= SetToFalse;
     }
 
+    private float[,] twoByTwoMatrix;
     private void Start()
     {
         transform.position = diorama.transform.position; // TODO : set dynamically at the start of a level
@@ -57,6 +58,8 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void Update()
     {
+        twoByTwoMatrix = new float[,] { { Mathf.Cos(ZRotation), -Mathf.Sin(ZRotation) }, { Mathf.Sin(ZRotation), Mathf.Cos(ZRotation) } };
+
         if (updateGamefeelCurve)
         {
             if (yxRotation)
@@ -83,6 +86,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     /// <returns>Wether the swipe force is greater than the sensibility settings. Otherwise, it won't rotate</returns>
     public void UpdateXYRotation(Vector3 _rotationDirection, float _rotationForce)
     {
+
         yxRotation = true;
         zRotation = false;
 
@@ -90,7 +94,10 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         rotationForce = _rotationForce;
 
         // to always get an axis that is 90° more than direction
-        rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
+        // rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); 
+        rotationAxis = new Vector2((rotationDirection.x * twoByTwoMatrix[1, 0]) - (rotationDirection.y * twoByTwoMatrix[1, 1]),
+                                   (rotationDirection.x * twoByTwoMatrix[0, 0]) + (rotationDirection.y * twoByTwoMatrix[0, 1])); 
+
         transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce); 
     }
 
