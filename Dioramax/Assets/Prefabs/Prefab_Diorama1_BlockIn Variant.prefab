@@ -128,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 647725787}
   - component: {fileID: 647725788}
+  - component: {fileID: 6432275642158431406}
   m_Layer: 0
   m_Name: Tuyaux1
   m_TagString: Untagged
@@ -163,14 +164,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb30a16275bc6a499d49deeb4ceb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1980398233}
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
+  winCondition: {fileID: 6432275642158431406}
   snapValue: 10
   initialZRotation: 130
+  meshRenderer: {fileID: 1980398233}
+--- !u!114 &6432275642158431406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647725786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   entityPuzzleName: 0
   entityNumber: 0
-  winConditionIsMet: 0
-  WinConditionEventIsRegistered: 0
 --- !u!1 &737787446
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1574936314}
   - component: {fileID: 1574936315}
+  - component: {fileID: 6432275642158431404}
   m_Layer: 0
   m_Name: Tuyaux3
   m_TagString: Untagged
@@ -618,14 +631,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb30a16275bc6a499d49deeb4ceb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1445513341}
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
+  winCondition: {fileID: 6432275642158431404}
   snapValue: 10
   initialZRotation: 0
+  meshRenderer: {fileID: 1445513341}
+--- !u!114 &6432275642158431404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574936313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   entityPuzzleName: 0
   entityNumber: 2
-  winConditionIsMet: 0
-  WinConditionEventIsRegistered: 0
 --- !u!1 &1672046928
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,6 +660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1672046929}
   - component: {fileID: 1672046930}
+  - component: {fileID: 6432275642158431405}
   m_Layer: 0
   m_Name: Tuyaux2
   m_TagString: Untagged
@@ -671,14 +696,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb30a16275bc6a499d49deeb4ceb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 823200238}
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
+  winCondition: {fileID: 6432275642158431405}
   snapValue: 10
   initialZRotation: 90
+  meshRenderer: {fileID: 823200238}
+--- !u!114 &6432275642158431405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672046928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   entityPuzzleName: 0
   entityNumber: 1
-  winConditionIsMet: 0
-  WinConditionEventIsRegistered: 0
 --- !u!1 &1779809689
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,6 +841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1855170466}
   - component: {fileID: 1855170467}
+  - component: {fileID: 6432275642158431403}
   m_Layer: 0
   m_Name: Tuyaux4
   m_TagString: Untagged
@@ -840,14 +877,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb30a16275bc6a499d49deeb4ceb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1943879101}
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
+  winCondition: {fileID: 6432275642158431403}
   snapValue: 10
   initialZRotation: 30
+  meshRenderer: {fileID: 1943879101}
+--- !u!114 &6432275642158431403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855170465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   entityPuzzleName: 0
   entityNumber: 3
-  winConditionIsMet: 0
-  WinConditionEventIsRegistered: 0
 --- !u!1 &1943879098
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,32 +1,27 @@
-using System.Collections.Generic;
 using UnityEngine;
-
-// winConditonIsMet -> update Array of list with dioramaInfos as indexes
 
 public class RotationOnPivot : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer meshRenderer; 
+    [Header("Gameplay")]
     [SerializeField] private DioramaInfos dioramaInfos;
+    [SerializeField] private WinCondition winCondition;
+
+    [Header("Values")]
     [SerializeField, Range(0f, 30)] private float snapValue = 10f;
     [SerializeField, Range(0, 360f)] private float initialZRotation;
 
-    // move this to a WinConditionComponent that is local to each piece of the puzzle
-    [Space, SerializeField] private DioramaPuzzleName entityPuzzleName; // PLACEHOLDER
-    [SerializeField] private int entityNumber; // PLACEHOLDER
+    [Header("-- DEBUG --")]
+    [SerializeField] private MeshRenderer meshRenderer;
 
     public bool IsRotatable { get; set; }
     private float distanceFromRequiredAngle;
-    private Transform selfTransform;
-
-    public bool winConditionIsMet;
-    public bool WinConditionEventIsRegistered;
+    private Transform selfTransform; 
 
     private void Awake()
     {
         IsRotatable = false;
         selfTransform = transform;
 
-        winConditionIsMet = selfTransform.localRotation == Quaternion.identity;
         selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
     }
 
@@ -37,17 +32,7 @@ public class RotationOnPivot : MonoBehaviour
 
     private void Update()
     {
-        winConditionIsMet = selfTransform.localRotation == Quaternion.identity; // change to event, dont trigger it every frame
-        if (winConditionIsMet && !WinConditionEventIsRegistered)
-        {
-            WinConditionEventIsRegistered = true;
-            WinConditionController.Instance.ValidateWinCondition((int)entityPuzzleName, entityNumber);
-        }
-        else if (!winConditionIsMet && WinConditionEventIsRegistered)
-        {
-            WinConditionEventIsRegistered = false;
-            WinConditionController.Instance.InvalidateWinCondition((int)entityPuzzleName, entityNumber);
-        }
+        winCondition.UpdateWinCondition(selfTransform.localRotation == Quaternion.identity);
 
         if (IsRotatable)
         {

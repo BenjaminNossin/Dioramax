@@ -119,7 +119,7 @@ public class Controls : MonoBehaviour
 
                 if (Input.touches[0].phase == TouchPhase.Ended)
                 {
-                    Debug.Log("none from mono touch ended");
+                    // Debug.Log("none from mono touch ended");
                     transitionningOutOfDoubleTouch = false; 
                     FrameCount = 0;
                     SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
