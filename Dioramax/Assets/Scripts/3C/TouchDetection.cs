@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System; 
 
 /// <summary>
 /// This script is in charge of managing interactable objects state change on tap/hold/drag.
@@ -8,9 +9,8 @@ using UnityEngine.Events;
 public class TouchDetection : MonoBehaviour
 {
     [SerializeField] private LayerMask interactableMask;
-    [SerializeField] private InteractableEntity placeholderFeedback;
+    // [SerializeField] private InteractableEntity placeholderFeedback;
 
-    private Camera mainCam;
     private bool objectDetected;
     private static InteractableEntity previousTouched, currentTouched;
 
@@ -19,15 +19,16 @@ public class TouchDetection : MonoBehaviour
 
     private MeshRenderer[] currentMeshRendererArray;
     private MeshRenderer[] previousMeshRendererArray;
-    private int[] equalityArray; 
+    private int[] equalityArray;
+
+    public static Action<Vector3> OnDoubleTapDetection { get; set; } 
 
     void Start()
     {
-        mainCam = Camera.main;
         OnRequireSharedEvent.AddListener(OnRequireSharedCallback); 
     }
 
-    public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
+    public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
     {
         Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.red, 0.5f);
         objectDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit hitInfo, 100f, interactableMask); 
@@ -37,6 +38,12 @@ public class TouchDetection : MonoBehaviour
         {
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
             currentTouched = hitInfo.transform.GetComponent<InteractableEntity>();
+
+            if (doubleTap && currentTouched.CanOverrideCameraPositionOnDoubleTap())
+            {
+                Debug.Log("this was a double tap");
+                OnDoubleTapDetection(currentTouched.GetCameraPositionOverride());
+            }
 
             if (previousTouched)
             {
@@ -53,10 +60,10 @@ public class TouchDetection : MonoBehaviour
             {
                 currentTouched.ChangeColor(); // will enter here only once
             }
-
-            SetPlaceholderReference(currentTouched);
-            previousTouched = currentTouched;
         }
+
+        SetPlaceholderReference(currentTouched);
+        previousTouched = currentTouched;
 
         return objectDetected;
     }
