@@ -22,7 +22,6 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     private bool yxRotation, zRotation;
 
     UnityAction OnEvaluationEndedCallback;
-    private float toucheMoveForceOnEnded;
 
     public static float ZRotation { get; set; }
     public static float ZAngleWithIdentityRotation { get; set; }
@@ -36,38 +35,43 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     {
         Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
-        OnEvaluationEndedCallback += SetToFalse;
         TouchDetection.OnDoubleTapDetection += SetCameraRotationOnDoubleTap;
+
+        OnEvaluationEndedCallback += SetToFalse;
     }
 
     private void OnDisable()
     {
         Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
-        OnEvaluationEndedCallback -= SetToFalse;
         TouchDetection.OnDoubleTapDetection -= SetCameraRotationOnDoubleTap;
+
+        OnEvaluationEndedCallback -= SetToFalse;
     }
 
+    private float[,] twoByTwoMatrix;
     private void Start()
     {
         transform.position = diorama.transform.position; // TODO : set dynamically at the start of a level
         RotationSensitivity = rotationSensitivity;
     }
 
-    private float forceDebugFloat;
     private void Update()
     {
+        twoByTwoMatrix = new float[,] { { Mathf.Cos(ZRotation), -Mathf.Sin(ZRotation) }, { Mathf.Sin(ZRotation), Mathf.Cos(ZRotation) } };
+
         if (updateGamefeelCurve)
         {
             if (yxRotation)
             {
-                //Debug.Log("yx rotation gamefeel");
+                Debug.Log("yx rotation gamefeel");
                 UpdateXYRotation(rotationDirection, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
-            else if (zRotation)
+
+            if (zRotation)
             {
-                //Debug.Log("z rotation gamefeel");
-                UpdateZRotation(touch0, touch1, rotationForce);
+                Debug.Log("z rotation gamefeel");
+                UpdateZRotation(touch0, touch1, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
         }
     }
@@ -82,15 +86,19 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     /// <returns>Wether the swipe force is greater than the sensibility settings. Otherwise, it won't rotate</returns>
     public void UpdateXYRotation(Vector3 _rotationDirection, float _rotationForce)
     {
+
         yxRotation = true;
         zRotation = false;
 
         rotationDirection = _rotationDirection;
         rotationForce = _rotationForce;
 
-        // to always get an axis that is 90� more than direction
-        rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
-        transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
+        // to always get an axis that is 90° more than direction
+        // rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); 
+        rotationAxis = new Vector2((rotationDirection.x * twoByTwoMatrix[1, 0]) - (rotationDirection.y * twoByTwoMatrix[1, 1]),
+                                   (rotationDirection.x * twoByTwoMatrix[0, 0]) + (rotationDirection.y * twoByTwoMatrix[0, 1])); 
+
+        transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce); 
     }
 
     Touch touch0, touch1;
@@ -139,7 +147,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void TriggerGamefeelCurveOnInputStateChange(TouchState previous)
     {
-        if (previous == TouchState.Rotating)
+        if (previous == TouchState.XYRotating) // OR zoom 
         {
             updateGamefeelCurve = true;
         }
