@@ -7,7 +7,7 @@ public enum TouchState { None, Tap, Hold, DoubleTap, Drag, Rotating, Zooming }
 
 public class Controls : MonoBehaviour
 {
-    [SerializeField] private DioravityCameraRotation cameraRotation;
+    [SerializeField] private DioravityCameraCraneRotation cameraRotation;
     [SerializeField] private CameraZoom cameraZoom;
     [SerializeField] private TouchDetection touchDetection;
     [SerializeField, 

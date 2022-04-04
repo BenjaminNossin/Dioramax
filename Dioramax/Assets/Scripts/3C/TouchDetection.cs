@@ -11,7 +11,6 @@ public class TouchDetection : MonoBehaviour
     [SerializeField] private LayerMask interactableMask;
     // [SerializeField] private InteractableEntity placeholderFeedback;
 
-    private Camera mainCam;
     private bool objectDetected;
     private static InteractableEntity previousTouched, currentTouched;
 
@@ -26,7 +25,6 @@ public class TouchDetection : MonoBehaviour
 
     void Start()
     {
-        mainCam = Camera.main;
         OnRequireSharedEvent.AddListener(OnRequireSharedCallback); 
     }
 
@@ -41,10 +39,10 @@ public class TouchDetection : MonoBehaviour
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
             currentTouched = hitInfo.transform.GetComponent<InteractableEntity>();
 
-            if (doubleTap && currentTouched.OverrideCameraPositionOnDoubleTap)
+            if (doubleTap && currentTouched.CanOverrideCameraPositionOnDoubleTap())
             {
                 Debug.Log("this was a double tap");
-                OnDoubleTapDetection(currentTouched.GetCameraCraneFocusPosition());
+                OnDoubleTapDetection(currentTouched.GetCameraPositionOverride());
             }
 
             if (previousTouched)
@@ -62,10 +60,10 @@ public class TouchDetection : MonoBehaviour
             {
                 currentTouched.ChangeColor(); // will enter here only once
             }
-
-            SetPlaceholderReference(currentTouched);
-            previousTouched = currentTouched;
         }
+
+        SetPlaceholderReference(currentTouched);
+        previousTouched = currentTouched;
 
         return objectDetected;
     }

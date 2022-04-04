@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 251767217}
   - component: {fileID: 251767216}
   - component: {fileID: 251767219}
+  - component: {fileID: 4426780090466426035}
   m_Layer: 6
   m_Name: A_VDD_ABouttonTuyau1et4 (1)
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,6 +119,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8567862, y: 0.14993764, z: 0.81485224}
   m_Center: {x: 0, y: -0.07496881, z: -0.000000059604645}
+--- !u!114 &4426780090466426035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251767214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71ef3f1a77e9fa4683f12a53a8744c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doOverride: 1
+  doubleTapCameraCraneFocusPosition: {x: 0, y: -175, z: 0}
 --- !u!1 &647725786
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winCondition: {fileID: 6432275642158431406}
-  snapValue: 10
+  snapValue: 20
   initialZRotation: 130
   meshRenderer: {fileID: 1980398233}
 --- !u!114 &6432275642158431406
@@ -195,6 +210,7 @@ GameObject:
   - component: {fileID: 737787449}
   - component: {fileID: 737787448}
   - component: {fileID: 737787451}
+  - component: {fileID: 5565960468594164661}
   m_Layer: 6
   m_Name: A_VDD_ABouttonTuyau1et2 (1)
   m_TagString: Untagged
@@ -245,7 +261,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -300,6 +316,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8567862, y: 0.14993764, z: 0.81485224}
   m_Center: {x: 0, y: -0.07496881, z: 0}
+--- !u!114 &5565960468594164661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737787446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71ef3f1a77e9fa4683f12a53a8744c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doOverride: 1
+  doubleTapCameraCraneFocusPosition: {x: 0, y: -160, z: 0}
 --- !u!1 &783270155
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +343,7 @@ GameObject:
   - component: {fileID: 783270158}
   - component: {fileID: 783270157}
   - component: {fileID: 783270160}
+  - component: {fileID: 5215558062521531269}
   m_Layer: 6
   m_Name: A_VDD_ABouttonTuyau1et3 (1)
   m_TagString: Untagged
@@ -363,7 +394,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -418,6 +449,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8567862, y: 0.14993764, z: 0.81485224}
   m_Center: {x: 0, y: -0.07496881, z: -0.000000029802322}
+--- !u!114 &5215558062521531269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783270155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71ef3f1a77e9fa4683f12a53a8744c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doOverride: 1
+  doubleTapCameraCraneFocusPosition: {x: 0, y: -140, z: 0}
 --- !u!1 &823200235
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +524,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -515,6 +560,7 @@ GameObject:
   - component: {fileID: 918016741}
   - component: {fileID: 918016742}
   - component: {fileID: 918016743}
+  - component: {fileID: 1596188476318979777}
   m_Layer: 6
   m_Name: A_LCR_Chat_Debout001 (1)
   m_TagString: Untagged
@@ -565,7 +611,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -629,6 +675,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 2
   entityNumber: 0
+--- !u!114 &1596188476318979777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918016737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71ef3f1a77e9fa4683f12a53a8744c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doOverride: 0
+  doubleTapCameraCraneFocusPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1081559069
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +703,7 @@ GameObject:
   - component: {fileID: 1081559073}
   - component: {fileID: 1081559074}
   - component: {fileID: 1081559075}
+  - component: {fileID: 3929595009816080118}
   m_Layer: 6
   m_Name: A_LCR_Chat_Debout (1)
   m_TagString: Untagged
@@ -693,7 +754,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -757,6 +818,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 2
   entityNumber: 2
+--- !u!114 &3929595009816080118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081559069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71ef3f1a77e9fa4683f12a53a8744c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doOverride: 0
+  doubleTapCameraCraneFocusPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1413491708
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,6 +846,7 @@ GameObject:
   - component: {fileID: 1413491712}
   - component: {fileID: 1413491713}
   - component: {fileID: 1413491714}
+  - component: {fileID: 6624906775542900665}
   m_Layer: 6
   m_Name: A_LCR_Chat_Debout002 (1)
   m_TagString: Untagged
@@ -821,7 +897,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -885,6 +961,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 2
   entityNumber: 1
+--- !u!114 &6624906775542900665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413491708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71ef3f1a77e9fa4683f12a53a8744c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doOverride: 0
+  doubleTapCameraCraneFocusPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1445513338
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +1036,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1015,7 +1105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winCondition: {fileID: 6432275642158431404}
-  snapValue: 10
+  snapValue: 20
   initialZRotation: 0
   meshRenderer: {fileID: 1445513341}
 --- !u!114 &6432275642158431404
@@ -1079,7 +1169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winCondition: {fileID: 6432275642158431405}
-  snapValue: 10
+  snapValue: 20
   initialZRotation: 90
   meshRenderer: {fileID: 823200238}
 --- !u!114 &6432275642158431405
@@ -1109,6 +1199,7 @@ GameObject:
   - component: {fileID: 1779809692}
   - component: {fileID: 1779809691}
   - component: {fileID: 1779809694}
+  - component: {fileID: 3215520512946317026}
   m_Layer: 6
   m_Name: A_VDD_ABouttonTuyau2 (1)
   m_TagString: Untagged
@@ -1159,7 +1250,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1212,6 +1303,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8567862, y: 0.14993764, z: 0.81485224}
   m_Center: {x: 0, y: -0.07496881, z: -0.000000059604645}
+--- !u!114 &3215520512946317026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779809689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71ef3f1a77e9fa4683f12a53a8744c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doOverride: 1
+  doubleTapCameraCraneFocusPosition: {x: 0, y: -190, z: 0}
 --- !u!1 &1855170465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,7 +1364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winCondition: {fileID: 6432275642158431403}
-  snapValue: 10
+  snapValue: 20
   initialZRotation: 30
   meshRenderer: {fileID: 1943879101}
 --- !u!114 &6432275642158431403
@@ -1337,7 +1442,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1420,7 +1525,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb5d7bb871d0bd64e971ac0c2aca8786, type: 2}
+  - {fileID: 2100000, guid: cfefe4f1a1f7518408dbf0a00915d635, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

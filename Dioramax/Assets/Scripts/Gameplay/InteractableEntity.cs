@@ -2,26 +2,26 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(OverrideCameraPositionOnDoubleTap))]
 public abstract class InteractableEntity : MonoBehaviour
 {
     [Header("Values")]
     [SerializeField] private bool changeBackAfterDelay = true;
     [SerializeField] private bool interactablesCanBeShared = true;
-    [SerializeField] private bool overrideCameraPositionOnDoubleTap;
-    [SerializeField] private Vector3 doubleTapCameraCraneFocusPosition; // hide this is previous bool is false
 
+    public bool InteractablesCanBeShared { get; set; }
 
     protected MeshRenderer meshRenderer; // VISUAL DEBUG
     protected bool isActive;
-    public bool InteractablesCanBeShared { get; set; }
-    public bool OverrideCameraPositionOnDoubleTap { get; private set; }
+
+    private OverrideCameraPositionOnDoubleTap overrideCameraPositionOnDoubleTap;
 
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
+        overrideCameraPositionOnDoubleTap = GetComponent<OverrideCameraPositionOnDoubleTap>();
         meshRenderer.material.color = Color.red;
         InteractablesCanBeShared = interactablesCanBeShared;
-        OverrideCameraPositionOnDoubleTap = overrideCameraPositionOnDoubleTap;
     }
 
     public virtual void ChangeColor()
@@ -51,5 +51,7 @@ public abstract class InteractableEntity : MonoBehaviour
         swapArray = isActive ? new int[5] { 1, 1, 1, 1, 1 } : new int[5] { 0, 0, 0, 0, 0 };
     }
 
-    public Vector3 GetCameraCraneFocusPosition() => doubleTapCameraCraneFocusPosition;
+    public bool CanOverrideCameraPositionOnDoubleTap() => overrideCameraPositionOnDoubleTap.DoOverride;
+    public Vector3 GetCameraPositionOverride() => overrideCameraPositionOnDoubleTap.GetNewPosition();
+
 }

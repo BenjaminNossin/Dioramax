@@ -32,10 +32,10 @@ public class RotationOnPivot : MonoBehaviour
 
         if (IsRotatable)
         {
-            distanceFromRequiredAngle = DioravityCameraRotation.ZAngleWithIdentityRotation;
+            distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation;
             selfTransform.localRotation = distanceFromRequiredAngle <= snapValue ?
                                           Quaternion.identity :
-                                          Quaternion.Euler(0f, 0f, DioravityCameraRotation.ZRotation);
+                                          Quaternion.Euler(0f, 0f, DioravityCameraCraneRotation.ZRotation);
         }
     }
 }

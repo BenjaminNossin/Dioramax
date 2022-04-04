@@ -6,9 +6,10 @@ using UnityEngine.Events;
 /// This Class allows to rotate a camera around a crane, that acts as it center of rotation.
 /// Put this script on the crane, with a camera as child
 /// </summary>
-public class DioravityCameraRotation : MonoBehaviour
+public class DioravityCameraCraneRotation : MonoBehaviour
 {
     [SerializeField] private GameObject diorama;
+    [SerializeField] private Transform cameraTransform;
 
     [Space, SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
     [SerializeField, Range(3f, 12f)] private float ZForceMultiplier = 8f;
@@ -119,8 +120,10 @@ public class DioravityCameraRotation : MonoBehaviour
             touchTop = _touch1;
         }
 
-        transform.Rotate(transform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
-        ZRotation = transform.rotation.eulerAngles.z;
+        // cameraTransform.Rotate(cameraTransform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
+
+        cameraTransform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
+        ZRotation = cameraTransform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
         ZAngleWithIdentityRotation = ZRotation > 180f ?
                              360f - ZRotation :
                              ZRotation;
