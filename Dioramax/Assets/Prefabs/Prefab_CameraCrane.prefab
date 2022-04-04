@@ -138,6 +138,7 @@ MonoBehaviour:
   touchDetection: {fileID: 3533724392168430052}
   frameCountBeforeChangeState: 15
   mainCam: {fileID: 3533724392168430060}
+  doubleTapWaitDelay: 0.35
 --- !u!114 &3533724392168430052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,7 +154,6 @@ MonoBehaviour:
   interactableMask:
     serializedVersion: 2
     m_Bits: 64
-  placeholderFeedback: {fileID: 0}
 --- !u!114 &3533724392168430049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,10 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZoomIn: 30
-  maxZoomOut: 120
+  maxZoomIn: 45
+  maxZoomOut: 70
   zoomForceSensibility: 2.5
-  moveSpeed: 40
+  moveSpeed: 10
   gamefeelCurve: {fileID: 3533724393244289011}
 --- !u!1 &3533724393244289020
 GameObject:
@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diorama: {fileID: 0}
+  cameraTransform: {fileID: 3533724392168430061}
   XYForceMultiplier: 3
   ZForceMultiplier: 5
   rotationSensitivity: 5
