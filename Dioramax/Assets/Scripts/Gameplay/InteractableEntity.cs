@@ -7,18 +7,21 @@ public abstract class InteractableEntity : MonoBehaviour
     [Header("Values")]
     [SerializeField] private bool changeBackAfterDelay = true;
     [SerializeField] private bool interactablesCanBeShared = true;
+    [SerializeField] private bool overrideCameraPositionOnDoubleTap;
+    [SerializeField] private Vector3 doubleTapCameraCraneFocusPosition; // hide this is previous bool is false
+
 
     protected MeshRenderer meshRenderer; // VISUAL DEBUG
     protected bool isActive;
     public bool InteractablesCanBeShared { get; set; }
+    public bool OverrideCameraPositionOnDoubleTap { get; private set; }
 
-
-    private void Start()
+    private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-
-        InteractablesCanBeShared = interactablesCanBeShared;
         meshRenderer.material.color = Color.red;
+        InteractablesCanBeShared = interactablesCanBeShared;
+        OverrideCameraPositionOnDoubleTap = overrideCameraPositionOnDoubleTap;
     }
 
     public virtual void ChangeColor()
@@ -47,4 +50,6 @@ public abstract class InteractableEntity : MonoBehaviour
 
         swapArray = isActive ? new int[5] { 1, 1, 1, 1, 1 } : new int[5] { 0, 0, 0, 0, 0 };
     }
+
+    public Vector3 GetCameraCraneFocusPosition() => doubleTapCameraCraneFocusPosition;
 }

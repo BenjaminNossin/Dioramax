@@ -36,6 +36,7 @@ public class DioravityCameraRotation : MonoBehaviour
         Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
         OnEvaluationEndedCallback += SetToFalse;
+        TouchDetection.OnDoubleTapDetection += SetCameraRotationOnDoubleTap;
     }
 
     private void OnDisable()
@@ -43,6 +44,7 @@ public class DioravityCameraRotation : MonoBehaviour
         Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
         OnEvaluationEndedCallback -= SetToFalse;
+        TouchDetection.OnDoubleTapDetection -= SetCameraRotationOnDoubleTap;
     }
 
     private void Start()
@@ -144,5 +146,11 @@ public class DioravityCameraRotation : MonoBehaviour
     {
         // Debug.Log("on ended rotation callback");
         updateGamefeelCurve = false;
+    }
+
+    // do a smooth lerp 
+    private void SetCameraRotationOnDoubleTap(Vector3 newCameraRotation)
+    {
+        transform.rotation = Quaternion.Euler(newCameraRotation); 
     }
 }
