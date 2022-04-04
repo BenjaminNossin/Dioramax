@@ -3,7 +3,6 @@ using UnityEngine;
 public class RotationOnPivot : MonoBehaviour
 {
     [Header("Gameplay")]
-    [SerializeField] private DioramaInfos dioramaInfos;
     [SerializeField] private WinCondition winCondition;
 
     [Header("Values")]
@@ -17,16 +16,13 @@ public class RotationOnPivot : MonoBehaviour
     private float distanceFromRequiredAngle;
     private Transform selfTransform; 
 
-    private void Awake()
+    private void Start()
     {
         IsRotatable = false;
         selfTransform = transform;
 
         selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
-    }
 
-    private void Start()
-    {
         meshRenderer.material.color = Color.red;
     }
 

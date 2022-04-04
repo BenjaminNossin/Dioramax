@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class TouchDetection : MonoBehaviour
 {
     [SerializeField] private LayerMask interactableMask;
-    [SerializeField] private InteractableEntity placeholderFeedback;
+    // [SerializeField] private InteractableEntity placeholderFeedback;
 
     private Camera mainCam;
     private bool objectDetected;
