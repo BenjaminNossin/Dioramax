@@ -2,8 +2,7 @@ using UnityEngine;
 using System.Collections; 
 
 // Keep controls and gamefeel SEPARATE. 
-
-public enum TouchState { None, Tap, Hold, DoubleTap, Drag, Rotating, Zooming }
+public enum TouchState { None, Tap, Hold, DoubleTap, Drag, XYRotating, Zooming, ZRotating }
 
 public class Controls : MonoBehaviour
 {
@@ -56,7 +55,7 @@ public class Controls : MonoBehaviour
     {
         if (Input.touchCount < 2 && !touch1HasBeenUnregistered)
         {
-            if (currentState == TouchState.Zooming)
+            if (currentState == TouchState.Zooming || currentState == TouchState.ZRotating)
             {
                 Debug.Log("unregistering touch 1");
                 transitionningOutOfDoubleTouch = true;
@@ -118,7 +117,7 @@ public class Controls : MonoBehaviour
                             doubleTap = false;
 
                             cameraRotation.UpdateXYRotation(touch0Direction.normalized, currentTouchMoveForce);
-                            SetTouchState(TouchState.Rotating);
+                            SetTouchState(TouchState.XYRotating);
                         }
                         else if (FrameCount >= frameCountBeforeChangeState)
                         {
@@ -131,7 +130,7 @@ public class Controls : MonoBehaviour
 
                 if (Input.touches[0].phase == TouchPhase.Ended)
                 {
-                    // Debug.Log("none from mono touch ended");
+                    Debug.Log("none from mono touch ended");
                     transitionningOutOfDoubleTouch = false;
                     FrameCount = 0;
                     StartCoroutine(StopWaitingForDoubleTap()); 
@@ -153,7 +152,7 @@ public class Controls : MonoBehaviour
                     {
                         cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
                         SetPinchValue(false, false);
-                        SetTouchState(TouchState.Rotating);
+                        SetTouchState(TouchState.ZRotating);
                     }
                 }
                 // ZOOM IN/OUT 
