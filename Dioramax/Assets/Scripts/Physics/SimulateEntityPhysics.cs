@@ -14,6 +14,13 @@ public class SimulateEntityPhysics : MonoBehaviour, ISimulatePhysics
 
     public void Initialize()
     {
-        OnInitializePhysicsEntity(this, rb); 
+        try
+        {
+            OnInitializePhysicsEntity(this, rb);
+        }
+        catch(System.Exception e)
+        {
+            Debug.LogError(e.Message + "\n You may be lacking an EntityPhysicsController component on top of your diorama's hierarchy"); 
+        }
     }
 }

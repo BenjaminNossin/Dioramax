@@ -1,12 +1,20 @@
 using UnityEngine;
+using UnityEngine.Events;
 
+/// <summary>
+/// This script allows a camera to zoom in and out with a dynamic direction. 
+/// It uses translation instead of fov modification.
+/// Put it on the object with camera componenet, NOT the crane
+/// </summary>
 public class CameraZoom : MonoBehaviour
 {
     private Camera mainCam;
     [SerializeField, Range(15, 50)] private float maxZoomIn = 45;
     [SerializeField, Range (70, 120)] private float maxZoomOut = 70;
     [SerializeField, Range(0.5f, 5f)] private float zoomForceSensibility = 2.5f;
-    [SerializeField] private GameObject debugObject; 
+    [SerializeField, Range(10f, 50f)] private float moveSpeed = 10f;
+    private float currentMoveSpeed; 
+
 
     private Touch touchTop;
     private Touch touchBottom; 
@@ -20,7 +28,28 @@ public class CameraZoom : MonoBehaviour
     private Vector3 zoomPointStart;
     private Vector3 zoomPointEnd;
 
-    private float zoomValue; 
+    private float zoomValue;
+
+    // GAMEFEEL STILL WIP (need to check how far I am from min or max zoom value
+    [Header("Gamefeel")]
+    [SerializeField] CurveEvaluator gamefeelCurve;
+    private bool updateGamefeelCurve;
+
+    UnityAction OnEvaluationEndedCallback;
+
+    /* private void OnEnable()
+    {
+        Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
+        Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
+        OnEvaluationEndedCallback += SetToFalse;
+    }
+
+    private void OnDisable()
+    {
+        Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
+        Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
+        OnEvaluationEndedCallback -= SetToFalse;
+    } */
 
     private void Start()
     {
@@ -29,13 +58,23 @@ public class CameraZoom : MonoBehaviour
         zoomValue = mainCam.fieldOfView; 
     }
 
+    /* private void Update()
+    {
+        if (updateGamefeelCurve)
+        {
+            // Debug.Log("zoom gamefeel");
+            currentMoveSpeed = moveSpeed * gamefeelCurve.Evaluate(OnEvaluationEndedCallback); 
+            UpdatePinch(touchTop, touchBottom); // even more stupid to check tose again in the function..  
+        }
+    } */
+
     public void SetPinchRegisterValue(bool value)
     {
         zoomStartIsRegistered = value;
     }
 
-    private const float moveSpeed = 10f; 
-    public void UpdatePinch(Touch _touch0, Touch _touch1, out float topPosition)
+    private float topPosition; 
+    public void UpdatePinch(Touch _touch0, Touch _touch1)
     {
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
 
@@ -52,7 +91,6 @@ public class CameraZoom : MonoBehaviour
         }
 
         Vector3 middlePoint = Vector3.Lerp(touchTop.position, touchBottom.position, 0.5f);
-
         zoomPointEnd = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 10f)); 
         // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
         // use touchTop.deltaPosition : NO NEED FOR IF/ELSE
@@ -65,21 +103,25 @@ public class CameraZoom : MonoBehaviour
             canZoomOut = zoomValue < maxZoomOut; 
             if (zoomingOut)
             {
-                Debug.Log("zooming out");
                 if (canZoomOut)
                 {
                     zoomValue++;
 
-                    transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * moveSpeed; 
+                    transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * 
+                        (updateGamefeelCurve ? 
+                        currentMoveSpeed : 
+                        moveSpeed); 
                 }
             }
             else
             {
-                Debug.Log("zooming in");
                 if (canZoomIn)
                 {
                     zoomValue--;
-                    transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * moveSpeed;
+                    transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                        (updateGamefeelCurve ?
+                        currentMoveSpeed :
+                        moveSpeed);
                 }
             }
         }
