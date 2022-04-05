@@ -24,6 +24,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     UnityAction OnEvaluationEndedCallback;
 
     public static float ZRotation { get; set; }
+    public static float ZLocalRotation { get; set; }
     public static float ZAngleWithIdentityRotation { get; set; }
 
     [Header("Gamefeel")]
@@ -76,17 +77,15 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         }
     }
 
-    Vector3 rotationDirection;
+    Vector3 rotationDirection, localRotationAxis;
     float rotationForce;
     /// <summary>
     /// Move the parent along X and Y axis. If you want to only rotate the camera frame, use "UpdateZRotation instead
     /// </summary>
     /// <param name="rotationDirection">Direction of camera displacement, based on direction of swipe</param>
     /// <param name="rotationForce">The speed of displacement</param>
-    /// <returns>Wether the swipe force is greater than the sensibility settings. Otherwise, it won't rotate</returns>
     public void UpdateXYRotation(Vector3 _rotationDirection, float _rotationForce)
     {
-
         yxRotation = true;
         zRotation = false;
 
@@ -95,8 +94,8 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
         // to always get an axis that is 90° more than direction
         // rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); 
-        rotationAxis = new Vector2((rotationDirection.x * twoByTwoMatrix[1, 0]) - (rotationDirection.y * twoByTwoMatrix[1, 1]),
-                                   (rotationDirection.x * twoByTwoMatrix[0, 0]) + (rotationDirection.y * twoByTwoMatrix[0, 1])); 
+        rotationAxis = new Vector3((rotationDirection.x * twoByTwoMatrix[1, 0]) - (rotationDirection.y * twoByTwoMatrix[1, 1]),
+                                   (rotationDirection.x * twoByTwoMatrix[0, 0]) + (rotationDirection.y * twoByTwoMatrix[0, 1]));
 
         transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce); 
     }
@@ -131,10 +130,11 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         // cameraTransform.Rotate(cameraTransform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
 
         cameraTransform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
-        ZRotation = cameraTransform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
-        ZAngleWithIdentityRotation = ZRotation > 180f ?
-                             360f - ZRotation :
-                             ZRotation;
+        ZLocalRotation = cameraTransform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
+        ZRotation = cameraTransform.eulerAngles.z;
+        ZAngleWithIdentityRotation = ZLocalRotation > 180f ?
+                             360f - ZLocalRotation :
+                             ZLocalRotation;
     }
 
     private void InterruptPreviousCurveOnNewTouch()
