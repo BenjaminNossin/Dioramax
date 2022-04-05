@@ -47,14 +47,14 @@ public class RotationOnPivot : MonoBehaviour
             {
                 selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
                               Quaternion.identity :
-                              Quaternion.Euler(0f, 0f, DioravityCameraCraneRotation.ZRotation + initialZRotation);
+                              Quaternion.Euler(0f, 0f, DioravityCameraCraneRotation.ZLocalRotation + initialZRotation);
             }
             else
             {
                 for (int i = 0; i < snapAngleValues.Count; i++)
                 {
                     selfEulerAngles = selfTransform.eulerAngles.z;
-                    cameraToPivotRotation = Mathf.Repeat(DioravityCameraCraneRotation.ZRotation + initialZRotation, 360f); 
+                    cameraToPivotRotation = Mathf.Repeat(DioravityCameraCraneRotation.ZLocalRotation + initialZRotation, 360f); 
 
                     closest = snapAngleValues
                                     .OrderBy(n => Mathf.Abs(n - selfTransform.eulerAngles.z))
@@ -63,7 +63,7 @@ public class RotationOnPivot : MonoBehaviour
                     // WIP
                     selfTransform.localRotation = Mathf.Abs(cameraToPivotRotation - closest) <= snapValue ?
                               Quaternion.Euler(new Vector3(0f, 0f, closest)) :
-                              Quaternion.Euler(0f, 0f, DioravityCameraCraneRotation.ZRotation + initialZRotation); 
+                              Quaternion.Euler(0f, 0f, DioravityCameraCraneRotation.ZLocalRotation + initialZRotation); 
                 }
             }
         }
