@@ -8,11 +8,11 @@ public class CurveEvaluator : MonoBehaviour
 {
     [SerializeField] private AnimationCurve animCurve;
     [SerializeField, Range(0.25f, 4)] private float curveDuration = 2f;
-    public bool EvaluateCurve { get; private set; }
+    public bool EvaluateCurve { get; private set; } 
     private bool routineHasBeenCalled;
     private float time = -0.2f;
 
-    private UnityEvent gameFeelCurveEndEnvent = new UnityEvent(); 
+    private UnityEvent gameFeelCurveEndEnvent = new UnityEvent();
 
     /// <summary>
     /// Evaluates the animCurve component

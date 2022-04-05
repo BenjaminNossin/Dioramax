@@ -29,7 +29,7 @@ public class WinConditionController : MonoBehaviour
             entitiesToValidate[i] = new int[dioramaInfos.puzzleInfos[i].entitiesAmount];
             dioramaInfos.puzzleInfos[i].winConditionIsMet = false;
 
-            Debug.Log($"{dioramaInfos.puzzleInfos[i].puzzleName} is of size {dioramaInfos.puzzleInfos[i].entitiesAmount} and at index {i}");
+            //Debug.Log($"{dioramaInfos.puzzleInfos[i].puzzleName} is of size {dioramaInfos.puzzleInfos[i].entitiesAmount} and at index {i}");
             for (int j = 0; j < entitiesToValidate[i].Length; j++)
             {
                 entitiesToValidate[i][j] = 0;
@@ -39,7 +39,7 @@ public class WinConditionController : MonoBehaviour
 
     public void ValidateWinCondition(int array, int index)
     {
-        Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
+        //Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
 
         entitiesToValidate[array][index] = 1;
         dioramaInfos.puzzleInfos[array].winConditionIsMet = true;
@@ -54,13 +54,13 @@ public class WinConditionController : MonoBehaviour
 
         if (dioramaInfos.puzzleInfos[array].winConditionIsMet == true)
         {
-            Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
+            //Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
         }
     }
 
     public void InvalidateWinCondition(int array, int index)
     {
-        Debug.Log($"puzzle {(DioramaPuzzleName)array} has invalidated item n° {index + 1}");
+        //Debug.Log($"puzzle {(DioramaPuzzleName)array} has invalidated item n° {index + 1}");
 
         entitiesToValidate[array][index] = 0;
     }
