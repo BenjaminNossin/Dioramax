@@ -9,6 +9,8 @@ using UnityEngine.Events;
 public class DioravityCameraCraneRotation : MonoBehaviour
 {
     [SerializeField] private GameObject diorama;
+    [SerializeField] private Transform rotationAxis;
+
     [SerializeField] private Transform cameraTransform;
 
     [Space, SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
@@ -16,7 +18,6 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     [Space, SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
     public float RotationSensitivity { get; set; }
-    private Vector2 rotationAxis;
     private Touch touchTop;
 
     private bool yxRotation, zRotation;
@@ -65,40 +66,54 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         {
             if (yxRotation)
             {
-                Debug.Log("yx rotation gamefeel");
-                UpdateXYRotation(rotationDirection, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
+                // Debug.Log("yx rotation gamefeel");
+                UpdateXYRotation(swipeDirection, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
 
             if (zRotation)
             {
-                Debug.Log("z rotation gamefeel");
-                UpdateZRotation(touch0, touch1, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
+                // Debug.Log("z rotation gamefeel");
+                UpdateZRotation(touch0, touch1, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
         }
     }
 
-    Vector3 rotationDirection, localRotationAxis;
-    float rotationForce;
+    Vector3 swipeDirection, invertedSwipeDirection, finalRotationAxis; 
+    float swipeForce;
     /// <summary>
     /// Move the parent along X and Y axis. If you want to only rotate the camera frame, use "UpdateZRotation instead
     /// </summary>
     /// <param name="rotationDirection">Direction of camera displacement, based on direction of swipe</param>
     /// <param name="rotationForce">The speed of displacement</param>
-    public void UpdateXYRotation(Vector3 _rotationDirection, float _rotationForce)
+    public void UpdateXYRotation(Vector3 _swipeDirection, float _swipeForce)
     {
         yxRotation = true;
         zRotation = false;
 
-        rotationDirection = _rotationDirection;
-        rotationForce = _rotationForce;
+        swipeDirection = _swipeDirection;
+        swipeForce = _swipeForce;
 
         // to always get an axis that is 90° more than direction
         // rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); 
-        rotationAxis = new Vector3((rotationDirection.x * twoByTwoMatrix[1, 0]) - (rotationDirection.y * twoByTwoMatrix[1, 1]),
-                                   (rotationDirection.x * twoByTwoMatrix[0, 0]) + (rotationDirection.y * twoByTwoMatrix[0, 1]));
+        /* rotationAxis = new Vector3((rotationDirection.x * twoByTwoMatrix[1, 0]) - (rotationDirection.y * twoByTwoMatrix[1, 1]),
+                                   (rotationDirection.x * twoByTwoMatrix[0, 0]) + (rotationDirection.y * twoByTwoMatrix[0, 1])); */
 
-        transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce); 
-    }
+        // debugObj.transform.up = rotationAxis;
+
+        // transform.eulerAngles =  rotationForce * Time.deltaTime * XYForceMultiplier * new Vector3(-rotationDirection.y, rotationDirection.x, 0f);
+        // transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
+
+        // use swipe direction for default rotation axis
+        Vector3 defaultRotationAxis = new Vector2(swipeDirection.y, swipeDirection.x);
+
+        // further rotate that axis based on your camera Z angle
+        finalRotationAxis = Quaternion.AngleAxis(ZRotation, defaultRotationAxis) * finalRotationAxis;
+
+        // rotate aroudn that axis
+        transform.Rotate(new Vector2(finalRotationAxis.y, finalRotationAxis.x), 
+                         Time.fixedDeltaTime * swipeForce * XYForceMultiplier, 
+                         Space.Self);
+    }  
 
     Touch touch0, touch1;
     float topPosition;
@@ -115,7 +130,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
         touch0 = _touch0;
         touch1 = _touch1;
-        rotationForce = _rotationForce;
+        swipeForce = _rotationForce;
 
         // stupid to do this every frame. But how to keep reference to the arguments each frame ?
         if (topPosition == _touch0.position.y)
