@@ -60,7 +60,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void Update()
     {
-        twoByTwoMatrix = new float[,] { { Mathf.Cos(ZRotation), -Mathf.Sin(ZRotation) }, { Mathf.Sin(ZRotation), Mathf.Cos(ZRotation) } };
+        twoByTwoMatrix = new float[,] { { Mathf.Cos(ZRotation - 90f), -Mathf.Sin(ZRotation - 90f) }, { Mathf.Sin(ZRotation - 90f), Mathf.Cos(ZRotation - 90f) } };
 
         if (updateGamefeelCurve)
         {
@@ -78,8 +78,8 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         }
     }
 
-    Vector3 swipeDirection, invertedSwipeDirection, finalRotationAxis; 
-    float swipeForce;
+    Vector3 swipeDirection, finalRotationAxis, localAxis;
+    float swipeForce, _zRotation, _zAngleWithIdentityRotation, _zLocalRotation;   
     /// <summary>
     /// Move the parent along X and Y axis. If you want to only rotate the camera frame, use "UpdateZRotation instead
     /// </summary>
@@ -104,16 +104,28 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         // transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
 
         // use swipe direction for default rotation axis
-        Vector3 defaultRotationAxis = new Vector2(swipeDirection.y, swipeDirection.x);
+
+        // finalRotationAxis = Quaternion.AngleAxis(-90f + _zRotation, swipeDirection) * finalRotationAxis;
+
+        /* finalRotationAxis = new Vector3((swipeDirection.x * twoByTwoMatrix[1, 0]) - (swipeDirection.y * twoByTwoMatrix[1, 1]),
+                                       (swipeDirection.x * twoByTwoMatrix[0, 0]) + (swipeDirection.y * twoByTwoMatrix[0, 1])); */
 
         // further rotate that axis based on your camera Z angle
-        finalRotationAxis = Quaternion.AngleAxis(ZRotation, defaultRotationAxis) * finalRotationAxis;
 
         // rotate aroudn that axis
-        transform.Rotate(new Vector2(finalRotationAxis.y, finalRotationAxis.x), 
+        // rotationAxis.transform.up = finalRotationAxis;
+
+        rotationAxis.transform.up = new Vector3(-swipeDirection.y, swipeDirection.x);
+        rotationAxis.eulerAngles += new Vector3(0f, 0f, ZRotation); 
+
+        // vector -> angle. Si vers le haut -> -90
+
+        localAxis = transform.InverseTransformDirection(rotationAxis.transform.up);
+
+        transform.Rotate(localAxis, 
                          Time.fixedDeltaTime * swipeForce * XYForceMultiplier, 
-                         Space.Self);
-    }  
+                         Space.Self); 
+    }
 
     Touch touch0, touch1;
     float topPosition;
@@ -122,7 +134,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     /// </summary>
     /// <param name="topDirection">The direction of swipe from the top finger, usually the index</param>
     /// <param name="bottomDirection">The direction of swipe from the thumb</param>
-    public void UpdateZRotation(Touch _touch0, Touch _touch1, float _rotationForce)
+    public void UpdateZRotation(Touch _touch0, Touch _touch1, float _swipeForce)
     {
         yxRotation = false;
         zRotation = true;
@@ -130,7 +142,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
         touch0 = _touch0;
         touch1 = _touch1;
-        swipeForce = _rotationForce;
+        swipeForce = _swipeForce;
 
         // stupid to do this every frame. But how to keep reference to the arguments each frame ?
         if (topPosition == _touch0.position.y)
@@ -144,13 +156,19 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
         // cameraTransform.Rotate(cameraTransform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
 
-        cameraTransform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
-        ZLocalRotation = cameraTransform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
-        ZRotation = cameraTransform.eulerAngles.z;
+        // cameraTransform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
+        transform.eulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _swipeForce * MathF.Sign(touchTop.deltaPosition.x));
+
+        ZLocalRotation = transform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
+        ZRotation = Mathf.Atan2(new Vector3(0f, 1f, 0f).y, transform.up.x) * Mathf.Rad2Deg;
         ZAngleWithIdentityRotation = ZLocalRotation > 180f ?
                              360f - ZLocalRotation :
                              ZLocalRotation;
-    }
+
+        _zRotation = ZRotation;
+        _zAngleWithIdentityRotation = ZAngleWithIdentityRotation;
+        _zLocalRotation = ZLocalRotation;
+    } 
 
     private void InterruptPreviousCurveOnNewTouch()
     {
