@@ -126,16 +126,13 @@ public class DioravityCameraCraneRotation : MonoBehaviour
             touchTop = _touch1;
         }
 
-        // cameraTransform.Rotate(cameraTransform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
-
-        // cameraTransform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
         transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _swipeForce * MathF.Sign(touchTop.deltaPosition.x));
 
         ZLocalRotation = transform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
         ZRotation = transform.eulerAngles.z;
         ZAngleWithIdentityRotation = ZLocalRotation > 180f ?
                              ZLocalRotation - 360f:
-                             ZLocalRotation;
+                             ZLocalRotation; 
 
         _zRotation = ZRotation;
         _zAngleWithIdentityRotation = ZAngleWithIdentityRotation;
