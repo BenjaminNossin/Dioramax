@@ -93,39 +93,11 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         swipeDirection = _swipeDirection;
         swipeForce = _swipeForce;
 
-        // to always get an axis that is 90° more than direction
-        // rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); 
-        /* rotationAxis = new Vector3((rotationDirection.x * twoByTwoMatrix[1, 0]) - (rotationDirection.y * twoByTwoMatrix[1, 1]),
-                                   (rotationDirection.x * twoByTwoMatrix[0, 0]) + (rotationDirection.y * twoByTwoMatrix[0, 1])); */
-
-        // debugObj.transform.up = rotationAxis;
-
-        // transform.eulerAngles =  rotationForce * Time.deltaTime * XYForceMultiplier * new Vector3(-rotationDirection.y, rotationDirection.x, 0f);
-        // transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
-
-        // use swipe direction for default rotation axis
-
-        // finalRotationAxis = Quaternion.AngleAxis(-90f + _zRotation, swipeDirection) * finalRotationAxis;
-
-        /* finalRotationAxis = new Vector3((swipeDirection.x * twoByTwoMatrix[1, 0]) - (swipeDirection.y * twoByTwoMatrix[1, 1]),
-                                       (swipeDirection.x * twoByTwoMatrix[0, 0]) + (swipeDirection.y * twoByTwoMatrix[0, 1])); */
-
-        // further rotate that axis based on your camera Z angle
-
-        // rotate aroudn that axis
-        // rotationAxis.transform.up = finalRotationAxis;
-
-        rotationAxis.transform.up = new Vector3(-swipeDirection.y, swipeDirection.x);
-        rotationAxis.eulerAngles += new Vector3(0f, 0f, ZRotation); 
-
-        // vector -> angle. Si vers le haut -> -90
-
-        localAxis = transform.InverseTransformDirection(rotationAxis.transform.up);
-
-        transform.Rotate(localAxis, 
+        // rotate LOCAL based on WORLD direction of swipe
+        transform.Rotate(new Vector2(-swipeDirection.y, swipeDirection.x), 
                          Time.fixedDeltaTime * swipeForce * XYForceMultiplier, 
                          Space.Self); 
-    }
+    } 
 
     Touch touch0, touch1;
     float topPosition;
@@ -157,12 +129,12 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         // cameraTransform.Rotate(cameraTransform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
 
         // cameraTransform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
-        transform.eulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _swipeForce * MathF.Sign(touchTop.deltaPosition.x));
+        transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _swipeForce * MathF.Sign(touchTop.deltaPosition.x));
 
         ZLocalRotation = transform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
-        ZRotation = Mathf.Atan2(new Vector3(0f, 1f, 0f).y, transform.up.x) * Mathf.Rad2Deg;
+        ZRotation = transform.eulerAngles.z;
         ZAngleWithIdentityRotation = ZLocalRotation > 180f ?
-                             360f - ZLocalRotation :
+                             ZLocalRotation - 360f:
                              ZLocalRotation;
 
         _zRotation = ZRotation;
