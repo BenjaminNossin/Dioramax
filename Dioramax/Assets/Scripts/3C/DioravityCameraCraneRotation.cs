@@ -9,9 +9,6 @@ using UnityEngine.Events;
 public class DioravityCameraCraneRotation : MonoBehaviour
 {
     [SerializeField] private GameObject diorama;
-    [SerializeField] private Transform rotationAxis;
-
-    [SerializeField] private Transform cameraTransform;
 
     [Space, SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
     [SerializeField, Range(3f, 12f)] private float ZForceMultiplier = 8f;
@@ -51,7 +48,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         OnEvaluationEndedCallback -= SetToFalse;
     }
 
-    private float[,] twoByTwoMatrix;
+
     private void Start()
     {
         transform.position = diorama.transform.position; // TODO : set dynamically at the start of a level
@@ -60,8 +57,6 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void Update()
     {
-        twoByTwoMatrix = new float[,] { { Mathf.Cos(ZRotation - 90f), -Mathf.Sin(ZRotation - 90f) }, { Mathf.Sin(ZRotation - 90f), Mathf.Cos(ZRotation - 90f) } };
-
         if (updateGamefeelCurve)
         {
             if (yxRotation)
@@ -78,8 +73,8 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         }
     }
 
-    Vector3 swipeDirection, finalRotationAxis, localAxis;
-    float swipeForce, _zRotation, _zAngleWithIdentityRotation, _zLocalRotation;   
+    Vector3 swipeDirection;
+    float swipeForce;   
     /// <summary>
     /// Move the parent along X and Y axis. If you want to only rotate the camera frame, use "UpdateZRotation instead
     /// </summary>
@@ -133,10 +128,6 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         ZAngleWithIdentityRotation = ZLocalRotation > 180f ?
                              ZLocalRotation - 360f:
                              ZLocalRotation; 
-
-        _zRotation = ZRotation;
-        _zAngleWithIdentityRotation = ZAngleWithIdentityRotation;
-        _zLocalRotation = ZLocalRotation;
     } 
 
     private void InterruptPreviousCurveOnNewTouch()
@@ -161,7 +152,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         updateGamefeelCurve = false;
     }
 
-    // do a smooth lerp 
+    // TODO : smooth lerp 
     private void SetCameraRotationOnDoubleTap(Vector3 newCameraRotation)
     {
         transform.rotation = Quaternion.Euler(newCameraRotation); 
