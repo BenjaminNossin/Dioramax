@@ -9,8 +9,8 @@ using UnityEngine.Events;
 public class CameraZoom : MonoBehaviour
 {
     private Camera mainCam;
-    [SerializeField, Range(15, 50)] private float maxZoomIn = 45;
-    [SerializeField, Range (70, 120)] private float maxZoomOut = 70;
+    [SerializeField, Range(5, 50)] private float maxZoomIn = 45;
+    [SerializeField, Range (70, 150)] private float maxZoomOut = 70;
     [SerializeField, Range(0.5f, 5f)] private float zoomForceSensibility = 2.5f;
     [SerializeField, Range(10f, 50f)] private float moveSpeed = 10f;
     private float currentMoveSpeed; 

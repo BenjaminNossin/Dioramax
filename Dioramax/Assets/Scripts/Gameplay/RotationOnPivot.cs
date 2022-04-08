@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 
 public class RotationOnPivot : MonoBehaviour
 {
@@ -20,10 +19,6 @@ public class RotationOnPivot : MonoBehaviour
     private float distanceFromRequiredAngle;
     private Transform selfTransform;
 
-    // DEBUG
-    private float closest;
-    private float selfEulerAngles;
-
     private void Start()
     {
         IsLocked = false;
@@ -34,36 +29,26 @@ public class RotationOnPivot : MonoBehaviour
         meshRenderer.material.color = Color.red;
     }
 
-    private float cameraToPivotRotation;
     private void Update()
     {
         winCondition.UpdateWinCondition(selfTransform.localRotation == Quaternion.identity);
 
-        if (!IsLocked)
+        if (IsLocked) return; 
+
+        distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
+
+        // rotate by using the inverse of camera rotation
+        selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
+                                      Quaternion.identity :
+                                      Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
+
+        if (multiSnapAngles)
         {
-            distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
-
-            if (!multiSnapAngles)
+            for (int i = 0; i < snapAngleValues.Count; i++)
             {
-                selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
-                              Quaternion.identity :
-                              Quaternion.Euler(0f, 0f, DioravityCameraCraneRotation.ZLocalRotation + initialZRotation);
-            }
-            else
-            {
-                for (int i = 0; i < snapAngleValues.Count; i++)
+                if (Mathf.Abs(selfTransform.localEulerAngles.z - snapAngleValues[i]) <= snapValue)
                 {
-                    selfEulerAngles = selfTransform.eulerAngles.z;
-                    cameraToPivotRotation = Mathf.Repeat(DioravityCameraCraneRotation.ZLocalRotation + initialZRotation, 360f); 
-
-                    closest = snapAngleValues
-                                    .OrderBy(n => Mathf.Abs(n - selfTransform.eulerAngles.z))
-                                    .First();
-
-                    // WIP
-                    selfTransform.localRotation = Mathf.Abs(cameraToPivotRotation - closest) <= snapValue ?
-                              Quaternion.Euler(new Vector3(0f, 0f, closest)) :
-                              Quaternion.Euler(0f, 0f, DioravityCameraCraneRotation.ZLocalRotation + initialZRotation); 
+                    selfTransform.localRotation = Quaternion.Euler(0f, 0f, snapAngleValues[i]);
                 }
             }
         }
