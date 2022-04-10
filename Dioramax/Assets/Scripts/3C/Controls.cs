@@ -131,7 +131,7 @@ public class Controls : MonoBehaviour
                     }
                     else if (Input.touches[0].phase == TouchPhase.Ended)
                     {
-                        Debug.Log("none from mono touch ended");
+                        // Debug.Log("mono touch ended");
                         transitionningOutOfDoubleTouch = false;
                         FrameCount = 0;
                         StartCoroutine(StopWaitingForDoubleTap());
