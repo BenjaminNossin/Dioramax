@@ -9,22 +9,20 @@ using UnityEngine.Events;
 public class DioravityCameraCraneRotation : MonoBehaviour
 {
     [SerializeField] private GameObject diorama;
-    [SerializeField] private Transform cameraTransform;
 
     [Space, SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
     [SerializeField, Range(3f, 12f)] private float ZForceMultiplier = 8f;
 
     [Space, SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
     public float RotationSensitivity { get; set; }
-    private Vector2 rotationAxis;
     private Touch touchTop;
 
     private bool yxRotation, zRotation;
 
     UnityAction OnEvaluationEndedCallback;
-    private float toucheMoveForceOnEnded;
 
     public static float ZRotation { get; set; }
+    public static float ZLocalRotation { get; set; }
     public static float ZAngleWithIdentityRotation { get; set; }
 
     [Header("Gamefeel")]
@@ -36,17 +34,20 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     {
         Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
-        OnEvaluationEndedCallback += SetToFalse;
         TouchDetection.OnDoubleTapDetection += SetCameraRotationOnDoubleTap;
+
+        OnEvaluationEndedCallback += SetToFalse;
     }
 
     private void OnDisable()
     {
         Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
-        OnEvaluationEndedCallback -= SetToFalse;
         TouchDetection.OnDoubleTapDetection -= SetCameraRotationOnDoubleTap;
+
+        OnEvaluationEndedCallback -= SetToFalse;
     }
+
 
     private void Start()
     {
@@ -54,44 +55,44 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         RotationSensitivity = rotationSensitivity;
     }
 
-    private float forceDebugFloat;
     private void Update()
     {
         if (updateGamefeelCurve)
         {
             if (yxRotation)
             {
-                //Debug.Log("yx rotation gamefeel");
-                UpdateXYRotation(rotationDirection, rotationForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
+                // Debug.Log("yx rotation gamefeel");
+                UpdateXYRotation(swipeDirection, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
-            else if (zRotation)
+
+            if (zRotation)
             {
-                //Debug.Log("z rotation gamefeel");
-                UpdateZRotation(touch0, touch1, rotationForce);
+                // Debug.Log("z rotation gamefeel");
+                UpdateZRotation(touch0, touch1, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
         }
     }
 
-    Vector3 rotationDirection;
-    float rotationForce;
+    Vector3 swipeDirection;
+    float swipeForce;   
     /// <summary>
     /// Move the parent along X and Y axis. If you want to only rotate the camera frame, use "UpdateZRotation instead
     /// </summary>
     /// <param name="rotationDirection">Direction of camera displacement, based on direction of swipe</param>
     /// <param name="rotationForce">The speed of displacement</param>
-    /// <returns>Wether the swipe force is greater than the sensibility settings. Otherwise, it won't rotate</returns>
-    public void UpdateXYRotation(Vector3 _rotationDirection, float _rotationForce)
+    public void UpdateXYRotation(Vector3 _swipeDirection, float _swipeForce)
     {
         yxRotation = true;
         zRotation = false;
 
-        rotationDirection = _rotationDirection;
-        rotationForce = _rotationForce;
+        swipeDirection = _swipeDirection;
+        swipeForce = _swipeForce;
 
-        // to always get an axis that is 90� more than direction
-        rotationAxis = new Vector2(-rotationDirection.y, rotationDirection.x); // -y
-        transform.Rotate(rotationAxis, Time.deltaTime * XYForceMultiplier * rotationForce);
-    }
+        // rotate LOCAL based on WORLD direction of swipe
+        transform.Rotate(new Vector2(-swipeDirection.y, swipeDirection.x), 
+                         Time.fixedDeltaTime * swipeForce * XYForceMultiplier, 
+                         Space.Self); 
+    } 
 
     Touch touch0, touch1;
     float topPosition;
@@ -100,7 +101,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     /// </summary>
     /// <param name="topDirection">The direction of swipe from the top finger, usually the index</param>
     /// <param name="bottomDirection">The direction of swipe from the thumb</param>
-    public void UpdateZRotation(Touch _touch0, Touch _touch1, float _rotationForce)
+    public void UpdateZRotation(Touch _touch0, Touch _touch1, float _swipeForce)
     {
         yxRotation = false;
         zRotation = true;
@@ -108,7 +109,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
         touch0 = _touch0;
         touch1 = _touch1;
-        rotationForce = _rotationForce;
+        swipeForce = _swipeForce;
 
         // stupid to do this every frame. But how to keep reference to the arguments each frame ?
         if (topPosition == _touch0.position.y)
@@ -120,14 +121,14 @@ public class DioravityCameraCraneRotation : MonoBehaviour
             touchTop = _touch1;
         }
 
-        // cameraTransform.Rotate(cameraTransform.forward, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
+        transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _swipeForce * MathF.Sign(touchTop.deltaPosition.x));
 
-        cameraTransform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _rotationForce * MathF.Sign(touchTop.deltaPosition.x));
-        ZRotation = cameraTransform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
-        ZAngleWithIdentityRotation = ZRotation > 180f ?
-                             360f - ZRotation :
-                             ZRotation;
-    }
+        ZLocalRotation = transform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
+        ZRotation = transform.eulerAngles.z;
+        ZAngleWithIdentityRotation = ZLocalRotation > 180f ?
+                             ZLocalRotation - 360f:
+                             ZLocalRotation; 
+    } 
 
     private void InterruptPreviousCurveOnNewTouch()
     {
@@ -139,7 +140,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void TriggerGamefeelCurveOnInputStateChange(TouchState previous)
     {
-        if (previous == TouchState.Rotating)
+        if (previous == TouchState.XYRotating) // OR zoom 
         {
             updateGamefeelCurve = true;
         }
@@ -151,7 +152,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         updateGamefeelCurve = false;
     }
 
-    // do a smooth lerp 
+    // TODO : smooth lerp 
     private void SetCameraRotationOnDoubleTap(Vector3 newCameraRotation)
     {
         transform.rotation = Quaternion.Euler(newCameraRotation); 

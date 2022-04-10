@@ -2,8 +2,7 @@ using UnityEngine;
 using System.Collections; 
 
 // Keep controls and gamefeel SEPARATE. 
-
-public enum TouchState { None, Tap, Hold, DoubleTap, Drag, Rotating, Zooming }
+public enum TouchState { None, Tap, Hold, DoubleTap, Drag, XYRotating, Zooming, ZRotating }
 
 public class Controls : MonoBehaviour
 {
@@ -56,9 +55,8 @@ public class Controls : MonoBehaviour
     {
         if (Input.touchCount < 2 && !touch1HasBeenUnregistered)
         {
-            if (currentState == TouchState.Zooming)
+            if (currentState == TouchState.Zooming || currentState == TouchState.ZRotating)
             {
-                Debug.Log("unregistering touch 1");
                 transitionningOutOfDoubleTouch = true;
                 SetPinchValue(true, false);
             }
@@ -66,11 +64,15 @@ public class Controls : MonoBehaviour
 
         if (transitionningOutOfDoubleTouch)
         {
+            Debug.Log("out of double touch frames"); 
             outOfDoubleTouchFrames++; 
 
-            if (outOfDoubleTouchFrames >= 30)
+            if (outOfDoubleTouchFrames >= 10)
             {
-                transitionningOutOfDoubleTouch = false; 
+                outOfDoubleTouchFrames = 0;
+                transitionningOutOfDoubleTouch = false;
+                FrameCount = 0;
+                SetTouchState(TouchState.None);
             }
         }
 
@@ -118,7 +120,7 @@ public class Controls : MonoBehaviour
                             doubleTap = false;
 
                             cameraRotation.UpdateXYRotation(touch0Direction.normalized, currentTouchMoveForce);
-                            SetTouchState(TouchState.Rotating);
+                            SetTouchState(TouchState.XYRotating);
                         }
                         else if (FrameCount >= frameCountBeforeChangeState)
                         {
@@ -127,17 +129,16 @@ public class Controls : MonoBehaviour
                             SetTouchState(TouchState.Hold);
                         }
                     }
+                    else if (Input.touches[0].phase == TouchPhase.Ended)
+                    {
+                        // Debug.Log("mono touch ended");
+                        transitionningOutOfDoubleTouch = false;
+                        FrameCount = 0;
+                        StartCoroutine(StopWaitingForDoubleTap());
+                        SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
+                        OnTouchEnded(PreviousState); // was I zooming or rotating ? 
+                    }
                 }                               
-
-                if (Input.touches[0].phase == TouchPhase.Ended)
-                {
-                    // Debug.Log("none from mono touch ended");
-                    transitionningOutOfDoubleTouch = false;
-                    FrameCount = 0;
-                    StartCoroutine(StopWaitingForDoubleTap()); 
-                    SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
-                    OnTouchEnded(PreviousState); // was I zooming or rotating ? 
-                }
             }
             // TOO ACCURATE. A single pixel-sized movement is enough -> feels like glitching when you put your fingers on the screen
             else if (Input.touchCount == 2)
@@ -153,7 +154,7 @@ public class Controls : MonoBehaviour
                     {
                         cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
                         SetPinchValue(false, false);
-                        SetTouchState(TouchState.Rotating);
+                        SetTouchState(TouchState.ZRotating);
                     }
                 }
                 // ZOOM IN/OUT 
@@ -169,13 +170,6 @@ public class Controls : MonoBehaviour
                     SetTouchState(TouchState.Hold);
                 }
             }
-        }
-        else if (transitionningOutOfDoubleTouch)
-        {
-            // Debug.Log("none from out of double touch");
-            transitionningOutOfDoubleTouch = false;
-            FrameCount = 0;
-            SetTouchState(TouchState.None);
         }
     }
 

@@ -25,15 +25,20 @@ public class InteractableEntityRemote : InteractableEntity
         OnChangeStateEvent.AddListener(OnChangeStateCallback);
     }
 
+    private bool swappingBack; 
     public override void ChangeColor()
     {
         base.ChangeColor();
-        OnChangeStateEvent.Invoke(new int[5] { 1, 1, 1, 1, 1 });
+
+        swappingBack = false;
+        OnChangeStateEvent.Invoke(new int[5] { 0, 0, 0, 0, 0 }); // is locked = false for all by default
     }
 
     public override void SwapOrChangeBack(bool swap, int[] remoteChangeArray = null)
     {
         base.SwapOrChangeBack(swap, remoteChangeArray);
+
+        swappingBack = true;
         OnChangeStateEvent.Invoke(remoteChangeArray ?? swapArray);
     }
 
@@ -41,10 +46,23 @@ public class InteractableEntityRemote : InteractableEntity
     {
         for (int i = 0; i < entitiesMeshRenderers.Length; i++)
         {
-            entitiesMeshRenderers[i].material.color = sharedEntitiesWithCurrent[i] == 1 ? Color.blue : Color.red;
-            rotationOnPivots[i].IsRotatable = sharedEntitiesWithCurrent[i] == 1;
+            if (!swappingBack)
+            {
+                // int newValue = SwapOneAndZero(sharedEntitiesWithCurrent[i]);
+                rotationOnPivots[i].IsLocked = !rotationOnPivots[i].IsLocked;
+                Debug.Log($"inverted value is now {rotationOnPivots[i].IsLocked} for {gameObject}");
+            }
+            else
+            {
+                rotationOnPivots[i].IsLocked = sharedEntitiesWithCurrent[i] == 1;
+                Debug.Log($"swapped back value is now {rotationOnPivots[i].IsLocked} for {gameObject}");
+            }
+
+            entitiesMeshRenderers[i].material.color = rotationOnPivots[i].IsLocked ? Color.blue : Color.red;
         }
     }
 
+    private int SwapOneAndZero(int value) => value == 1 ? 0 : 1;
+    private bool IntToBool(int value) => value == 1; 
 }
 
