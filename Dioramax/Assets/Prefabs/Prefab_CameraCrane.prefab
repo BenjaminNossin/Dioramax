@@ -29,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3533724392168430062}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -87,7 +87,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3533724392168430062}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &3533724392168430050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   maxZoomIn: 45
   maxZoomOut: 70
   zoomForceSensibility: 2.5
-  moveSpeed: 10
+  moveSpeed: 20
   gamefeelCurve: {fileID: 3533724393244289011}
 --- !u!1 &3533724393244289020
 GameObject:
@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diorama: {fileID: 0}
+  rotationAxis: {fileID: 0}
   cameraTransform: {fileID: 3533724392168430061}
   XYForceMultiplier: 3
   ZForceMultiplier: 5
