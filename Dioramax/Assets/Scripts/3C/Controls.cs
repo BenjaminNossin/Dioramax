@@ -10,9 +10,7 @@ public class Controls : MonoBehaviour
     [SerializeField] private DioravityCameraCraneRotation cameraRotation;
     [SerializeField] private CameraZoom cameraZoom;
     [SerializeField] private TouchDetection touchDetection;
-    [SerializeField, 
-        Tooltip("How much frames before a finger on screen is considered a hold"), Range(0, 20)] 
-    private int frameCountBeforeChangeState = 15; // no gameplay usage for now, just transition logic
+
     [SerializeField] private Camera mainCam;
     [SerializeField, Range(0.15f, 0.75f)] private float doubleTapWaitDelay = 0.35f;
     private SwipDirection swipeDirection; 
@@ -48,7 +46,9 @@ public class Controls : MonoBehaviour
     private bool transitionningOutOfDoubleTouch;
     private int outOfDoubleTouchFrames;
 
-    // DEBUG
+    private const byte FRAMES_DELAY_TO_HOLD = 15; 
+
+    #region DOUBLE TOUCH
     private float currentAngle, previousAngle; 
     private Vector2 middlePoint;
     private bool middlePointIsSet;
@@ -57,8 +57,14 @@ public class Controls : MonoBehaviour
     private int doubleTouchFrameCount;
     private bool canDoZRotation;
     private int zoomAngleFrameCount;
-    private bool directionOnZoomStartIsSet;
-    private float angleDifference; 
+    private bool directionOnUpdatedZoom;
+    private float angleDifference;
+    private const float CAMERA_SENSIBILITY = 5f;
+    private const byte FRAME_DELAY = 5;
+    private const float ZOOM_TO_ROTATION_THRESHOLD = 15f;
+    private const float UPDATED_ZOOM_THRESHOLD = 0.8f;
+    private const byte OUT_OF_DOUBLETOUCH_FRAME_DELAY = 10; 
+    #endregion
 
     private void Awake()
     {
@@ -67,16 +73,18 @@ public class Controls : MonoBehaviour
 
     private void LateUpdate()
     {
+        // Do Once
         if (Input.touchCount < 2 && !touch1HasBeenUnregistered)
         {
             if (currentState == TouchState.Zooming || currentState == TouchState.ZRotating)
             {
+                transitionningOutOfDoubleTouch = true;
+
                 middlePointIsSet = false;
                 canDoZRotation = false; 
                 doubleTouchFrameCount = 0;
                 zoomAngleFrameCount = 0; 
-                transitionningOutOfDoubleTouch = true;
-                directionOnZoomStartIsSet = false;
+                directionOnUpdatedZoom = false;
                 SetPinchValue(true, false);
             }
         }
@@ -86,10 +94,11 @@ public class Controls : MonoBehaviour
             // Debug.Log("out of double touch frames"); 
             outOfDoubleTouchFrames++; 
 
-            if (outOfDoubleTouchFrames >= 10)
+            if (outOfDoubleTouchFrames >= OUT_OF_DOUBLETOUCH_FRAME_DELAY)
             {
-                outOfDoubleTouchFrames = 0;
                 transitionningOutOfDoubleTouch = false;
+
+                outOfDoubleTouchFrames = 0;
                 FrameCount = 0;
                 SetTouchState(TouchState.None);
             }
@@ -103,71 +112,69 @@ public class Controls : MonoBehaviour
             {
                 FrameCount++;
 
-                if (!transitionningOutOfDoubleTouch)
+                if (transitionningOutOfDoubleTouch) return;
+
+                if (currentTouch0.phase == TouchPhase.Began)
                 {
-                    if (currentTouch0.phase == TouchPhase.Began)
+                    StopCoroutine(StopWaitingForDoubleTap());
+                    OnTouchStarted();
+                    cameraPosition = mainCam.transform.position;
+                    SetTouchState(TouchState.Tap);
+
+                    // if something detected, enter swipe and NOT rotating state
+                    if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition, doubleTap))
                     {
-                        StopCoroutine(StopWaitingForDoubleTap());
-                        OnTouchStarted();
-                        cameraPosition = mainCam.transform.position;
-                        SetTouchState(TouchState.Tap);
-
-                        // if something detected, enter swipe and NOT rotating state
-                        if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition, doubleTap))
-                        {
-                            SetTouchState(TouchState.Drag);
-                        }
-
-                        doubleTap = true;
-                        // Debug.Log("touch state is " + touchState);
+                        SetTouchState(TouchState.Drag);
                     }
-                    else if (currentTouch0.phase == TouchPhase.Stationary)
-                    {
-                        if (FrameCount >= frameCountBeforeChangeState)
-                        {
-                            // Debug.Log("transition to Hold state");
-                            doubleTap = false;
-                            SetTouchState(TouchState.Hold);
-                        }
-                    }
-                    else if (currentTouch0.phase == TouchPhase.Moved)
-                    {
-                        // all of this because Input.touches[1] sends wrong data from time to time..
-                        if (currentTouchMoveForce >= cameraRotation.RotationSensitivity)
-                        {
-                            // Debug.Log("not swiping. State is now Rotating");
-                            doubleTap = false;
 
-                            cameraRotation.UpdateXYRotation(touch0Direction.normalized, currentTouchMoveForce);
-                            SetTouchState(TouchState.XYRotating);
-                        }
-                        else if (FrameCount >= frameCountBeforeChangeState)
-                        {
-                            doubleTap = false;
-
-                            SetTouchState(TouchState.Hold);
-                        }
-                    }
-                    else if (Input.touches[0].phase == TouchPhase.Ended)
+                    doubleTap = true;
+                    // Debug.Log("touch state is " + touchState);
+                }
+                else if (currentTouch0.phase == TouchPhase.Stationary)
+                {
+                    if (FrameCount >= FRAMES_DELAY_TO_HOLD)
                     {
-                        // Debug.Log("mono touch ended");
-                        transitionningOutOfDoubleTouch = false;
-                        FrameCount = 0;
-                        StartCoroutine(StopWaitingForDoubleTap());
-                        SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
-                        OnTouchEnded(PreviousState); // was I zooming or rotating ? 
+                        // Debug.Log("transition to Hold state");
+                        doubleTap = false;
+                        SetTouchState(TouchState.Hold);
                     }
                 }
+                else if (currentTouch0.phase == TouchPhase.Moved)
+                {
+                    // all of this because Input.touches[1] sends wrong data from time to time..
+                    if (currentTouchMoveForce >= cameraRotation.RotationSensitivity)
+                    {
+                        // Debug.Log("not swiping. State is now Rotating");
+                        doubleTap = false;
+
+                        cameraRotation.UpdateXYRotation(touch0Direction.normalized, currentTouchMoveForce);
+                        SetTouchState(TouchState.XYRotating);
+                    }
+                    else if (FrameCount >= FRAMES_DELAY_TO_HOLD)
+                    {
+                        doubleTap = false;
+
+                        SetTouchState(TouchState.Hold);
+                    }
+                }
+                else if (Input.touches[0].phase == TouchPhase.Ended)
+                {
+                    // Debug.Log("mono touch ended");
+                    transitionningOutOfDoubleTouch = false;
+                    FrameCount = 0;
+                    StartCoroutine(StopWaitingForDoubleTap());
+                    SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
+                    OnTouchEnded(PreviousState);  
+                }
             }
-            // TOO ACCURATE. A single pixel-sized movement is enough -> feels like glitching when you put your fingers on the screen
             else if (Input.touchCount == 2)
             {
                 FrameCount = 0; // can't do it from .Ended because of API sometimes sending weird data from Input.Touches[1].Phase
                 doubleTap = false;
 
-                if (currentTouchMoveForce >= 5f) // BAD : hardcoded -> const sensibility
+                if (currentTouchMoveForce >= CAMERA_SENSIBILITY)
                 {
-                    doubleTouchFrameCount++; 
+                    doubleTouchFrameCount++;
                     if (!middlePointIsSet)
                     {
                         middlePointIsSet = true;
@@ -177,23 +184,23 @@ public class Controls : MonoBehaviour
                     }
 
                     currentAngle = Vector2.Angle(Touch0DirectionOnZoomStart, (currentTouch0.position - middlePoint).normalized);
-                    angleDifference = Mathf.Abs(currentAngle - previousAngle); 
-                    // Debug.Log($"angle : " + angle);
+                    angleDifference = Mathf.Abs(currentAngle - previousAngle);
+                    // Debug.Log($"current angle : " + currentAngle);
 
-                    if (doubleTouchFrameCount < 5) return;
-                    Debug.Log("angle difference : " + angleDifference);
+                    if (doubleTouchFrameCount < FRAME_DELAY) return;
+                    // Debug.Log("angle difference : " + angleDifference);
 
-                    if (currentAngle <= 15f || angleDifference <= 0.8f) // BAD : hardcoded -> const zoom to ZRotation threshold
+                    if (currentAngle <= ZOOM_TO_ROTATION_THRESHOLD || angleDifference <= UPDATED_ZOOM_THRESHOLD)
                     {
-                        if (!directionOnZoomStartIsSet)
+                        if (!directionOnUpdatedZoom)
                         {
-                            directionOnZoomStartIsSet = true;
-                            Touch0DirectionOnZoomStart = (currentTouch0.position - middlePoint).normalized; 
+                            directionOnUpdatedZoom = true;
+                            Touch0DirectionOnZoomStart = (currentTouch0.position - middlePoint).normalized;
                         }
                         // Debug.Log("zooming");
                         zoomAngleFrameCount++;
 
-                        if (zoomAngleFrameCount < 5) return; 
+                        if (zoomAngleFrameCount < FRAME_DELAY) return;
 
                         SetTouchState(TouchState.Zooming);
                         cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
@@ -203,7 +210,7 @@ public class Controls : MonoBehaviour
                     {
                         canDoZRotation = true;
                         zoomAngleFrameCount = 0;
-                        directionOnZoomStartIsSet = false; 
+                        directionOnUpdatedZoom = false;
 
                         if (canDoZRotation)
                         {
@@ -235,7 +242,6 @@ public class Controls : MonoBehaviour
         previousState = PreviousState;
         currentState = CurrentState;
     }
-
 
     private void UpdateTouch(int touchCount)
     {
