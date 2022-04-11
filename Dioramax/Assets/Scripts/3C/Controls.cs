@@ -32,23 +32,24 @@ public class Controls : MonoBehaviour
 
     private float currentTouchMoveForce;
 
-    private bool touch1HasBeenUnregistered = true; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
-                                                   // but maybe there is a better solution
-
     private bool doubleTap;
 
-    // REFACTORING : uncouple this system (gamefeel) from 3C
     private int FrameCount { get; set; }
+
+    // REFACTORING : uncouple this system (gamefeel) from 3C
+    #region Gamefeel 
     public static System.Action OnTouchStarted { get; set; }
     public static System.Action<TouchState> OnTouchEnded { get; set; }
+    #endregion
 
     // custom logic for Input.Touch[1].phase == TouchPhase.Ended because unity's does not work all the time
-    private bool transitionningOutOfDoubleTouch;
-    private int outOfDoubleTouchFrames;
-
-    private const byte FRAMES_DELAY_TO_HOLD = 15; 
+    private const byte FRAMES_DELAY_TO_HOLD = 15;
 
     #region DOUBLE TOUCH
+    private bool touch1HasBeenUnregistered = true; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
+                                                   // but maybe there is a better solution
+    private bool transitionningOutOfDoubleTouch;
+    private int outOfDoubleTouchFrames;
     private float currentAngle, previousAngle; 
     private Vector2 middlePoint;
     private bool middlePointIsSet;
@@ -60,9 +61,9 @@ public class Controls : MonoBehaviour
     private bool directionOnUpdatedZoom;
     private float angleDifference;
     private const float CAMERA_SENSIBILITY = 5f;
-    private const byte FRAME_DELAY = 5;
+    private const byte DOUBLETOUCH_FRAME_DELAY = 5;
     private const float ZOOM_TO_ROTATION_THRESHOLD = 15f;
-    private const float UPDATED_ZOOM_THRESHOLD = 0.8f;
+    private const float UPDATED_ZOOM_THRESHOLD = 1f;
     private const byte OUT_OF_DOUBLETOUCH_FRAME_DELAY = 10; 
     #endregion
 
@@ -78,20 +79,18 @@ public class Controls : MonoBehaviour
         {
             if (currentState == TouchState.Zooming || currentState == TouchState.ZRotating)
             {
+                Debug.Log("calling out of double touch frames");
+
                 transitionningOutOfDoubleTouch = true;
 
-                middlePointIsSet = false;
-                canDoZRotation = false; 
-                doubleTouchFrameCount = 0;
-                zoomAngleFrameCount = 0; 
-                directionOnUpdatedZoom = false;
+                ResetDoubleTouchValues();
+
                 SetPinchValue(true, false);
             }
         }
 
         if (transitionningOutOfDoubleTouch)
         {
-            // Debug.Log("out of double touch frames"); 
             outOfDoubleTouchFrames++; 
 
             if (outOfDoubleTouchFrames >= OUT_OF_DOUBLETOUCH_FRAME_DELAY)
@@ -119,12 +118,12 @@ public class Controls : MonoBehaviour
                     StopCoroutine(StopWaitingForDoubleTap());
                     OnTouchStarted();
                     cameraPosition = mainCam.transform.position;
-                    SetTouchState(TouchState.Tap);
+                    SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Tap); // technically double tap should only work when hitting specific objects
 
                     // if something detected, enter swipe and NOT rotating state
                     if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition, doubleTap))
                     {
-                        SetTouchState(TouchState.Drag);
+                        SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Drag);
                     }
 
                     doubleTap = true;
@@ -157,9 +156,11 @@ public class Controls : MonoBehaviour
                         SetTouchState(TouchState.Hold);
                     }
                 }
-                else if (Input.touches[0].phase == TouchPhase.Ended)
+                else if (Input.touches[0].phase == TouchPhase.Ended) 
                 {
-                    // Debug.Log("mono touch ended");
+                    Debug.Log("mono touch ended");
+                    ResetDoubleTouchValues();
+
                     transitionningOutOfDoubleTouch = false;
                     FrameCount = 0;
                     StartCoroutine(StopWaitingForDoubleTap());
@@ -185,26 +186,35 @@ public class Controls : MonoBehaviour
 
                     currentAngle = Vector2.Angle(Touch0DirectionOnZoomStart, (currentTouch0.position - middlePoint).normalized);
                     angleDifference = Mathf.Abs(currentAngle - previousAngle);
+
                     // Debug.Log($"current angle : " + currentAngle);
 
-                    if (doubleTouchFrameCount < FRAME_DELAY) return;
+                    if (doubleTouchFrameCount < DOUBLETOUCH_FRAME_DELAY) return;
                     // Debug.Log("angle difference : " + angleDifference);
+
+                    if (currentAngle > ZOOM_TO_ROTATION_THRESHOLD)
+                    {
+                        zoomAngleFrameCount = 0; 
+                    }
 
                     if (currentAngle <= ZOOM_TO_ROTATION_THRESHOLD || angleDifference <= UPDATED_ZOOM_THRESHOLD)
                     {
+                        zoomAngleFrameCount++;
+
                         if (!directionOnUpdatedZoom)
                         {
                             directionOnUpdatedZoom = true;
                             Touch0DirectionOnZoomStart = (currentTouch0.position - middlePoint).normalized;
+                            zoomAngleFrameCount = 0; 
                         }
                         // Debug.Log("zooming");
-                        zoomAngleFrameCount++;
 
-                        if (zoomAngleFrameCount < FRAME_DELAY) return;
+                        if (zoomAngleFrameCount < DOUBLETOUCH_FRAME_DELAY) return;
 
                         SetTouchState(TouchState.Zooming);
                         cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
                         SetPinchValue(false, true);
+                        // Debug.Break();
                     }
                     else
                     {
@@ -214,7 +224,7 @@ public class Controls : MonoBehaviour
 
                         if (canDoZRotation)
                         {
-                            Debug.Log("Z rotation");
+                            // Debug.Log("Z rotation");
 
                             SetTouchState(TouchState.ZRotating);
                             cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
@@ -226,6 +236,24 @@ public class Controls : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void ResetDoubleTouchValues()
+    {
+        middlePointIsSet = false;
+        canDoZRotation = false;
+        doubleTouchFrameCount = 0;
+        zoomAngleFrameCount = 0;
+        directionOnUpdatedZoom = false;
+
+        currentAngle = previousAngle = angleDifference = 0f;
+        middlePoint = Vector2.zero;
+
+        currentTouchMoveForce = 0f;
+        touch0CurrentPosition = 
+            touch1CurrentPosition = 
+            touch0Direction = 
+            touch1Direction= Vector3.zero; 
     }
 
     private IEnumerator StopWaitingForDoubleTap()
