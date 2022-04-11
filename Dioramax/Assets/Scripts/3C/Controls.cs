@@ -56,7 +56,8 @@ public class Controls : MonoBehaviour
     [SerializeField] private GameObject debugObject; 
     private float angle;
     private Vector2 middlePoint;
-    private bool middlePointIsSet; 
+    private bool middlePointIsSet;
+    private Vector2 initialDirection; 
 
     private void Awake()
     {
@@ -69,6 +70,7 @@ public class Controls : MonoBehaviour
         {
             if (currentState == TouchState.Zooming || currentState == TouchState.ZRotating)
             {
+                middlePointIsSet = false;
                 transitionningOutOfDoubleTouch = true;
                 SetPinchValue(true, false);
             }
@@ -145,13 +147,12 @@ public class Controls : MonoBehaviour
                     {
                         // Debug.Log("mono touch ended");
                         transitionningOutOfDoubleTouch = false;
-                        middlePointIsSet = false; 
                         FrameCount = 0;
                         StartCoroutine(StopWaitingForDoubleTap());
                         SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
                         OnTouchEnded(PreviousState); // was I zooming or rotating ? 
                     }
-                }                               
+                }
             }
             // TOO ACCURATE. A single pixel-sized movement is enough -> feels like glitching when you put your fingers on the screen
             else if (Input.touchCount == 2)
@@ -163,57 +164,32 @@ public class Controls : MonoBehaviour
                 if (!middlePointIsSet)
                 {
                     middlePointIsSet = true;
-                    Vector3 point = cameraZoom.GetMiddlePoint(currentTouch0, currentTouch1);
-                    middlePoint = mainCam.ScreenToWorldPoint(new Vector3(point.x, 
-                                                                         point.y,
-                                                                         mainCam.transform.position.z + 10f));
-                    Instantiate(debugObject, middlePoint, Quaternion.identity);
-                } 
-                // touch0Direction.normalized;  
+                    middlePoint = cameraZoom.GetMiddlePoint(currentTouch0, currentTouch1);
+                    initialDirection = (currentTouch0.position - middlePoint).normalized;
+                }
 
-                Vector2 currentTouch0Direction = new Vector2(touch0Direction.x, touch0Direction.y);
-                angle = Vector2.Angle(currentTouch0.position, middlePoint);               
+                angle = Vector2.Angle(initialDirection, (currentTouch0.position - middlePoint).normalized);
 
-                if (currentTouchMoveForce >= 3f) // (angle < 15f || angle > 150f) && 
+                if (currentTouchMoveForce >= 3f) // BAD : 3f hardcoded -> const sensibility
                 {
                     Debug.Log($"angle : " + angle);
-                    // Debug.Log($"current touch direction : " + currentTouch0Direction);
-                } 
 
-                // previousTouch0Direction = currentTouch0Direction;
-
-                // DEBUG
-                float doubleTouchDirection = Vector3.Dot(currentTouch0.deltaPosition, currentTouch1.deltaPosition);
-
-                if (currentTouchMoveForce >= 3f)
-                {
-                    Debug.Log("double touch direction is :" + Mathf.Sign(doubleTouchDirection));
-                }
-
-                // nonLinear; 
-                // Z ROTATION
-                if (Mathf.Abs(currentTouch1.deltaPosition.x) >= Mathf.Abs(currentTouch1.deltaPosition.y)) // logically WRONG. What if I rotate with index and middle ?
-                {
-                    // Debug.Log("Z rotation");
-                    if (currentTouchMoveForce >= 3f)
+                    if (angle <= 15f) // BAD : 15f hardcoded -> const zoom to ZRotation threshold
                     {
+                        Debug.Log("zooming");
+
+                        SetTouchState(TouchState.Zooming);
+                        cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
+                        SetPinchValue(false, true);
+                    }
+                    else
+                    {
+                        Debug.Log("Z rotation");
+
+                        SetTouchState(TouchState.ZRotating);
                         cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
                         SetPinchValue(false, false);
-                        SetTouchState(TouchState.ZRotating);
                     }
-                }
-
-                // ZOOM IN/OUT 
-                if (Mathf.Sign(doubleTouchDirection) == -1 && currentTouchMoveForce >= 3f)
-                {
-                    Debug.Log("zooming");
-                    cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
-                    SetPinchValue(false, true);
-                    SetTouchState(TouchState.Zooming);
-                }
-                else
-                {
-                    SetTouchState(TouchState.Hold);
                 }
             }
         }
