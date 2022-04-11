@@ -3,6 +3,7 @@ using System.Collections;
 
 // Keep controls and gamefeel SEPARATE. 
 public enum TouchState { None, Tap, Hold, DoubleTap, Drag, XYRotating, Zooming, ZRotating }
+[System.Flags] public enum SwipDirection { NONE, Linear, NonLinear } 
 
 public class Controls : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Controls : MonoBehaviour
     private int frameCountBeforeChangeState = 15; // no gameplay usage for now, just transition logic
     [SerializeField] private Camera mainCam;
     [SerializeField, Range(0.15f, 0.75f)] private float doubleTapWaitDelay = 0.35f;
-
+    private SwipDirection swipeDirection; 
 
     private Touch currentTouch0, currentTouch1; 
     public static TouchState CurrentState { get; private set; }
@@ -29,13 +30,14 @@ public class Controls : MonoBehaviour
 
     private Vector3 touch0Direction;
     private Vector3 touch1Direction;
+    private Vector2 previousTouch0Direction; 
 
     private float currentTouchMoveForce;
 
     private bool touch1HasBeenUnregistered = true; // I couldn't call cameraZoom.SetPinchRegisterValue(false) otherwise.. 
                                                    // but maybe there is a better solution
 
-    private bool doubleTap; 
+    private bool doubleTap;
 
     // REFACTORING : uncouple this system (gamefeel) from 3C
     private int FrameCount { get; set; }
@@ -44,11 +46,21 @@ public class Controls : MonoBehaviour
 
     // custom logic for Input.Touch[1].phase == TouchPhase.Ended because unity's does not work all the time
     private bool transitionningOutOfDoubleTouch;
-    private int outOfDoubleTouchFrames; 
+    private int outOfDoubleTouchFrames;
+
+
+    private bool linear, nonLinear;
+
+    // DEBUG
+    [Header("Debug")]
+    [SerializeField] private GameObject debugObject; 
+    private float angle;
+    private Vector2 middlePoint;
+    private bool middlePointIsSet; 
 
     private void Awake()
     {
-        CurrentState = TouchState.None; 
+        CurrentState = TouchState.None;
     }
 
     private void Update()
@@ -64,7 +76,7 @@ public class Controls : MonoBehaviour
 
         if (transitionningOutOfDoubleTouch)
         {
-            Debug.Log("out of double touch frames"); 
+            // Debug.Log("out of double touch frames"); 
             outOfDoubleTouchFrames++; 
 
             if (outOfDoubleTouchFrames >= 10)
@@ -133,6 +145,7 @@ public class Controls : MonoBehaviour
                     {
                         // Debug.Log("mono touch ended");
                         transitionningOutOfDoubleTouch = false;
+                        middlePointIsSet = false; 
                         FrameCount = 0;
                         StartCoroutine(StopWaitingForDoubleTap());
                         SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
@@ -144,9 +157,41 @@ public class Controls : MonoBehaviour
             else if (Input.touchCount == 2)
             {
                 // Z ROTATION
-                FrameCount = 0; // can't do it from .Ended because of API sometimes not sending the right data on Input.Touches[1].Phase
+                FrameCount = 0; // can't do it from .Ended because of API sometimes sending weird data from Input.Touches[1].Phase
                 doubleTap = false;
 
+                if (!middlePointIsSet)
+                {
+                    middlePointIsSet = true;
+                    Vector3 point = cameraZoom.GetMiddlePoint(currentTouch0, currentTouch1);
+                    middlePoint = mainCam.ScreenToWorldPoint(new Vector3(point.x, 
+                                                                         point.y,
+                                                                         mainCam.transform.position.z + 10f));
+                    Instantiate(debugObject, middlePoint, Quaternion.identity);
+                } 
+                // touch0Direction.normalized;  
+
+                Vector2 currentTouch0Direction = new Vector2(touch0Direction.x, touch0Direction.y);
+                angle = Vector2.Angle(currentTouch0.position, middlePoint);               
+
+                if (currentTouchMoveForce >= 3f) // (angle < 15f || angle > 150f) && 
+                {
+                    Debug.Log($"angle : " + angle);
+                    // Debug.Log($"current touch direction : " + currentTouch0Direction);
+                } 
+
+                // previousTouch0Direction = currentTouch0Direction;
+
+                // DEBUG
+                float doubleTouchDirection = Vector3.Dot(currentTouch0.deltaPosition, currentTouch1.deltaPosition);
+
+                if (currentTouchMoveForce >= 3f)
+                {
+                    Debug.Log("double touch direction is :" + Mathf.Sign(doubleTouchDirection));
+                }
+
+                // nonLinear; 
+                // Z ROTATION
                 if (Mathf.Abs(currentTouch1.deltaPosition.x) >= Mathf.Abs(currentTouch1.deltaPosition.y)) // logically WRONG. What if I rotate with index and middle ?
                 {
                     // Debug.Log("Z rotation");
@@ -157,10 +202,11 @@ public class Controls : MonoBehaviour
                         SetTouchState(TouchState.ZRotating);
                     }
                 }
+
                 // ZOOM IN/OUT 
-                else if (currentTouchMoveForce >= 3f) // currentTouch1.phase != TouchPhase.Ended 
+                if (Mathf.Sign(doubleTouchDirection) == -1 && currentTouchMoveForce >= 3f)
                 {
-                    // Debug.Log("zooming");
+                    Debug.Log("zooming");
                     cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
                     SetPinchValue(false, true);
                     SetTouchState(TouchState.Zooming);
@@ -222,4 +268,6 @@ public class Controls : MonoBehaviour
         touch1HasBeenUnregistered = _touch1HasBeenUnregistered;
         cameraZoom.SetPinchRegisterValue(_cameraPinchRegisterValueTo);
     }
+
+    public static bool IsBetweenMinAndMax(float value, float min, float max) => value >= min && value <= max; 
 }

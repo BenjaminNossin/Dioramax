@@ -37,7 +37,7 @@ public class CameraZoom : MonoBehaviour
 
     UnityAction OnEvaluationEndedCallback;
 
-    /* private void OnEnable()
+    /*private void OnEnable()
     {
         Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
@@ -73,8 +73,12 @@ public class CameraZoom : MonoBehaviour
         zoomStartIsRegistered = value;
     }
 
-    private float topPosition; 
-    public void UpdatePinch(Touch _touch0, Touch _touch1)
+    private float topPosition;
+    private Vector2 previousDelta, currentDelta;
+    private float xDelta, yDelta;
+    private Vector3 middlePoint; 
+
+    public Vector3 GetMiddlePoint(Touch _touch0, Touch _touch1)
     {
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
 
@@ -90,8 +94,16 @@ public class CameraZoom : MonoBehaviour
             touchBottom = _touch0;
         }
 
-        Vector3 middlePoint = Vector3.Lerp(touchTop.position, touchBottom.position, 0.5f);
-        zoomPointEnd = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 10f)); 
+        middlePoint = Vector3.Lerp(touchTop.position, touchBottom.position, 0.5f);
+        return middlePoint;
+    }
+
+    public void UpdatePinch(Touch _touch0, Touch _touch1)
+    {
+        GetMiddlePoint(_touch0, _touch1); 
+        currentDelta = touchTop.deltaPosition;
+
+        zoomPointEnd = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 10f)); // hardcoded 10f CAN BE PROBLEMATIC
         // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
         // use touchTop.deltaPosition : NO NEED FOR IF/ELSE
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
@@ -102,10 +114,12 @@ public class CameraZoom : MonoBehaviour
             canZoomIn = zoomValue > maxZoomIn;
             canZoomOut = zoomValue < maxZoomOut; 
             if (zoomingOut)
-            {
+            { 
                 if (canZoomOut)
                 {
-                    zoomValue++;
+                // Debug.Log("zooming out");
+
+                zoomValue++;
 
                     transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * 
                         (updateGamefeelCurve ? 
@@ -115,7 +129,9 @@ public class CameraZoom : MonoBehaviour
             }
             else
             {
-                if (canZoomIn)
+            // Debug.Log("zooming in");
+
+            if (canZoomIn)
                 {
                     zoomValue--;
                     transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
@@ -123,7 +139,9 @@ public class CameraZoom : MonoBehaviour
                         currentMoveSpeed :
                         moveSpeed);
                 }
-            }
+            } 
         }
+
+        previousDelta = currentDelta;
     }
 }
