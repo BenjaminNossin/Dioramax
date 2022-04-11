@@ -49,13 +49,16 @@ public class Controls : MonoBehaviour
     private int outOfDoubleTouchFrames;
 
     // DEBUG
-    private float angle;
+    private float currentAngle, previousAngle; 
     private Vector2 middlePoint;
     private bool middlePointIsSet;
     public static Vector2 InitialTouch0Direction;
+    public static Vector2 Touch0DirectionOnZoomStart; 
     private int doubleTouchFrameCount;
     private bool canDoZRotation;
-    private int zoomAngleFrameCount; 
+    private int zoomAngleFrameCount;
+    private bool directionOnZoomStartIsSet;
+    private float angleDifference; 
 
     private void Awake()
     {
@@ -73,6 +76,7 @@ public class Controls : MonoBehaviour
                 doubleTouchFrameCount = 0;
                 zoomAngleFrameCount = 0; 
                 transitionningOutOfDoubleTouch = true;
+                directionOnZoomStartIsSet = false;
                 SetPinchValue(true, false);
             }
         }
@@ -161,7 +165,7 @@ public class Controls : MonoBehaviour
                 FrameCount = 0; // can't do it from .Ended because of API sometimes sending weird data from Input.Touches[1].Phase
                 doubleTap = false;
 
-                if (currentTouchMoveForce >= 3f) // BAD : hardcoded -> const sensibility
+                if (currentTouchMoveForce >= 5f) // BAD : hardcoded -> const sensibility
                 {
                     doubleTouchFrameCount++; 
                     if (!middlePointIsSet)
@@ -169,15 +173,23 @@ public class Controls : MonoBehaviour
                         middlePointIsSet = true;
                         middlePoint = cameraZoom.GetMiddlePoint(currentTouch0, currentTouch1);
                         InitialTouch0Direction = (currentTouch0.position - middlePoint).normalized;
+                        Touch0DirectionOnZoomStart = InitialTouch0Direction;
                     }
 
-                    angle = Vector2.Angle(InitialTouch0Direction, (currentTouch0.position - middlePoint).normalized);
+                    currentAngle = Vector2.Angle(Touch0DirectionOnZoomStart, (currentTouch0.position - middlePoint).normalized);
+                    angleDifference = Mathf.Abs(currentAngle - previousAngle); 
                     // Debug.Log($"angle : " + angle);
 
-                    if (doubleTouchFrameCount < 5) return; 
+                    if (doubleTouchFrameCount < 5) return;
+                    Debug.Log("angle difference : " + angleDifference);
 
-                    if (angle <= 15f) // BAD : hardcoded -> const zoom to ZRotation threshold
+                    if (currentAngle <= 15f || angleDifference <= 0.8f) // BAD : hardcoded -> const zoom to ZRotation threshold
                     {
+                        if (!directionOnZoomStartIsSet)
+                        {
+                            directionOnZoomStartIsSet = true;
+                            Touch0DirectionOnZoomStart = (currentTouch0.position - middlePoint).normalized; 
+                        }
                         // Debug.Log("zooming");
                         zoomAngleFrameCount++;
 
@@ -190,7 +202,8 @@ public class Controls : MonoBehaviour
                     else
                     {
                         canDoZRotation = true;
-                        zoomAngleFrameCount = 0; 
+                        zoomAngleFrameCount = 0;
+                        directionOnZoomStartIsSet = false; 
 
                         if (canDoZRotation)
                         {
@@ -200,7 +213,9 @@ public class Controls : MonoBehaviour
                             cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
                             SetPinchValue(false, false);
                         }
-                    } 
+                    }
+
+                    previousAngle = currentAngle;
                 }
             }
         }
