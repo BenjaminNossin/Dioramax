@@ -76,9 +76,9 @@ public class CameraZoom : MonoBehaviour
     private float topPosition;
     private Vector2 previousDelta, currentDelta;
     private float xDelta, yDelta;
-    private Vector3 middlePoint; 
+    private Vector2 middlePoint; 
 
-    public Vector3 GetMiddlePoint(Touch _touch0, Touch _touch1)
+    public Vector2 GetMiddlePoint(Touch _touch0, Touch _touch1)
     {
         topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
 
@@ -98,50 +98,52 @@ public class CameraZoom : MonoBehaviour
         return middlePoint;
     }
 
+    private Vector2 currentTouch0Delta; 
     public void UpdatePinch(Touch _touch0, Touch _touch1)
     {
         GetMiddlePoint(_touch0, _touch1); 
         currentDelta = touchTop.deltaPosition;
+        currentTouch0Delta = _touch0.deltaPosition; // DEBUG
 
         zoomPointEnd = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 10f)); // hardcoded 10f CAN BE PROBLEMATIC
         // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
         // use touchTop.deltaPosition : NO NEED FOR IF/ELSE
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
         {
-            zoomingOut = Mathf.Sign(touchTop.deltaPosition.y) == -1 || Mathf.Sign(touchBottom.deltaPosition.y) == 1;
+            float dotProduct = Vector2.Dot(Controls.InitialTouch0Direction.normalized, (currentTouch0Delta).normalized);
+            zoomingOut = IsBetweenMinAndMax(dotProduct, - 0.75f, -1f);
+            // Debug.Log("dot product is : " + dotProduct);
 
-            // too sensible !! (sometimes zoom in for two or three frames during zoom out or vice versa
             canZoomIn = zoomValue > maxZoomIn;
-            canZoomOut = zoomValue < maxZoomOut; 
+            canZoomOut = zoomValue < maxZoomOut;
             if (zoomingOut)
-            { 
+            {
                 if (canZoomOut)
                 {
-                // Debug.Log("zooming out");
+                    Debug.Log("zooming out");
+                    zoomValue++;
 
-                zoomValue++;
-
-                    transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * 
-                        (updateGamefeelCurve ? 
-                        currentMoveSpeed : 
-                        moveSpeed); 
-                }
-            }
-            else
-            {
-            // Debug.Log("zooming in");
-
-            if (canZoomIn)
-                {
-                    zoomValue--;
-                    transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                    transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
                         (updateGamefeelCurve ?
                         currentMoveSpeed :
                         moveSpeed);
                 }
-            } 
+            }
+            else if (canZoomIn)
+            {
+                Debug.Log("zooming in");
+
+                zoomValue--;
+                transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                    (updateGamefeelCurve ?
+                    currentMoveSpeed :
+                    moveSpeed);
+
+            }
         }
 
         previousDelta = currentDelta;
     }
+
+    private bool IsBetweenMinAndMax(float value, float min, float max) => value >= min && value <= max; 
 }

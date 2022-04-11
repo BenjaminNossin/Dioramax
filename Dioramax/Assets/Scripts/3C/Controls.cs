@@ -57,7 +57,7 @@ public class Controls : MonoBehaviour
     private float angle;
     private Vector2 middlePoint;
     private bool middlePointIsSet;
-    private Vector2 initialDirection; 
+    public static Vector2 InitialTouch0Direction; 
 
     private void Awake()
     {
@@ -165,18 +165,18 @@ public class Controls : MonoBehaviour
                 {
                     middlePointIsSet = true;
                     middlePoint = cameraZoom.GetMiddlePoint(currentTouch0, currentTouch1);
-                    initialDirection = (currentTouch0.position - middlePoint).normalized;
+                    InitialTouch0Direction = (currentTouch0.position - middlePoint).normalized;
                 }
 
-                angle = Vector2.Angle(initialDirection, (currentTouch0.position - middlePoint).normalized);
+                angle = Vector2.Angle(InitialTouch0Direction, (currentTouch0.position - middlePoint).normalized);
 
                 if (currentTouchMoveForce >= 3f) // BAD : 3f hardcoded -> const sensibility
                 {
-                    Debug.Log($"angle : " + angle);
+                    // Debug.Log($"angle : " + angle);
 
                     if (angle <= 15f) // BAD : 15f hardcoded -> const zoom to ZRotation threshold
                     {
-                        Debug.Log("zooming");
+                        // Debug.Log("zooming");
 
                         SetTouchState(TouchState.Zooming);
                         cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
@@ -184,7 +184,7 @@ public class Controls : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Z rotation");
+                        // Debug.Log("Z rotation");
 
                         SetTouchState(TouchState.ZRotating);
                         cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
