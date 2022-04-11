@@ -55,7 +55,8 @@ public class CameraZoom : MonoBehaviour
     {
         mainCam = Camera.main;
         Input.multiTouchEnabled = true;
-        zoomValue = mainCam.fieldOfView; 
+        zoomValue = mainCam.fieldOfView;
+        canZoomIn = canZoomOut = true; 
     }
 
     /* private void Update()
@@ -98,7 +99,8 @@ public class CameraZoom : MonoBehaviour
         return middlePoint;
     }
 
-    private Vector2 currentTouch0Delta; 
+    private Vector2 currentTouch0Delta;
+    private bool storedInitialDirection; 
     public void UpdatePinch(Touch _touch0, Touch _touch1)
     {
         GetMiddlePoint(_touch0, _touch1); 
@@ -111,7 +113,7 @@ public class CameraZoom : MonoBehaviour
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
         {
             float dotProduct = Vector2.Dot(Controls.InitialTouch0Direction.normalized, (currentTouch0Delta).normalized);
-            zoomingOut = IsBetweenMinAndMax(dotProduct, - 0.75f, -1f);
+            zoomingOut = Mathf.Sign(dotProduct) == -1; 
             // Debug.Log("dot product is : " + dotProduct);
 
             canZoomIn = zoomValue > maxZoomIn;
@@ -129,21 +131,21 @@ public class CameraZoom : MonoBehaviour
                         moveSpeed);
                 }
             }
-            else if (canZoomIn)
+            else 
             {
-                Debug.Log("zooming in");
+                if (canZoomIn)
+                {
+                    Debug.Log("zooming in");
+                    zoomValue--;
 
-                zoomValue--;
-                transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
-                    (updateGamefeelCurve ?
-                    currentMoveSpeed :
-                    moveSpeed);
-
+                    transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                        (updateGamefeelCurve ?
+                        currentMoveSpeed :
+                        moveSpeed);
+                }
             }
         }
 
         previousDelta = currentDelta;
     }
-
-    private bool IsBetweenMinAndMax(float value, float min, float max) => value >= min && value <= max; 
 }
