@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class RotationOnPivot : MonoBehaviour
 {
@@ -8,17 +9,19 @@ public class RotationOnPivot : MonoBehaviour
     [Header("Values")]
     [SerializeField, Range(0f, 30)] private float snapValue = 10f;
     [SerializeField, Range(0, 360f)] private float initialZRotation;
+    [SerializeField] private bool multiSnapAngles; 
+    [SerializeField] private List<float> snapAngleValues; // hide if multiSnapAngles is false
 
     [Header("-- DEBUG --")]
     [SerializeField] private MeshRenderer meshRenderer;
 
-    public bool IsRotatable { get; set; }
+    public bool IsLocked { get; set; }
     private float distanceFromRequiredAngle;
-    private Transform selfTransform; 
+    private Transform selfTransform;
 
     private void Start()
     {
-        IsRotatable = false;
+        IsLocked = false;
         selfTransform = transform;
 
         selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
@@ -30,12 +33,24 @@ public class RotationOnPivot : MonoBehaviour
     {
         winCondition.UpdateWinCondition(selfTransform.localRotation == Quaternion.identity);
 
-        if (IsRotatable)
+        if (IsLocked) return; 
+
+        distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
+
+        // rotate by using the inverse of camera rotation
+        selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
+                                      Quaternion.identity :
+                                      Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
+
+        if (multiSnapAngles)
         {
-            distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation;
-            selfTransform.localRotation = distanceFromRequiredAngle <= snapValue ?
-                                          Quaternion.identity :
-                                          Quaternion.Euler(0f, 0f, DioravityCameraCraneRotation.ZRotation);
+            for (int i = 0; i < snapAngleValues.Count; i++)
+            {
+                if (Mathf.Abs(selfTransform.localEulerAngles.z - snapAngleValues[i]) <= snapValue)
+                {
+                    selfTransform.localRotation = Quaternion.Euler(0f, 0f, snapAngleValues[i]);
+                }
+            }
         }
     }
 }

@@ -60,7 +60,7 @@ public class TouchDetection : MonoBehaviour
             {
                 currentTouched.ChangeColor(); // will enter here only once
             }
-        }
+        } 
 
         SetPlaceholderReference(currentTouched);
         previousTouched = currentTouched;
@@ -119,7 +119,7 @@ public class TouchDetection : MonoBehaviour
                     }
                 }
 
-                previousTouched.SwapOrChangeBack(false, equalityArray); // change back
+                previousTouched.SwapOrChangeBack(false, equalityArray); 
             }
         }
     }
