@@ -14,7 +14,7 @@ public class TouchDetection : MonoBehaviour
     // [SerializeField] private InteractableEntity placeholderFeedback;
 
     private bool buttonDetected, carrouselBearDetected; 
-    private static InteractableEntity previousTouched, currentTouched;
+    private ButtonProp previousButton, currentButton;
     private CarrouselProp detectedCarrouselProp; 
 
     private readonly UnityEvent<MeshRenderer[]> OnRequireSharedEvent = new();
@@ -49,32 +49,31 @@ public class TouchDetection : MonoBehaviour
         if (buttonDetected)
         {
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
-            currentTouched = buttonHitInfo.transform.GetComponent<InteractableEntity>();
+            currentButton = buttonHitInfo.transform.GetComponent<ButtonProp>();
+            ButtonPropsManager.Instance.SetCurrentButtonProp(currentButton);
 
-            if (doubleTap && currentTouched.CanOverrideCameraPositionOnDoubleTap())
+            if (doubleTap && currentButton.CanOverrideCameraPositionOnDoubleTap())
             {
                 Debug.Log("this was a double tap");
-                OnDoubleTapDetection(currentTouched.GetCameraPositionOverride());
+                OnDoubleTapDetection(currentButton.GetCameraPositionOverride());
             }
 
-            if (previousTouched)
+            currentButton.SetButtonState(true); // only first time
+
+            /* if (previousButton)
             {
-                if (previousTouched == currentTouched)
+                if (previousButton == currentButton)
                 {
-                    previousTouched.SwapOrChangeBack(true); // swap
+
                 } 
-                else
-                {
-                    currentTouched.ChangeColor();
-                }
             }
             else
             {
-                currentTouched.ChangeColor(); // will enter here only once
-            }
+                currentButton.SetButtonState(); // only first time
+            } */
 
-            SetPlaceholderReference(currentTouched);
-            previousTouched = currentTouched;
+            previousButton = currentButton;
+            ButtonPropsManager.Instance.SetPreviousButtonProp(previousButton);
         } 
         else if (carrouselBearDetected)
         {
@@ -85,16 +84,16 @@ public class TouchDetection : MonoBehaviour
         return buttonDetected || carrouselBearDetected;
     }
 
-    private void SetPlaceholderReference(InteractableEntity current)
+    /* private void SetPlaceholderReference(InteractableEntity current)
     {
-        if (!previousTouched) return; 
+        if (!previousButton) return; 
 
-        if (previousTouched != current)
+        if (previousButton != current)
         {
-            if (currentTouched.InteractablesCanBeShared)
+            if (currentButton.InteractablesCanBeShared)
             {
-                InteractableEntityRemote previousEntity = previousTouched as InteractableEntityRemote;
-                InteractableEntityRemote currentEntity = currentTouched as InteractableEntityRemote;
+                InteractableEntityRemote previousEntity = previousButton as InteractableEntityRemote;
+                InteractableEntityRemote currentEntity = currentButton as InteractableEntityRemote;
 
                 previousMeshRendererArray = previousEntity.entitiesMeshRenderers; 
                 currentMeshRendererArray = currentEntity.entitiesMeshRenderers; 
@@ -136,8 +135,8 @@ public class TouchDetection : MonoBehaviour
                     }
                 }
 
-                previousTouched.SwapOrChangeBack(false, equalityArray); 
+                previousButton.SwapOrChangeBack(false, equalityArray); 
             }
         }
-    }
+    }  */
 }
