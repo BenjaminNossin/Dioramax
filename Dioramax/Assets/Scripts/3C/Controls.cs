@@ -207,9 +207,10 @@ public class Controls : MonoBehaviour
                             Touch0DirectionOnZoomStart = (currentTouch0.position - middlePoint).normalized;
                             zoomAngleFrameCount = 0; 
                         }
-                        // Debug.Log("zooming");
 
                         if (zoomAngleFrameCount < DOUBLETOUCH_FRAME_DELAY) return;
+
+                        Debug.Log("zooming"); 
 
                         SetTouchState(TouchState.Zooming);
                         cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
@@ -224,7 +225,7 @@ public class Controls : MonoBehaviour
 
                         if (canDoZRotation)
                         {
-                            // Debug.Log("Z rotation");
+                            Debug.Log("Z rotation");
 
                             SetTouchState(TouchState.ZRotating);
                             cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
