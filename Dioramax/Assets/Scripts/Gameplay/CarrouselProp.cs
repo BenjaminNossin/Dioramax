@@ -13,31 +13,41 @@ public class CarrouselProp : MonoBehaviour
     [SerializeField] private Color badColor = Color.red;
 
     public bool IsValidProp;
-    public bool isActive; 
+    public bool isActive;
 
     private void Start()
     {
         meshRenderer.material.color = defaultColor;
+        CarrouselManager.carrouselProps.Add(this); 
     }
 
     public void SetActiveColor()
     {
-        if (isActive) return;
+        if (isActive || TouchDetection.CarrouselPropActivated == 3) return; 
 
         TouchDetection.CarrouselPropActivated++;
-        isActive = true; 
-        meshRenderer.material.color = activeColor; 
+        isActive = true;
+        meshRenderer.material.color = activeColor;
+
+        if (TouchDetection.CarrouselPropActivated == 3)
+        {
+            CarrouselManager.Instance.SetFinalColorsDecorator();
+        }
     }
 
     public void SetFinalColor()
     {
-        meshRenderer.material.color = IsValidProp ? goodColor : badColor; 
+        meshRenderer.material.color = IsValidProp ? goodColor : badColor;
     }
 
-    private void BackToDefaultColor()
+    public void BackToDefaultColor()
     {
-        TouchDetection.CarrouselPropActivated--;
-        isActive = true; 
+        Invoke(nameof(BackToDefault), 1f); 
+    }
+
+    private void BackToDefault()
+    {
+        isActive = false;
         meshRenderer.material.color = defaultColor;
     }
 }

@@ -26,11 +26,18 @@ public class TouchDetection : MonoBehaviour
 
     public static Action<Vector3> OnDoubleTapDetection { get; set; } 
     public static int CarrouselPropActivated { get; set; }
+    public static int ValidCarrouselPropAmount { get; set; }
+    private int carrouselPropActivated; // DEBUG
 
     void Start()
     {
         CarrouselPropActivated = 0; 
         OnRequireSharedEvent.AddListener(OnRequireSharedCallback); 
+    }
+
+    private void Update()
+    {
+        carrouselPropActivated = CarrouselPropActivated;
     }
 
     public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
