@@ -14,7 +14,7 @@ public class TouchDetection : MonoBehaviour
     // [SerializeField] private InteractableEntity placeholderFeedback;
 
     private bool buttonDetected, carrouselBearDetected; 
-    private ButtonProp previousButton, currentButton;
+    private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
     private readonly UnityEvent<MeshRenderer[]> OnRequireSharedEvent = new();
@@ -28,7 +28,7 @@ public class TouchDetection : MonoBehaviour
     public static int CarrouselPropActivated { get; set; }
     public static int ValidCarrouselPropAmount { get; set; }
     private int carrouselPropActivated; // DEBUG
-    private bool doneOnce; 
+    private bool canCast = true; 
 
     void Start()
     {
@@ -43,6 +43,8 @@ public class TouchDetection : MonoBehaviour
 
     public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
     {
+        if (!canCast) return false; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
+
         Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.red, 0.5f);
         buttonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, 100f, buttonMask);
         carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, 100f, carrouselPropMask);
@@ -50,40 +52,16 @@ public class TouchDetection : MonoBehaviour
         if (buttonDetected)
         {
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
+            StartCoroutine(CanCast()); 
 
-            if (doneOnce)
-            {
-                previousButton = currentButton;
-                ButtonPropsManager.Instance.SetPreviousButtonProp(previousButton);
-            }
+            DetectedButtonProp = buttonHitInfo.transform.GetComponent<ButtonProp>();
+            ButtonPropsManager.Instance.SetCurrentButtonProp(DetectedButtonProp);
 
-            currentButton = buttonHitInfo.transform.GetComponent<ButtonProp>();
-            ButtonPropsManager.Instance.SetCurrentButtonProp(currentButton);
-
-            if (doubleTap && currentButton.CanOverrideCameraPositionOnDoubleTap())
+            if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
             {
                 Debug.Log("this was a double tap");
-                OnDoubleTapDetection(currentButton.GetCameraPositionOverride());
+                OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
             }
-
-            if (previousButton)
-            {
-                if (previousButton == currentButton)
-                {
-                    currentButton.SetButtonState(true);
-                }
-                else
-                {
-                    currentButton.SetButtonState();
-                    previousButton.SetButtonState(); 
-                }
-            }
-            else
-            {
-                doneOnce = true; 
-                currentButton.SetButtonState(); // only first time
-            } 
-
         } 
         else if (carrouselBearDetected)
         {
@@ -92,6 +70,14 @@ public class TouchDetection : MonoBehaviour
         }
 
         return buttonDetected || carrouselBearDetected;
+    }
+
+    System.Collections.IEnumerator CanCast()
+    {
+        canCast = false; 
+        yield return new WaitForSeconds(0.5f);
+
+        canCast = true; 
     }
 
     /* private void SetPlaceholderReference(InteractableEntity current)

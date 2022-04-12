@@ -18,25 +18,24 @@ public class ButtonProp : MonoBehaviour
         }
     }
 
-    // button becomes active and inverts all pivots lock state
-    // button becomes inactive. Pivots state does not change unless previous == current
-    public void SetButtonState(bool invertPivotsLockState = false)
+    public void InverseButtonState()
     {
         isActive = !isActive;
 
-        if (isActive)
-        {
-            selfMeshRenderer.material.color = Color.green;
-            InvertPivotsLockState();
-        }
-        else
-        {
-            selfMeshRenderer.material.color = Color.red;
+        // button becomes active and inverts all pivots lock state
+        selfMeshRenderer.material.color = isActive ? Color.green : Color.red;
+        InvertPivotsLockState();
+    }
 
-            if (invertPivotsLockState)
-            {
-                InvertPivotsLockState();
-            }
+    public void SetButtonOff(bool invertPivotsLockState = false)
+    {
+        isActive = false;
+        // button becomes inactive. Pivots state does not change unless previous == current
+
+        selfMeshRenderer.material.color = Color.red;
+        if (invertPivotsLockState)
+        {
+            InvertPivotsLockState();
         }
     }
 
@@ -50,6 +49,7 @@ public class ButtonProp : MonoBehaviour
     }
 
     public bool CanOverrideCameraPositionOnDoubleTap() => overrideCameraPositionOnDoubleTap.DoOverride;
+
     public Vector3 GetCameraPositionOverride() => overrideCameraPositionOnDoubleTap.GetNewPosition();
 
 }

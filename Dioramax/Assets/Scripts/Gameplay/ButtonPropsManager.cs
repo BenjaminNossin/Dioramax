@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class ButtonPropsManager : MonoBehaviour
 {
+    [SerializeField] private ButtonProp[] buttons = new ButtonProp[4];
     public static ButtonPropsManager Instance;
-    private static ButtonProp currentButtonProp;
-    private static ButtonProp previousButtonProp;
 
-    // DEBUG
-    private ButtonProp current;
-    private ButtonProp previous; 
+    public static ButtonProp[] Buttons;
 
     private void Awake()
     {
@@ -20,24 +17,29 @@ public class ButtonPropsManager : MonoBehaviour
         }
 
         Instance = this;
-        currentButtonProp = previousButtonProp = null; 
+    }
+
+    private void Start()
+    {
+        Buttons = new ButtonProp[4];
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            Buttons[i] = buttons[i];
+        }
     }
 
     public void SetCurrentButtonProp(ButtonProp _current)
     {
-        currentButtonProp = _current;
-        current = currentButtonProp;
-    }
-
-    public void SetPreviousButtonProp(ButtonProp _previous)
-    {
-        previousButtonProp = _previous;
-        previous = previousButtonProp; 
-    }
-
-    public bool CheckPropEquality()
-    {
-        if (!currentButtonProp || !previousButtonProp) return default;
-        return currentButtonProp == previousButtonProp;
+        for (int i = 0; i < Buttons.Length; i++)
+        {
+            if (Buttons[i] == _current)
+            {
+                Buttons[i].InverseButtonState();
+            }
+            else
+            {
+                Buttons[i].SetButtonOff();
+            }
+        }
     }
 }
