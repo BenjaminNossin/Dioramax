@@ -72,6 +72,7 @@ public class Controls : MonoBehaviour
         CurrentState = TouchState.None;
     }
 
+    // You should better differentiate what is in Update, FixedUpdate and LateUpdate.. 
     private void LateUpdate()
     {
         // Do Once
@@ -121,6 +122,7 @@ public class Controls : MonoBehaviour
                     SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Tap); // technically double tap should only work when hitting specific objects
 
                     // if something detected, enter swipe and NOT rotating state
+                    // SHOULD BE DONE IN FIXED UPDATE
                     if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition, doubleTap))
                     {
                         SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Drag);
@@ -226,7 +228,6 @@ public class Controls : MonoBehaviour
                         if (canDoZRotation)
                         {
                             Debug.Log("Z rotation");
-
                             SetTouchState(TouchState.ZRotating);
                             cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
                             SetPinchValue(false, false);
