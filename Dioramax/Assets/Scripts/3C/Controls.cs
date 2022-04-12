@@ -226,6 +226,8 @@ public class Controls : MonoBehaviour
                         if (canDoZRotation)
                         {
                             Debug.Log("Z rotation");
+                            Debug.Log($"current angle : " + currentAngle);
+                            Debug.Log("angle difference : " + angleDifference);
 
                             SetTouchState(TouchState.ZRotating);
                             cameraRotation.UpdateZRotation(currentTouch0, currentTouch1, currentTouchMoveForce);
