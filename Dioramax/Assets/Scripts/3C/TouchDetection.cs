@@ -28,6 +28,7 @@ public class TouchDetection : MonoBehaviour
     public static int CarrouselPropActivated { get; set; }
     public static int ValidCarrouselPropAmount { get; set; }
     private int carrouselPropActivated; // DEBUG
+    private bool doneOnce; 
 
     void Start()
     {
@@ -49,6 +50,13 @@ public class TouchDetection : MonoBehaviour
         if (buttonDetected)
         {
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
+
+            if (doneOnce)
+            {
+                previousButton = currentButton;
+                ButtonPropsManager.Instance.SetPreviousButtonProp(previousButton);
+            }
+
             currentButton = buttonHitInfo.transform.GetComponent<ButtonProp>();
             ButtonPropsManager.Instance.SetCurrentButtonProp(currentButton);
 
@@ -58,22 +66,24 @@ public class TouchDetection : MonoBehaviour
                 OnDoubleTapDetection(currentButton.GetCameraPositionOverride());
             }
 
-            currentButton.SetButtonState(true); // only first time
-
-            /* if (previousButton)
+            if (previousButton)
             {
                 if (previousButton == currentButton)
                 {
-
-                } 
+                    currentButton.SetButtonState(true);
+                }
+                else
+                {
+                    currentButton.SetButtonState();
+                    previousButton.SetButtonState(); 
+                }
             }
             else
             {
+                doneOnce = true; 
                 currentButton.SetButtonState(); // only first time
-            } */
+            } 
 
-            previousButton = currentButton;
-            ButtonPropsManager.Instance.SetPreviousButtonProp(previousButton);
         } 
         else if (carrouselBearDetected)
         {
