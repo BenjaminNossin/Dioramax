@@ -57,6 +57,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void Update()
     {
+        
         if (updateGamefeelCurve)
         {
             if (yxRotation)
