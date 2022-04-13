@@ -69,6 +69,7 @@ public class CameraZoom : MonoBehaviour
         }
     } */
 
+    // NEVER USED
     public void SetPinchRegisterValue(bool value)
     {
         zoomStartIsRegistered = value;
@@ -100,7 +101,6 @@ public class CameraZoom : MonoBehaviour
     }
 
     private Vector2 currentTouch0Delta;
-    private bool storedInitialDirection; 
     public void UpdatePinch(Touch _touch0, Touch _touch1)
     {
         GetMiddlePoint(_touch0, _touch1); 
