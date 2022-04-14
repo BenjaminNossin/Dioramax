@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.19900322, g: 0.42036024, b: 0.9811321, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2432,7 +2432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8420451634489544258}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2.766148, y: 0.8614407, z: -6.3925204}
+  m_LocalPosition: {x: -7.914, y: 0.43, z: 8.828}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4057,6 +4057,7 @@ GameObject:
   - component: {fileID: 1931601837779697691}
   - component: {fileID: 5894743587532843615}
   - component: {fileID: 2582368718142520147}
+  - component: {fileID: 5894743587532843616}
   m_Layer: 0
   m_Name: A_LCR_Chat_Debout002_low
   m_TagString: Untagged
@@ -4188,7 +4189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236519518287276710}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2.766148, y: 0.8614407, z: -6.3925204}
+  m_LocalPosition: {x: -1.54, y: 0.8614407, z: -6.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5415,7 +5416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4405024113204672218}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2.766148, y: 0.8614407, z: -6.3925204}
+  m_LocalPosition: {x: -3.51, y: 0.8614407, z: -6.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6683,12 +6684,13 @@ GameObject:
   - component: {fileID: 3648843754191948687}
   - component: {fileID: 3989983801481237897}
   - component: {fileID: 7070022174214630032}
+  - component: {fileID: 7070022174214630033}
   m_Layer: 0
   m_Name: Bac_Bonbons_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!33 &4411490723031797110
 MeshFilter:
@@ -7033,6 +7035,7 @@ GameObject:
   - component: {fileID: 6530369971564911174}
   - component: {fileID: 747059740545139009}
   - component: {fileID: 7316184819096554383}
+  - component: {fileID: 7316184819096554384}
   m_Layer: 0
   m_Name: A_LCR_Chat_sleeping_low
   m_TagString: Untagged
@@ -7306,6 +7309,7 @@ GameObject:
   - component: {fileID: 8637355396523705047}
   - component: {fileID: 4411490723031797110}
   - component: {fileID: 6937061140897211788}
+  - component: {fileID: 8637355396523705048}
   m_Layer: 0
   m_Name: A_LCR_Chat_Assis_low
   m_TagString: Untagged
@@ -9258,6 +9262,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2594197459530238257}
   m_Mesh: {fileID: 2975407116660228866, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
+--- !u!114 &5894743587532843616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594197459530238257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073f5915be56ca4da2aba694ac24d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up_max_position: 2
+  time_bounce: 1
+  time_stretch: 1
+  stretch_squash: {x: 1, y: 1.3, z: 1.1}
 --- !u!1 &5906630654539893748
 GameObject:
   m_ObjectHideFlags: 0
@@ -11347,6 +11367,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7070022174214630033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405024113204672218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073f5915be56ca4da2aba694ac24d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up_max_position: 1.2
+  time_bounce: 0.7
+  time_stretch: 1
+  stretch_squash: {x: 1.4, y: 1, z: 1.2}
 --- !u!33 &7072880826893961578
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11366,6 +11402,7 @@ GameObject:
   - component: {fileID: 6669288727816276111}
   - component: {fileID: 2845699785758223159}
   - component: {fileID: 6012839348679802200}
+  - component: {fileID: 7078520561453123079}
   m_Layer: 0
   m_Name: A_LCR_Chat_Debout_low
   m_TagString: Untagged
@@ -11373,6 +11410,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7078520561453123079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078520561453123078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073f5915be56ca4da2aba694ac24d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up_max_position: 2
+  time_bounce: 1
+  time_stretch: 1
+  stretch_squash: {x: 1, y: 1.3, z: 1.1}
 --- !u!23 &7080433939030148081
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11808,6 +11861,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7316184819096554384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4569531213356841075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073f5915be56ca4da2aba694ac24d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up_max_position: 6.8
+  time_bounce: 0.8
+  time_stretch: 1
+  stretch_squash: {x: 1.3, y: 1, z: 1.1}
 --- !u!1 &7321462257718893014
 GameObject:
   m_ObjectHideFlags: 0
@@ -18073,13 +18142,30 @@ GameObject:
   - component: {fileID: 2709898605234888154}
   - component: {fileID: 7346917575185136653}
   - component: {fileID: 4254445732295519212}
+  - component: {fileID: 8236519518287276711}
   m_Layer: 0
   m_Name: Bac_Bonbons1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8236519518287276711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236519518287276710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073f5915be56ca4da2aba694ac24d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up_max_position: 1.2
+  time_bounce: 0.7
+  time_stretch: 1
+  stretch_squash: {x: 1.4, y: 1, z: 1.2}
 --- !u!23 &8244723852727047525
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18342,13 +18428,30 @@ GameObject:
   - component: {fileID: 1518841715959574212}
   - component: {fileID: 5941964267121276883}
   - component: {fileID: 5373499945319168199}
+  - component: {fileID: 8420451634489544259}
   m_Layer: 0
   m_Name: Bac_Bonbons_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8420451634489544259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420451634489544258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073f5915be56ca4da2aba694ac24d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up_max_position: 0.8
+  time_bounce: 0.7
+  time_stretch: 1
+  stretch_squash: {x: 1.4, y: 1, z: 1.2}
 --- !u!4 &8431225474975537932
 Transform:
   m_ObjectHideFlags: 0
@@ -18580,6 +18683,22 @@ Transform:
   m_Father: {fileID: 6969808670163652971}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8637355396523705048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4759812339203382605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073f5915be56ca4da2aba694ac24d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up_max_position: 13
+  time_bounce: 1
+  time_stretch: 1
+  stretch_squash: {x: 1.3, y: 1, z: 1.2}
 --- !u!33 &8659129167902158043
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18814,6 +18933,7 @@ GameObject:
   - component: {fileID: 6869329664843469127}
   - component: {fileID: 8325077444904357301}
   - component: {fileID: 5377240379940191150}
+  - component: {fileID: 8775870791519786372}
   m_Layer: 0
   m_Name: A_LCR_Chat_Debout001_low
   m_TagString: Untagged
@@ -18821,6 +18941,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8775870791519786372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8775870791519786371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073f5915be56ca4da2aba694ac24d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up_max_position: 2
+  time_bounce: 1
+  time_stretch: 1
+  stretch_squash: {x: 1, y: 1.3, z: 1.1}
 --- !u!1 &8782422480725892369
 GameObject:
   m_ObjectHideFlags: 0
