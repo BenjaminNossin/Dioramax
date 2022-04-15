@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3533724392168430062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -30}
+  m_LocalPosition: {x: 0, y: 0, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136,7 +136,6 @@ MonoBehaviour:
   cameraRotation: {fileID: 3533724393244289010}
   cameraZoom: {fileID: 3533724392168430049}
   touchDetection: {fileID: 3533724392168430052}
-  frameCountBeforeChangeState: 15
   mainCam: {fileID: 3533724392168430060}
   doubleTapWaitDelay: 0.35
 --- !u!114 &3533724392168430052
@@ -151,9 +150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ffdd07ed5bbbe4cb3af168cd38ab97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableMask:
+  buttonMask:
     serializedVersion: 2
     m_Bits: 64
+  carrouselPropMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &3533724392168430049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxZoomIn: 45
-  maxZoomOut: 70
+  maxZoomOut: 100
   zoomForceSensibility: 2.5
   moveSpeed: 20
   gamefeelCurve: {fileID: 3533724393244289011}
@@ -218,10 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diorama: {fileID: 0}
-  rotationAxis: {fileID: 0}
-  cameraTransform: {fileID: 3533724392168430061}
   XYForceMultiplier: 3
-  ZForceMultiplier: 5
+  ZRotationForce: 30
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
 --- !u!114 &3533724393244289011
