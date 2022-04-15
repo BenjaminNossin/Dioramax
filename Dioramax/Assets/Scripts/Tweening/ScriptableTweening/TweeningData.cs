@@ -7,8 +7,11 @@ using UnityEngine;
 public class TweeningData : ScriptableObject
 {
     [Header("Rotation")]
-     public float rotation_degrees;
+    public float rotation_degrees;
     public float time_rotation;
+
+    [Header("Vector.right = 1,0,0 | Vector.up = 0,1,0")]
+    public Vector3 RotationAxis;
 
     [Header("Move")]
     public float up_max_position;
