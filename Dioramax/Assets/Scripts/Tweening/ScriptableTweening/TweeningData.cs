@@ -8,7 +8,7 @@ public class TweeningData : ScriptableObject
 {
 
     [Header("Move")]
-    public float up_max_position;
+    [Range(0,1)]public float up_max_position;
     public float time_bounce;
 
     [Header("Scale")]
@@ -28,12 +28,4 @@ public class TweeningData : ScriptableObject
     // Test
     //[Header("Punch = 1 | Linear = 2 ")]
     //public float CurveType;
-
-    // Test Enum
-    public enum CurveType 
-    {
-        Patate,
-        fraise,
-        courgette,
-    }
 }
