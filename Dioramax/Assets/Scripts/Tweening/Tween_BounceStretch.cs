@@ -16,7 +16,7 @@ public class Tween_BounceStretch : MonoBehaviour
         // ! remove looping
 
         //bounce
-        LeanTween.moveY(gameObject, up_max_position, time_bounce).setEasePunch().setLoopCount(-1);
+        LeanTween.moveLocalY(gameObject, up_max_position, time_bounce).setEasePunch().setLoopCount(-1);
 
         //stretch&squash
         LeanTween.scale(gameObject, stretch_squash, time_stretch).setEasePunch().setLoopCount(-1);
