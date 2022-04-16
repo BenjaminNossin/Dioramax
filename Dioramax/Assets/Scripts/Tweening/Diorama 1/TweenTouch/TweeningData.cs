@@ -25,6 +25,9 @@ public class TweeningData : ScriptableObject
     public Vector3 RotationAxis;
 
 
+    //[Header("ParticleSystem")]
+   // public GameObject ParticleSystem;
+
     // Test
     //[Header("Punch = 1 | Linear = 2 ")]
     //public float CurveType;

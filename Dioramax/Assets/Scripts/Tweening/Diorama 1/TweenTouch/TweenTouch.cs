@@ -9,28 +9,34 @@ public class TweenTouch : MonoBehaviour
 
     // TempPosition
     private Vector3 ObjectJumpPosition;
+    private ParticleSystem VFX;
 
-    //public void Tween()
-    void Update()
+    public void Start()
+    {
+        VFX = GetComponentInChildren<ParticleSystem>();
+    }
 
+    public void Tween()
     {
 
             // ! remove looping
             ObjectJumpPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + td.up_max_position, gameObject.transform.position.z);
 
-            //bounce
-            LeanTween.moveLocal(gameObject, ObjectJumpPosition, td.time_bounce).setEasePunch().setLoopCount(-1);
+        //bounce
+        LeanTween.moveLocal(gameObject, ObjectJumpPosition, td.time_bounce).setEasePunch();//.setLoopCount(-1);
 
-            //stretch&squash
-            LeanTween.scale(gameObject, td.stretch_squash, 1f).setEasePunch().setLoopCount(-1);
+        //stretch&squash
+        LeanTween.scale(gameObject, td.stretch_squash, 1f).setEasePunch();//.setLoopCount(-1);
 
-            //rotation
+        //rotation
 
-            if (td.EaseOutCubic)
-                LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEaseOutCubic().setLoopCount(-1);
+        if (td.EaseOutCubic)
+            LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEaseOutCubic();//.setLoopCount(-1);
 
-            if (td.Punch)
-                LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEasePunch().setLoopCount(-1);
-
+        if (td.Punch)
+            LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEasePunch();//.setLoopCount(-1);
+        
+        //particlesystem
+        VFX.Play();
     }
 }
