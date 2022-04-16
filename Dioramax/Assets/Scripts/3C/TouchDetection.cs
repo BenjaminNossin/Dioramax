@@ -49,6 +49,20 @@ public class TouchDetection : MonoBehaviour
         buttonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, 100f, buttonMask);
         carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, 100f, carrouselPropMask);
 
+        if (Input.touchCount == 1) // un seul doigt sur l'écran
+        {
+            // Activate when finger leaves the screen (so it doesn't activate when finger slides for rotation)
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+
+                if (buttonDetected)
+                {
+                    print("Tween Activé");
+                    // buttonHitInfo.transform.GetComponent<TweenTouch>().Tween();
+                }
+            }
+        }
+
         if (buttonDetected)
         {
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
