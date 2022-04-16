@@ -61,8 +61,5 @@ public class InteractableEntityRemote : InteractableEntity
             entitiesMeshRenderers[i].material.color = rotationOnPivots[i].IsLocked ? Color.blue : Color.red;
         }
     }
-
-    private int SwapOneAndZero(int value) => value == 1 ? 0 : 1;
-    private bool IntToBool(int value) => value == 1; 
 }
 
