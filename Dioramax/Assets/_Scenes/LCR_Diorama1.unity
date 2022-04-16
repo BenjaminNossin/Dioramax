@@ -303,7 +303,7 @@ PrefabInstance:
     - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: diorama
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7778398950724897745}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
       value: CameraCrane
@@ -998,7 +998,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1362384111905963775, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
+  - {fileID: 2100000, guid: 4faae28267850c64b82129d9cc281949, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1317,20 +1317,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4982674174317854675}
   m_Mesh: {fileID: 940676840605891144, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
---- !u!114 &812116202610209914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 812116202610209916}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03bd9610a1c322045a9c230cb2b94101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotation_degrees: 15
-  time_rotation: 1
 --- !u!114 &812116202610209915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,7 +1324,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812116202610209916}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5600280c03c455140a4a62e7e43e07d2, type: 3}
   m_Name: 
@@ -1357,7 +1343,6 @@ GameObject:
   - component: {fileID: 927745284644822168}
   - component: {fileID: 4536692283406114578}
   - component: {fileID: 812116202610209915}
-  - component: {fileID: 812116202610209914}
   - component: {fileID: 4536692283406114579}
   m_Layer: 0
   m_Name: A_VAL_MilieuPalmes_low
@@ -4059,7 +4044,7 @@ GameObject:
   - component: {fileID: 5894743587532843615}
   - component: {fileID: 2582368718142520147}
   - component: {fileID: 5894743587532843616}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: A_LCR_Chat_Debout002_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6686,7 +6671,8 @@ GameObject:
   - component: {fileID: 3989983801481237897}
   - component: {fileID: 7070022174214630032}
   - component: {fileID: 7070022174214630033}
-  m_Layer: 0
+  - component: {fileID: 7070022174214630034}
+  m_Layer: 6
   m_Name: Bac_Bonbons_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7050,7 +7036,8 @@ GameObject:
   - component: {fileID: 747059740545139009}
   - component: {fileID: 7316184819096554383}
   - component: {fileID: 7316184819096554385}
-  m_Layer: 0
+  - component: {fileID: 7316184819096554386}
+  m_Layer: 6
   m_Name: A_LCR_Chat_sleeping_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7324,7 +7311,8 @@ GameObject:
   - component: {fileID: 4411490723031797110}
   - component: {fileID: 6937061140897211788}
   - component: {fileID: 8637355396523705048}
-  m_Layer: 0
+  - component: {fileID: 8637355396523705049}
+  m_Layer: 6
   m_Name: A_LCR_Chat_Assis_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11391,6 +11379,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
+--- !u!65 &7070022174214630034
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405024113204672218}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7125404, y: 1.3783752, z: 1.5362079}
+  m_Center: {x: 0.000000029802322, y: 0, z: 0.76810396}
 --- !u!33 &7072880826893961578
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11411,7 +11412,7 @@ GameObject:
   - component: {fileID: 2845699785758223159}
   - component: {fileID: 6012839348679802200}
   - component: {fileID: 7078520561453123079}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: A_LCR_Chat_Debout_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11646,6 +11647,8 @@ GameObject:
   - component: {fileID: 1305375805603296386}
   - component: {fileID: 8382384138672723186}
   - component: {fileID: 6776911155565971977}
+  - component: {fileID: 8382384138672723188}
+  - component: {fileID: 8382384138672723187}
   m_Layer: 0
   m_Name: A_VAL_Bouclier_low
   m_TagString: Untagged
@@ -11879,6 +11882,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 9556d083fa4303e43bdb1407d0169733, type: 2}
+--- !u!65 &7316184819096554386
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4569531213356841075}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.87, y: 1.96, z: 1.7}
+  m_Center: {x: -0.3650329, y: 0.102710046, z: -0.19897358}
 --- !u!1 &7321462257718893014
 GameObject:
   m_ObjectHideFlags: 0
@@ -17079,7 +17095,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1362384111905963775, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
+  - {fileID: 2100000, guid: 4faae28267850c64b82129d9cc281949, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18000,7 +18016,8 @@ GameObject:
   - component: {fileID: 5604131537285926168}
   - component: {fileID: 5833264543741591966}
   - component: {fileID: 8165873816005643772}
-  m_Layer: 0
+  - component: {fileID: 8165873816005643773}
+  m_Layer: 6
   m_Name: A_VDD_Manege_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18020,6 +18037,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: ccbbb086971dec146a44ef9ea42e616a, type: 2}
+--- !u!65 &8165873816005643773
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8165873816005643771}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.3797054, y: 7.018524, z: 11.304751}
+  m_Center: {x: 0.00000011920929, y: -0.00000011920932, z: 0}
 --- !u!33 &8166122906042806576
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18141,7 +18171,8 @@ GameObject:
   - component: {fileID: 7346917575185136653}
   - component: {fileID: 4254445732295519212}
   - component: {fileID: 8236519518287276711}
-  m_Layer: 0
+  - component: {fileID: 8236519518287276712}
+  m_Layer: 6
   m_Name: Bac_Bonbons1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18161,6 +18192,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
+--- !u!65 &8236519518287276712
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236519518287276710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7383085, y: 1.4079317, z: 1.5362079}
+  m_Center: {x: 0.000000059604645, y: 0, z: 0.76810396}
 --- !u!23 &8244723852727047525
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18363,6 +18407,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7151409969371521306}
   m_Mesh: {fileID: 2988287361539345679, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
+--- !u!65 &8382384138672723187
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151409969371521306}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.5115635, y: 3.5115645, z: 3.5115645}
+  m_Center: {x: 0, y: 0, z: 0.0000009536743}
+--- !u!114 &8382384138672723188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151409969371521306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: a1452b522d112af49a62e5ef5ea18d97, type: 2}
 --- !u!33 &8386459627236615382
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18424,7 +18494,8 @@ GameObject:
   - component: {fileID: 5941964267121276883}
   - component: {fileID: 5373499945319168199}
   - component: {fileID: 8420451634489544259}
-  m_Layer: 0
+  - component: {fileID: 8420451634489544260}
+  m_Layer: 6
   m_Name: Bac_Bonbons_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18444,6 +18515,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
+--- !u!65 &8420451634489544260
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420451634489544258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8780316, y: 1.7938188, z: 1.5362079}
+  m_Center: {x: 0.00000029802322, y: 0, z: 0.76810396}
 --- !u!4 &8431225474975537932
 Transform:
   m_ObjectHideFlags: 0
@@ -18688,6 +18772,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 88ea4b82b2124c2469348f8078c2d2ea, type: 2}
+--- !u!65 &8637355396523705049
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4759812339203382605}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.87, y: 1.96, z: 1.7}
+  m_Center: {x: 0.000000044703484, y: 0.24204582, z: 0.18915813}
 --- !u!33 &8659129167902158043
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18923,7 +19020,7 @@ GameObject:
   - component: {fileID: 8325077444904357301}
   - component: {fileID: 5377240379940191150}
   - component: {fileID: 8775870791519786372}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: A_LCR_Chat_Debout001_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19489,7 +19586,9 @@ GameObject:
   - component: {fileID: 2265031191643048202}
   - component: {fileID: 6492602114266261649}
   - component: {fileID: 9184371618464783847}
-  m_Layer: 0
+  - component: {fileID: 9184371618464783848}
+  - component: {fileID: 9184371618464783849}
+  m_Layer: 6
   m_Name: A_Pomme
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19509,6 +19608,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8c6a32d5007d4a147b7731afbf797cbe, type: 2}
+--- !u!54 &9184371618464783848
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184371618464783846}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &9184371618464783849
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184371618464783846}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.6732976
+  m_Center: {x: 0.19194603, y: -0.1449337, z: 1.312685}
 --- !u!33 &9206503686012305823
 MeshFilter:
   m_ObjectHideFlags: 0
