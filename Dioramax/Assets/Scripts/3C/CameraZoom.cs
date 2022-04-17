@@ -11,8 +11,7 @@ public class CameraZoom : MonoBehaviour
     private Camera mainCam;
     [SerializeField, Range(5, 50)] private float maxZoomIn = 45;
     [SerializeField, Range (70, 150)] private float maxZoomOut = 70;
-    [SerializeField, Range(0.5f, 5f)] private float zoomForceSensibility = 2.5f;
-    [SerializeField, Range(10f, 50f)] private float moveSpeed = 10f;
+    [SerializeField, Range(10f, 50f)] private float zoomSpeed = 10f;
     private float currentMoveSpeed; 
 
 
@@ -69,6 +68,7 @@ public class CameraZoom : MonoBehaviour
         }
     } */
 
+    // NEVER USED
     public void SetPinchRegisterValue(bool value)
     {
         zoomStartIsRegistered = value;
@@ -100,7 +100,7 @@ public class CameraZoom : MonoBehaviour
     }
 
     private Vector2 currentTouch0Delta;
-    private bool storedInitialDirection; 
+    private float dotProduct; 
     public void UpdatePinch(Touch _touch0, Touch _touch1)
     {
         GetMiddlePoint(_touch0, _touch1); 
@@ -112,7 +112,7 @@ public class CameraZoom : MonoBehaviour
         // use touchTop.deltaPosition : NO NEED FOR IF/ELSE
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
         {
-            float dotProduct = Vector2.Dot(Controls.InitialTouch0Direction.normalized, (currentTouch0Delta).normalized);
+            dotProduct = Vector2.Dot(Controls.InitialTouch0Direction.normalized, (currentTouch0Delta).normalized);
             zoomingOut = Mathf.Sign(dotProduct) == -1; 
             // Debug.Log("dot product is : " + dotProduct);
 
@@ -122,26 +122,26 @@ public class CameraZoom : MonoBehaviour
             {
                 if (canZoomOut)
                 {
-                    Debug.Log("zooming out");
+                    // Debug.Log("zooming out");
                     zoomValue++;
 
                     transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
                         (updateGamefeelCurve ?
                         currentMoveSpeed :
-                        moveSpeed);
+                        zoomSpeed);
                 }
             }
             else 
             {
                 if (canZoomIn)
                 {
-                    Debug.Log("zooming in");
+                    // Debug.Log("zooming in");
                     zoomValue--;
 
                     transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
                         (updateGamefeelCurve ?
                         currentMoveSpeed :
-                        moveSpeed);
+                        zoomSpeed);
                 }
             }
         }
