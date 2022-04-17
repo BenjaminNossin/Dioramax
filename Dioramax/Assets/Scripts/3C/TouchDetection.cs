@@ -8,6 +8,10 @@ using System;
 /// </summary>
 public class TouchDetection : MonoBehaviour
 {
+    // Test screen distorsion effect 
+    [SerializeField] private ParticleSystem TouchDistorsion;
+    //
+
     [SerializeField] private LayerMask buttonMask;
     [SerializeField] private LayerMask carrouselPropMask;
 
@@ -40,7 +44,6 @@ public class TouchDetection : MonoBehaviour
     {
         carrouselPropActivated = CarrouselPropActivated;
     }
-
     public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
     {
         if (!canCast) return false; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
@@ -48,6 +51,19 @@ public class TouchDetection : MonoBehaviour
         Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.red, 0.5f);
         buttonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, 100f, buttonMask);
         carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, 100f, carrouselPropMask);
+
+        if (Input.touchCount == 1) // un seul doigt sur l'écran
+        {
+            // shouldn't activate when finger slides for rotation /!\ TouchPhase.Ended does not work
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                if (buttonDetected)
+                {
+                    print("Tween Activé");
+                    buttonHitInfo.transform.GetComponent<TweenTouch>().Tween();
+                }
+            }
+        }
 
         if (buttonDetected)
         {
