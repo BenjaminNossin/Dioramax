@@ -9,18 +9,24 @@ public class TweenTouch : MonoBehaviour
 
     // TempPosition
     private Vector3 ObjectJumpPosition;
+    private float ObjectMaxHeight;
+    private float ObjectInitialHeight;
     private ParticleSystem VFX;
 
     public void Start()
     {
         VFX = GetComponentInChildren<ParticleSystem>();
+
+        ObjectInitialHeight = gameObject.transform.position.y;
+        ObjectMaxHeight = gameObject.transform.position.y + td.up_max_position;
+
     }
 
     public void Tween()
     {
 
-            // ! remove looping
-            ObjectJumpPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + td.up_max_position, gameObject.transform.position.z);
+        // ! remove looping
+        ObjectJumpPosition = new Vector3(gameObject.transform.position.x, ObjectInitialHeight + td.up_max_position, gameObject.transform.position.z);
 
         //bounce
         LeanTween.moveLocal(gameObject, ObjectJumpPosition, td.time_bounce).setEasePunch();//.setLoopCount(-1);
@@ -39,4 +45,5 @@ public class TweenTouch : MonoBehaviour
         //particlesystem
         VFX.Play();
     }
+
 }
