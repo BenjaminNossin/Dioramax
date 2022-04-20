@@ -20,13 +20,13 @@ public class TweenTouch : MonoBehaviour
         ObjectInitialHeight = gameObject.transform.position.y;
         ObjectMaxHeight = gameObject.transform.position.y + td.up_max_position;
 
+        ObjectJumpPosition = new Vector3(gameObject.transform.position.x, ObjectMaxHeight, gameObject.transform.position.z);
     }
-
+    
     public void Tween()
     {
 
         // ! remove looping
-        ObjectJumpPosition = new Vector3(gameObject.transform.position.x, ObjectInitialHeight + td.up_max_position, gameObject.transform.position.z);
 
         //bounce
         LeanTween.moveLocal(gameObject, ObjectJumpPosition, td.time_bounce).setEasePunch();//.setLoopCount(-1);
