@@ -33,7 +33,11 @@ public class EntityPhysicsController : MonoBehaviour
     {
         foreach (Rigidbody rb in entityRbList)
         {
-            rb.AddForce(transform.InverseTransformDirection(Camera.main.transform.up) * -gravityForce, ForceMode.Acceleration); 
+            try
+            {
+                rb.AddForce(transform.InverseTransformDirection(Camera.main.transform.up) * -gravityForce, ForceMode.Acceleration);
+            }
+            catch { } // PLACEHOLDER. Some rats are destroyed, so it returns null. Change this
         } 
     }
 }
