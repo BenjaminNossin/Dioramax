@@ -11,16 +11,33 @@ public class TweenTouch : MonoBehaviour
     private Vector3 ObjectJumpPosition;
     private float ObjectMaxHeight;
     private float ObjectInitialHeight;
+    private Vector3 originalScale;
     private ParticleSystem VFX;
-
+    private float TimeScale;
+    private float TimeBounce;
     public void Start()
     {
         VFX = GetComponentInChildren<ParticleSystem>();
 
-        ObjectInitialHeight = gameObject.transform.position.y;
-        ObjectMaxHeight = gameObject.transform.position.y + td.up_max_position;
+        ObjectInitialHeight = transform.position.y;
+        ObjectMaxHeight = transform.position.y + td.up_max_position;
+        originalScale = transform.localScale;
+        ObjectJumpPosition = new Vector3(transform.position.x, ObjectMaxHeight, transform.position.z);
+        TimeScale = td.time_scale * 0.3f;
+        TimeBounce = td.time_bounce * 0.3f;
 
-        ObjectJumpPosition = new Vector3(gameObject.transform.position.x, ObjectMaxHeight, gameObject.transform.position.z);
+    }
+
+    public void ScaleGood()
+    {
+        //retour
+        LeanTween.scale(gameObject, originalScale, TimeScale + (TimeScale/2)).setEaseOutBack();
+    }
+
+    public void Tween2()
+    {  //retour
+        LeanTween.moveY(gameObject, ObjectInitialHeight, TimeBounce + (TimeBounce / 2)).setEaseOutBounce();
+
     }
     
     public void Tween()
@@ -28,11 +45,12 @@ public class TweenTouch : MonoBehaviour
 
         // ! remove looping
 
-        //bounce
-        LeanTween.moveLocal(gameObject, ObjectJumpPosition, td.time_bounce).setEasePunch();//.setLoopCount(-1);
+        //bounce (aller)
+        LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setEaseOutExpo().setOnComplete(Tween2);
+        Debug.Log("Prout");
 
-        //stretch&squash
-        LeanTween.scale(gameObject, td.stretch_squash, 1f).setEasePunch();//.setLoopCount(-1);
+        //stretch&squash (aller)
+        LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
 
         //rotation
 
