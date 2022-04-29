@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+// REFACTORING : separate rotation from gamefeel 
+
 /// <summary>
 /// This Class allows to rotate a camera around a crane, that acts as it center of rotation.
 /// Put this script on the crane, with a camera as child
@@ -11,13 +13,12 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     [SerializeField] private GameObject diorama;
 
     [Space, SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
-    [SerializeField, Range(3f, 12f)] private float ZForceMultiplier = 8f;
+    [SerializeField, Range(1f, 50f)] private float ZRotationForce = 30;
 
     [Space, SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
     public float RotationSensitivity { get; set; }
-    private Touch touchTop;
 
-    private bool yxRotation, zRotation;
+    private bool yxRotation;
 
     UnityAction OnEvaluationEndedCallback;
 
@@ -64,12 +65,12 @@ public class DioravityCameraCraneRotation : MonoBehaviour
                 // Debug.Log("yx rotation gamefeel");
                 UpdateXYRotation(swipeDirection, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
+        }
 
-            if (zRotation)
-            {
-                // Debug.Log("z rotation gamefeel");
-                UpdateZRotation(touch0, touch1, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
-            }
+        // diorama keeps rotating for some frames even after button up. Check for some calls that are performance heavy
+        if (ZRotationButton.ButtonIsSelected)
+        {
+            UpdateZRotation(); //  * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
         }
     }
 
@@ -82,8 +83,13 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     /// <param name="rotationForce">The speed of displacement</param>
     public void UpdateXYRotation(Vector3 _swipeDirection, float _swipeForce)
     {
+        // not very opti. Find bottom touch once and then just check him
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            if (PointIsInsideRectangle(380, 35, 780, 160, Input.GetTouch(i).position)) return; 
+        } 
+
         yxRotation = true;
-        zRotation = false;
 
         swipeDirection = _swipeDirection;
         swipeForce = _swipeForce;
@@ -92,43 +98,40 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         transform.Rotate(new Vector2(-swipeDirection.y, swipeDirection.x), 
                          Time.fixedDeltaTime * swipeForce * XYForceMultiplier, 
                          Space.Self); 
-    } 
+    }
 
-    Touch touch0, touch1;
-    float topPosition;
+    private bool PointIsInsideRectangle(int xMin, int yMin, int xMax, int yMax, Vector2 point)
+    {
+        return point.x > xMin && point.x < xMax && point.y > yMin && point.y < yMax;
+    }
+
+
+    int direction;
     /// <summary>
     /// No object moves during this rotation. It is applied to the camera parent, around its Z axis. This is how the physics-based mechanic is triggered
     /// </summary>
     /// <param name="topDirection">The direction of swipe from the top finger, usually the index</param>
     /// <param name="bottomDirection">The direction of swipe from the thumb</param>
-    public void UpdateZRotation(Touch _touch0, Touch _touch1, float _swipeForce)
+    public void UpdateZRotation() // increase rotation speed over time (rotationForce = Lerp(min, max, t))
     {
         yxRotation = false;
-        zRotation = true;
+        direction = ZRotationButton.LeftIsSelected ? -1 : ZRotationButton.RightIsSelected ? 1 : 0; 
 
-        topPosition = Mathf.Max(_touch0.position.y, _touch1.position.y);
-        touch0 = _touch0;
-        touch1 = _touch1;
-        swipeForce = _swipeForce;
+        transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZRotationForce * direction);
 
-        // stupid to do this every frame. But how to keep reference to the arguments each frame ?
-        if (topPosition == _touch0.position.y)
-        {
-            touchTop = _touch0;
-        }
-        else if (topPosition == _touch1.position.y)
-        {
-            touchTop = _touch1;
-        }
-
-        transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZForceMultiplier * _swipeForce * MathF.Sign(touchTop.deltaPosition.x));
-
-        ZLocalRotation = transform.localEulerAngles.z; // UNTESTED MAJ 04.04.2022
+        // I just want two values : 0 to 360 (tuyaux) and 0 to 180/0 to -180 (train)
+        ZLocalRotation = transform.localEulerAngles.z; 
         ZRotation = transform.eulerAngles.z;
         ZAngleWithIdentityRotation = ZLocalRotation > 180f ?
                              ZLocalRotation - 360f:
                              ZLocalRotation; 
-    } 
+    }
+
+    // TODO : smooth lerp 
+    private void SetCameraRotationOnDoubleTap(Vector3 newCameraRotation)
+    {
+        transform.rotation = Quaternion.Euler(newCameraRotation);
+    }
 
     private void InterruptPreviousCurveOnNewTouch()
     {
@@ -150,11 +153,5 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     {
         // Debug.Log("on ended rotation callback");
         updateGamefeelCurve = false;
-    }
-
-    // TODO : smooth lerp 
-    private void SetCameraRotationOnDoubleTap(Vector3 newCameraRotation)
-    {
-        transform.rotation = Quaternion.Euler(newCameraRotation); 
     }
 }

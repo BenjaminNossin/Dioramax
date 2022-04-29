@@ -13,4 +13,9 @@ public class UIDebugger : MonoBehaviour
         if (index > SceneManager.sceneCountInBuildSettings - 1 || index < 0) return; 
         SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
     }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
+    }
 }
