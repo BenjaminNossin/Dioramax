@@ -6,10 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TweenTouch")]
 public class TweeningData : ScriptableObject
 {
-
     [Header("Move")]
     [Range(0,1)]public float up_max_position;
     public float time_bounce;
+
 
     [Header("Scale")]
     public Vector3 stretch_squash = new Vector3(1,1,1);
@@ -26,7 +26,7 @@ public class TweeningData : ScriptableObject
 
 
     //[Header("ParticleSystem")]
-   // public GameObject ParticleSystem;
+    // public GameObject ParticleSystem;
 
     // Test
     //[Header("Punch = 1 | Linear = 2 ")]
