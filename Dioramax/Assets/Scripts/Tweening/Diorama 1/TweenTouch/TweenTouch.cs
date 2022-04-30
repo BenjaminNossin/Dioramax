@@ -44,7 +44,6 @@ public class TweenTouch : MonoBehaviour
 
         //bounce (aller)
         LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setEaseOutExpo().setOnComplete(Tween2);
-        Debug.Log("Prout");
 
         //stretch&squash (aller)
         LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);

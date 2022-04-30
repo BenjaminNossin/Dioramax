@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -13,11 +11,5 @@ public class Select_Ours : MonoBehaviour
     void Start()
     {
         LeanTween.moveLocalZ(gameObject, up_max_position, time_bounce).setEaseInOutSine().setLoopPingPong();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
     }
 }
