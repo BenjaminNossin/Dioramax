@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class TweenTouch : MonoBehaviour
 {
@@ -61,7 +58,10 @@ public class TweenTouch : MonoBehaviour
             LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEasePunch();//.setLoopCount(-1);
         
         //particlesystem
-        VFX.Play();
+        if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie)
+        {
+            VFX.Play();
+        }
     }
 
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Turn_Star : MonoBehaviour
@@ -26,11 +24,5 @@ public class Turn_Star : MonoBehaviour
 
         //size
         LeanTween.scale(gameObject, scale, 1f).setEaseOutSine().setLoopPingPong();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
