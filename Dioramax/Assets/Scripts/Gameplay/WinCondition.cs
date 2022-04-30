@@ -5,22 +5,37 @@ public class WinCondition : MonoBehaviour
     [Space, SerializeField] private DioramaPuzzleName entityPuzzleName; // PLACEHOLDER
     [SerializeField] private int entityNumber; // PLACEHOLDER
 
+    [Header("DEBUG")]
+    public bool simulateWinConditionIsMet; 
+
     private bool winConditionIsMet;
     private bool WinConditionEventIsRegistered;
 
     void Update()
     {
-        if (winConditionIsMet && !WinConditionEventIsRegistered)
+        if (!simulateWinConditionIsMet)
         {
-            WinConditionEventIsRegistered = true;
-            WinConditionController.Instance.ValidateWinCondition((int)entityPuzzleName, entityNumber);
+            if (winConditionIsMet && !WinConditionEventIsRegistered)
+            {
+                SetWinCondition(true);
+            }
+            else if (!winConditionIsMet && WinConditionEventIsRegistered)
+            {
+                WinConditionEventIsRegistered = false;
+                SetWinCondition(false);
+            }
         }
-        else if (!winConditionIsMet && WinConditionEventIsRegistered)
+        else if (!WinConditionEventIsRegistered)
         {
-            WinConditionEventIsRegistered = false;
-            WinConditionController.Instance.InvalidateWinCondition((int)entityPuzzleName, entityNumber);
+            SetWinCondition(true);
         }
-    } 
+    }
+
+    private void SetWinCondition(bool winConditionState)
+    {
+        WinConditionEventIsRegistered = winConditionState;
+        WinConditionController.Instance.ValidateWinCondition((int)entityPuzzleName, entityNumber);
+    }
 
     public void UpdateWinCondition(bool conditionStatus)
     {
