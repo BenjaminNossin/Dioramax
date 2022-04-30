@@ -16,6 +16,9 @@ public class RotationOnPivot : MonoBehaviour
     private float distanceFromRequiredAngle;
     private Transform selfTransform;
 
+    [Header("Debug")]
+    [SerializeField] private bool simulateWinCondition = true; 
+
     private void Start()
     {
         IsLocked = false;
@@ -33,9 +36,16 @@ public class RotationOnPivot : MonoBehaviour
         distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
 
         // rotate by using the inverse of camera rotation
-        selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
-                                      Quaternion.identity :
-                                      Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
+        if (!simulateWinCondition)
+        {
+            selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
+                              Quaternion.identity :
+                              Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
+        }
+        else
+        {
+            selfTransform.localRotation = Quaternion.identity; // == winCondition.UpdateWinCondition(true);
+        }
 
         if (multiSnapAngles)
         {

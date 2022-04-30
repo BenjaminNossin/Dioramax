@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WinConditionController : MonoBehaviour
@@ -39,30 +37,39 @@ public class WinConditionController : MonoBehaviour
 
     public void ValidateWinCondition(int array, int index)
     {
-        //Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
+        Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
 
+        // a puzzle piece is set to true (==1)
         entitiesToValidate[array][index] = 1;
-        dioramaInfos.puzzleInfos[array].winConditionIsMet = true;
+        dioramaInfos.puzzleInfos[array].winConditionIsMet = true; // by default, we assume the puzzle is finished
 
+        // check if all the pieces of the puzzle are validated (== 1)
         for (int i = 0; i < entitiesToValidate[array].Length; i++)
         {
+            // if one or more puzzle pieces are still true, the puzzle is not finished yet
             if (entitiesToValidate[array][i] == 0)
             {
                 dioramaInfos.puzzleInfos[array].winConditionIsMet = false;
             }
         }
 
+        // if all the puzzle pieces are valid, the puzzle is completed
         if (dioramaInfos.puzzleInfos[array].winConditionIsMet == true)
         {
-            //Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
+            Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
+        }
+        else
+        {
+            Debug.Log($"puzzle {(DioramaPuzzleName)array} is NOT finished"); // debug
         }
     }
 
     public void InvalidateWinCondition(int array, int index)
     {
-        //Debug.Log($"puzzle {(DioramaPuzzleName)array} has invalidated item n° {index + 1}");
+        Debug.Log($"puzzle {(DioramaPuzzleName)array} has invalidated item n° {index + 1}");
 
         entitiesToValidate[array][index] = 0;
     }
 }
+
 

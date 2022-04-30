@@ -458,6 +458,7 @@ MonoBehaviour:
   initialZRotation: 45
   multiSnapAngles: 0
   snapAngleValues: []
+  simulateWinCondition: 1
 --- !u!1001 &315966699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1925,6 +1926,7 @@ MonoBehaviour:
   initialZRotation: 0
   multiSnapAngles: 0
   snapAngleValues: []
+  simulateWinCondition: 1
 --- !u!1 &1475195777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1676652895588182472, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
@@ -2082,6 +2084,7 @@ MonoBehaviour:
   - 90
   - 270
   - 360
+  simulateWinCondition: 1
 --- !u!1001 &1596094378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2624,6 +2627,7 @@ MonoBehaviour:
   initialZRotation: 90
   multiSnapAngles: 0
   snapAngleValues: []
+  simulateWinCondition: 1
 --- !u!1001 &1787459250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2765,7 +2769,7 @@ GameObject:
   m_Layer: 0
   m_Name: Puzzle_Tuyaux
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4133,6 +4137,7 @@ GameObject:
   - component: {fileID: 8244723852727047526}
   - component: {fileID: 8244723852727047527}
   - component: {fileID: 8244723852727047528}
+  - component: {fileID: 8244723852727047529}
   m_Layer: 7
   m_Name: A_WIN_LCR_OursonManege_00
   m_TagString: Untagged
@@ -5001,10 +5006,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6969808670163652971}
     m_Modifications:
-    - target: {fileID: 496885465, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460100, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_Name
       value: Prefab_Rat
@@ -5244,6 +5245,7 @@ GameObject:
   - component: {fileID: 7143965034389463465}
   - component: {fileID: 7143965034389463466}
   - component: {fileID: 7143965034389463467}
+  - component: {fileID: 7143965034389463468}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_10
   m_TagString: Untagged
@@ -5468,6 +5470,7 @@ GameObject:
   - component: {fileID: 8321591798824465318}
   - component: {fileID: 8321591798824465319}
   - component: {fileID: 8321591798824465320}
+  - component: {fileID: 8321591798824465321}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_07
   m_TagString: Untagged
@@ -5637,6 +5640,7 @@ GameObject:
   - component: {fileID: 6495576766229211532}
   - component: {fileID: 6495576766229211533}
   - component: {fileID: 6495576766229211534}
+  - component: {fileID: 6495576766229211535}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_06
   m_TagString: Untagged
@@ -5944,6 +5948,7 @@ GameObject:
   - component: {fileID: 8419977186470264565}
   - component: {fileID: 8419977186470264566}
   - component: {fileID: 8419977186470264567}
+  - component: {fileID: 8419977186470264568}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_02
   m_TagString: Untagged
@@ -10104,6 +10109,7 @@ GameObject:
   - component: {fileID: 6968538275933338497}
   - component: {fileID: 6968538275933338498}
   - component: {fileID: 6968538275933338499}
+  - component: {fileID: 6968538275933338500}
   m_Layer: 7
   m_Name: A_WIN_LCR_OursonManege_08
   m_TagString: Untagged
@@ -10835,6 +10841,7 @@ GameObject:
   - component: {fileID: 8587259072541676221}
   - component: {fileID: 8587259072541676222}
   - component: {fileID: 8587259072541676223}
+  - component: {fileID: 8587259072541676224}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_04
   m_TagString: Untagged
@@ -11284,6 +11291,7 @@ GameObject:
   - component: {fileID: 8158083321438074544}
   - component: {fileID: 8158083321438074545}
   - component: {fileID: 8158083321438074546}
+  - component: {fileID: 8158083321438074547}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_11
   m_TagString: Untagged
@@ -11771,6 +11779,7 @@ GameObject:
   - component: {fileID: 7080433939030148082}
   - component: {fileID: 7080433939030148083}
   - component: {fileID: 7080433939030148084}
+  - component: {fileID: 7080433939030148085}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_05
   m_TagString: Untagged
@@ -12109,6 +12118,7 @@ GameObject:
   - component: {fileID: 8670994017047098569}
   - component: {fileID: 8670994017047098570}
   - component: {fileID: 8670994017047098571}
+  - component: {fileID: 8670994017047098572}
   m_Layer: 7
   m_Name: A__WIN_LCR_OursonManege_01
   m_TagString: Untagged
@@ -12702,8 +12712,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 6495576766229211535}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &6495576766229211535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799717677803041501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 3
 --- !u!4 &6504873337290609125
 Transform:
   m_ObjectHideFlags: 0
@@ -13547,8 +13572,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 6968538275933338500}
   IsValidProp: 1
   isActive: 0
+--- !u!114 &6968538275933338500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003271602379650799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 2
+  entityNumber: 2
 --- !u!33 &6968607918785599080
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13926,8 +13966,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 7080433939030148085}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &7080433939030148085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5925699195836264976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 7
 --- !u!4 &7093363953445631957
 Transform:
   m_ObjectHideFlags: 0
@@ -14062,8 +14117,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 7143965034389463468}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &7143965034389463468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551769928300047086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 10
 --- !u!4 &7144104791463210947
 Transform:
   m_ObjectHideFlags: 0
@@ -14851,6 +14921,7 @@ GameObject:
   - component: {fileID: 8867089706948481661}
   - component: {fileID: 8867089706948481662}
   - component: {fileID: 8867089706948481663}
+  - component: {fileID: 8867089706948481664}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_12
   m_TagString: Untagged
@@ -15767,8 +15838,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 8158083321438074547}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &8158083321438074547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726106384587258697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 11
 --- !u!1 &8159597242512776549
 GameObject:
   m_ObjectHideFlags: 0
@@ -15804,7 +15890,7 @@ GameObject:
   m_Layer: 0
   m_Name: A_VDD_Manege_low
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -16140,8 +16226,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 8244723852727047529}
   IsValidProp: 1
   isActive: 0
+--- !u!114 &8244723852727047529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990208207543616707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 2
+  entityNumber: 0
 --- !u!23 &8259881478232205771
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16330,8 +16431,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 8321591798824465321}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &8321591798824465321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682823227307753918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 8
 --- !u!33 &8325077444904357301
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16482,8 +16598,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 8419977186470264568}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &8419977186470264568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023837132007696275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 4
 --- !u!1 &8420451634489544258
 GameObject:
   m_ObjectHideFlags: 0
@@ -16756,8 +16887,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 8587259072541676224}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &8587259072541676224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5435616238527621426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 6
 --- !u!33 &8608642596839654840
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16889,8 +17035,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 8670994017047098572}
   IsValidProp: 1
   isActive: 0
+--- !u!114 &8670994017047098572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216965161645006167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 2
+  entityNumber: 1
 --- !u!23 &8705568224434672764
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17125,6 +17286,7 @@ GameObject:
   - component: {fileID: 8782422480725892370}
   - component: {fileID: 8782422480725892371}
   - component: {fileID: 8782422480725892372}
+  - component: {fileID: 8782422480725892373}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_03
   m_TagString: Untagged
@@ -17176,8 +17338,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 8782422480725892373}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &8782422480725892373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8782422480725892369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 5
 --- !u!33 &8814508613884207763
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -17330,8 +17507,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 8867089706948481664}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &8867089706948481664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7579299325026641127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 12
 --- !u!1 &8885847286902660425
 GameObject:
   m_ObjectHideFlags: 0
@@ -17346,6 +17538,7 @@ GameObject:
   - component: {fileID: 9206503686012305824}
   - component: {fileID: 9206503686012305825}
   - component: {fileID: 9206503686012305826}
+  - component: {fileID: 9206503686012305827}
   m_Layer: 7
   m_Name: A_LCR_OursonManege_09
   m_TagString: Untagged
@@ -17781,8 +17974,23 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
+  winCondition: {fileID: 9206503686012305827}
   IsValidProp: 0
   isActive: 0
+--- !u!114 &9206503686012305827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885847286902660425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 9
 --- !u!33 &9219506478143405532
 MeshFilter:
   m_ObjectHideFlags: 0

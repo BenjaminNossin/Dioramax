@@ -12,6 +12,9 @@ public class CarrouselProp : MonoBehaviour
     [SerializeField] private Color goodColor = Color.green;
     [SerializeField] private Color badColor = Color.red;
 
+    [Header("Gameplay")]
+    [SerializeField] private WinCondition winCondition;
+
     public bool IsValidProp;
     public bool isActive;
 
@@ -38,11 +41,13 @@ public class CarrouselProp : MonoBehaviour
     public void SetFinalColor()
     {
         meshRenderer.material.color = IsValidProp ? goodColor : badColor;
+        winCondition.UpdateWinCondition(IsValidProp);
     }
 
     public void BackToDefaultColor()
     {
-        Invoke(nameof(BackToDefault), 1f); 
+        Invoke(nameof(BackToDefault), 1f);
+        winCondition.UpdateWinCondition(false);
     }
 
     private void BackToDefault()
