@@ -12,9 +12,6 @@ public class RotationOnPivot : MonoBehaviour
     [SerializeField] private bool multiSnapAngles; 
     [SerializeField] private List<float> snapAngleValues; // hide if multiSnapAngles is false
 
-    [Header("-- DEBUG --")]
-    [SerializeField] private MeshRenderer meshRenderer;
-
     public bool IsLocked { get; set; }
     private float distanceFromRequiredAngle;
     private Transform selfTransform;
@@ -25,8 +22,6 @@ public class RotationOnPivot : MonoBehaviour
         selfTransform = transform;
 
         selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
-
-        meshRenderer.material.color = Color.red;
     }
 
     private void Update()
