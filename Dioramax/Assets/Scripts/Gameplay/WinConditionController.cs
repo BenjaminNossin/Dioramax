@@ -7,6 +7,7 @@ public class WinConditionController : MonoBehaviour
     [SerializeField] private DioramaInfos dioramaInfos;
 
     public static int[][] entitiesToValidate;
+    private byte validatedPuzzleAmount; 
 
     void Awake()
     {
@@ -57,10 +58,16 @@ public class WinConditionController : MonoBehaviour
         if (dioramaInfos.puzzleInfos[array].winConditionIsMet == true)
         {
             Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
+            validatedPuzzleAmount++; 
         }
         else
         {
             Debug.Log($"puzzle {(DioramaPuzzleName)array} is NOT finished"); // debug
+        }
+
+        if (validatedPuzzleAmount == dioramaInfos.puzzleAmount)
+        {
+            Debug.Log("Level is FINISHED"); // debug
         }
     }
 
