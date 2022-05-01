@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TweenTouch : MonoBehaviour
+public class TweenTouch : StoppableTween
 {
     public TweeningData td;
 
@@ -61,5 +61,4 @@ public class TweenTouch : MonoBehaviour
             VFX.Play(); 
         }
     }
-
 }

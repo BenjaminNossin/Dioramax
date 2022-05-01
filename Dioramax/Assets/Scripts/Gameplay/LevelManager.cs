@@ -86,7 +86,7 @@ public class LevelManager : MonoBehaviour
 
             TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
             ActivatePuzzleCompleteVFX(array);
-            if ((array == 0 || array == 1) && !overridePhaseSystem) // tuyaux ou rats
+            if (!overridePhaseSystem) 
             {
                 TriggerBoucheIncendiePhase(PhaseHolderName.BoucheIncendie, validatedPuzzleAmount - 1); 
             }
@@ -198,7 +198,8 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
-        else if (validatedPuzzleAmount == 3)
+        else if (validatedPuzzleAmount == 3) // necessarily carrousel
+
         {
             for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
             {
@@ -212,7 +213,8 @@ public class LevelManager : MonoBehaviour
                 }
             }
 
-            phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play(); 
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play();
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(false);
         }
     }
 
