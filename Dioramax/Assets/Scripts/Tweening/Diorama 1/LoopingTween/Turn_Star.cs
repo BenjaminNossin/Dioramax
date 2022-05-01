@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Turn_Star : MonoBehaviour
 {
-
-
     [SerializeField] float rotation_degrees;
     [SerializeField] float time_rotation;
     [SerializeField] float up_max_position;

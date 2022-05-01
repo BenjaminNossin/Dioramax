@@ -50,6 +50,8 @@ public class TouchDetection : MonoBehaviour
         if (!canCast) return false; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
 
         Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.red, RAY_DEBUG_DURATION);
+
+        // use Physics.RaycastAll instead to see if the object detected is the first or hiddent behind others
         buttonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, RAY_LENGTH, buttonMask);
         carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, RAY_LENGTH, carrouselPropMask);
         tweenableDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableHitInfo, RAY_LENGTH, tweenableMask);

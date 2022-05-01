@@ -13,12 +13,16 @@ public class LevelManager : MonoBehaviour
 
     [Header("Tuyaux")]
     [SerializeField] private ParticleSystem[] reussiteTuyauxVFX;
-    [SerializeField] private MonoBehaviour buttonTweenTouch;
+    [SerializeField] private MonoBehaviour buttonTweenTouch; // stil WIP because logically hard to do with this version of puzzle mechanic
+    // Desactiver le script TweenTouch sur le(s) bouton(s)  une fois qu’il n’est plus utile pour le puzzle et remettre sa/leurs scale à 1 1 1 (1 2 1 avant)
 
 
     public static int[][] EntitiesToValidate { get; set; }
     private byte validatedPuzzleAmount; 
     public static bool LevelIsFinished { get; private set; }
+
+    [Header("DEBUG")]
+    public bool overridePhaseSystem = true; 
 
     void Awake()
     {
@@ -74,15 +78,18 @@ public class LevelManager : MonoBehaviour
         }
 
         // if all the puzzle pieces are valid, the puzzle is completed
+        // carrousel CANNOT be the first validated puzzle
         if (dioramaInfos.puzzleInfos[array].winConditionIsMet == true)
         {
             Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
             validatedPuzzleAmount++;
+
+            TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
             ActivatePuzzleCompleteVFX(array);
-
-            // if puzzle == tuyau -> incrémenter phase bouche incendie de 1 via validatedPuzzleAmount
-
-            TriggerStarPhase(0, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
+            if ((array == 0 || array == 1) && !overridePhaseSystem) // tuyaux ou rats
+            {
+                TriggerBoucheIncendiePhase(PhaseHolderName.BoucheIncendie, validatedPuzzleAmount - 1); 
+            }
 
             if (validatedPuzzleAmount == dioramaInfos.puzzleAmount)
             {
@@ -122,6 +129,7 @@ public class LevelManager : MonoBehaviour
     {
         maxDissolveAmount = validatedPuzzleAmount == 1 ? 0.3f : validatedPuzzleAmount == 2 ? 0.4f : 1;
 
+        // NEED REFACTORING
         if (validatedPuzzleAmount == 1)
         {
             dissolveMaterial = phaseHolders[(int)phaseHolderName].phases[phaseNumber].materialsToSet[0];
@@ -160,13 +168,63 @@ public class LevelManager : MonoBehaviour
         }
     }
     #endregion
+
+    #region Bouche d'Incendie
+    public void TriggerBoucheIncendiePhase(PhaseHolderName phaseHolderName, int phaseNumber)
+    {
+        // NEED REFACTORING
+        if (validatedPuzzleAmount == 1)
+        {
+            for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
+            {
+                phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
+            }
+        }
+        else if (validatedPuzzleAmount == 2)
+        {
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(true);
+
+            for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
+            {
+                if (i < 2)
+                {
+                    Debug.Log($"setting {i} to false"); 
+                    phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = false;
+                }
+                else
+                {
+                    Debug.Log($"setting {i} to true");
+                    phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
+                }
+            }
+        }
+        else if (validatedPuzzleAmount == 3)
+        {
+            for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
+            {
+                if (i < 2)
+                {
+                    phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = false;
+                }
+                else
+                {
+                    phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
+                }
+            }
+
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play(); 
+        }
+    }
+
+    #endregion
+
     #endregion
 }
 
 #region Phase Holders
 // "event" -> résolution de puzzle, selection d'ourson, tuyaux bien lock
 // Bouche à incendie, Tuyaux, Manège, Etoile, Feu d'artifice    
-public enum PhaseHolderName { NONE = -1, BoucheIncendie, Manège, Etoile }
+public enum PhaseHolderName { NONE = -1, Etoile, BoucheIncendie, Manège }
 [System.Serializable]
 public class PhaseHolder
 {
