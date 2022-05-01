@@ -392,6 +392,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
   m_PrefabInstance: {fileID: 113861501}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &166232669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4527929818975817549, guid: 879cbade41134d043925a1e1b4706f2a, type: 3}
+  m_PrefabInstance: {fileID: 4439353567410910009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &186595635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
@@ -3070,18 +3075,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1078332464, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1078332465, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1078332466, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1078332470, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: quad
       value: 
@@ -3090,10 +3083,6 @@ PrefabInstance:
       propertyPath: diorama
       value: 
       objectReference: {fileID: 7778398950724897745}
-    - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
-      propertyPath: XYForceMultiplier
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
       value: Prefab_CameraCrane
@@ -15403,8 +15392,11 @@ MonoBehaviour:
       materialsToSet:
       - {fileID: 2100000, guid: 6eba03341df24a94e8ea1a22d5df8fab, type: 2}
     - phaseNumber: 3
-      scriptsToSet: []
-      objToSet: []
+      scriptsToSet:
+      - {fileID: 7945240975568010721}
+      objToSet:
+      - {fileID: 7151409969371521306}
+      - {fileID: 166232669}
       particlesToSet: []
       materialsToSet:
       - {fileID: 2100000, guid: 6eba03341df24a94e8ea1a22d5df8fab, type: 2}
@@ -15612,7 +15604,7 @@ GameObject:
   - component: {fileID: 7945240975568010718}
   - component: {fileID: 7945240975568010720}
   - component: {fileID: 7945240975568010721}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: A_VAL_Etoile_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15639,7 +15631,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7945240975568010719}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd33418909e640245969c7b4e63b58bf, type: 3}
   m_Name: 

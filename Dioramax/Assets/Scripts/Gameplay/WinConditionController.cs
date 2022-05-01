@@ -10,9 +10,12 @@ public class WinConditionController : MonoBehaviour
 
     public static int[][] EntitiesToValidate { get; set; }
     private byte validatedPuzzleAmount; 
+    public static bool LevelIsFinished { get; private set; }
 
     void Awake()
     {
+        LevelIsFinished = false;
+
         if (Instance != null)
         {
             Destroy(this);
@@ -73,6 +76,8 @@ public class WinConditionController : MonoBehaviour
             if (validatedPuzzleAmount == dioramaInfos.puzzleAmount)
             {
                 Debug.Log("Level is FINISHED"); // debug
+                LevelIsFinished = true; 
+                // show victory UI
             }
         }
     }
@@ -85,10 +90,25 @@ public class WinConditionController : MonoBehaviour
     }
 
     #region Phases
-    private float currentDissolveAmount, minDissolveAmount, maxDissolveAmount; 
+        #region Star
+    private float currentDissolveAmount, minDissolveAmount, maxDissolveAmount;
+    private Material dissolveMaterial; 
     public void TriggerStarPhase(PhaseHolderName phaseHolderName, int phaseNumber)
     {
         maxDissolveAmount = validatedPuzzleAmount == 1 ? 0.3f : validatedPuzzleAmount == 2 ? 0.4f : 1;
+
+        if (validatedPuzzleAmount == 1)
+        {
+            dissolveMaterial = phaseHolders[(int)phaseHolderName].phases[phaseNumber].materialsToSet[0];
+        }
+        else if (validatedPuzzleAmount == 3)
+        {
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(false);
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[1].SetActive(true);
+
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[0].enabled = true;
+        }
+
         StartCoroutine(LerpStarDissolve(phaseHolderName, phaseNumber)); 
     }
 
@@ -101,7 +121,7 @@ public class WinConditionController : MonoBehaviour
         currentDissolveAmount = Mathf.Lerp(minDissolveAmount, maxDissolveAmount, currentTime);
         currentTime += Time.fixedDeltaTime / dissolveDuration;
 
-        phaseHolders[(int)phaseHolderName].phases[phaseNumber].materialsToSet[0].SetFloat("DissolveAmount", currentDissolveAmount); 
+        dissolveMaterial.SetFloat("DissolveAmount", currentDissolveAmount); 
 
         if (currentTime <= dissolveDuration)
         {
@@ -113,7 +133,8 @@ public class WinConditionController : MonoBehaviour
             currentTime = 0f; 
             StopCoroutine(LerpStarDissolve(phaseHolderName, phaseNumber)); 
         }
-    } 
+    }
+    #endregion
     #endregion
 }
 

@@ -15,8 +15,10 @@ public class TouchDetection : MonoBehaviour
     [SerializeField] private LayerMask buttonMask;
     [SerializeField] private LayerMask carrouselPropMask;
     [SerializeField] private LayerMask tweenableMask;
+    [SerializeField] private LayerMask finishMask;
 
-    private bool buttonDetected, carrouselBearDetected, tweenableDetected;  
+
+    private bool buttonDetected, carrouselBearDetected, tweenableDetected, finishMaskDetected;   
     private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
@@ -51,12 +53,18 @@ public class TouchDetection : MonoBehaviour
         buttonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, RAY_LENGTH, buttonMask);
         carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, RAY_LENGTH, carrouselPropMask);
         tweenableDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableHitInfo, RAY_LENGTH, tweenableMask);
+        finishMaskDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit finishHitInto, RAY_LENGTH, finishMask); 
 
         if (tweenableDetected)
         {
             print("Tweening");
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
             tweenableHitInfo.transform.GetComponent<TweenTouch>().Tween();
+        }
+
+        if (finishMaskDetected && WinConditionController.LevelIsFinished)
+        {
+            Debug.Log("Show Finish UI"); 
         }
 
         if (buttonDetected)

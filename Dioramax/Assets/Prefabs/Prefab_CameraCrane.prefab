@@ -129,7 +129,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70355df5a5bce84408dd20696f42693e, type: 3}
   m_Name: 
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75ffdd07ed5bbbe4cb3af168cd38ab97, type: 3}
   m_Name: 
@@ -160,6 +160,9 @@ MonoBehaviour:
   tweenableMask:
     serializedVersion: 2
     m_Bits: 512
+  finishMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1078332464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +170,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
@@ -350,6 +353,9 @@ MonoBehaviour:
   tweenableMask:
     serializedVersion: 2
     m_Bits: 512
+  finishMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &3533724392168430049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diorama: {fileID: 0}
-  XYForceMultiplier: 3
+  XYForceMultiplier: 2
   ZRotationForce: 40
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
