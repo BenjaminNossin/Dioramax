@@ -18,6 +18,8 @@ public class WinCondition : MonoBehaviour
             if (winConditionIsMet && !WinConditionEventIsRegistered)
             {
                 SetWinCondition(true);
+
+                // if puzzle name == tuyaux, cf "Trucs à intégrer GA"
             }
             else if (!winConditionIsMet && WinConditionEventIsRegistered)
             {

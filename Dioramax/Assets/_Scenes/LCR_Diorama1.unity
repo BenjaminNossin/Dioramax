@@ -1780,10 +1780,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6952084752941963546, guid: f977003581949954bba2a10444faa0ea, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -84.20654
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f977003581949954bba2a10444faa0ea, type: 3}
 --- !u!1 &1356841158
@@ -2528,6 +2524,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 950039883392823832, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 101.1001
+      objectReference: {fileID: 0}
     - target: {fileID: 950039883392823833, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
       value: 0.103003636
@@ -2663,6 +2663,10 @@ PrefabInstance:
     - target: {fileID: 950039884471438504, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_Colors.m_PressedColor.r
       value: 0.9150943
+      objectReference: {fileID: 0}
+    - target: {fileID: 950039884471438507, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 101.1001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
@@ -15382,6 +15386,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
+  phaseHolders:
+  - editorName: Etoile du carrousel
+    phaseHolderName: 3
+    phases:
+    - phaseNumber: 1
+      scriptsToSet: []
+      objToSet: []
+      particlesToSet: []
+      materialsToSet:
+      - {fileID: 2100000, guid: 6eba03341df24a94e8ea1a22d5df8fab, type: 2}
+    - phaseNumber: 2
+      scriptsToSet: []
+      objToSet: []
+      particlesToSet: []
+      materialsToSet:
+      - {fileID: 2100000, guid: 6eba03341df24a94e8ea1a22d5df8fab, type: 2}
+    - phaseNumber: 3
+      scriptsToSet: []
+      objToSet: []
+      particlesToSet: []
+      materialsToSet:
+      - {fileID: 2100000, guid: 6eba03341df24a94e8ea1a22d5df8fab, type: 2}
 --- !u!114 &7778398950724897747
 MonoBehaviour:
   m_ObjectHideFlags: 0

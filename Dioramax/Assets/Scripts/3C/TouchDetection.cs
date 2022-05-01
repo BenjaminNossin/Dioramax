@@ -58,7 +58,8 @@ public class TouchDetection : MonoBehaviour
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
             tweenableHitInfo.transform.GetComponent<TweenTouch>().Tween();
         }
-        else if (buttonDetected)
+
+        if (buttonDetected)
         {
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
             StartCoroutine(CanCast()); 
