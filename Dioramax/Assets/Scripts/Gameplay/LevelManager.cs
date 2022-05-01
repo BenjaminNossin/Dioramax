@@ -2,13 +2,19 @@ using UnityEngine;
 using System.Collections.Generic; 
 
 // abstract this out to have one for each level
-public class WinConditionController : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    public static WinConditionController Instance;
+    public static LevelManager Instance;
 
+    [Header("General")]
     [SerializeField] private DioramaInfos dioramaInfos;
     [SerializeField] private PhaseHolder[] phaseHolders = new PhaseHolder[5];
-    [SerializeField] private GameObject[] puzzleCompleteVFXS = new GameObject[3]; 
+    [SerializeField] private GameObject[] puzzleCompleteVFXS = new GameObject[3];
+
+    [Header("Tuyaux")]
+    [SerializeField] private ParticleSystem[] reussiteTuyauxVFX;
+    [SerializeField] private MonoBehaviour buttonTweenTouch;
+
 
     public static int[][] EntitiesToValidate { get; set; }
     private byte validatedPuzzleAmount; 
@@ -72,7 +78,9 @@ public class WinConditionController : MonoBehaviour
         {
             Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
             validatedPuzzleAmount++;
-            ActivatePuzzleCompleteVFX(array); 
+            ActivatePuzzleCompleteVFX(array);
+
+            // if puzzle == tuyau -> incrémenter phase bouche incendie de 1 via validatedPuzzleAmount
 
             TriggerStarPhase(0, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
 
@@ -81,14 +89,8 @@ public class WinConditionController : MonoBehaviour
                 Debug.Log("Level is FINISHED"); // debug
                 LevelIsFinished = true; 
                 // show victory UI
-            }
+            } 
         }
-    }
-
-    private void ActivatePuzzleCompleteVFX(int index)
-    {
-        Debug.Log("Puzzle complete vfx"); 
-        puzzleCompleteVFXS[index].SetActive(true); 
     }
 
     public void InvalidateWinCondition(int array, int index)
@@ -98,8 +100,22 @@ public class WinConditionController : MonoBehaviour
         EntitiesToValidate[array][index] = 0;
     }
 
+    private void ActivatePuzzleCompleteVFX(int index)
+    {
+        Debug.Log("Puzzle complete vfx");
+        puzzleCompleteVFXS[index].SetActive(true);
+    }
+
+    public void OnTuyauxValidPosition(int index)
+    {
+        Debug.Log("tuyaux valid position fx"); 
+        reussiteTuyauxVFX[index].Play(); 
+        // Activer le particle system “VFX_ReussiteTuyau” a chaque fois qu’un tuyau est encastré dans la position correcte (enfant du tuyau correspondant)
+        // Desactiver le script TweenTouch sur le(s) bouton(s)  une fois qu’il n’est plus utile pour le puzzle et remettre sa / leurs scale à 1 1 1(1 2 1 avant)
+    }
+
     #region Phases
-        #region Star
+    #region Star
     private float currentDissolveAmount, minDissolveAmount, maxDissolveAmount;
     private Material dissolveMaterial; 
     public void TriggerStarPhase(PhaseHolderName phaseHolderName, int phaseNumber)
@@ -150,7 +166,7 @@ public class WinConditionController : MonoBehaviour
 #region Phase Holders
 // "event" -> résolution de puzzle, selection d'ourson, tuyaux bien lock
 // Bouche à incendie, Tuyaux, Manège, Etoile, Feu d'artifice    
-public enum PhaseHolderName { NONE = -1, BoucheIncendie, Tuyau, Manège, Etoile, FeuArtifice}
+public enum PhaseHolderName { NONE = -1, BoucheIncendie, Manège, Etoile }
 [System.Serializable]
 public class PhaseHolder
 {

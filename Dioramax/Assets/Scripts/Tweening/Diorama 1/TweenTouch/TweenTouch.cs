@@ -39,7 +39,6 @@ public class TweenTouch : MonoBehaviour
     
     public void Tween()
     {
-
         // ! remove looping
 
         //bounce (aller)
@@ -57,9 +56,9 @@ public class TweenTouch : MonoBehaviour
             LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEasePunch();//.setLoopCount(-1);
         
         //particlesystem
-        if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie)
+        if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
         {
-            VFX.Play();
+            VFX.Play(); 
         }
     }
 

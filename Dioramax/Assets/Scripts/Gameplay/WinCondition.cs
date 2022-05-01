@@ -3,7 +3,7 @@ using UnityEngine;
 public class WinCondition : MonoBehaviour
 {
     [Space, SerializeField] private DioramaPuzzleName entityPuzzleName; // PLACEHOLDER
-    [SerializeField] private int entityNumber; // PLACEHOLDER
+    public int entityNumber; 
 
     [Header("DEBUG")]
     public bool simulateWinConditionIsMet; 
@@ -36,7 +36,7 @@ public class WinCondition : MonoBehaviour
     private void SetWinCondition(bool winConditionState)
     {
         WinConditionEventIsRegistered = winConditionState;
-        WinConditionController.Instance.ValidateWinCondition((int)entityPuzzleName, entityNumber);
+        LevelManager.Instance.ValidateWinCondition((int)entityPuzzleName, entityNumber);
     }
 
     public void UpdateWinCondition(bool conditionStatus)

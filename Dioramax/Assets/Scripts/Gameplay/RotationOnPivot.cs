@@ -15,6 +15,7 @@ public class RotationOnPivot : MonoBehaviour
     public bool IsLocked { get; set; }
     private float distanceFromRequiredAngle;
     private Transform selfTransform;
+    private bool validPositionIsRegistered; 
 
     [Header("Debug")]
     [SerializeField] private bool simulateWinCondition = true; 
@@ -29,8 +30,6 @@ public class RotationOnPivot : MonoBehaviour
 
     private void Update()
     {
-        winCondition.UpdateWinCondition(selfTransform.localRotation == Quaternion.identity);
-
         if (IsLocked) return; 
 
         distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
@@ -45,6 +44,20 @@ public class RotationOnPivot : MonoBehaviour
         else
         {
             selfTransform.localRotation = Quaternion.identity; // == winCondition.UpdateWinCondition(true);
+        }
+
+        if (selfTransform.localRotation == Quaternion.identity)
+        {
+            if (!validPositionIsRegistered)
+            {
+                validPositionIsRegistered = true;
+                winCondition.UpdateWinCondition(true);
+                LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber);
+            }
+        }
+        else if (validPositionIsRegistered)
+        {
+            validPositionIsRegistered = false; 
         }
 
         if (multiSnapAngles)

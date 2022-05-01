@@ -62,7 +62,7 @@ public class TouchDetection : MonoBehaviour
             tweenableHitInfo.transform.GetComponent<TweenTouch>().Tween();
         }
 
-        if (finishMaskDetected && WinConditionController.LevelIsFinished)
+        if (finishMaskDetected && LevelManager.LevelIsFinished)
         {
             Debug.Log("Show Finish UI"); 
         }
