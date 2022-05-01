@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Dissolve
-  m_Shader: {fileID: -6465566751694194690, guid: 97077eca7fc8c8d4881fb05870f38e7c, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 81b47a7d6fc8a6c4c950a3a8540c7756, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -46,12 +46,17 @@ Material:
     m_Ints: []
     m_Floats:
     - DissolveAmount: 0
+    - _Alpha: 0.315
     - _DissolveAmount: 0
-    - _EdgeSize: 0.0683
+    - _EdgeSize: 0.0491
+    - _NoiseScale: 309.9
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ScrollScale: 25
+    - _SmoothnessScroll: 0.32
+    - _SpeedScroll: 0.07
     m_Colors:
-    - _ColorDissolve: {r: 6.797849, g: 37.079178, b: 59.017693, a: 1}
+    - _ColorDissolve: {r: 0, g: 594.3216, b: 1011.95294, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5011618184164745106
 MonoBehaviour:
