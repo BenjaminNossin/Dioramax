@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic; 
 
+// abstract this out to have one for each level
 public class WinConditionController : MonoBehaviour
 {
     public static WinConditionController Instance;
 
     [SerializeField] private DioramaInfos dioramaInfos;
-    [SerializeField] private List<PhaseHolder> phaseHolders = new(); 
+    [SerializeField] private PhaseHolder[] phaseHolders = new PhaseHolder[5];
+    [SerializeField] private GameObject[] puzzleCompleteVFXS = new GameObject[3]; 
 
     public static int[][] EntitiesToValidate { get; set; }
     private byte validatedPuzzleAmount; 
@@ -70,6 +72,7 @@ public class WinConditionController : MonoBehaviour
         {
             Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
             validatedPuzzleAmount++;
+            ActivatePuzzleCompleteVFX(array); 
 
             TriggerStarPhase(0, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
 
@@ -80,6 +83,12 @@ public class WinConditionController : MonoBehaviour
                 // show victory UI
             }
         }
+    }
+
+    private void ActivatePuzzleCompleteVFX(int index)
+    {
+        Debug.Log("Puzzle complete vfx"); 
+        puzzleCompleteVFXS[index].SetActive(true); 
     }
 
     public void InvalidateWinCondition(int array, int index)
@@ -138,6 +147,7 @@ public class WinConditionController : MonoBehaviour
     #endregion
 }
 
+#region Phase Holders
 // "event" -> résolution de puzzle, selection d'ourson, tuyaux bien lock
 // Bouche à incendie, Tuyaux, Manège, Etoile, Feu d'artifice    
 public enum PhaseHolderName { NONE = -1, BoucheIncendie, Tuyau, Manège, Etoile, FeuArtifice}
@@ -159,4 +169,4 @@ public class Phase
     public List<Material> materialsToSet = new();
 }
 
-
+#endregion
