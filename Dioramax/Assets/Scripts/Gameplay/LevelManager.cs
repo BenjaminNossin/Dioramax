@@ -16,8 +16,7 @@ public class LevelManager : MonoBehaviour
     [Header("Tuyaux")]
     [SerializeField] private ParticleSystem[] reussiteTuyauxVFX;
     [SerializeField] private MonoBehaviour buttonTweenTouch; // stil WIP because logically hard to do with this version of puzzle mechanic
-    // Desactiver le script TweenTouch sur le(s) bouton(s)  une fois qu’il n’est plus utile pour le puzzle et remettre sa/leurs scale à 1 1 1 (1 2 1 avant)
-
+                                                             // Desactiver le script TweenTouch sur le(s) bouton(s)  une fois qu’il n’est plus utile pour le puzzle et remettre sa/leurs scale à 1 1 1 (1 2 1 avant)
 
     public static int[][] EntitiesToValidate { get; set; }
     private byte validatedPuzzleAmount; 
@@ -191,6 +190,9 @@ public class LevelManager : MonoBehaviour
         else if (validatedPuzzleAmount == 2)
         {
             phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(true);
+
+            // activate cinematic 
+            CameraCinematic.Instance.PlayCinematic(); 
 
             for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
             {
