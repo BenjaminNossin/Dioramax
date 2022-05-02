@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CarrouselManager : MonoBehaviour
 {
+    [SerializeField] private List<Select_Ours> oursonTweens = new(); 
     public static List<CarrouselProp> carrouselProps = new List<CarrouselProp>();
 
     public static CarrouselManager Instance;
@@ -47,6 +48,11 @@ public class CarrouselManager : MonoBehaviour
                 {
                     carrouselProps[i].BackToDefaultColor();
                 }
+            }
+
+            for (int i = 0; i < oursonTweens.Count; i++)
+            {
+                oursonTweens[i].enabled = false;
             }
 
             TouchDetection.CarrouselPropActivated = 0;

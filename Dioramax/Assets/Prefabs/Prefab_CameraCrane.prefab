@@ -157,9 +157,12 @@ MonoBehaviour:
   carrouselPropMask:
     serializedVersion: 2
     m_Bits: 128
-  tweenableMask:
+  tweenableTouchMask:
     serializedVersion: 2
     m_Bits: 512
+  tweenableOursonMask:
+    serializedVersion: 2
+    m_Bits: 2048
   finishMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -175,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZoomIn: 45
+  maxZoomIn: 20
   maxZoomOut: 100
   zoomSpeed: 18
   gamefeelCurve: {fileID: 3533724393244289011}
@@ -350,9 +353,12 @@ MonoBehaviour:
   carrouselPropMask:
     serializedVersion: 2
     m_Bits: 128
-  tweenableMask:
+  tweenableTouchMask:
     serializedVersion: 2
     m_Bits: 512
+  tweenableOursonMask:
+    serializedVersion: 2
+    m_Bits: 2048
   finishMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -368,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZoomIn: 45
+  maxZoomIn: 20
   maxZoomOut: 100
   zoomSpeed: 18
   gamefeelCurve: {fileID: 3533724393244289011}
@@ -488,7 +494,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1865566559}
-  phase2Cinematic: {fileID: 7400000, guid: 7dd2aba4909b5f34abf15f0473ce8fea, type: 2}
 --- !u!95 &1865566559
 Animator:
   serializedVersion: 4

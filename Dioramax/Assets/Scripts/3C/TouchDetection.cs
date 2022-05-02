@@ -14,11 +14,12 @@ public class TouchDetection : MonoBehaviour
 
     [SerializeField] private LayerMask buttonMask;
     [SerializeField] private LayerMask carrouselPropMask;
-    [SerializeField] private LayerMask tweenableMask;
+    [SerializeField] private LayerMask tweenableTouchMask;
+    [SerializeField] private LayerMask tweenableOursonMask;
     [SerializeField] private LayerMask finishMask;
 
 
-    private bool buttonDetected, carrouselBearDetected, tweenableDetected, finishMaskDetected;   
+    private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected;   
     private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
@@ -51,17 +52,26 @@ public class TouchDetection : MonoBehaviour
 
         Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.red, RAY_DEBUG_DURATION);
 
-        // use Physics.RaycastAll instead to see if the object detected is the first or hiddent behind others
+        // use Physics.RaycastAll instead to see if the object detected is the first or hidden behind others
+        // NEED REFACTORING too much raycasts
         buttonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, RAY_LENGTH, buttonMask);
         carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, RAY_LENGTH, carrouselPropMask);
-        tweenableDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableHitInfo, RAY_LENGTH, tweenableMask);
+        tweenableTouchDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, RAY_LENGTH, tweenableTouchMask);
+        tweenableOursonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, RAY_LENGTH, tweenableOursonMask);
         finishMaskDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit finishHitInto, RAY_LENGTH, finishMask); 
 
-        if (tweenableDetected)
+        if (tweenableTouchDetected)
         {
-            print("Tweening");
+            print("Touch Tween");
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
-            tweenableHitInfo.transform.GetComponent<TweenTouch>().Tween();
+            tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
+        }
+
+        if (tweenableOursonDetected)
+        {
+            print("Ourson Tween");
+            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
+            tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
         }
 
         if (finishMaskDetected && LevelManager.LevelIsFinished)
@@ -82,8 +92,9 @@ public class TouchDetection : MonoBehaviour
                 Debug.Log("this was a double tap");
                 OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
             }
-        } 
-        else if (carrouselBearDetected)
+        }
+        
+        if (carrouselBearDetected)
         {
             detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
             detectedCarrouselProp.SetActiveColor(); 
