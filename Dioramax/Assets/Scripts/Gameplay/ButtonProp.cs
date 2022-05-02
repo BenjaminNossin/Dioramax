@@ -9,7 +9,7 @@ public class ButtonProp : MonoBehaviour
 
     [SerializeField] public MeshRenderer[] entitiesMeshRenderers;
     public RotationOnPivot[] rotationOnPivots;
-    public bool isActive;
+    public bool buttonIsActive;
 
     private void Start()
     {
@@ -22,30 +22,25 @@ public class ButtonProp : MonoBehaviour
 
     public void InverseButtonState()
     {
-        isActive = !isActive;
+        buttonIsActive = !buttonIsActive;
 
-        // button becomes active and inverts all pivots lock state
-        selfMeshRenderer.material.color = isActive ? Color.green : Color.red;
-        InvertPivotsLockState();
+        selfMeshRenderer.material.color = buttonIsActive ? Color.green : Color.red;
+        SetPivotLockState();
     }
 
-    public void SetButtonOff(bool invertPivotsLockState = false)
+    public void SetButtonOff()
     {
-        isActive = false;
-        // button becomes inactive. Pivots state does not change unless previous == current
+        buttonIsActive = false;
 
         selfMeshRenderer.material.color = Color.red;
-        if (invertPivotsLockState)
-        {
-            InvertPivotsLockState();
-        }
+        SetPivotLockState();     
     }
 
-    private void InvertPivotsLockState()
+    private void SetPivotLockState()
     {
         for (int i = 0; i < entitiesMeshRenderers.Length; i++)
         {
-            rotationOnPivots[i].IsLocked = !rotationOnPivots[i].IsLocked;
+            rotationOnPivots[i].IsLocked = buttonIsActive;
             entitiesMeshRenderers[i].material.color = rotationOnPivots[i].IsLocked ? Color.green : Color.red;
         }
     }

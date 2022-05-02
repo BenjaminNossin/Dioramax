@@ -25,10 +25,9 @@ public class RotationOnPivot : MonoBehaviour
         selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
     }
 
-    // TODO : definitely locked once good position is reached
     private void Update()
     {
-        if (IsLocked) return;
+        if (IsLocked || validPositionIsRegistered) return;
 
         distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
 
@@ -45,10 +44,6 @@ public class RotationOnPivot : MonoBehaviour
                 winCondition.UpdateWinCondition(true);
                 LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber); // fx and stop button tween
             }
-        }
-        else if (validPositionIsRegistered)
-        {
-            validPositionIsRegistered = false;
         }
 
         if (multiSnapAngles)

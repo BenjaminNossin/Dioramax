@@ -120,7 +120,7 @@ public class TouchDetection : MonoBehaviour
     System.Collections.IEnumerator CanCast()
     {
         canCast = false; 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         canCast = true; 
     }
