@@ -138,7 +138,7 @@ public class LevelManager : MonoBehaviour
     }
 
     #region Phases
-    #region Star
+        #region Star
     private float currentDissolveAmount, minDissolveAmount, maxDissolveAmount;
     private Material dissolveMaterial; 
     public void TriggerStarPhase(PhaseHolderName phaseHolderName, int phaseNumber)
@@ -152,13 +152,23 @@ public class LevelManager : MonoBehaviour
         }
         else if (validatedPuzzleAmount == 3)
         {
-            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(false);
-            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[1].SetActive(true);
-
-            phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[0].enabled = true;
+            // PLACEHOLDER
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].GetComponent<BoxCollider>().enabled = false;
+            StartCoroutine(DelayFinish(phaseHolderName, phaseNumber));
         }
 
         StartCoroutine(LerpStarDissolve(phaseHolderName, phaseNumber)); 
+    }
+
+    // wait end of dissolve
+    // here, add a cinematic camera focus if needed
+    private System.Collections.IEnumerator DelayFinish(PhaseHolderName phaseHolderName, int phaseNumber)
+    {
+        yield return new WaitForSeconds(1f); 
+        phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(false);
+        phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[1].SetActive(true);
+
+        phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[0].enabled = true;
     }
 
     readonly WaitForFixedUpdate waitForFixedUpdate;
@@ -183,9 +193,9 @@ public class LevelManager : MonoBehaviour
             StopCoroutine(LerpStarDissolve(phaseHolderName, phaseNumber)); 
         }
     }
-    #endregion
+        #endregion
 
-    #region Bouche d'Incendie
+        #region Bouche d'Incendie
     public void TriggerBoucheIncendiePhase(PhaseHolderName phaseHolderName, int phaseNumber)
     {
         // NEED REFACTORING
@@ -264,7 +274,7 @@ public class LevelManager : MonoBehaviour
         GameState = GameState.Playing; 
     }
 
-    #endregion
+        #endregion
 
     #endregion
 }
