@@ -70,20 +70,8 @@ public class Controls : MonoBehaviour
     }
 
     // You should better differentiate what is in Update, FixedUpdate and LateUpdate.. 
+  
     private void Update()
-    {
-        /* if (updateSeconds >= 1f)
-        {
-            Debug.Log("mobile update fps : " + mobileUpdateFPSCounter);
-            updateSeconds = 0f;
-            mobileUpdateFPSCounter = 0; 
-        } 
-
-        mobileUpdateFPSCounter++; 
-        updateSeconds += Time.deltaTime; */
-    }
-
-    private void FixedUpdate()
     {
         /* if (fixedUpdateSeconds >= 1f)
         {
@@ -95,6 +83,7 @@ public class Controls : MonoBehaviour
         mobileFixedUpdateFPSCounter++;
         fixedUpdateSeconds += Time.fixedDeltaTime; */
 
+        if (LevelManager.GameState != GameState.Playing) return; 
 
         // Do Once
         if (Input.touchCount < 2 && !touch1HasBeenUnregistered)
@@ -215,11 +204,6 @@ public class Controls : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void LateUpdate()
-    {
-
     }
 
     private void ResetDoubleTouchValues()

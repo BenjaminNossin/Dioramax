@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Turn_Star : MonoBehaviour
 {
-
-
     [SerializeField] float rotation_degrees;
     [SerializeField] float time_rotation;
     [SerializeField] float up_max_position;
@@ -26,11 +22,5 @@ public class Turn_Star : MonoBehaviour
 
         //size
         LeanTween.scale(gameObject, scale, 1f).setEaseOutSine().setLoopPingPong();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

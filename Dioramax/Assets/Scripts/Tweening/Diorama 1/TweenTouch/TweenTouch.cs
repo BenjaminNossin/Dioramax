@@ -1,32 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-public class TweenTouch : MonoBehaviour
+public class TweenTouch : StoppableTween
 {
     public TweeningData td;
 
     // TempPosition
     private Vector3 ObjectJumpPosition;
+    private float ObjectMaxHeight;
+    private float ObjectInitialHeight;
+    private Vector3 originalScale;
     private ParticleSystem VFX;
-
+    private float TimeScale;
+    private float TimeBounce;
     public void Start()
     {
         VFX = GetComponentInChildren<ParticleSystem>();
+
+        ObjectInitialHeight = transform.position.y;
+        ObjectMaxHeight = transform.position.y + td.up_max_position;
+        originalScale = transform.localScale;
+        ObjectJumpPosition = new Vector3(transform.position.x, ObjectMaxHeight, transform.position.z);
+        TimeScale = td.time_scale * 0.3f;
+        TimeBounce = td.time_bounce * 0.3f;
+
     }
 
+    public void ScaleGood()
+    {
+        //retour
+        LeanTween.scale(gameObject, originalScale, TimeScale + (TimeScale/2)).setEaseOutBack();
+    }
+
+    public void Tween2()
+    {  //retour
+        LeanTween.moveY(gameObject, ObjectInitialHeight, TimeBounce + (TimeBounce / 2)).setEaseOutBounce();
+
+    }
+    
     public void Tween()
     {
+        // ! remove looping
 
-            // ! remove looping
-            ObjectJumpPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + td.up_max_position, gameObject.transform.position.z);
+        //bounce (aller)
+        LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setEaseOutExpo().setOnComplete(Tween2);
 
-        //bounce
-        LeanTween.moveLocal(gameObject, ObjectJumpPosition, td.time_bounce).setEasePunch();//.setLoopCount(-1);
-
-        //stretch&squash
-        LeanTween.scale(gameObject, td.stretch_squash, 1f).setEasePunch();//.setLoopCount(-1);
+        //stretch&squash (aller)
+        LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
 
         //rotation
 
@@ -37,6 +56,9 @@ public class TweenTouch : MonoBehaviour
             LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEasePunch();//.setLoopCount(-1);
         
         //particlesystem
-        VFX.Play();
+        if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
+        {
+            VFX.Play(); 
+        }
     }
 }
