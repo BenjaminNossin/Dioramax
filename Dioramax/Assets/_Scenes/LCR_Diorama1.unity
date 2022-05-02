@@ -1265,6 +1265,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &642649565 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3533724392168430061, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &723143285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
@@ -1367,6 +1372,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755591674}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &788362702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1078332463, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1054541919
 GameObject:
   m_ObjectHideFlags: 0
@@ -3389,11 +3399,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
---- !u!4 &1865566552 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9027789502008531972, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
-  m_PrefabInstance: {fileID: 1865566549}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1865566553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
@@ -15822,7 +15827,8 @@ MonoBehaviour:
   buttonTweenTouch: {fileID: 0}
   carrouselToit: {fileID: 4317155643672479213}
   cameraCrane: {fileID: 1865566553}
-  cameras: {fileID: 1865566552}
+  mainCamera: {fileID: 642649565}
+  decoyCamera: {fileID: 788362702}
   cameraTransformOnPhase2: {fileID: 184983660}
   overridePhaseSystem: 0
 --- !u!114 &7778398950724897747
