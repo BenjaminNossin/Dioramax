@@ -16,10 +16,11 @@ public class TouchDetection : MonoBehaviour
     [SerializeField] private LayerMask carrouselPropMask;
     [SerializeField] private LayerMask tweenableTouchMask;
     [SerializeField] private LayerMask tweenableOursonMask;
+    [SerializeField] private LayerMask ratMask;
     [SerializeField] private LayerMask finishMask;
 
 
-    private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected;   
+    private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected; // :D    
     private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
@@ -58,6 +59,7 @@ public class TouchDetection : MonoBehaviour
         carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, RAY_LENGTH, carrouselPropMask);
         tweenableTouchDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, RAY_LENGTH, tweenableTouchMask);
         tweenableOursonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, RAY_LENGTH, tweenableOursonMask);
+        ratMaskDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit ratHitInfo, RAY_LENGTH, ratMask);
         finishMaskDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit finishHitInto, RAY_LENGTH, finishMask);
 
         if (finishMaskDetected && LevelManager.LevelIsFinished)
@@ -87,6 +89,14 @@ public class TouchDetection : MonoBehaviour
                 detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
                 detectedCarrouselProp.SetActiveColor();
             }
+        }
+
+        // check that rat have been hit through the vent, by looking at them
+        // STILL WIP
+        // use list to avoid GetComponent all the time, and update it if the component is a new reference
+        if (ratMaskDetected) 
+        {
+            ratHitInfo.transform.GetComponent<FreezeStateController>().InvertFreezeState(); 
         }
 
         if (buttonDetected)

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// this script violates Single Responsibility Principle by a long shot
+// why reference RotationOnPivot and have an InvertPivotLockState() here ??
 public class ButtonProp : MonoBehaviour
 {
     [SerializeField] public OverrideCameraPositionOnDoubleTap overrideCameraPositionOnDoubleTap;
@@ -51,5 +53,4 @@ public class ButtonProp : MonoBehaviour
     public bool CanOverrideCameraPositionOnDoubleTap() => overrideCameraPositionOnDoubleTap.DoOverride;
 
     public Vector3 GetCameraPositionOverride() => overrideCameraPositionOnDoubleTap.GetNewPosition();
-
 }

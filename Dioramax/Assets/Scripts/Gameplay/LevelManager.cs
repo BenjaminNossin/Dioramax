@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour
 
     public void ValidateWinCondition(int array, int index)
     {
-        Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
+        // Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
 
         // a puzzle piece is set to true (==1)
         EntitiesToValidate[array][index] = 1;
@@ -97,7 +97,7 @@ public class LevelManager : MonoBehaviour
         // carrousel CANNOT be the first validated puzzle
         if (dioramaInfos.puzzleInfos[array].winConditionIsMet == true)
         {
-            Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
+            // Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
             LevelInfosUI.Instance.ActivatePuzzleUIOnWin(array); 
             validatedPuzzleAmount++;
 
@@ -110,7 +110,7 @@ public class LevelManager : MonoBehaviour
 
             if (validatedPuzzleAmount == dioramaInfos.puzzleAmount)
             {
-                Debug.Log("Level is FINISHED"); // debug
+                // Debug.Log("Level is FINISHED"); 
                 LevelIsFinished = true;
                 objToDeactivateOnLevelEnd.SetActive(false);
             }
@@ -240,12 +240,12 @@ public class LevelManager : MonoBehaviour
         {
             if (i < 2)
             {
-                Debug.Log($"setting {i} to false");
+                // Debug.Log($"setting {i} to false");
                 phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = false;
             }
             else
             {
-                Debug.Log($"setting {i} to true");
+                // Debug.Log($"setting {i} to true");
                 phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
             }
         }
