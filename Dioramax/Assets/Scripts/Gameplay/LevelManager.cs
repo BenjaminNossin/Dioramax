@@ -10,7 +10,9 @@ public class LevelManager : MonoBehaviour
 
     [Header("General")]
     [SerializeField] private DioramaInfos dioramaInfos;
-    [SerializeField] private PhaseHolder[] phaseHolders = new PhaseHolder[5];
+    [SerializeField] private GameObject objToDeactivateOnLevelEnd;
+
+    [Space, SerializeField] private PhaseHolder[] phaseHolders = new PhaseHolder[5];
     [SerializeField] private GameObject[] puzzleCompleteVFXS = new GameObject[3];
 
     [Header("Tuyaux")]
@@ -110,9 +112,9 @@ public class LevelManager : MonoBehaviour
             if (validatedPuzzleAmount == dioramaInfos.puzzleAmount)
             {
                 Debug.Log("Level is FINISHED"); // debug
-                LevelIsFinished = true; 
-                // show victory UI
-            } 
+                LevelIsFinished = true;
+                objToDeactivateOnLevelEnd.SetActive(false);
+            }
         }
     }
 

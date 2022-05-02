@@ -76,7 +76,8 @@ public class TouchDetection : MonoBehaviour
 
         if (finishMaskDetected && LevelManager.LevelIsFinished)
         {
-            Debug.Log("Show Finish UI"); 
+            // show victory UI
+            EndOfLevelUI.Instance.ShowEndOfLevelPanel();
         }
 
         if (buttonDetected)
