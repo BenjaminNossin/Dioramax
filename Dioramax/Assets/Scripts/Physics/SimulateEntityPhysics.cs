@@ -2,25 +2,18 @@ using UnityEngine;
 
 // on indivividual objects
 [RequireComponent(typeof(Rigidbody))]
-public class SimulateEntityPhysics : MonoBehaviour, ISimulatePhysics
+public class SimulateEntityPhysics : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb; 
-    public static System.Action<SimulateEntityPhysics, Rigidbody> OnInitializePhysicsEntity { get; set; }
 
-    void Start()
+    public void AddRbToList()
     {
-        Initialize(); 
+        EntityPhysicsController.Instance.AddRbToList(rb); 
     }
 
-    public void Initialize()
+    public void RemoveRbFromList()
     {
-        try
-        {
-            OnInitializePhysicsEntity(this, rb);
-        }
-        catch(System.Exception e)
-        {
-            Debug.LogError(e.Message + "\n You may be lacking an EntityPhysicsController component on top of your diorama's hierarchy"); 
-        }
+        Debug.Log("removing"); 
+        EntityPhysicsController.Instance.RemoveRbFromList(rb); 
     }
 }

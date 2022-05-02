@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 1509116430494460100}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.5859592, y: -1.8366727, z: 1.0502193}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8544327005088266938}
@@ -183,7 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9507ad7b94a4564ea88b83ace0407f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freezeOnAwake: 1
+  freezeOnStart: 1
+  simulateEntityPhysics: {fileID: 496885463}
 --- !u!1 &1561334370340641558
 GameObject:
   m_ObjectHideFlags: 0
