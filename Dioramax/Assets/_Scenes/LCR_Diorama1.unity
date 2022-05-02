@@ -996,7 +996,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &354967128
 Transform:
   m_ObjectHideFlags: 0
@@ -5686,6 +5686,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ANIM_Rats
       objectReference: {fileID: 0}
+    - target: {fileID: 4005212707606109967, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4106913793096967825, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -6623,7 +6627,7 @@ GameObject:
   - component: {fileID: 2526951379726614247}
   - component: {fileID: 7337067939646834715}
   - component: {fileID: 7337067939646834712}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: VDD_BoucheEgout_low (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9855,6 +9859,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2458386454669541898, guid: be2b7973ace0ec948b2296dfbe446161, type: 3}
   m_PrefabInstance: {fileID: 2637012255510541070}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &2637012255510541073 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2458386454669541896, guid: be2b7973ace0ec948b2296dfbe446161, type: 3}
+  m_PrefabInstance: {fileID: 2637012255510541070}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2684130841399922753
 Transform:
   m_ObjectHideFlags: 0
@@ -10462,6 +10471,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2458386454669541898, guid: be2b7973ace0ec948b2296dfbe446161, type: 3}
   m_PrefabInstance: {fileID: 2933330420076453376}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &2933330420076453379 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2458386454669541896, guid: be2b7973ace0ec948b2296dfbe446161, type: 3}
+  m_PrefabInstance: {fileID: 2933330420076453376}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2933330420182888313
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10614,6 +10628,11 @@ PrefabInstance:
 --- !u!4 &2933330420182888314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2458386454669541898, guid: be2b7973ace0ec948b2296dfbe446161, type: 3}
+  m_PrefabInstance: {fileID: 2933330420182888313}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2933330420182888316 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2458386454669541896, guid: be2b7973ace0ec948b2296dfbe446161, type: 3}
   m_PrefabInstance: {fileID: 2933330420182888313}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2933330420353626396
@@ -10819,6 +10838,11 @@ PrefabInstance:
 --- !u!4 &2933330420651421319 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2458386454669541898, guid: be2b7973ace0ec948b2296dfbe446161, type: 3}
+  m_PrefabInstance: {fileID: 2933330420651421318}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2933330420651421321 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2458386454669541896, guid: be2b7973ace0ec948b2296dfbe446161, type: 3}
   m_PrefabInstance: {fileID: 2933330420651421318}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2962740612129264455
@@ -18048,7 +18072,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587401436846432948}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.84, y: 1.8, z: 0.69236785}
@@ -18212,7 +18236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideCameraPositionOnDoubleTap: {fileID: 1630357542}
-  selfMeshRenderer: {fileID: 0}
+  selfMeshRenderer: {fileID: 2736401915957650093}
   entitiesMeshRenderers:
   - {fileID: 5931768028698704211}
   rotationOnPivots:
@@ -18765,10 +18789,10 @@ MonoBehaviour:
   - {fileID: 723143285}
   - {fileID: 165809595}
   reussiteTuyauxVFX:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2637012255510541073}
+  - {fileID: 2933330420076453379}
+  - {fileID: 2933330420651421321}
+  - {fileID: 2933330420182888316}
   buttonTweenTouch: {fileID: 0}
   carrouselToit: {fileID: 4317155643672479213}
   cameraCrane: {fileID: 1865566553}
@@ -19104,7 +19128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideCameraPositionOnDoubleTap: {fileID: 1630357545}
-  selfMeshRenderer: {fileID: 0}
+  selfMeshRenderer: {fileID: 7978668114468105881}
   entitiesMeshRenderers:
   - {fileID: 4002615616940452687}
   - {fileID: 5931768028698704211}
@@ -20262,7 +20286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideCameraPositionOnDoubleTap: {fileID: 1630357543}
-  selfMeshRenderer: {fileID: 0}
+  selfMeshRenderer: {fileID: 6719645921363791750}
   entitiesMeshRenderers:
   - {fileID: 4002615616940452687}
   - {fileID: 1017875225251237198}
@@ -20960,7 +20984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideCameraPositionOnDoubleTap: {fileID: 1630357544}
-  selfMeshRenderer: {fileID: 0}
+  selfMeshRenderer: {fileID: 1934789916470754508}
   entitiesMeshRenderers:
   - {fileID: 4002615616940452687}
   - {fileID: 6235940224520396626}
