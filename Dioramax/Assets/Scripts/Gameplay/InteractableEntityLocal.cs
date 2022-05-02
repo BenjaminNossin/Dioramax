@@ -15,14 +15,18 @@ public partial class InteractableEntityLocal : InteractableEntity
         base.ChangeColor();
         meshRenderer.material.color = Color.blue; // bad override
 
-        if (isDecoy) return; 
-        winCondition.UpdateWinCondition(isActive);
+        CheckWinCondition();
     }
 
     public override void SwapOrChangeBack(bool swap, int[] remoteChangeArray = null)
     {
         base.SwapOrChangeBack(swap, remoteChangeArray);
 
+        CheckWinCondition();
+    }
+
+    private void CheckWinCondition()
+    {
         if (isDecoy) return;
         winCondition.UpdateWinCondition(isActive);
     }

@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-public class TweenTouch : MonoBehaviour
+public class TweenTouch : StoppableTween
 {
     public TweeningData td;
 
@@ -42,12 +39,10 @@ public class TweenTouch : MonoBehaviour
     
     public void Tween()
     {
-
         // ! remove looping
 
         //bounce (aller)
         LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setEaseOutExpo().setOnComplete(Tween2);
-        Debug.Log("Prout");
 
         //stretch&squash (aller)
         LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
@@ -61,7 +56,9 @@ public class TweenTouch : MonoBehaviour
             LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEasePunch();//.setLoopCount(-1);
         
         //particlesystem
-        VFX.Play();
+        if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
+        {
+            VFX.Play(); 
+        }
     }
-
 }
