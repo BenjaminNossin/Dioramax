@@ -25,6 +25,7 @@ public class RotationOnPivot : MonoBehaviour
         selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
     }
 
+    // TODO : definitely locked once good position is reached
     private void Update()
     {
         if (IsLocked) return;
