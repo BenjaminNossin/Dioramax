@@ -9,6 +9,6 @@ public class Water_Exploding : StoppableTween
     void Start()
     {
         //stretch&squash
-        LeanTween.scale(gameObject, stretch_squash, time_stretchsquash).setEasePunch().setLoopCount(-1);
+        LeanTween.scale(gameObject, stretch_squash, time_stretchsquash).setEasePunch();
     }
 }
