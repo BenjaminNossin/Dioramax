@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     [Header("General")]
     [SerializeField] private DioramaInfos dioramaInfos;
     [SerializeField] private GameObject objToDeactivateOnLevelEnd;
+    [SerializeField, Range(0f, 5f)] private float phase2to3Delay = 1f; 
 
     [Space, SerializeField] private PhaseHolder[] phaseHolders = new PhaseHolder[5];
     [SerializeField] private GameObject[] puzzleCompleteVFXS = new GameObject[3];
@@ -50,6 +51,9 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        // PALCEHOLDER
+        phaseHolders[0].phases[0].materialsToSet[0].SetFloat("DissolveAmount", 0);
+
         // WIP : initializing all at 0. This will be changed by loading saved game state
         EntitiesToValidate = new int[dioramaInfos.puzzleAmount][];
         for (int i = 0; i < EntitiesToValidate.Length; i++)
@@ -69,12 +73,6 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log($"gamestate is now {gameState}."); 
         GameState = gameState; 
-    }
-
-    // callback lorsqu'un ourson/bouton est touché ou tuyau dans le bon sens
-    public void ValidateActivationState()
-    {
-
     }
 
     public void ValidateWinCondition(int array, int index)
@@ -171,7 +169,8 @@ public class LevelManager : MonoBehaviour
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(false);
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[1].SetActive(true);
 
-        phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[0].enabled = true;
+        // Tween_Star_Finish still WIP
+        // phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[0].enabled = true;
     }
 
     readonly WaitForFixedUpdate waitForFixedUpdate;
@@ -204,63 +203,77 @@ public class LevelManager : MonoBehaviour
         // NEED REFACTORING
         if (validatedPuzzleAmount == 1)
         {
-            for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
+            ActivateBoucheIncendiePhase1(phaseHolderName, phaseNumber);
+        }
+        else if (validatedPuzzleAmount == 2)
+        {
+            // phase 3 done within phase 2
+            ActivateBoucheIncendiePhase2(phaseHolderName, phaseNumber); 
+        }
+    }
+
+    private void ActivateBoucheIncendiePhase1(PhaseHolderName phaseHolderName, int phaseNumber)
+    {
+        for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
+        {
+            phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
+        }
+    }
+
+    private void ActivateBoucheIncendiePhase2(PhaseHolderName phaseHolderName, int phaseNumber)
+    {
+        phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(true);
+
+        // activate cinematic 
+        // CameraCinematic.Instance.PlayCinematic(); 
+
+        // PLACEHOLDER
+        cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.Euler(26.5f, -36f, 0f));
+        mainCamera.transform.position = cameraTransformOnPhase2.position;
+        mainCamera.transform.localRotation = Quaternion.identity;
+        decoyCamera.transform.position = cameraTransformOnPhase2.position;
+        decoyCamera.transform.localRotation = Quaternion.identity;
+
+        StartCoroutine(SimulateBoucheIncendiePhase2Cinematic());
+
+        for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
+        {
+            if (i < 2)
+            {
+                Debug.Log($"setting {i} to false");
+                phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = false;
+            }
+            else
+            {
+                Debug.Log($"setting {i} to true");
+                phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
+            }
+        }
+
+        StartCoroutine(ActivateBoucheIncendiePhase3(phaseHolderName, phaseNumber + 1));
+    }
+
+    private System.Collections.IEnumerator ActivateBoucheIncendiePhase3(PhaseHolderName phaseHolderName, int phaseNumber)
+    {
+        yield return new WaitForSeconds(phase2to3Delay);
+
+        for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
+        {
+            if (i == 0)
+            {
+                phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = false;
+            }
+            else
             {
                 phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
             }
         }
-        else if (validatedPuzzleAmount == 2)
-        {
-            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(true);
 
-            // activate cinematic 
-            // CameraCinematic.Instance.PlayCinematic(); 
-
-            // PLACEHOLDER
-            cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.Euler(26.5f, -36f, 0f));
-            mainCamera.transform.position = cameraTransformOnPhase2.position;
-            mainCamera.transform.localRotation = Quaternion.identity;
-            decoyCamera.transform.position = cameraTransformOnPhase2.position;
-            decoyCamera.transform.localRotation = Quaternion.identity;
-
-            StartCoroutine(SimulateCinematic()); 
-
-            for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
-            {
-                if (i < 2)
-                {
-                    Debug.Log($"setting {i} to false"); 
-                    phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = false;
-                }
-                else
-                {
-                    Debug.Log($"setting {i} to true");
-                    phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
-                }
-            }
-        }
-        else if (validatedPuzzleAmount == 3) // necessarily carrousel
-
-        {
-            for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
-            {
-                if (i < 2)
-                {
-                    phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = false;
-                }
-                else
-                {
-                    phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
-                }
-            }
-
-            phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play();
-            phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(false);
-        }
+        phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play();
     }
 
     // PLACEHOLDER
-    private System.Collections.IEnumerator SimulateCinematic()
+    private System.Collections.IEnumerator SimulateBoucheIncendiePhase2Cinematic()
     {
         GameState = GameState.Cinematic;
 

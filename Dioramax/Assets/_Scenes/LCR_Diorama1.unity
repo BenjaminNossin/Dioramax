@@ -5872,6 +5872,10 @@ PrefabInstance:
       propertyPath: diorama
       value: 
       objectReference: {fileID: 7778398950724897745}
+    - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: XYForceMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
       value: Prefab_CameraCrane
@@ -18854,6 +18858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
   objToDeactivateOnLevelEnd: {fileID: 1209153188}
+  phase2to3Delay: 1
   phaseHolders:
   - editorName: Etoile du carrousel
     phaseHolderName: 0
@@ -18893,7 +18898,6 @@ MonoBehaviour:
       scriptsToSet:
       - {fileID: 5945685465084303630}
       - {fileID: 6401840352566120757}
-      - {fileID: 0}
       - {fileID: 6401840352566120756}
       objToSet:
       - {fileID: 4787372253756997154}
@@ -18901,12 +18905,10 @@ MonoBehaviour:
       materialsToSet: []
     - phaseNumber: 3
       scriptsToSet:
-      - {fileID: 0}
       - {fileID: 4536692283406114579}
-      - {fileID: 4787372253756997153}
       - {fileID: 812116202610209915}
-      objToSet:
-      - {fileID: 6401840352566120758}
+      - {fileID: 4787372253756997153}
+      objToSet: []
       particlesToSet:
       - {fileID: 1493812273}
       materialsToSet: []
@@ -19174,6 +19176,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd33418909e640245969c7b4e63b58bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion_stretch: {x: 0, y: 0, z: 0}
+  time_explosion: 0
+  up_max_position_start: 0
+  delay: 0
+  rotation_degrees: 0
+  time_rotation: 0
+  up_max_position: 0
+  time_bounce: 0
+  stretch_squash: {x: 0, y: 0, z: 0}
+  time_stretchsquash: 0
 --- !u!4 &7945794951097828090
 Transform:
   m_ObjectHideFlags: 0

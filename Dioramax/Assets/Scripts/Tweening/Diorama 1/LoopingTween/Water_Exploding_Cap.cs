@@ -8,7 +8,7 @@ public class Water_Exploding_Cap : MonoBehaviour
     [SerializeField] float time_bounce;
     [SerializeField] float delay;
 
-    void OnEnable()
+    void Start()
     {
         //exploding
         LeanTween.moveLocalZ(gameObject, up_max_position, time_exploding).setEaseOutElastic();
