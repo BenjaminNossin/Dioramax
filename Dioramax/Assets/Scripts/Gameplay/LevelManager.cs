@@ -270,6 +270,7 @@ public class LevelManager : MonoBehaviour
         }
 
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play();
+        phaseHolders[(int)phaseHolderName].phases[phaseNumber].collidersToSet[0].enabled = false; // bears can now be detected  
     }
 
     // PLACEHOLDER
@@ -315,6 +316,7 @@ public class Phase
     public List<GameObject> objToSet = new();
     public List<ParticleSystem> particlesToSet = new();
     public List<Material> materialsToSet = new();
+    public List<Collider> collidersToSet = new();
 }
 
 #endregion

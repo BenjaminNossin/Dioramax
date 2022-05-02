@@ -31,7 +31,7 @@ public class TouchDetection : MonoBehaviour
     public static int ValidCarrouselPropAmount { get; set; }
     private int carrouselPropActivated; // DEBUG
     private bool canCast = true;
-    private const float RAY_LENGTH = 40f;
+    private const float RAY_LENGTH = 250f;
     private const float RAY_DEBUG_DURATION = 0.5f;
 
 
@@ -58,7 +58,13 @@ public class TouchDetection : MonoBehaviour
         carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, RAY_LENGTH, carrouselPropMask);
         tweenableTouchDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, RAY_LENGTH, tweenableTouchMask);
         tweenableOursonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, RAY_LENGTH, tweenableOursonMask);
-        finishMaskDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit finishHitInto, RAY_LENGTH, finishMask); 
+        finishMaskDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit finishHitInto, RAY_LENGTH, finishMask);
+
+        if (finishMaskDetected && LevelManager.LevelIsFinished)
+        {
+            // show victory UI
+            EndOfLevelUI.Instance.ShowEndOfLevelPanel();
+        }
 
         if (tweenableTouchDetected)
         {
@@ -66,18 +72,21 @@ public class TouchDetection : MonoBehaviour
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
             tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
         }
-
-        if (tweenableOursonDetected)
+        else // do not detect bears if carrousel is still tweenable (puzzle must not be completed before end of phase 2)
         {
-            print("Ourson Tween");
-            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
-            tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
-        }
+            if (tweenableOursonDetected)
+            {
+                print("Ourson Tween");
+                Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
+            }
 
-        if (finishMaskDetected && LevelManager.LevelIsFinished)
-        {
-            // show victory UI
-            EndOfLevelUI.Instance.ShowEndOfLevelPanel();
+            if (carrouselBearDetected)
+            {
+                print("carrousel bear detected");
+                detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
+                detectedCarrouselProp.SetActiveColor();
+            }
         }
 
         if (buttonDetected)
@@ -94,13 +103,7 @@ public class TouchDetection : MonoBehaviour
                 OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
             }
         }
-        
-        if (carrouselBearDetected)
-        {
-            detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
-            detectedCarrouselProp.SetActiveColor(); 
-        }
-
+       
         return buttonDetected || carrouselBearDetected;
     }
 

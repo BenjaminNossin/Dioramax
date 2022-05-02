@@ -69,7 +69,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 471
+    m_Bits: 4055
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 9dafea5bcbf1ee34dab754f092826ede, type: 2}
   m_TargetDisplay: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transfToMove: {fileID: 0}
   maxZoomIn: 20
   maxZoomOut: 100
   zoomSpeed: 18
@@ -374,6 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transfToMove: {fileID: 9027789502008531972}
   maxZoomIn: 20
   maxZoomOut: 100
   zoomSpeed: 18
@@ -428,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diorama: {fileID: 0}
-  XYForceMultiplier: 2
+  XYForceMultiplier: 1
   ZRotationForce: 40
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
