@@ -260,6 +260,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
+--- !u!1 &62668759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 62668760}
+  - component: {fileID: 62668761}
+  m_Layer: 0
+  m_Name: egout_blocker (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &62668760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62668759}
+  m_LocalRotation: {x: -0, y: 0.000000043711395, z: 0.00000004371139, w: 1}
+  m_LocalPosition: {x: 0.563, y: -0, z: 2.158}
+  m_LocalScale: {x: 1.5493582, y: 0.66868997, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5353950258052156627}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &62668761
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62668759}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &75603551
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +434,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6969808670163652971}
     m_Modifications:
+    - target: {fileID: 113861505, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460100, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_Name
       value: Prefab_Rat (1)
@@ -493,7 +542,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 4
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &125536017
 MonoBehaviour:
@@ -882,7 +932,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
   entityNumber: 3
-  simulateWinConditionIsMet: 0
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &260966035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1422,6 +1473,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6969808670163652971}
     m_Modifications:
+    - target: {fileID: 113861505, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1877459725, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: freezeOnStart
       value: 1
@@ -1440,7 +1495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.56
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1485,6 +1540,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
   m_PrefabInstance: {fileID: 496885460}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &526400563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 526400564}
+  - component: {fileID: 526400565}
+  m_Layer: 0
+  m_Name: egout_blocker (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &526400564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526400563}
+  m_LocalRotation: {x: -0, y: 0.000000005587935, z: 0.031742092, w: 0.99949616}
+  m_LocalPosition: {x: 0.032, y: 0.382, z: -0.48}
+  m_LocalScale: {x: 0.98948306, y: 2.281909, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2865887657426274345}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.638}
+--- !u!65 &526400565
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526400563}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &591093968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,7 +1634,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 8
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &591093971
 MonoBehaviour:
@@ -1970,7 +2071,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 10
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &668588744
 MonoBehaviour:
@@ -2115,6 +2217,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
+--- !u!1 &693222237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 693222238}
+  - component: {fileID: 693222239}
+  m_Layer: 0
+  m_Name: egout_blocker (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &693222238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693222237}
+  m_LocalRotation: {x: -0.000000089406974, y: 0.00000005909892, z: 0.029754393, w: 0.99955726}
+  m_LocalPosition: {x: 0.196, y: -1.613, z: 1.5}
+  m_LocalScale: {x: 0.84897643, y: 2.1375186, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2895323402613606896}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.41}
+--- !u!65 &693222239
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693222237}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &723143285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
@@ -2465,7 +2612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 9
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &878460263
 MonoBehaviour:
@@ -2827,7 +2975,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 6
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &1014325814
 MonoBehaviour:
@@ -3381,6 +3530,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6506188581406916409, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
   m_PrefabInstance: {fileID: 1225833235}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1230613566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1230613567}
+  - component: {fileID: 1230613568}
+  m_Layer: 0
+  m_Name: egout_blocker (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1230613567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230613566}
+  m_LocalRotation: {x: -0.00000005960465, y: 0.00000006629593, z: 0.15474035, w: 0.9879552}
+  m_LocalPosition: {x: -0.161, y: 0.328, z: 1.497}
+  m_LocalScale: {x: 0.98948306, y: 2.1375186, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2895323402613606896}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 17.803}
+--- !u!65 &1230613568
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230613566}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1250834285
 GameObject:
   m_ObjectHideFlags: 0
@@ -3568,7 +3762,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 11
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &1286033201
 MonoBehaviour:
@@ -3681,7 +3876,7 @@ Transform:
   m_GameObject: {fileID: 1325478873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.577, y: -0.491, z: -0.16}
-  m_LocalScale: {x: 0.885, y: 0.885, z: 0.885}
+  m_LocalScale: {x: 1.1822715, y: 1.1822715, z: 1.1822715}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8214430527376360239}
@@ -3701,6 +3896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 2
+  overrideWinConditionCall: 1
   simulateWinConditionIsMet: 0
 --- !u!114 &1325478876
 MonoBehaviour:
@@ -4039,7 +4235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 12
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &1395165975
 MonoBehaviour:
@@ -4173,7 +4370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 7
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &1427342761
 MonoBehaviour:
@@ -4319,7 +4517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 0
-  simulateWinConditionIsMet: 1
+  overrideWinConditionCall: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1436204030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4384,6 +4583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
   entityNumber: 2
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
 --- !u!114 &1459963606
 MonoBehaviour:
@@ -4407,6 +4607,51 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1676652895588182472, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
   m_PrefabInstance: {fileID: 1746341538}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1483479744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1483479745}
+  - component: {fileID: 1483479746}
+  m_Layer: 0
+  m_Name: egout_blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1483479745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483479744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.48}
+  m_LocalScale: {x: 0.68104, y: 0.66869, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5952391367256838352}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1483479746
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483479744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1493812271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5424024253852139106, guid: df6174e9f7fc8464b9ff33ed4e903c7c, type: 3}
@@ -4714,8 +4959,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529941089}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.569, y: 2.64, z: -0.16}
-  m_LocalScale: {x: 0.885, y: 0.885, z: 0.885}
+  m_LocalPosition: {x: -1.421, y: 2.702, z: -0.16}
+  m_LocalScale: {x: 1.2296683, y: 1.2296683, z: 1.2296683}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8214430527376360239}
@@ -4735,7 +4980,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 1
-  simulateWinConditionIsMet: 1
+  overrideWinConditionCall: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1529941092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4891,6 +5137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
   entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
 --- !u!114 &1585757340
 MonoBehaviour:
@@ -5209,7 +5456,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 3
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &1658416051
 MonoBehaviour:
@@ -5640,6 +5888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
   entityNumber: 1
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
 --- !u!114 &1754208486
 MonoBehaviour:
@@ -6115,7 +6364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPuzzleName: 0
-  entityNumber: 5
+  entityNumber: 0
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &2023741291
 MonoBehaviour:
@@ -6266,6 +6516,51 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9931085, y: 0.9124229, z: 1.2016726}
   m_Center: {x: 3.7835922, y: 5.729419, z: 3.5556312}
+--- !u!1 &2102632755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2102632756}
+  - component: {fileID: 2102632757}
+  m_Layer: 0
+  m_Name: egout_blocker (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2102632756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102632755}
+  m_LocalRotation: {x: -0.00000017881393, y: 0.00000007364605, z: 0.18167473, w: 0.98335874}
+  m_LocalPosition: {x: 0.967, y: -5.644, z: 1.491}
+  m_LocalScale: {x: 0.6566423, y: 0.65043664, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2895323402613606896}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20.935}
+--- !u!65 &2102632757
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102632755}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &32302275062923222
 Transform:
   m_ObjectHideFlags: 0
@@ -8403,10 +8698,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6969808670163652971}
     m_Modifications:
-    - target: {fileID: 1877459725, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
-      propertyPath: freezeOnStart
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460100, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_Name
       value: Prefab_Rat
@@ -10403,7 +10694,6 @@ GameObject:
   - component: {fileID: 2865887657426274345}
   - component: {fileID: 7256163532825357691}
   - component: {fileID: 355998434427435566}
-  - component: {fileID: 7256163532825357692}
   m_Layer: 0
   m_Name: VAL_Tuyau3_low
   m_TagString: Untagged
@@ -10419,10 +10709,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2853727469870874087}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.936119, y: -2.0802414, z: 3.7385614}
+  m_LocalPosition: {x: 5.936119, y: -1.978, z: 3.7385614}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 526400564}
   m_Father: {fileID: 6969808670163652971}
   m_RootOrder: 50
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10434,10 +10725,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5304765902788459262}
   m_LocalRotation: {x: -0.70710677, y: -0.00000003090862, z: 0.000000030908623, w: 0.7071068}
-  m_LocalPosition: {x: 2.9777203, y: -4.046857, z: -6.737684}
+  m_LocalPosition: {x: 2.9777203, y: -3.9446158, z: -6.737684}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1230613567}
+  - {fileID: 2102632756}
+  - {fileID: 693222238}
   m_Father: {fileID: 6969808670163652971}
   m_RootOrder: 51
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13930,7 +14224,6 @@ GameObject:
   - component: {fileID: 5952391367256838352}
   - component: {fileID: 802646327938686408}
   - component: {fileID: 7369502422761009775}
-  - component: {fileID: 7369502422761009776}
   m_Layer: 0
   m_Name: VAL_Tuyau1_low
   m_TagString: Untagged
@@ -14327,7 +14620,6 @@ GameObject:
   - component: {fileID: 2895323402613606896}
   - component: {fileID: 3747229637787918386}
   - component: {fileID: 4501889840152933778}
-  - component: {fileID: 5304765902788459263}
   m_Layer: 0
   m_Name: VAL_TuyauGrand_low
   m_TagString: Untagged
@@ -14335,20 +14627,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!64 &5304765902788459263
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5304765902788459262}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 8824061792863410863, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
 --- !u!4 &5315265219482938036
 Transform:
   m_ObjectHideFlags: 0
@@ -14380,10 +14658,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8391474053738882077}
   m_LocalRotation: {x: -0.7071068, y: -0.000000061817246, z: 5.024296e-15, w: 0.7071068}
-  m_LocalPosition: {x: -1.5623697, y: -4.710262, z: 1.1053228}
+  m_LocalPosition: {x: -1.5623697, y: -4.6080203, z: 1.1053228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 62668760}
   m_Father: {fileID: 6969808670163652971}
   m_RootOrder: 49
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15777,10 +16056,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4982674174317854675}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.9629965, y: -2.0802414, z: -3.19932}
+  m_LocalPosition: {x: 6.9629965, y: -1.978, z: -3.19932}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1483479745}
   m_Father: {fileID: 6969808670163652971}
   m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17343,6 +17623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 2
   entityNumber: 2
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!33 &6968607918785599080
 MeshFilter:
@@ -18041,20 +18322,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2853727469870874087}
   m_Mesh: {fileID: 4477527236317200289, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
---- !u!64 &7256163532825357692
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2853727469870874087}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4477527236317200289, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
 --- !u!4 &7274242789461532260
 Transform:
   m_ObjectHideFlags: 0
@@ -18277,20 +18544,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7369502422761009776
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4982674174317854675}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 940676840605891144, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
 --- !u!4 &7387883764797711476
 Transform:
   m_ObjectHideFlags: 0
@@ -19895,7 +20148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 2
   entityNumber: 0
-  simulateWinConditionIsMet: 1
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 0
 --- !u!23 &8259881478232205771
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20128,7 +20382,6 @@ GameObject:
   - component: {fileID: 5353950258052156627}
   - component: {fileID: 4651048595658462120}
   - component: {fileID: 1068738840412684415}
-  - component: {fileID: 8391474053738882078}
   m_Layer: 0
   m_Name: VAL_Tuyau2_low
   m_TagString: Untagged
@@ -20136,20 +20389,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!64 &8391474053738882078
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8391474053738882077}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3661953617572624551, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
 --- !u!4 &8399668310141448655
 Transform:
   m_ObjectHideFlags: 0
@@ -20618,7 +20857,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 2
   entityNumber: 1
-  simulateWinConditionIsMet: 1
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 0
 --- !u!23 &8705568224434672764
 MeshRenderer:
   m_ObjectHideFlags: 0

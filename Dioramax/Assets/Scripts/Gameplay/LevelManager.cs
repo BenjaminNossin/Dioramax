@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour
 
     public void ValidateWinCondition(int array, int index)
     {
-        // Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
+        Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
 
         // a puzzle piece is set to true (==1)
         EntitiesToValidate[array][index] = 1;

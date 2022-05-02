@@ -9,10 +9,11 @@ public class RatSink : MonoBehaviour
     {
         if (Mathf.Pow(2, other.gameObject.layer) == ratMask)
         {
-            Destroy(other.gameObject); // DEBUG. I will not destroy object in the final version (too much gc)
-            winCondition.UpdateWinCondition(true); 
+            other.gameObject.SetActive(false);
+            other.transform.GetComponent<SimulateEntityPhysics>().RemoveRbFromList(); 
 
-            Debug.Log("rat has been destroyed"); 
+            winCondition.SetWinCondition(true);
+            Debug.Log("rat has been sinked"); 
         }
     }
 }
