@@ -385,7 +385,6 @@ GameObject:
   - component: {fileID: 3533724393244289011}
   - component: {fileID: 7964244908747386689}
   - component: {fileID: 3329036745582398296}
-  - component: {fileID: 3075187934868753295}
   - component: {fileID: 1865566559}
   m_Layer: 0
   m_Name: Prefab_CameraCrane
@@ -489,21 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1865566559}
-  openingCinematic: {fileID: 7400000, guid: 2089f09bb26e30641b107b467399586d, type: 2}
   phase2Cinematic: {fileID: 7400000, guid: 7dd2aba4909b5f34abf15f0473ce8fea, type: 2}
---- !u!114 &3075187934868753295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533724393244289020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3396ee825348c948b9a74e3430f1405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objToDeactivate: {fileID: 0}
 --- !u!95 &1865566559
 Animator:
   serializedVersion: 4

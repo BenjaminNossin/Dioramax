@@ -19,8 +19,16 @@ public class LevelManager : MonoBehaviour
                                                              // Desactiver le script TweenTouch sur le(s) bouton(s)  une fois qu’il n’est plus utile pour le puzzle et remettre sa/leurs scale à 1 1 1 (1 2 1 avant)
 
     public static int[][] EntitiesToValidate { get; set; }
-    private byte validatedPuzzleAmount; 
+    private byte validatedPuzzleAmount;
     public static bool LevelIsFinished { get; private set; }
+
+    [Header("Carrousel")]
+    [SerializeField] GameObject carrouselToit; 
+
+    [Header("CAMERA")]
+    [SerializeField] private Transform cameraCrane;
+    [SerializeField] private Transform cameras;
+    [SerializeField] private Transform cameraTransformOnPhase2;
 
     [Header("DEBUG")]
     public bool overridePhaseSystem = true; 
@@ -192,7 +200,14 @@ public class LevelManager : MonoBehaviour
             phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(true);
 
             // activate cinematic 
-            CameraCinematic.Instance.PlayCinematic(); 
+            // CameraCinematic.Instance.PlayCinematic(); 
+
+            // PLACEHOLDER
+            cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.Euler(26.5f, -36f, 0f));
+            cameras.transform.position = cameraTransformOnPhase2.position;
+            cameras.transform.localRotation = Quaternion.identity;
+
+            StartCoroutine(SimulateCinematic()); 
 
             for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
             {
@@ -226,6 +241,17 @@ public class LevelManager : MonoBehaviour
             phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play();
             phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(false);
         }
+    }
+
+    private System.Collections.IEnumerator SimulateCinematic()
+    {
+        GameState = GameState.Cinematic;
+
+        yield return new WaitForSeconds(1f);
+        carrouselToit.SetActive(false); 
+
+        yield return new WaitForSeconds(1f);
+        GameState = GameState.Playing; 
     }
 
     #endregion

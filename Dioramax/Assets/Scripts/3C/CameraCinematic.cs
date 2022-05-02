@@ -5,7 +5,7 @@ public class CameraCinematic : MonoBehaviour
     public static CameraCinematic Instance { get; private set; }
 
     [SerializeField] private Animator animator;
-    [SerializeField] private AnimationClip phase2Cinematic;
+    // [SerializeField] private AnimationClip phase2Cinematic;
 
     private void Awake()
     {
@@ -17,12 +17,12 @@ public class CameraCinematic : MonoBehaviour
         Instance = this; 
     }
 
-    public void PlayCinematic()
+    /* public void PlayCinematic()
     {
         Debug.Log("playing cinematic");
         SetAnimatorState(1); 
         animator.Play(phase2Cinematic.name); 
-    }
+    } */
 
     // done at the end of every cinematic
     public void SetAnimatorState(int enabled) // can't serialize bool.. 
