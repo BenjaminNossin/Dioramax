@@ -100,6 +100,7 @@ public class LevelManager : MonoBehaviour
         if (dioramaInfos.puzzleInfos[array].winConditionIsMet == true)
         {
             Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
+            LevelInfosUI.Instance.ActivatePuzzleUIOnWin(array); 
             validatedPuzzleAmount++;
 
             TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
