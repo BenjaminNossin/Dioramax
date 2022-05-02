@@ -456,13 +456,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 125536020}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 125536016}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &125536019
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -632,6 +632,16 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
   m_PrefabInstance: {fileID: 1509116430410109430}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &192997792 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
+  m_PrefabInstance: {fileID: 841147338119879334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &194032866 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
+  m_PrefabInstance: {fileID: 1576887864}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &258433366 stripped
 GameObject:
@@ -1417,13 +1427,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 591093974}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 591093970}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &591093973
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1724,13 +1734,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 668588747}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 668588743}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &668588746
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1965,13 +1975,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 878460266}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 878460262}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &878460265
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2099,13 +2109,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1014325817}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1014325813}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &1014325816
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2400,7 +2410,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
       propertyPath: m_Name
-      value: VFX_OursSelection
+      value: VFX_OursSelection3
       objectReference: {fileID: 0}
     - target: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
       propertyPath: m_IsActive
@@ -2591,13 +2601,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1286033204}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1286033200}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &1286033203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3062,13 +3072,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1395165978}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1395165974}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &1395165977
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3263,13 +3273,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1427342764}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1427342760}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &1427342763
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3580,7 +3590,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
       propertyPath: m_Name
-      value: VFX_OursSelection
+      value: VFX_OursSelection2
       objectReference: {fileID: 0}
     - target: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
       propertyPath: m_IsActive
@@ -3975,13 +3985,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1658416053}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1658416050}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &1658416052
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4886,13 +4896,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 2023741294}
+  goodOursonVFX: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 2023741290}
-  IsValidProp: 0
-  isActive: 0
+  isValidProp: 0
 --- !u!65 &2023741293
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4956,6 +4966,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023741288}
   m_Mesh: {fileID: -3513431919030383285, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
+--- !u!1 &2035343757 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
+  m_PrefabInstance: {fileID: 1187788198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2079906058
 GameObject:
   m_ObjectHideFlags: 0
@@ -6123,7 +6138,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
       propertyPath: m_Name
-      value: ParticleOursSelection
+      value: VFX_OursSelection1
       objectReference: {fileID: 0}
     - target: {fileID: 3220832360454228607, guid: 7e8df076022270f44ac37c4500be8fd3, type: 3}
       propertyPath: m_IsActive
@@ -15327,13 +15342,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 6968538275933338496}
+  goodOursonVFX: {fileID: 2035343757}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 6968538275933338500}
-  IsValidProp: 1
-  isActive: 0
+  isValidProp: 1
 --- !u!114 &6968538275933338500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17870,13 +17885,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 8244723852727047525}
+  goodOursonVFX: {fileID: 192997792}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 8244723852727047529}
-  IsValidProp: 1
-  isActive: 0
+  isValidProp: 1
 --- !u!114 &8244723852727047529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18506,13 +18521,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 2751973205077313548}
+  goodOursonVFX: {fileID: 194032866}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   goodColor: {r: 0, g: 1, b: 0, a: 1}
   badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 8670994017047098572}
-  IsValidProp: 1
-  isActive: 0
+  isValidProp: 1
 --- !u!114 &8670994017047098572
 MonoBehaviour:
   m_ObjectHideFlags: 0

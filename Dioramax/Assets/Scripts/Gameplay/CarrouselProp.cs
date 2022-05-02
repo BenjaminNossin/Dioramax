@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
 public class CarrouselProp : MonoBehaviour
 {
     [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private GameObject goodOursonVFX;
 
     [Space, SerializeField] private Color defaultColor = Color.white;
     [SerializeField] private Color activeColor = Color.yellow;
@@ -14,22 +13,25 @@ public class CarrouselProp : MonoBehaviour
 
     [Header("Gameplay")]
     [SerializeField] private WinCondition winCondition;
+    [SerializeField] private bool isValidProp;
 
-    public bool IsValidProp;
-    public bool isActive;
+    public bool IsValidProp { get; private set; }
+    public bool IsActive { get; private set; }
 
     private void Start()
     {
+        IsValidProp = isValidProp;
+
         meshRenderer.material.color = defaultColor;
-        CarrouselManager.carrouselProps.Add(this); 
+        CarrouselManager.CarrouselProps.Add(this); 
     }
 
     public void SetActiveColor()
     {
-        if (isActive || TouchDetection.CarrouselPropActivated == 3) return; 
+        if (IsActive || TouchDetection.CarrouselPropActivated == 3) return; 
 
         TouchDetection.CarrouselPropActivated++;
-        isActive = true;
+        IsActive = true;
         meshRenderer.material.color = activeColor;
 
         if (TouchDetection.CarrouselPropActivated == 3)
@@ -40,19 +42,35 @@ public class CarrouselProp : MonoBehaviour
 
     public void SetFinalColor()
     {
-        meshRenderer.material.color = IsValidProp ? goodColor : badColor;
-        winCondition.UpdateWinCondition(IsValidProp);
+        meshRenderer.material.color = isValidProp ? goodColor : badColor;
+        if (IsValidProp)
+        {
+            SetGoodVFX(true); 
+        }
+
+        winCondition.UpdateWinCondition(isValidProp);
     }
 
     public void BackToDefaultColor()
     {
-        Invoke(nameof(BackToDefault), 1f);
+        Invoke(nameof(BackToDefault), 2f);
         winCondition.UpdateWinCondition(false);
     }
 
     private void BackToDefault()
     {
-        isActive = false;
+        IsActive = false;
+
+        if (IsValidProp)
+        {
+            SetGoodVFX(false);
+        }
+
         meshRenderer.material.color = defaultColor;
+    }
+
+    private void SetGoodVFX(bool setActive)
+    {
+        goodOursonVFX.SetActive(setActive); 
     }
 }
