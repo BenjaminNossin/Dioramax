@@ -17,9 +17,6 @@ public class RotationOnPivot : MonoBehaviour
     private Transform selfTransform;
     private bool validPositionIsRegistered; 
 
-    [Header("Debug")]
-    [SerializeField] private bool simulateWinCondition = true; 
-
     private void Start()
     {
         IsLocked = false;
@@ -30,34 +27,27 @@ public class RotationOnPivot : MonoBehaviour
 
     private void Update()
     {
-        if (IsLocked) return; 
+        if (IsLocked) return;
 
         distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
 
-        // rotate by using the inverse of camera rotation
-        if (!simulateWinCondition)
-        {
-            selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
-                              Quaternion.identity :
-                              Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
-        }
-        else
-        {
-            selfTransform.localRotation = Quaternion.identity; // == winCondition.UpdateWinCondition(true);
-        }
 
-        if (selfTransform.localRotation == Quaternion.identity)
+        selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
+                          Quaternion.identity :
+                          Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
+
+        if (selfTransform.localRotation == Quaternion.identity) 
         {
             if (!validPositionIsRegistered)
             {
                 validPositionIsRegistered = true;
                 winCondition.UpdateWinCondition(true);
-                LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber);
+                LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber); // fx and stop button tween
             }
         }
         else if (validPositionIsRegistered)
         {
-            validPositionIsRegistered = false; 
+            validPositionIsRegistered = false;
         }
 
         if (multiSnapAngles)

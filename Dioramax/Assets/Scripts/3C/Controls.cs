@@ -83,6 +83,7 @@ public class Controls : MonoBehaviour
         mobileFixedUpdateFPSCounter++;
         fixedUpdateSeconds += Time.fixedDeltaTime; */
 
+        if (LevelManager.GameState != GameState.Playing) return; 
 
         // Do Once
         if (Input.touchCount < 2 && !touch1HasBeenUnregistered)
@@ -203,11 +204,6 @@ public class Controls : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void LateUpdate()
-    {
-
     }
 
     private void ResetDoubleTouchValues()

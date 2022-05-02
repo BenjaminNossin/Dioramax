@@ -52,7 +52,6 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void Start()
     {
-        transform.position = diorama.transform.position; // TODO : set dynamically at the start of a level
         RotationSensitivity = rotationSensitivity;
     }
 

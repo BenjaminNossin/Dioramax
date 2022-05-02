@@ -2,9 +2,11 @@ using UnityEngine;
 using System.Collections.Generic; 
 
 // abstract this out to have one for each level
+public enum GameState { NONE, Loading, Playing, Paused, Cinematic }
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
+    public static GameState GameState { get; private set; }
 
     [Header("General")]
     [SerializeField] private DioramaInfos dioramaInfos;
@@ -51,6 +53,12 @@ public class LevelManager : MonoBehaviour
                 EntitiesToValidate[i][j] = 0;
             }
         }
+    }
+
+    public void SetGameState(GameState gameState)
+    {
+        Debug.Log($"gamestate is now {gameState}."); 
+        GameState = gameState; 
     }
 
     // callback lorsqu'un ourson/bouton est touché ou tuyau dans le bon sens
