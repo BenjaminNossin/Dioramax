@@ -719,8 +719,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184983659}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.6527734, y: 11.558827, z: -9.644703}
+  m_LocalRotation: {x: 0.10903953, y: -0.022002865, z: 0.0024141748, w: 0.9937909}
+  m_LocalPosition: {x: 2.267394, y: 13.359667, z: -28.604147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -930,7 +930,7 @@ MonoBehaviour:
   entityPuzzleName: 0
   entityNumber: 3
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &260966035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3872,7 +3872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 2
-  overrideWinConditionCall: 1
+  overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
 --- !u!114 &1325478876
 MonoBehaviour:
@@ -4484,8 +4484,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 0
-  overrideWinConditionCall: 1
-  simulateWinConditionIsMet: 0
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1436204030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4551,7 +4551,7 @@ MonoBehaviour:
   entityPuzzleName: 0
   entityNumber: 2
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1459963606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4950,8 +4950,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 1
-  overrideWinConditionCall: 1
-  simulateWinConditionIsMet: 0
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1529941092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4981,6 +4981,11 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1567824427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4005212707606109967, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
+  m_PrefabInstance: {fileID: 1868097576}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1576887864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5108,7 +5113,7 @@ MonoBehaviour:
   entityPuzzleName: 0
   entityNumber: 0
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1585757340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5849,7 +5854,7 @@ MonoBehaviour:
   entityPuzzleName: 0
   entityNumber: 1
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1754208486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6112,6 +6117,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9027789502008531972, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
 --- !u!4 &1865566553 stripped
@@ -6126,13 +6135,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2482665874620696719, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
+      propertyPath: objToDeactivate
+      value: 
+      objectReference: {fileID: 4317155643672479213}
     - target: {fileID: 4005212707606109967, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
       propertyPath: m_Name
       value: ANIM_Rats
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005212707606109967, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4106913793096967825, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
       propertyPath: m_RootOrder
@@ -6177,10 +6186,6 @@ PrefabInstance:
     - target: {fileID: 4106913793096967825, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6206822293042343051, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -616.92676
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a17988a2bf67e142ab9309666ded17c, type: 3}
@@ -19131,7 +19136,7 @@ MonoBehaviour:
   - {fileID: 2933330420651421321}
   - {fileID: 2933330420182888316}
   buttonTweenTouch: {fileID: 0}
-  carrouselToit: {fileID: 4317155643672479213}
+  ratAnimationObj: {fileID: 1567824427}
   cameraCrane: {fileID: 1865566553}
   mainCamera: {fileID: 642649565}
   decoyCamera: {fileID: 788362702}

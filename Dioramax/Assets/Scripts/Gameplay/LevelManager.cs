@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
     public static bool LevelIsFinished { get; private set; }
 
     [Header("Carrousel")]
-    [SerializeField] GameObject carrouselToit; 
+    [SerializeField] GameObject ratAnimationObj; 
 
     [Header("CAMERA")]
     [SerializeField] private Transform cameraCrane;
@@ -228,13 +228,16 @@ public class LevelManager : MonoBehaviour
         // CameraCinematic.Instance.PlayCinematic(); 
 
         // PLACEHOLDER
-        cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.Euler(26.5f, -36f, 0f));
+        cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.Euler(12.523f, -2.537f, 0f));
+
         mainCamera.transform.position = cameraTransformOnPhase2.position;
         mainCamera.transform.localRotation = Quaternion.identity;
+
         decoyCamera.transform.position = cameraTransformOnPhase2.position;
         decoyCamera.transform.localRotation = Quaternion.identity;
 
         StartCoroutine(SimulateBoucheIncendiePhase2Cinematic());
+        ratAnimationObj.SetActive(true);
 
         for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
         {
@@ -278,13 +281,12 @@ public class LevelManager : MonoBehaviour
     {
         GameState = GameState.Cinematic;
 
-        yield return new WaitForSeconds(1f);
-        carrouselToit.SetActive(false); 
+        yield return new WaitForSeconds(3f);
+        cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.Euler(16f, 0f, 0f));
 
-        yield return new WaitForSeconds(2f);
-        cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.identity);
         mainCamera.transform.position = new Vector3(0f, 0f, -45f);
         mainCamera.transform.localRotation = Quaternion.identity;
+
         decoyCamera.transform.position = new Vector3(0f, 0f, -45f);
         decoyCamera.transform.localRotation = Quaternion.identity;
 
