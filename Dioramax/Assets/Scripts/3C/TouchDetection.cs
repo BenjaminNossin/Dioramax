@@ -74,7 +74,8 @@ public class TouchDetection : MonoBehaviour
             Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
             tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
         }
-        else // do not detect bears if carrousel is still tweenable (puzzle must not be completed before end of phase 2)
+
+        if (LevelManager.IsPhase3)
         {
             if (tweenableOursonDetected)
             {

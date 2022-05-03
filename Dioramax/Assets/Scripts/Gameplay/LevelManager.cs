@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     public static int[][] EntitiesToValidate { get; set; }
     private byte validatedPuzzleAmount;
     public static bool LevelIsFinished { get; private set; }
+    public static bool IsPhase3 { get; private set; }
 
     [Header("Carrousel")]
     [SerializeField] GameObject ratAnimationObj; 
@@ -40,6 +41,7 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         LevelIsFinished = false;
+        IsPhase3 = false;
 
         if (Instance != null)
         {
@@ -273,7 +275,8 @@ public class LevelManager : MonoBehaviour
         }
 
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play();
-        phaseHolders[(int)phaseHolderName].phases[phaseNumber].collidersToSet[0].enabled = false; // bears can now be detected  
+        phaseHolders[(int)phaseHolderName].phases[phaseNumber].collidersToSet[0].enabled = false; // bears can now be detected
+        IsPhase3 = true; 
     }
 
     // PLACEHOLDER
