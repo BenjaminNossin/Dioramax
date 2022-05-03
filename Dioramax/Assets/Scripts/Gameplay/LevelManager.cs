@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform cameraTransformOnPhase2;
 
     [Header("DEBUG")]
-    public static bool OverridePhaseSystem = true; 
+    public bool overridePhaseSystem; 
 
     void Awake()
     {
@@ -101,13 +101,13 @@ public class LevelManager : MonoBehaviour
         // carrousel CANNOT be the first validated puzzle
         if (dioramaInfos.puzzleInfos[array].winConditionIsMet == true)
         {
-            // Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
+            Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
             LevelInfosUI.Instance.ActivatePuzzleUIOnWin(array); 
             validatedPuzzleAmount++;
 
             TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
             ActivatePuzzleCompleteVFX(array);
-            if (!OverridePhaseSystem) 
+            if (!overridePhaseSystem) 
             {
                 TriggerBoucheIncendiePhase(PhaseHolderName.BoucheIncendie, validatedPuzzleAmount - 1); 
             }
