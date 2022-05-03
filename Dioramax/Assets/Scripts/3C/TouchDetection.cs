@@ -32,9 +32,9 @@ public class TouchDetection : MonoBehaviour
     public static int ValidCarrouselPropAmount { get; set; }
     private int carrouselPropActivated; // DEBUG
     private bool canCast = true;
-    private const float RAY_LENGTH = 250f;
+    private const float CAST_LENGTH = 250f;
     private const float RAY_DEBUG_DURATION = 0.5f;
-
+    private const float CAST_RADIUS = 0.3f;
 
     void Start()
     {
@@ -51,16 +51,16 @@ public class TouchDetection : MonoBehaviour
     {
         if (!canCast) return false; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
 
-        Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.red, RAY_DEBUG_DURATION);
+        Debug.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.red, RAY_DEBUG_DURATION);
 
         // use Physics.RaycastAll instead to see if the object detected is the first or hidden behind others
         // NEED REFACTORING too much raycasts
-        buttonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, RAY_LENGTH, buttonMask);
-        carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, RAY_LENGTH, carrouselPropMask);
-        tweenableTouchDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, RAY_LENGTH, tweenableTouchMask);
-        tweenableOursonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, RAY_LENGTH, tweenableOursonMask);
-        ratMaskDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit ratHitInfo, RAY_LENGTH, ratMask);
-        finishMaskDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit finishHitInto, RAY_LENGTH, finishMask);
+        buttonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, CAST_LENGTH, buttonMask);
+        carrouselBearDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit bearHitInfo, CAST_LENGTH, carrouselPropMask);
+        tweenableTouchDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, CAST_LENGTH, tweenableTouchMask);
+        tweenableOursonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, CAST_LENGTH, tweenableOursonMask);
+        ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
+        finishMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit finishHitInto, CAST_LENGTH, finishMask);
 
         if (finishMaskDetected && LevelManager.LevelIsFinished)
         {
@@ -72,7 +72,7 @@ public class TouchDetection : MonoBehaviour
         if (tweenableTouchDetected)
         {
             print("Touch Tween");
-            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
+            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
             tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
         }
 
@@ -81,7 +81,7 @@ public class TouchDetection : MonoBehaviour
             if (tweenableOursonDetected)
             {
                 print("Ourson Tween");
-                Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                Debug.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
                 tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
             }
 
@@ -103,7 +103,7 @@ public class TouchDetection : MonoBehaviour
 
         if (buttonDetected)
         {
-            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * RAY_LENGTH, Color.green, RAY_DEBUG_DURATION);
+            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
             StartCoroutine(CanCast()); 
 
             DetectedButtonProp = buttonHitInfo.transform.GetComponent<ButtonProp>();
