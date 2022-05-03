@@ -12,6 +12,12 @@ public class RotationOnPivot : MonoBehaviour
     [SerializeField] private bool multiSnapAngles; 
     [SerializeField] private List<float> snapAngleValues; // hide if multiSnapAngles is false
 
+    [Header("Other")]
+    [SerializeField] private TweenTouch tweenTouch;
+    [SerializeField] private Collider buttonCollider;
+    [SerializeField] private Collider tweenCollider;
+
+
     public bool IsLocked { get; set; }
     private float distanceFromRequiredAngle;
     private Transform selfTransform;
@@ -42,7 +48,12 @@ public class RotationOnPivot : MonoBehaviour
             {
                 validPositionIsRegistered = true;
                 winCondition.UpdateWinCondition(true);
-                LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber); // fx and stop button tween
+
+                // fx and stop button tween
+                LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber);
+                tweenTouch.enabled = false;
+                buttonCollider.enabled = false;
+                tweenCollider.enabled = false; 
             }
         }
 

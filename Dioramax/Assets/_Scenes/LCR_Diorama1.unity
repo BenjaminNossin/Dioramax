@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
+  tweenOnDisable: 0
 --- !u!1 &62668759
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
+  tweenOnDisable: 1
 --- !u!1001 &79743186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -557,12 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 125536020}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 125536016}
   isValidProp: 0
 --- !u!65 &125536019
@@ -951,6 +948,9 @@ MonoBehaviour:
   initialZRotation: 45
   multiSnapAngles: 0
   snapAngleValues: []
+  tweenTouch: {fileID: 75603556}
+  buttonCollider: {fileID: 2736401915957650083}
+  tweenCollider: {fileID: 75603555}
 --- !u!1001 &315966699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1196,6 +1196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
+  tweenOnDisable: 0
 --- !u!136 &356045469
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1649,12 +1650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 591093974}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 591093970}
   isValidProp: 0
 --- !u!65 &591093973
@@ -2086,12 +2082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 668588747}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 668588743}
   isValidProp: 0
 --- !u!65 &668588746
@@ -2217,6 +2208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
+  tweenOnDisable: 1
 --- !u!1 &693222237
 GameObject:
   m_ObjectHideFlags: 0
@@ -2563,6 +2555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
+  tweenOnDisable: 1
 --- !u!1 &878460260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,12 +2620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 878460266}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 878460262}
   isValidProp: 0
 --- !u!65 &878460265
@@ -2990,12 +2978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1014325817}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1014325813}
   isValidProp: 0
 --- !u!65 &1014325816
@@ -3133,6 +3116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
+  tweenOnDisable: 0
 --- !u!1 &1060585760
 GameObject:
   m_ObjectHideFlags: 0
@@ -3631,6 +3615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
+  tweenOnDisable: 1
 --- !u!1 &1272662088
 GameObject:
   m_ObjectHideFlags: 0
@@ -3773,12 +3758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1286033204}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1286033200}
   isValidProp: 0
 --- !u!65 &1286033203
@@ -4108,6 +4088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
+  tweenOnDisable: 0
 --- !u!1001 &1388352029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4246,12 +4227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1395165978}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1395165974}
   isValidProp: 0
 --- !u!65 &1395165977
@@ -4381,12 +4357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1427342764}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1427342760}
   isValidProp: 0
 --- !u!65 &1427342763
@@ -4598,6 +4569,9 @@ MonoBehaviour:
   initialZRotation: 0
   multiSnapAngles: 0
   snapAngleValues: []
+  tweenTouch: {fileID: 1250834292}
+  buttonCollider: {fileID: 1027816577971916994}
+  tweenCollider: {fileID: 1250834289}
 --- !u!1 &1475195777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1676652895588182472, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
@@ -5156,6 +5130,9 @@ MonoBehaviour:
   - 90
   - 270
   - 360
+  tweenTouch: {fileID: 672668017}
+  buttonCollider: {fileID: 1934789916470754498}
+  tweenCollider: {fileID: 672668014}
 --- !u!1001 &1596094378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5467,12 +5444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1658416053}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 1658416050}
   isValidProp: 0
 --- !u!65 &1658416052
@@ -5895,6 +5867,9 @@ MonoBehaviour:
   initialZRotation: 90
   multiSnapAngles: 0
   snapAngleValues: []
+  tweenTouch: {fileID: 810414231}
+  buttonCollider: {fileID: 4149264574164446975}
+  tweenCollider: {fileID: 810414230}
 --- !u!1001 &1787459250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6367,12 +6342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 2023741294}
   goodOursonVFX: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 2023741290}
   isValidProp: 0
 --- !u!65 &2023741293
@@ -13568,6 +13538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: d29708fad9db92f40bb4fe1056203e60, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &4536692283406114580
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15778,6 +15749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: d9cdcb4ee6747de46a0093049a553ec7, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &5894743587532843617
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16203,6 +16175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 91970ae015ede7548907a8b59dc0719c, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &6148679370700484418
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16632,6 +16605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 71e66e1632aad2540a01e540252c23a2, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &6401840352566120760
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17601,12 +17575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 6968538275933338496}
   goodOursonVFX: {fileID: 2035343757}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 6968538275933338500}
   isValidProp: 1
 --- !u!114 &6968538275933338500
@@ -17849,6 +17818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &7070022174214630034
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17903,6 +17873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: d9cdcb4ee6747de46a0093049a553ec7, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &7078520561453123080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18392,6 +18363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 9556d083fa4303e43bdb1407d0169733, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &7316184819096554386
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18436,6 +18408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 0b8b86e95b6569e4d90fa359c0a3080e, type: 2}
+  tweenOnDisable: 0
 --- !u!4 &7337067939646834713
 Transform:
   m_ObjectHideFlags: 0
@@ -19862,6 +19835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: ccbbb086971dec146a44ef9ea42e616a, type: 2}
+  tweenOnDisable: 0
 --- !u!136 &8165873816005643773
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20044,6 +20018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &8236519518287276712
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20124,12 +20099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 8244723852727047525}
   goodOursonVFX: {fileID: 192997792}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 8244723852727047529}
   isValidProp: 1
 --- !u!114 &8244723852727047529
@@ -20311,6 +20281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: a1452b522d112af49a62e5ef5ea18d97, type: 2}
+  tweenOnDisable: 0
 --- !u!23 &8382384138672723189
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20462,6 +20433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &8420451634489544260
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20761,6 +20733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 88ea4b82b2124c2469348f8078c2d2ea, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &8637355396523705049
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20831,12 +20804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af1b27c8f7a54ab8d75af1de7f8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 2751973205077313548}
   goodOursonVFX: {fileID: 194032866}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  goodColor: {r: 0, g: 1, b: 0, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
   winCondition: {fileID: 8670994017047098572}
   isValidProp: 1
 --- !u!114 &8670994017047098572
@@ -21062,6 +21030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: d9cdcb4ee6747de46a0093049a553ec7, type: 2}
+  tweenOnDisable: 0
 --- !u!65 &8775870791519786373
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21579,6 +21548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8c6a32d5007d4a147b7731afbf797cbe, type: 2}
+  tweenOnDisable: 0
 --- !u!135 &9184371618464783849
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -12,6 +12,9 @@ public class TweenTouch : StoppableTween
     private ParticleSystem VFX;
     private float TimeScale;
     private float TimeBounce;
+
+    public bool tweenOnDisable; 
+
     public void Start()
     {
         VFX = GetComponentInChildren<ParticleSystem>();
@@ -34,7 +37,6 @@ public class TweenTouch : StoppableTween
     public void Tween2()
     {  //retour
         LeanTween.moveY(gameObject, ObjectInitialHeight, TimeBounce + (TimeBounce / 2)).setEaseOutBounce();
-
     }
     
     public void Tween()
@@ -59,6 +61,14 @@ public class TweenTouch : StoppableTween
         if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
         {
             VFX.Play(); 
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (tweenOnDisable)
+        {
+            LeanTween.scale(gameObject, Vector3.one, TimeScale).setEaseOutBounce(); 
         }
     }
 }
