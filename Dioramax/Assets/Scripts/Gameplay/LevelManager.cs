@@ -27,7 +27,8 @@ public class LevelManager : MonoBehaviour
     public static bool IsPhase3 { get; private set; }
 
     [Header("Carrousel")]
-    [SerializeField] GameObject ratAnimationObj; 
+    [SerializeField] GameObject ratAnimationObj;
+    public static int OverrideWinConditionNumber; 
 
     [Header("CAMERA")]
     [SerializeField] private Transform cameraCrane;
@@ -36,12 +37,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform cameraTransformOnPhase2;
 
     [Header("DEBUG")]
-    public bool overridePhaseSystem = true; 
+    public static bool OverridePhaseSystem = true; 
 
     void Awake()
     {
         LevelIsFinished = false;
         IsPhase3 = false;
+        OverrideWinConditionNumber = 0; 
 
         if (Instance != null)
         {
@@ -105,7 +107,7 @@ public class LevelManager : MonoBehaviour
 
             TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
             ActivatePuzzleCompleteVFX(array);
-            if (!overridePhaseSystem) 
+            if (!OverridePhaseSystem) 
             {
                 TriggerBoucheIncendiePhase(PhaseHolderName.BoucheIncendie, validatedPuzzleAmount - 1); 
             }
