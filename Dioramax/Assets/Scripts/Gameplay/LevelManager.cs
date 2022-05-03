@@ -114,9 +114,13 @@ public class LevelManager : MonoBehaviour
             {
                 // Debug.Log("Level is FINISHED"); 
                 LevelIsFinished = true;
-                objToDeactivateOnLevelEnd.SetActive(false);
             }
         }
+    }
+
+    public void DeactivateZRotationUIOnLevelEnd()
+    {
+        objToDeactivateOnLevelEnd.SetActive(false);
     }
 
     public void InvalidateWinCondition(int array, int index)
@@ -156,6 +160,7 @@ public class LevelManager : MonoBehaviour
         else if (validatedPuzzleAmount == 3)
         {
             // PLACEHOLDER
+            Debug.Log("star final phase");
             phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].GetComponent<BoxCollider>().enabled = false;
             StartCoroutine(DelayFinish(phaseHolderName, phaseNumber));
         }

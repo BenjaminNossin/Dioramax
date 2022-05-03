@@ -3872,7 +3872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 2
-  overrideWinConditionCall: 0
+  overrideWinConditionCall: 1
   simulateWinConditionIsMet: 0
 --- !u!114 &1325478876
 MonoBehaviour:
@@ -4484,7 +4484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 0
-  overrideWinConditionCall: 0
+  overrideWinConditionCall: 1
   simulateWinConditionIsMet: 0
 --- !u!114 &1436204030
 MonoBehaviour:
@@ -4950,7 +4950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 1
   entityNumber: 1
-  overrideWinConditionCall: 0
+  overrideWinConditionCall: 1
   simulateWinConditionIsMet: 0
 --- !u!114 &1529941092
 MonoBehaviour:
@@ -6061,10 +6061,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078332464, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: maxZoomIn
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1078332470, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: quad
       value: 
       objectReference: {fileID: 1475195777}
+    - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: maxZoomIn
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: diorama
       value: 
