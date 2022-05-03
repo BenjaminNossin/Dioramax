@@ -42,6 +42,7 @@ public class ButtonProp : MonoBehaviour
         {
             rotationOnPivots[i].IsLocked = buttonIsActive;
             entitiesMeshRenderers[i].material.color = rotationOnPivots[i].IsLocked ? Color.green : Color.red;
+            rotationOnPivots[i].CheckWinConditionOnLock();
         }
     }
 

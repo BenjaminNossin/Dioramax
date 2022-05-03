@@ -36,26 +36,7 @@ public class RotationOnPivot : MonoBehaviour
         if (IsLocked || validPositionIsRegistered) return;
 
         distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
-
-
-        selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
-                          Quaternion.identity :
-                          Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
-
-        if (selfTransform.localRotation == Quaternion.identity) 
-        {
-            if (!validPositionIsRegistered)
-            {
-                validPositionIsRegistered = true;
-                winCondition.UpdateWinCondition(true);
-
-                // fx and stop button tween
-                LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber);
-                tweenTouch.enabled = false;
-                buttonCollider.enabled = false;
-                tweenCollider.enabled = false; 
-            }
-        }
+        selfTransform.localRotation = Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
 
         if (multiSnapAngles)
         {
@@ -65,6 +46,26 @@ public class RotationOnPivot : MonoBehaviour
                 {
                     selfTransform.localRotation = Quaternion.Euler(0f, 0f, snapAngleValues[i]);
                 }
+            }
+        }
+    }
+
+    public void CheckWinConditionOnLock()
+    {
+        if (Mathf.Abs(distanceFromRequiredAngle) <= snapValue)
+        {
+            selfTransform.localRotation = Quaternion.identity;
+
+            if (!validPositionIsRegistered)
+            {
+                validPositionIsRegistered = true;
+                winCondition.UpdateWinCondition(true);
+
+                // fx and stop button tween
+                LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber);
+                tweenTouch.enabled = false;
+                buttonCollider.enabled = false;
+                tweenCollider.enabled = false;
             }
         }
     }
