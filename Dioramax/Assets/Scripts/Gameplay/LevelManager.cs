@@ -228,7 +228,7 @@ public class LevelManager : MonoBehaviour
         // CameraCinematic.Instance.PlayCinematic(); 
 
         // PLACEHOLDER
-        cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.Euler(12.523f, -2.537f, 0f));
+        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.Euler(12.523f, -2.537f, 0f));
 
         mainCamera.transform.position = cameraTransformOnPhase2.position;
         mainCamera.transform.localRotation = Quaternion.identity;
@@ -282,12 +282,12 @@ public class LevelManager : MonoBehaviour
         GameState = GameState.Cinematic;
 
         yield return new WaitForSeconds(3f);
-        cameraCrane.SetPositionAndRotation(cameraCrane.position, Quaternion.Euler(16f, 0f, 0f));
+        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.identity);
 
-        mainCamera.transform.position = new Vector3(0f, 0f, -45f);
+        mainCamera.transform.localPosition = Vector3.zero; 
         mainCamera.transform.localRotation = Quaternion.identity;
 
-        decoyCamera.transform.position = new Vector3(0f, 0f, -45f);
+        decoyCamera.transform.localPosition = Vector3.zero;
         decoyCamera.transform.localRotation = Quaternion.identity;
 
         GameState = GameState.Playing; 
