@@ -264,6 +264,7 @@ public class LevelManager : MonoBehaviour
     private void OnFadeInComplete()
     {
         TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PLAYER SHOULD SEE THIS
+        CameraCinematic.Instance.PlayPhase2Cinematic();
         StartCoroutine(ActivateSecondPhase());
     }
 
@@ -282,7 +283,6 @@ public class LevelManager : MonoBehaviour
         // activate cinematic 
         // CameraCinematic.Instance.PlayCinematic(); 
 
-        StartCoroutine(SimulateBoucheIncendiePhase2Cinematic());
         ratAnimationObj.SetActive(true);
 
         for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
@@ -300,23 +300,6 @@ public class LevelManager : MonoBehaviour
         }
 
         StartCoroutine(ActivateBoucheIncendiePhase3(phaseHolderName, phaseNumber + 1));
-    }
-
-    // PLACEHOLDER
-    private System.Collections.IEnumerator SimulateBoucheIncendiePhase2Cinematic()
-    {
-        GameState = GameState.Cinematic;
-
-        yield return new WaitForSeconds(3f);
-        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.identity);
-
-        mainCamera.transform.localPosition = Vector3.zero;
-        mainCamera.transform.localRotation = Quaternion.identity;
-
-        decoyCamera.transform.localPosition = Vector3.zero;
-        decoyCamera.transform.localRotation = Quaternion.identity;
-
-        GameState = GameState.Playing;
     }
 
     private System.Collections.IEnumerator ActivateBoucheIncendiePhase3(PhaseHolderName phaseHolderName, int phaseNumber)

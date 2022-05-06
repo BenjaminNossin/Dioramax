@@ -6,7 +6,9 @@ public class CameraCinematic : MonoBehaviour
     public static CameraCinematic Instance { get; private set; }
 
     [SerializeField] private Animator animator;
-    [SerializeField] private Image cameraFadePanelImage;
+    [SerializeField] private AnimationClip phase2Cinematic; // TODO : REFACTORING
+
+    [Space, SerializeField] private Image cameraFadePanelImage;
     [SerializeField, Range(1f, 5f)] private float fadeOutSpeedMultiplier = 1f;
     [SerializeField, Range(1f, 5f)] private float fadeInSpeedMultiplier = 2f;
     [SerializeField, Range(0.1f, 5f)] private float delayFromFadeOutToFadeIn = 0.5f;
@@ -54,5 +56,14 @@ public class CameraCinematic : MonoBehaviour
     public void SetAnimatorState(int enabled) // can't serialize bool.. 
     {
         animator.enabled = enabled == 1; // PLACEHOLDER until I find how to get control of movement when animation is done; 
+    }
+
+    // abstract this out
+    public void PlayPhase2Cinematic()
+    {
+        LevelManager.Instance.SetGameState(GameState.Cinematic);
+
+        SetAnimatorState(1);
+        animator.Play(phase2Cinematic.name); 
     }
 }

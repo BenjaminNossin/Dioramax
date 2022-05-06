@@ -6364,10 +6364,6 @@ PrefabInstance:
       propertyPath: cameraFadePanelImage
       value: 
       objectReference: {fileID: 1457613641}
-    - target: {fileID: 3329036745582398296, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
-      propertyPath: delayFromFadeOutToFadeIn
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: diorama
       value: 
@@ -19403,7 +19399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
   objToDeactivateOnLevelEnd: {fileID: 1209153188}
-  phase2to3Delay: 1
+  phase2to3Delay: 1.5
   phaseHolders:
   - editorName: Etoile du carrousel
     phaseHolderName: 0
