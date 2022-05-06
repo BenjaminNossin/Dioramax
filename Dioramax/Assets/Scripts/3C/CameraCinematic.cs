@@ -19,7 +19,7 @@ public class CameraCinematic : MonoBehaviour
 
     /* public void PlayCinematic()
     {
-        Debug.Log("playing cinematic");
+        GameLogger.Log("playing cinematic");
         SetAnimatorState(1); 
         animator.Play(phase2Cinematic.name); 
     } */

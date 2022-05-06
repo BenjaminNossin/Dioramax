@@ -51,7 +51,7 @@ public class TouchDetection : MonoBehaviour
     {
         if (!canCast) return false; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
 
-        Debug.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.red, RAY_DEBUG_DURATION);
+        GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.red, RAY_DEBUG_DURATION);
 
         // use Physics.RaycastAll instead to see if the object detected is the first or hidden behind others
         // NEED REFACTORING too much raycasts
@@ -71,8 +71,8 @@ public class TouchDetection : MonoBehaviour
 
         if (tweenableTouchDetected)
         {
-            print("Touch Tween");
-            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+            GameLogger.Log("Touch Tween");
+            GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
             tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
         }
 
@@ -80,14 +80,14 @@ public class TouchDetection : MonoBehaviour
         {
             if (tweenableOursonDetected)
             {
-                print("Ourson Tween");
-                Debug.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                GameLogger.Log("Ourson Tween");
+                GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
                 tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
             }
 
             if (carrouselBearDetected)
             {
-                print("carrousel bear detected");
+                GameLogger.Log("carrousel bear detected");
                 detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
                 detectedCarrouselProp.SetActiveColor();
             }
@@ -103,7 +103,7 @@ public class TouchDetection : MonoBehaviour
 
         if (buttonDetected)
         {
-            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+            GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
             StartCoroutine(CanCast()); 
 
             DetectedButtonProp = buttonHitInfo.transform.GetComponent<ButtonProp>();
@@ -111,7 +111,7 @@ public class TouchDetection : MonoBehaviour
 
             if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
             {
-                Debug.Log("this was a double tap");
+                GameLogger.Log("this was a double tap");
                 OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
             }
         }

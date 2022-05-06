@@ -22,7 +22,7 @@ public class RatSink : MonoBehaviour
                 LevelManager.OverrideWinConditionNumber++; 
             }
 
-            Debug.Log("rat has been sinked"); 
+            GameLogger.Log("rat has been sinked"); 
         }
     } 
 }

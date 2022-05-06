@@ -61,7 +61,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         {
             if (yxRotation)
             {
-                // Debug.Log("yx rotation gamefeel");
+                // GameLogger.Log("yx rotation gamefeel");
                 UpdateXYRotation(swipeDirection, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
             }
         }
@@ -150,7 +150,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void SetToFalse()
     {
-        // Debug.Log("on ended rotation callback");
+        // GameLogger.Log("on ended rotation callback");
         updateGamefeelCurve = false;
     }
 }

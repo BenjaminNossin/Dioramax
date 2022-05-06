@@ -13,7 +13,7 @@ public class SimulateEntityPhysics : MonoBehaviour
 
     public void RemoveRbFromList()
     {
-        Debug.Log("removing"); 
+        GameLogger.Log("removing"); 
         EntityPhysicsController.Instance.RemoveRbFromList(rb); 
     }
 }

@@ -6,7 +6,7 @@ public class AnimEvent_SetGameobjectState : MonoBehaviour
 
     public void DeactivateObject()
     {
-        Debug.Log("deactivating object");
+        GameLogger.Log("deactivating object");
         objToDeactivate.SetActive(false); 
     }
 }

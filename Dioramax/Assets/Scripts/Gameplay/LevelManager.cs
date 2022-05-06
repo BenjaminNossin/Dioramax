@@ -65,7 +65,7 @@ public class LevelManager : MonoBehaviour
             EntitiesToValidate[i] = new int[dioramaInfos.puzzleInfos[i].entitiesAmount];
             dioramaInfos.puzzleInfos[i].winConditionIsMet = false;
 
-            //Debug.Log($"{dioramaInfos.puzzleInfos[i].puzzleName} is of size {dioramaInfos.puzzleInfos[i].entitiesAmount} and at index {i}");
+            //GameLogger.Log($"{dioramaInfos.puzzleInfos[i].puzzleName} is of size {dioramaInfos.puzzleInfos[i].entitiesAmount} and at index {i}");
             for (int j = 0; j < EntitiesToValidate[i].Length; j++)
             {
                 EntitiesToValidate[i][j] = 0;
@@ -75,13 +75,13 @@ public class LevelManager : MonoBehaviour
 
     public void SetGameState(GameState gameState)
     {
-        Debug.Log($"gamestate is now {gameState}."); 
+        GameLogger.Log($"gamestate is now {gameState}."); 
         GameState = gameState; 
     }
 
     public void ValidateWinCondition(int array, int index)
     {
-        Debug.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
+        GameLogger.Log($"puzzle {(DioramaPuzzleName)array} has validated item n° {index + 1}");
 
         // a puzzle piece is set to true (==1)
         EntitiesToValidate[array][index] = 1;
@@ -101,7 +101,7 @@ public class LevelManager : MonoBehaviour
         // carrousel CANNOT be the first validated puzzle
         if (dioramaInfos.puzzleInfos[array].winConditionIsMet == true)
         {
-            Debug.Log($"puzzle {(DioramaPuzzleName)array} is finished");
+            GameLogger.Log($"puzzle {(DioramaPuzzleName)array} is finished");
             LevelInfosUI.Instance.ActivatePuzzleUIOnWin(array); 
             validatedPuzzleAmount++;
 
@@ -114,7 +114,7 @@ public class LevelManager : MonoBehaviour
 
             if (validatedPuzzleAmount == dioramaInfos.puzzleAmount)
             {
-                // Debug.Log("Level is FINISHED"); 
+                // GameLogger.Log("Level is FINISHED"); 
                 LevelIsFinished = true;
             }
         }
@@ -127,20 +127,20 @@ public class LevelManager : MonoBehaviour
 
     public void InvalidateWinCondition(int array, int index)
     {
-        Debug.Log($"puzzle {(DioramaPuzzleName)array} has invalidated item n° {index + 1}");
+        GameLogger.Log($"puzzle {(DioramaPuzzleName)array} has invalidated item n° {index + 1}");
 
         EntitiesToValidate[array][index] = 0;
     }
 
     private void ActivatePuzzleCompleteVFX(int index)
     {
-        Debug.Log("Puzzle complete vfx");
+        GameLogger.Log("Puzzle complete vfx");
         puzzleCompleteVFXS[index].SetActive(true);
     }
 
     public void OnTuyauxValidPosition(int index)
     {
-        Debug.Log("tuyaux valid position fx"); 
+        GameLogger.Log("tuyaux valid position fx"); 
         reussiteTuyauxVFX[index].Play(); 
         // Activer le particle system “VFX_ReussiteTuyau” a chaque fois qu’un tuyau est encastré dans la position correcte (enfant du tuyau correspondant)
         // Desactiver le script TweenTouch sur le(s) bouton(s)  une fois qu’il n’est plus utile pour le puzzle et remettre sa / leurs scale à 1 1 1(1 2 1 avant)
@@ -162,7 +162,7 @@ public class LevelManager : MonoBehaviour
         else if (validatedPuzzleAmount == 3)
         {
             // PLACEHOLDER
-            Debug.Log("star final phase");
+            GameLogger.Log("star final phase");
             phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].GetComponent<BoxCollider>().enabled = false;
             StartCoroutine(DelayFinish(phaseHolderName, phaseNumber));
         }
@@ -252,12 +252,12 @@ public class LevelManager : MonoBehaviour
         {
             if (i < 2)
             {
-                // Debug.Log($"setting {i} to false");
+                // GameLogger.Log($"setting {i} to false");
                 phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = false;
             }
             else
             {
-                // Debug.Log($"setting {i} to true");
+                // GameLogger.Log($"setting {i} to true");
                 phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
             }
         }
