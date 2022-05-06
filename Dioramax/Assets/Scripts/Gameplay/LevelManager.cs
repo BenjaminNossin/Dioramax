@@ -18,8 +18,6 @@ public class LevelManager : MonoBehaviour
 
     [Header("Tuyaux")]
     [SerializeField] private ParticleSystem[] reussiteTuyauxVFX;
-    [SerializeField] private MonoBehaviour buttonTweenTouch; // stil WIP because logically hard to do with this version of puzzle mechanic
-                                                             // Desactiver le script TweenTouch sur le(s) bouton(s)  une fois qu’il n’est plus utile pour le puzzle et remettre sa/leurs scale à 1 1 1 (1 2 1 avant)
 
     public static int[][] EntitiesToValidate { get; set; }
     private byte validatedPuzzleAmount;
@@ -51,6 +49,18 @@ public class LevelManager : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+    private void OnEnable()
+    {
+        CameraCinematic.OnFadeOutComplete += OnFadeOutComplete;
+        CameraCinematic.OnFadeInComplete += OnFadeInComplete;
+    }
+
+    private void OnDisable()
+    {
+        CameraCinematic.OnFadeOutComplete -= OnFadeOutComplete;
+        CameraCinematic.OnFadeInComplete -= OnFadeInComplete;
     }
 
     private void Start()
@@ -105,7 +115,6 @@ public class LevelManager : MonoBehaviour
             LevelInfosUI.Instance.ActivatePuzzleUIOnWin(array); 
             validatedPuzzleAmount++;
 
-            TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PhaseHolderName.Etoile
             ActivatePuzzleCompleteVFX(array);
             if (!overridePhaseSystem) 
             {
@@ -157,6 +166,7 @@ public class LevelManager : MonoBehaviour
         // NEED REFACTORING
         if (validatedPuzzleAmount == 1)
         {
+            Debug.Log("star phase 1"); 
             dissolveMaterial = phaseHolders[(int)phaseHolderName].phases[phaseNumber].materialsToSet[0];
         }
         else if (validatedPuzzleAmount == 3)
@@ -204,29 +214,65 @@ public class LevelManager : MonoBehaviour
             StopCoroutine(LerpStarDissolve(phaseHolderName, phaseNumber)); 
         }
     }
-        #endregion
+    #endregion
 
         #region Bouche d'Incendie
-    public void TriggerBoucheIncendiePhase(PhaseHolderName phaseHolderName, int phaseNumber)
+
+    PhaseHolderName secondPuzzlePhaseHolderName;
+    int secondPuzzlePhaseNumber;
+    public void TriggerBoucheIncendiePhase(PhaseHolderName _phaseHolderName, int _phaseNumber)
     {
         // NEED REFACTORING
         if (validatedPuzzleAmount == 1)
         {
-            ActivateBoucheIncendiePhase1(phaseHolderName, phaseNumber);
+            // change to have something similar to phase 2 and better see star fade ?
+            ActivateBoucheIncendiePhase1(_phaseHolderName, _phaseNumber);
         }
         else if (validatedPuzzleAmount == 2)
         {
             // phase 3 done within phase 2
-            ActivateBoucheIncendiePhase2(phaseHolderName, phaseNumber); 
+            CameraCinematic.Instance.FadeCameraPanel();
+            secondPuzzlePhaseHolderName = _phaseHolderName;
+            secondPuzzlePhaseNumber = _phaseNumber; 
         }
     }
 
     private void ActivateBoucheIncendiePhase1(PhaseHolderName phaseHolderName, int phaseNumber)
     {
+        TriggerStarPhase(PhaseHolderName.Etoile, phaseNumber); // PLAYER SHOULD SEE THIS. temporary placement
+
         for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
         {
             phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet[i].enabled = true;
         }
+    }
+
+    // teleport cameras
+    private void OnFadeOutComplete()
+    {
+        Debug.Log("teleporting camera on fade out complete"); 
+        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.Euler(12.523f, -2.537f, 0f));
+
+        mainCamera.transform.position = cameraTransformOnPhase2.position;
+        mainCamera.transform.localRotation = Quaternion.identity;
+
+        decoyCamera.transform.position = cameraTransformOnPhase2.position;
+        decoyCamera.transform.localRotation = Quaternion.identity;
+    }
+
+    // star fade and THEN bouche d'incendie animation
+    private void OnFadeInComplete()
+    {
+        TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PLAYER SHOULD SEE THIS
+        StartCoroutine(ActivateSecondPhase());
+    }
+
+    // call this from animEvent if possible
+    private WaitForSeconds WFS = new(1f); 
+    private System.Collections.IEnumerator ActivateSecondPhase()
+    {
+        yield return WFS;
+        ActivateBoucheIncendiePhase2(secondPuzzlePhaseHolderName, secondPuzzlePhaseNumber);
     }
 
     private void ActivateBoucheIncendiePhase2(PhaseHolderName phaseHolderName, int phaseNumber)
@@ -235,15 +281,6 @@ public class LevelManager : MonoBehaviour
 
         // activate cinematic 
         // CameraCinematic.Instance.PlayCinematic(); 
-
-        // PLACEHOLDER
-        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.Euler(12.523f, -2.537f, 0f));
-
-        mainCamera.transform.position = cameraTransformOnPhase2.position;
-        mainCamera.transform.localRotation = Quaternion.identity;
-
-        decoyCamera.transform.position = cameraTransformOnPhase2.position;
-        decoyCamera.transform.localRotation = Quaternion.identity;
 
         StartCoroutine(SimulateBoucheIncendiePhase2Cinematic());
         ratAnimationObj.SetActive(true);
@@ -265,6 +302,23 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(ActivateBoucheIncendiePhase3(phaseHolderName, phaseNumber + 1));
     }
 
+    // PLACEHOLDER
+    private System.Collections.IEnumerator SimulateBoucheIncendiePhase2Cinematic()
+    {
+        GameState = GameState.Cinematic;
+
+        yield return new WaitForSeconds(3f);
+        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.identity);
+
+        mainCamera.transform.localPosition = Vector3.zero;
+        mainCamera.transform.localRotation = Quaternion.identity;
+
+        decoyCamera.transform.localPosition = Vector3.zero;
+        decoyCamera.transform.localRotation = Quaternion.identity;
+
+        GameState = GameState.Playing;
+    }
+
     private System.Collections.IEnumerator ActivateBoucheIncendiePhase3(PhaseHolderName phaseHolderName, int phaseNumber)
     {
         yield return new WaitForSeconds(phase2to3Delay);
@@ -284,23 +338,6 @@ public class LevelManager : MonoBehaviour
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play();
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].collidersToSet[0].enabled = false; // bears can now be detected
         IsPhase3 = true; 
-    }
-
-    // PLACEHOLDER
-    private System.Collections.IEnumerator SimulateBoucheIncendiePhase2Cinematic()
-    {
-        GameState = GameState.Cinematic;
-
-        yield return new WaitForSeconds(3f);
-        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.identity);
-
-        mainCamera.transform.localPosition = Vector3.zero; 
-        mainCamera.transform.localRotation = Quaternion.identity;
-
-        decoyCamera.transform.localPosition = Vector3.zero;
-        decoyCamera.transform.localRotation = Quaternion.identity;
-
-        GameState = GameState.Playing; 
     }
 
         #endregion

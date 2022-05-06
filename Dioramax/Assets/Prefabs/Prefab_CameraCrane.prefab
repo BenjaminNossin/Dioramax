@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transfToMove: {fileID: 9027789502008531972}
-  maxZoomIn: 20
+  maxZoomIn: 40
   maxZoomOut: 100
   zoomSpeed: 18
   gamefeelCurve: {fileID: 3533724393244289011}
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transfToMove: {fileID: 9027789502008531972}
-  maxZoomIn: 20
+  maxZoomIn: 40
   maxZoomOut: 100
   zoomSpeed: 18
   gamefeelCurve: {fileID: 3533724393244289011}
@@ -502,6 +502,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1865566559}
+  cameraFadePanelImage: {fileID: 0}
+  fadeOutSpeedMultiplier: 1
+  fadeInSpeedMultiplier: 2
+  delayFromFadeOutToFadeIn: 2
 --- !u!95 &1865566559
 Animator:
   serializedVersion: 4

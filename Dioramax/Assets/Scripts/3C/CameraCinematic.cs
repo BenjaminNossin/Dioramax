@@ -1,11 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class CameraCinematic : MonoBehaviour
 {
     public static CameraCinematic Instance { get; private set; }
 
     [SerializeField] private Animator animator;
-    // [SerializeField] private AnimationClip phase2Cinematic;
+    [SerializeField] private Image cameraFadePanelImage;
+    [SerializeField, Range(1f, 5f)] private float fadeOutSpeedMultiplier = 1f;
+    [SerializeField, Range(1f, 5f)] private float fadeInSpeedMultiplier = 2f;
+    [SerializeField, Range(0.1f, 5f)] private float delayFromFadeOutToFadeIn = 0.5f;
+
+    public static System.Action OnFadeOutComplete;
+    public static System.Action OnFadeInComplete;
 
     private void Awake()
     {
@@ -17,12 +24,31 @@ public class CameraCinematic : MonoBehaviour
         Instance = this; 
     }
 
-    /* public void PlayCinematic()
+    public void FadeCameraPanel()
     {
-        GameLogger.Log("playing cinematic");
-        SetAnimatorState(1); 
-        animator.Play(phase2Cinematic.name); 
-    } */
+        InvokeRepeating(nameof(DoFadeOut), 0f, Time.deltaTime); 
+    }
+
+    private void DoFadeOut()
+    {
+        cameraFadePanelImage.color += new Color(0f, 0f, 0f, Time.deltaTime * fadeOutSpeedMultiplier);
+        if (cameraFadePanelImage.color.a >= 1f)
+        {
+            OnFadeOutComplete();
+            CancelInvoke(nameof(DoFadeOut));
+            InvokeRepeating(nameof(DoFadeIn), delayFromFadeOutToFadeIn, Time.deltaTime);
+        }
+    }
+
+    private void DoFadeIn()
+    {
+        cameraFadePanelImage.color -= new Color(0f, 0f, 0f, Time.deltaTime * fadeOutSpeedMultiplier);
+        if (cameraFadePanelImage.color.a <= 0f)
+        {
+            OnFadeInComplete(); 
+            CancelInvoke(nameof(DoFadeIn)); 
+        }
+    }
 
     // done at the end of every cinematic
     public void SetAnimatorState(int enabled) // can't serialize bool.. 
