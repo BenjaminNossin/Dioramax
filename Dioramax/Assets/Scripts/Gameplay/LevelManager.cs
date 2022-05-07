@@ -35,7 +35,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform cameraTransformOnPhase2;
 
     [Header("DEBUG")]
-    public bool overridePhaseSystem; 
+    public bool overridePhaseSystem;
+    public bool isDiorama1; 
+
+    #region Unity Callbacks
 
     void Awake()
     {
@@ -66,22 +69,30 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         // PALCEHOLDER
-        phaseHolders[0].phases[0].materialsToSet[0].SetFloat("DissolveAmount", 0);
-
-        // WIP : initializing all at 0. This will be changed by loading saved game state
-        EntitiesToValidate = new int[dioramaInfos.puzzleAmount][];
-        for (int i = 0; i < EntitiesToValidate.Length; i++)
+        if (isDiorama1)
         {
-            EntitiesToValidate[i] = new int[dioramaInfos.puzzleInfos[i].entitiesAmount];
-            dioramaInfos.puzzleInfos[i].winConditionIsMet = false;
+            phaseHolders[0].phases[0].materialsToSet[0].SetFloat("DissolveAmount", 0);
 
-            //GameLogger.Log($"{dioramaInfos.puzzleInfos[i].puzzleName} is of size {dioramaInfos.puzzleInfos[i].entitiesAmount} and at index {i}");
-            for (int j = 0; j < EntitiesToValidate[i].Length; j++)
+            // WIP : initializing all at 0. This will be changed by loading saved game state
+            EntitiesToValidate = new int[dioramaInfos.puzzleAmount][];
+            for (int i = 0; i < EntitiesToValidate.Length; i++)
             {
-                EntitiesToValidate[i][j] = 0;
+                EntitiesToValidate[i] = new int[dioramaInfos.puzzleInfos[i].entitiesAmount];
+                dioramaInfos.puzzleInfos[i].winConditionIsMet = false;
+
+                //GameLogger.Log($"{dioramaInfos.puzzleInfos[i].puzzleName} is of size {dioramaInfos.puzzleInfos[i].entitiesAmount} and at index {i}");
+                for (int j = 0; j < EntitiesToValidate[i].Length; j++)
+                {
+                    EntitiesToValidate[i][j] = 0;
+                }
             }
         }
+        else
+        {
+            SetGameState(GameState.Playing); // DEBUG
+        }
     }
+    #endregion
 
     public void SetGameState(GameState gameState)
     {

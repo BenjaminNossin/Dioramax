@@ -3329,7 +3329,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6952084751916207569, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_Name
-      value: Prefab_FPS Debugger
+      value: Prefab_Debug_FPS
       objectReference: {fileID: 0}
     - target: {fileID: 6952084751916207573, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_Pivot.x
@@ -4800,7 +4800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 950039883967027160, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_Name
-      value: Prefab_Canvas_Camera
+      value: Prefab_3C_ZRotation
       objectReference: {fileID: 0}
     - target: {fileID: 950039883967027164, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_Pivot.x
@@ -5291,7 +5291,7 @@ PrefabInstance:
       objectReference: {fileID: 7778398950724897745}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
-      value: Prefab_CameraCrane
+      value: Prefab_3C_CameraCrane
       objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_RootOrder
@@ -7107,7 +7107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 906384282050149494, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_Name
-      value: EndOfLevelUI
+      value: Prefab_UI_EndOfLevel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
@@ -15733,7 +15733,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6237893195176122932, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
       propertyPath: m_Name
-      value: LevelInfosUI
+      value: Prefab_UI_PuzzleProgression
       objectReference: {fileID: 0}
     - target: {fileID: 6237893195176122938, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
       propertyPath: m_Pivot.x
@@ -18630,6 +18630,7 @@ MonoBehaviour:
   decoyCamera: {fileID: 788362702}
   cameraTransformOnPhase2: {fileID: 184983660}
   overridePhaseSystem: 0
+  isDiorama1: 1
 --- !u!114 &7778398950724897747
 MonoBehaviour:
   m_ObjectHideFlags: 0
