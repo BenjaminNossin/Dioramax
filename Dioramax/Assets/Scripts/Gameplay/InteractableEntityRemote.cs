@@ -50,12 +50,12 @@ public class InteractableEntityRemote : InteractableEntity
             {
                 // int newValue = SwapOneAndZero(sharedEntitiesWithCurrent[i]);
                 rotationOnPivots[i].IsLocked = !rotationOnPivots[i].IsLocked;
-                Debug.Log($"inverted value is now {rotationOnPivots[i].IsLocked} for {gameObject}");
+                GameLogger.Log($"inverted value is now {rotationOnPivots[i].IsLocked} for {gameObject}");
             }
             else
             {
                 rotationOnPivots[i].IsLocked = sharedEntitiesWithCurrent[i] == 1;
-                Debug.Log($"swapped back value is now {rotationOnPivots[i].IsLocked} for {gameObject}");
+                GameLogger.Log($"swapped back value is now {rotationOnPivots[i].IsLocked} for {gameObject}");
             }
 
             entitiesMeshRenderers[i].material.color = rotationOnPivots[i].IsLocked ? Color.blue : Color.red;

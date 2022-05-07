@@ -69,7 +69,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 471
+    m_Bits: 4055
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 9dafea5bcbf1ee34dab754f092826ede, type: 2}
   m_TargetDisplay: 0
@@ -163,6 +163,9 @@ MonoBehaviour:
   tweenableOursonMask:
     serializedVersion: 2
     m_Bits: 2048
+  ratMask:
+    serializedVersion: 2
+    m_Bits: 256
   finishMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -178,7 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZoomIn: 20
+  transfToMove: {fileID: 9027789502008531972}
+  maxZoomIn: 40
   maxZoomOut: 100
   zoomSpeed: 18
   gamefeelCurve: {fileID: 3533724393244289011}
@@ -359,6 +363,9 @@ MonoBehaviour:
   tweenableOursonMask:
     serializedVersion: 2
     m_Bits: 2048
+  ratMask:
+    serializedVersion: 2
+    m_Bits: 256
   finishMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -374,7 +381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZoomIn: 20
+  transfToMove: {fileID: 9027789502008531972}
+  maxZoomIn: 40
   maxZoomOut: 100
   zoomSpeed: 18
   gamefeelCurve: {fileID: 3533724393244289011}
@@ -393,7 +401,7 @@ GameObject:
   - component: {fileID: 3329036745582398296}
   - component: {fileID: 1865566559}
   m_Layer: 0
-  m_Name: Prefab_CameraCrane
+  m_Name: Prefab_3C_CameraCrane
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -428,7 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diorama: {fileID: 0}
-  XYForceMultiplier: 2
+  XYForceMultiplier: 1
   ZRotationForce: 40
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
@@ -494,6 +502,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1865566559}
+  phase2Cinematic: {fileID: 7400000, guid: 35ec432f3669c024a8d05c3c65a91163, type: 2}
+  cameraFadePanelImage: {fileID: 0}
+  fadeOutSpeedMultiplier: 1
+  fadeInSpeedMultiplier: 2
+  delayFromFadeOutToFadeIn: 0.5
 --- !u!95 &1865566559
 Animator:
   serializedVersion: 4

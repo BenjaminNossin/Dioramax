@@ -3,13 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class CarrouselProp : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private GameObject goodOursonVFX;
-
-    [Space, SerializeField] private Color defaultColor = Color.white;
-    [SerializeField] private Color activeColor = Color.yellow;
-    [SerializeField] private Color goodColor = Color.green;
-    [SerializeField] private Color badColor = Color.red;
 
     [Header("Gameplay")]
     [SerializeField] private WinCondition winCondition;
@@ -22,7 +16,6 @@ public class CarrouselProp : MonoBehaviour
     {
         IsValidProp = isValidProp;
 
-        meshRenderer.material.color = defaultColor;
         CarrouselManager.CarrouselProps.Add(this); 
     }
 
@@ -32,7 +25,6 @@ public class CarrouselProp : MonoBehaviour
 
         TouchDetection.CarrouselPropActivated++;
         IsActive = true;
-        meshRenderer.material.color = activeColor;
 
         if (TouchDetection.CarrouselPropActivated == 3)
         {
@@ -42,7 +34,6 @@ public class CarrouselProp : MonoBehaviour
 
     public void SetFinalColor()
     {
-        meshRenderer.material.color = isValidProp ? goodColor : badColor;
         if (IsValidProp)
         {
             SetGoodVFX(true); 
@@ -65,8 +56,6 @@ public class CarrouselProp : MonoBehaviour
         {
             SetGoodVFX(false);
         }
-
-        meshRenderer.material.color = defaultColor;
     }
 
     private void SetGoodVFX(bool setActive)
