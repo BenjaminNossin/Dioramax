@@ -3,7 +3,9 @@ using UnityEngine;
 public class WinCondition : MonoBehaviour
 {
     [Space, SerializeField] private DioramaPuzzleName entityPuzzleName; // PLACEHOLDER
-    public int entityNumber; 
+    public int entityNumber;
+    [SerializeField] private bool overrideWinConditionCall; // for rats in case more than one fall in the same hole; 
+    public bool OverrideWinConditionCall { get; set; }
 
     [Header("DEBUG")]
     public bool simulateWinConditionIsMet; 
@@ -11,8 +13,15 @@ public class WinCondition : MonoBehaviour
     private bool winConditionIsMet;
     private bool WinConditionEventIsRegistered;
 
+    private void Awake()
+    {
+        OverrideWinConditionCall = overrideWinConditionCall; 
+    }
+
     void Update()
     {
+        if (overrideWinConditionCall) return; 
+
         if (!simulateWinConditionIsMet)
         {
             if (winConditionIsMet && !WinConditionEventIsRegistered)
@@ -33,9 +42,9 @@ public class WinCondition : MonoBehaviour
         }
     }
 
-    private void SetWinCondition(bool winConditionState)
+    public void SetWinCondition(bool eventIsRegistered)
     {
-        WinConditionEventIsRegistered = winConditionState;
+        WinConditionEventIsRegistered = eventIsRegistered;
         LevelManager.Instance.ValidateWinCondition((int)entityPuzzleName, entityNumber);
     }
 

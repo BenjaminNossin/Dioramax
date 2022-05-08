@@ -123,37 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &184983659
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 184983660}
-  m_Layer: 0
-  m_Name: cameraPositionOnPhase2
-  m_TagString: Untagged
-  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &184983660
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 184983659}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.6527734, y: 11.558827, z: -9.644703}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &202684409
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &354967128
 Transform:
   m_ObjectHideFlags: 0
@@ -320,7 +289,7 @@ Transform:
   - {fileID: 1681122253}
   - {fileID: 755591675}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &354967132
 MonoBehaviour:
@@ -431,7 +400,7 @@ RectTransform:
   m_Children:
   - {fileID: 1272662089}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -769,7 +738,7 @@ GameObject:
   - component: {fileID: 940484840}
   - component: {fileID: 940484839}
   m_Layer: 5
-  m_Name: RatsInfos
+  m_Name: TrainInfos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -815,7 +784,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b05f0f10123e3ab49bf82f4679ef5e2f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e8c34f6b191d0fe438dc568eade507bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -845,7 +814,7 @@ GameObject:
   - component: {fileID: 941997032}
   - component: {fileID: 941997031}
   m_Layer: 5
-  m_Name: CarrouselInfos
+  m_Name: TentInfos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -891,7 +860,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0d6ff4fc8dc5dda44844fa96b8d3b24c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c80152084ffc1f34daa018386c7f7633, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -921,7 +890,7 @@ GameObject:
   - component: {fileID: 962330735}
   - component: {fileID: 962330734}
   m_Layer: 5
-  m_Name: TuyauxInfos
+  m_Name: MineInfos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -967,7 +936,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dc85a1433333ce6488d09515566dd265, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2fb6c85a291a0594eb92c4da96c9e157, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1113,7 +1082,7 @@ RectTransform:
   - {fileID: 962330733}
   - {fileID: 941997030}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1133,13 +1102,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleImages:
-  - {fileID: 962330734}
   - {fileID: 940484839}
+  - {fileID: 962330734}
   - {fileID: 941997031}
   winPuzzleSprite:
-  - {fileID: 21300000, guid: 399d2ff4afb67e949aff4ed0a5501128, type: 3}
-  - {fileID: 21300000, guid: 9a3c0c531ced1764d94217aad13e917f, type: 3}
-  - {fileID: 21300000, guid: f8e24f1395639d54ea558dd6b4ce654a, type: 3}
+  - {fileID: 21300000, guid: c77361c175604d246ae1b66a3391309d, type: 3}
+  - {fileID: 21300000, guid: 9883fdb106b160d4cbc88ed852e55a08, type: 3}
+  - {fileID: 21300000, guid: e0c8887f3b4cd5f4fa5471b176477fcf, type: 3}
+  previousDioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
 --- !u!1 &1272662088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1197,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6952084751916207569, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_Name
-      value: Prefab_FPS Debugger
+      value: Prefab_Debug_FPS
       objectReference: {fileID: 0}
     - target: {fileID: 6952084751916207573, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_Pivot.x
@@ -1239,7 +1209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6952084751916207573, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6952084751916207573, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1655,7 +1625,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1658879797
 PrefabInstance:
@@ -1694,7 +1664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 950039883967027160, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_Name
-      value: Prefab_ZRotationCanvas
+      value: Prefab_3C_ZRotation
       objectReference: {fileID: 0}
     - target: {fileID: 950039883967027160, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_IsActive
@@ -1710,7 +1680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 950039883967027164, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 950039883967027164, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1814,6 +1784,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
+--- !u!1 &1658879798 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 950039883967027160, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
+  m_PrefabInstance: {fileID: 1658879797}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1681122252 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1676652895588182474, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
@@ -1892,6 +1867,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078332462, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1078332464, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1918,11 +1897,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
-      value: Prefab_CameraCrane
+      value: Prefab_3C_CameraCrane
       objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1966,6 +1945,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+--- !u!4 &1865566550 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1078332463, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1865566551 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3533724392168430061, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1865566552 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &693520886384482
 GameObject:
   m_ObjectHideFlags: 0
@@ -2939,8 +2933,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149031203531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 8.31, y: 0, z: -3.37}
+  m_LocalScale: {x: 31.384724, y: 31.384724, z: 31.384724}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 516911191862643168}
@@ -3069,7 +3063,7 @@ Transform:
   - {fileID: 1703557444901791344}
   - {fileID: 8233613392575298846}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &548556796087891752
 Transform:
@@ -3378,6 +3372,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450652749408369}
+  - component: {fileID: 919132149031203533}
+  - component: {fileID: 919132149031203532}
   m_Layer: 0
   m_Name: Dioramax2_Cake_Unity
   m_TagString: Untagged
@@ -3385,6 +3381,44 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &919132149031203532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149031203531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a991c2cab2c8e8488b89c7eb6214030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dioramaInfos: {fileID: 11400000, guid: f7ec764cb1f88bf47aabf59cee083a22, type: 2}
+  objToDeactivateOnLevelEnd: {fileID: 1658879798}
+  phase2to3Delay: 1
+  phaseHolders: []
+  puzzleCompleteVFXS: []
+  reussiteTuyauxVFX: []
+  ratAnimationObj: {fileID: 0}
+  cameraCrane: {fileID: 1865566552}
+  mainCamera: {fileID: 1865566551}
+  decoyCamera: {fileID: 1865566550}
+  cameraTransformOnPhase2: {fileID: 0}
+  overridePhaseSystem: 0
+  isDiorama1: 0
+--- !u!114 &919132149031203533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149031203531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9dea37827eaf349bb121990a0a9f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityForce: 9.81
 --- !u!4 &921720155883795896
 Transform:
   m_ObjectHideFlags: 0

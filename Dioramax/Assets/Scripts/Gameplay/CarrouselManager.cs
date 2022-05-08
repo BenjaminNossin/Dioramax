@@ -59,7 +59,7 @@ public class CarrouselManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Puzzle carrousel completed !");
+            GameLogger.Log("Puzzle carrousel completed !");
         }
     }
 }
