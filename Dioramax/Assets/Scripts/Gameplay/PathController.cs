@@ -6,25 +6,29 @@ public class PathController : MonoBehaviour
     public static PathController Instance;
     [SerializeField] private PathNode[] Nodes; 
 
-    private Vector3 nodePosition; 
+    private Vector3 currentIndexNodePosition;
 
-    /* private void OnDrawGizmos()
+    [Header("DEBUG")]
+    public bool doDebugDrawGizmos;
+
+    private void OnDrawGizmos()
     {
-        if (Nodes.Length != 0)
+        if (Nodes.Length != 0 && doDebugDrawGizmos)
         {
             for (var i = 0; i < Nodes.Length; i++)
             {
-                Gizmos.color = i == Nodes.Length - 1 ? Color.red : (i == 0 ? Color.white : Color.yellow);
-                Gizmos.DrawWireSphere(nodePosition, 0.25f);
+                currentIndexNodePosition = Nodes[i].GetNodePosition();
 
-                nodePosition = Nodes[i].GetNodePosition();
+                Gizmos.color = i == Nodes.Length - 1 ? Color.red : (i == 0 ? Color.white : Color.yellow);
+                Gizmos.DrawWireSphere(currentIndexNodePosition, 0.25f);
+
                 for (int j = 0; j < Nodes[i].GetNextPossibleNodesArraySize(); j++)
                 {
-                    Gizmos.DrawLine(nodePosition, Nodes[i+1].GetNextPossibleNodesTransform()[j].position);
+                    Gizmos.DrawLine(currentIndexNodePosition, Nodes[i].GetNextPossibleNodesTransform()[j].position);
                 }
             }
-        }
-    } */
+        } 
+    }
 
     private void Awake()
     {
