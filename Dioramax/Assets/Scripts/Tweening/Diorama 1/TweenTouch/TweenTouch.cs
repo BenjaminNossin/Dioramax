@@ -13,7 +13,11 @@ public class TweenTouch : StoppableTween
     private float TimeScale;
     private float TimeBounce;
 
-    public bool tweenOnDisable; 
+    public bool tweenOnDisable;
+
+
+    // Swap test 
+    private bool swapState;
 
     public void Start()
     {
@@ -26,6 +30,8 @@ public class TweenTouch : StoppableTween
         TimeScale = td.time_scale * 0.3f;
         TimeBounce = td.time_bounce * 0.3f;
 
+        //Swap test
+        swapState = true;
     }
 
     public void ScaleGood()
@@ -37,6 +43,11 @@ public class TweenTouch : StoppableTween
     public void Tween2()
     {  //retour
         LeanTween.moveY(gameObject, ObjectInitialHeight, TimeBounce + (TimeBounce / 2)).setEaseOutBounce();
+    }
+    
+    public void Swap()
+    {
+        
     }
     
     public void Tween()
@@ -62,6 +73,24 @@ public class TweenTouch : StoppableTween
         {
             VFX.Play(); 
         }
+
+        // Test swap rail
+        if (transform.tag == "SwapRail")
+        {
+            Debug.Log("Object is a Swap rail");
+            
+            if(swapState)
+            {
+                LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
+                swapState = false;
+            }
+            else
+            {
+                LeanTween.rotateAround(gameObject, td.RotationAxis, -td.rotation_degrees, td.time_rotation).setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
+                swapState = true;
+            }
+        }
+        // End test
     }
 
     private void OnDisable()
