@@ -79,6 +79,17 @@ public class TouchDetection : MonoBehaviour
             GameLogger.Log("Touch Tween");
             GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
             tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
+            
+            // test Children GO tween
+            foreach (Transform child in tweenableTouchHitInfo.transform)
+            {
+                if (child != null)
+                { 
+                    Debug.Log("tweening of " + transform.name + " is activated");
+                    child.GetComponent<TweenTouch>().Tween();
+                }
+            }
+            // end test
         }
         #endregion
 
