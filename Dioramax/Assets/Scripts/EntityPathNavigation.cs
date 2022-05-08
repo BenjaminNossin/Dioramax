@@ -35,7 +35,7 @@ public class EntityPathNavigation : MonoBehaviour
         nodeArraySize = PathController.Instance.GetNodeArraySize();
 
         lastNodePosition = pathNodes[^1].GetNodePosition(); 
-        transform.position = pathNodes[0].GetNodePosition();
+        transform.position = new Vector3(pathNodes[0].GetNodePosition().x, transform.position.y, pathNodes[0].GetNodePosition().z);
 
         SetNextDestination();
     }
@@ -51,7 +51,8 @@ public class EntityPathNavigation : MonoBehaviour
         // enter here only once
         if (distanceFromNextNode < SNAP_VALUE)
         {
-            transform.position = pathNodes[destinationNodeIndex].GetNodePosition(); 
+            GameLogger.Log("snapping to current node");
+            transform.position = new Vector3(pathNodes[destinationNodeIndex].GetNodePosition().x, transform.position.y, pathNodes[destinationNodeIndex].GetNodePosition().z); 
             SetNextDestination(); // this is called too often
         }
     } 
@@ -61,6 +62,8 @@ public class EntityPathNavigation : MonoBehaviour
     {
         if (nodeArraySize == 0)
             return;
+
+        GameLogger.Log("setting next destination node");
 
         destinationNodeIndex = (destinationNodeIndex + 1) % nodeArraySize;
         nextNodePosition = pathNodes[destinationNodeIndex].GetNodePosition();
