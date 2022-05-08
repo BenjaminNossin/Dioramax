@@ -1,46 +1,54 @@
-using System;
 using UnityEngine;
 
+// stores all the node data and update path according to switches
 public class PathController : MonoBehaviour
 {
-    public Transform[] Points { get; private set; }
+    public static PathController Instance;
+    [SerializeField] private PathNode[] Nodes; 
 
-    public bool IsInactive { get; set; }
+    private Vector3 currentIndexNodePosition;
+
+    [Header("DEBUG")]
+    public bool doDebugDrawGizmos;
 
     private void OnDrawGizmos()
     {
-        SetPoints(); // I should do this ONLY if there is a change of childCount
-
-        if (Points.Length != 0)
+        if (Nodes.Length != 0 && doDebugDrawGizmos)
         {
-            IsInactive = false;
-            for (var i = 0; i < Points.Length; i++)
+            for (var i = 0; i < Nodes.Length; i++)
             {
-                if (i > 0)
-                {
-                    Gizmos.color = Color.yellow;
-                    Gizmos.DrawLine(Points[i - 1].position, Points[i].position);
-                }
+                currentIndexNodePosition = Nodes[i].GetNodePosition();
 
-                Gizmos.color = i == Points.Length - 1 ? Color.red : (i == 0 ? Color.white : Color.yellow);
-                Gizmos.DrawWireSphere(Points[i].position, 0.25f);
+                Gizmos.color = i == Nodes.Length - 1 ? Color.red : (i == 0 ? Color.white : Color.yellow);
+                Gizmos.DrawWireSphere(currentIndexNodePosition, 0.25f);
+
+                for (int j = 0; j < Nodes[i].GetNextPossibleNodesArraySize(); j++)
+                {
+                    Gizmos.DrawLine(currentIndexNodePosition, Nodes[i].GetNextPossibleNodesTransform()[j].position);
+                }
             }
-        }
+        } 
     }
 
     private void Awake()
     {
-        SetPoints();
+        if (Instance)
+        {
+            Destroy(Instance);
+        }
+        Instance = this; 
     }
 
-    private void SetPoints()
-    {
-        if (IsInactive) return;
+    public Vector3 GetNodePosition(int index) => Nodes[index].GetNodePosition();
+    public int GetNodeArraySize() => Nodes.Length;
 
-        Points = new Transform[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Points[i] = transform.GetChild(i);
-        }
+    public void AddNode()
+    {
+
+    }
+
+    public void RemoveNode()
+    {
+
     }
 }

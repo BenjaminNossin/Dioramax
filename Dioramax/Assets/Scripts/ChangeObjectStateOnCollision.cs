@@ -33,7 +33,7 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
 
             if (collisionEntity.MoveSpeed < minSpeedToValidateHit)
             {
-                collisionEntity.GoToPreviousPoint();
+                // collisionEntity.GoToPreviousPoint();
             }
             else
             {
@@ -41,7 +41,7 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
 
                 if (hitCount < hitsBeforeStateChange)
                 {
-                    collisionEntity.GoToPreviousPoint();
+                    // collisionEntity.GoToPreviousPoint();
                     StartCoroutine(nameof(BlinkOnce));
                 }
                 else
