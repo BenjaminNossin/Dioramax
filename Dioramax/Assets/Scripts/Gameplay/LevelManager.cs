@@ -35,6 +35,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform cameraTransformOnPhase2;
 
     [Header("DEBUG")]
+    public bool skipIntroCinematic; 
     public bool overridePhaseSystem;
     public bool isDiorama1; 
 
@@ -68,6 +69,12 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        if (skipIntroCinematic)
+        {
+            CameraCinematic.Instance.SetAnimatorState(0);
+            SetGameState(GameState.Playing);
+        }
+
         // PALCEHOLDER
         if (isDiorama1)
         {
