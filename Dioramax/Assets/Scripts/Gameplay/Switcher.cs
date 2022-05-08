@@ -9,6 +9,7 @@ public class Switcher : MonoBehaviour
     [SerializeField] private Vector3 orientationB;
     [SerializeField] private bool AIsInitialPosition;
     [SerializeField, Range(0.25f, 2f)] private float turnDuration = 0.5f;
+    private Collider[] blockers = new Collider[2]; // A = 0; B = 1; 
 
     private PathNode pathNode; // own pathNode
     private Transform[] nextPossibleNodes; 
@@ -19,6 +20,11 @@ public class Switcher : MonoBehaviour
 
     private void Start()
     {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            blockers[i] = transform.GetChild(i).GetComponent<Collider>();
+        }
+
         goToPositionA = AIsInitialPosition;
         transform.localRotation = Quaternion.Euler(goToPositionA ? orientationA : orientationB); // almost same as Switch() except from bool inversion. Try to refactor
         pathNode = GetComponent<PathNode>();
@@ -28,6 +34,7 @@ public class Switcher : MonoBehaviour
         pathNode.GetNextPossibleNodesTransform().CopyTo(nextPossibleNodes, 0);
 
         SetActiveNode();
+        SetActiveBlocker();
     }
 
     public void InvertBoolAndDoSwitch()
@@ -35,6 +42,7 @@ public class Switcher : MonoBehaviour
         InvertBool();
         DoSwitch();
         SetActiveNode();
+        SetActiveBlocker();
     }
 
     private void InvertBool()
@@ -66,6 +74,24 @@ public class Switcher : MonoBehaviour
             }
         }
     }
+
+    // DEBUG
+    private void SetActiveBlocker()
+    {
+        for (int i = 0; i < blockers.Length; i++)
+        {
+            blockers[i].enabled = true; 
+            if (goToPositionA)
+            {
+                blockers[0].enabled = false; 
+            }
+            else
+            {
+                blockers[1].enabled = false;
+            }
+        }
+    }
+
 
     /* private void DoSwitch()
     {

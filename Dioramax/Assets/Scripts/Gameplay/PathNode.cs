@@ -18,15 +18,17 @@ public class PathNode : MonoBehaviour
 
     private void OnValidate()
     {
-        selfPosition = transform.position; 
-        if (previousNode)
-        {
-            previousNodePosition = previousNode.transform.position;
-        }
+        Init();
     }
 
     private void Awake()
     {
+        Init();
+    }
+
+    private void Init()
+    {
+        IsActiveNode = true;
         selfPosition = transform.position;
         if (previousNode)
         {

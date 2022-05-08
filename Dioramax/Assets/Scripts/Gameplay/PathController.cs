@@ -36,7 +36,11 @@ public class PathController : MonoBehaviour
                 currentIndexNodePosition = Nodes[i].GetNodePosition();
 
                 Gizmos.color = i == Nodes.Length - 1 ? Color.red : (i == 0 ? Color.white : Color.yellow);
-                Gizmos.DrawWireSphere(currentIndexNodePosition, 0.25f);
+
+                if (Nodes[i].IsActiveNode)
+                {
+                    Gizmos.DrawWireSphere(currentIndexNodePosition, 0.25f);
+                }
 
                 for (int j = 0; j < Nodes[i].GetNextPossibleNodesArraySize(); j++)
                 {
