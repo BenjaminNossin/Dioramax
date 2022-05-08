@@ -87,10 +87,6 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            SetGameState(GameState.Playing); // DEBUG
-        }
     }
     #endregion
 
