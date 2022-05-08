@@ -11,16 +11,24 @@ public class TouchDetection : MonoBehaviour
     // Test screen distorsion effect 
     //[SerializeField] private ParticleSystem TouchDistorsion;
     //
+    [SerializeField] private bool isDiorama1; 
 
-    [SerializeField] private LayerMask buttonMask;
-    [SerializeField] private LayerMask carrouselPropMask;
+    [Header("General")]
     [SerializeField] private LayerMask tweenableTouchMask;
-    [SerializeField] private LayerMask tweenableOursonMask;
-    [SerializeField] private LayerMask ratMask;
     [SerializeField] private LayerMask finishMask;
 
+    [Header("Diorama 1")]
+    [SerializeField] private LayerMask buttonMask;
+    [SerializeField] private LayerMask carrouselPropMask;
+    [SerializeField] private LayerMask tweenableOursonMask;
+    [SerializeField] private LayerMask ratMask;
 
-    private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected; // :D    
+    [Header("Diorama 2")]
+    [SerializeField] private LayerMask switchMask;
+
+
+    private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected,
+        switchDetected; // :D    
     private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
@@ -47,20 +55,17 @@ public class TouchDetection : MonoBehaviour
         carrouselPropActivated = CarrouselPropActivated;
     }
 
-    public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
+    public void TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
     {
-        if (!canCast) return false; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
+        if (!canCast) return; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
 
         GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.red, RAY_DEBUG_DURATION);
 
         // use Physics.RaycastAll instead to see if the object detected is the first or hidden behind others
         // NEED REFACTORING too much raycasts
-        buttonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, CAST_LENGTH, buttonMask);
-        carrouselBearDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit bearHitInfo, CAST_LENGTH, carrouselPropMask);
-        tweenableTouchDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, CAST_LENGTH, tweenableTouchMask);
-        tweenableOursonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, CAST_LENGTH, tweenableOursonMask);
-        ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
+        #region General Casts
         finishMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit finishHitInto, CAST_LENGTH, finishMask);
+        tweenableTouchDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, CAST_LENGTH, tweenableTouchMask);
 
         if (finishMaskDetected && LevelManager.LevelIsFinished)
         {
@@ -75,48 +80,69 @@ public class TouchDetection : MonoBehaviour
             GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
             tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
         }
+        #endregion
 
-        if (LevelManager.IsPhase3)
+        if (isDiorama1)
         {
-            if (tweenableOursonDetected)
+            #region Diorama1 Casts
+            buttonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, CAST_LENGTH, buttonMask);
+            carrouselBearDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit bearHitInfo, CAST_LENGTH, carrouselPropMask);
+            tweenableOursonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, CAST_LENGTH, tweenableOursonMask);
+            ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
+
+            if (LevelManager.IsPhase3)
             {
-                GameLogger.Log("Ourson Tween");
+                if (tweenableOursonDetected)
+                {
+                    GameLogger.Log("Ourson Tween");
+                    GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                    tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
+                }
+
+                if (carrouselBearDetected)
+                {
+                    GameLogger.Log("carrousel bear detected");
+                    detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
+                    detectedCarrouselProp.SetActiveColor();
+                }
+            }
+
+            // check that rat have been hit through the vent, by looking at them
+            // STILL WIP
+            // use list to avoid GetComponent all the time, and update it if the component is a new reference
+            if (ratMaskDetected)
+            {
+                ratHitInfo.transform.GetComponent<FreezeStateController>().InvertFreezeState();
+            }
+
+            if (buttonDetected)
+            {
                 GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
-                tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
-            }
+                StartCoroutine(CanCast());
 
-            if (carrouselBearDetected)
-            {
-                GameLogger.Log("carrousel bear detected");
-                detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
-                detectedCarrouselProp.SetActiveColor();
+                DetectedButtonProp = buttonHitInfo.transform.GetComponent<ButtonProp>();
+                ButtonPropsManager.Instance.SetCurrentButtonProp(DetectedButtonProp);
+
+                if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
+                {
+                    GameLogger.Log("this was a double tap");
+                    OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
+                }
             }
+            #endregion
         }
-
-        // check that rat have been hit through the vent, by looking at them
-        // STILL WIP
-        // use list to avoid GetComponent all the time, and update it if the component is a new reference
-        if (ratMaskDetected) 
+        else
         {
-            ratHitInfo.transform.GetComponent<FreezeStateController>().InvertFreezeState(); 
-        }
+            #region Diorama2 Casts
+            switchDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit switchHitInfo, CAST_LENGTH, switchMask);
 
-        if (buttonDetected)
-        {
-            GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
-            StartCoroutine(CanCast()); 
-
-            DetectedButtonProp = buttonHitInfo.transform.GetComponent<ButtonProp>();
-            ButtonPropsManager.Instance.SetCurrentButtonProp(DetectedButtonProp);
-
-            if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
+            if (switchDetected)
             {
-                GameLogger.Log("this was a double tap");
-                OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
+                GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                switchHitInfo.transform.GetComponent<Switcher>().InvertBoolAndDoSwitch(); 
             }
-        }
-       
-        return buttonDetected || carrouselBearDetected;
+            #endregion
+        }       
     }
 
     System.Collections.IEnumerator CanCast()

@@ -36,12 +36,12 @@ public class PathBezier : MonoBehaviour {
 	}
 
 	void OnDrawGizmos(){
-		// Debug.Log("drwaing");
+		GameLogger.Log("drawing");
 		if(cr!=null)
 			OnEnable();
 		Gizmos.color = Color.red;
 		if(cr!=null)
-			cr.gizmoDraw(); // To Visualize the path, use this method
+			cr.gizmoDraw(1); // To Visualize the path, use this method
 	}
 }
 

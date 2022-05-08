@@ -132,14 +132,13 @@ public class Controls : MonoBehaviour
                     cameraPosition = mainCam.transform.position;
                     SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Tap); // technically double tap should only work when hitting specific objects
 
-                    // if something detected, enter drag and NOT rotating state
                     // SHOULD BE DONE IN FIXED UPDATE
-                    if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition, doubleTap))
-                    {
-                        SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Drag);
-                    }
+                    touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition, doubleTap);
 
-                    doubleTap = true;
+                    // if something draggable is detected, enter drag and NOT rotating state
+                    // if blablabla.. -> SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Drag);
+
+                    doubleTap = true; // for the next entering of Began if done within short delay
                     // GameLogger.Log("touch state is " + touchState);
                 }
                 else if (currentTouch0.phase == TouchPhase.Stationary)
