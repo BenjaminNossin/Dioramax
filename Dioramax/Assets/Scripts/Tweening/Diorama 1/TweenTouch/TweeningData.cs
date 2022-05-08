@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TweenTouch")]
 public class TweeningData : ScriptableObject
 {
+    [Header("Delay")]
+    public float delay;
+
     [Header("Move")]
     [Range(0,1)]public float up_max_position;
     public float time_bounce;

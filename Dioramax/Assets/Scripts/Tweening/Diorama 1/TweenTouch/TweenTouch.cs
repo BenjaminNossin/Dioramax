@@ -44,18 +44,18 @@ public class TweenTouch : StoppableTween
         // ! remove looping
 
         //bounce (aller)
-        LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setEaseOutExpo().setOnComplete(Tween2);
+        LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setDelay(td.delay).setEaseOutExpo().setOnComplete(Tween2);
 
         //stretch&squash (aller)
-        LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
+        LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setDelay(td.delay).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
 
         //rotation
 
         if (td.EaseOutCubic)
-            LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEaseOutCubic();//.setLoopCount(-1);
+            LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
 
         if (td.Punch)
-            LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setEasePunch();//.setLoopCount(-1);
+            LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setDelay(td.delay).setEasePunch();//.setLoopCount(-1);
         
         //particlesystem
         if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
