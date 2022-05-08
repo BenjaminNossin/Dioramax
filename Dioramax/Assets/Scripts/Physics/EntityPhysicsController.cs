@@ -6,7 +6,7 @@ public class EntityPhysicsController : MonoBehaviour
 {
     public static EntityPhysicsController Instance; 
 
-    [SerializeField, Range(5, 20)] private float gravityForce = 9.81f;
+    [SerializeField, Range(0.05f, 20)] private float gravityForce = 9.81f;
     private List<Rigidbody> entityRbList = new List<Rigidbody>();
 
     private void Awake()
