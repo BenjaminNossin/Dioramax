@@ -8,7 +8,7 @@ public class TweeningData : ScriptableObject
     public float delay;
 
     [Header("Move")]
-    [Range(0,1)]public float up_max_position;
+    [Range(0,2)]public float up_max_position;
     public float time_bounce;
 
 
