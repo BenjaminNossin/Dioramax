@@ -6,9 +6,10 @@ public class TweenTouch : StoppableTween
     public TweeningData td;
 
     // TempPosition
-    [SerializeField] private float ObjectMaxHeight;
-    [SerializeField] private float ObjectInitialHeight;
-    [SerializeField] private Vector3 originalScale;
+   
+    private float ObjectMaxHeight;
+    private float ObjectInitialHeight;
+    private Vector3 originalScale;
     private ParticleSystem VFX;
     private float TimeScale;
     private float TimeBounce;
@@ -33,7 +34,7 @@ public class TweenTouch : StoppableTween
         //Swap test
         swapState = true;
     }
-
+/*
     public void ScaleGood()
     {
         //retour
@@ -48,7 +49,7 @@ public class TweenTouch : StoppableTween
     public void Swap()
     {
         
-    }
+    }*/
     
     public void Tween()
     {
@@ -61,17 +62,16 @@ public class TweenTouch : StoppableTween
 
 
 
-        //bounce
-        //transform.DOPunchPosition(ObjectMaxHeight, TimeBounce).SetDelay(td.delay);
-        //transform.DOPunchScale(td.stretch_squash, TimeScale).SetDelay(td.delay);
+        //bounce_Move
+            //transform.DOPunchPosition(ObjectMaxHeight, TimeBounce).SetDelay(td.delay);
+            //transform.DOPunchScale(td.stretch_squash, TimeScale).SetDelay(td.delay);
 
-            transform.DOMoveY(ObjectMaxHeight, TimeBounce).SetDelay(td.delay).OnComplete(() => transform.DOMoveY(ObjectInitialHeight, TimeBounce));
-            transform.DOScale(td.stretch_squash, TimeScale).SetDelay(td.delay).OnComplete(() => transform.DOScale(originalScale, TimeScale));
-        //LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setDelay(td.delay).setEaseOutExpo().setOnComplete(Tween2);
+         transform.DOMoveY(ObjectMaxHeight, TimeBounce).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOMoveY(ObjectInitialHeight, TimeBounce).SetEase(Ease.OutBounce));
+            //LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setDelay(td.delay).setEaseOutExpo().setOnComplete(Tween2);
 
-        //stretch&squash (aller)
-
-        //LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setDelay(td.delay).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
+        //stretch&squash_Scale
+        transform.DOScale(td.stretch_squash, TimeScale).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOScale(originalScale, TimeScale).SetEase(Ease.OutBack));
+             //LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setDelay(td.delay).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
 
 
 
@@ -81,13 +81,13 @@ public class TweenTouch : StoppableTween
 
                 if (swapState)
                 {
-                transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * td.rotation_degrees)), td.time_rotation);
+                transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * td.rotation_degrees)), td.time_rotation).SetEase(Ease.OutCubic);
                     //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
                     swapState = false;
                 }
                 else
                 {
-                transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * -td.rotation_degrees)), td.time_rotation);
+                transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * -td.rotation_degrees)), td.time_rotation).SetEase(Ease.OutCubic);
                     //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, -td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
                     swapState = true;
                 }
@@ -100,13 +100,14 @@ public class TweenTouch : StoppableTween
                     //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
                     Debug.Log("Test");
                 //transform.DORotate(transform.rotation.eulerAngles + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.LocalAxisAdd);
-                transform.DOLocalRotate(initialRotation + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.FastBeyond360);
+                transform.DOLocalRotate(initialRotation + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.FastBeyond360).SetDelay(td.delay).SetEase(Ease.OutCubic);
 
                 }
-                else if (td.Punch) {
-                    //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEasePunch();//.setLoopCount(-1);
-                    transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * td.rotation_degrees)), td.time_rotation).SetDelay(td.delay).SetEase(Ease.OutBounce);
-                }
+                else if (td.EaseOutCirc) {
+                //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEasePunch();//.setLoopCount(-1);
+                // transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * td.rotation_degrees)), td.time_rotation).SetDelay(td.delay).SetEase(Ease.OutBounce);
+                transform.DOLocalRotate(initialRotation + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.FastBeyond360).SetDelay(td.delay).SetEase(Ease.OutCirc);
+            }
            }
         
         

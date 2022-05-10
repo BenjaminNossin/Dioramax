@@ -21,7 +21,7 @@ public class TweeningData : ScriptableObject
     public float time_rotation;
     [Header("Rotation Curve (only use one)")]
     public bool EaseOutCubic;
-    public bool Punch;
+    public bool EaseOutCirc;
     [Header("Vector.right = 1,0,0 | Vector.up = 0,1,0")]
     public Vector3 RotationAxis;
 
