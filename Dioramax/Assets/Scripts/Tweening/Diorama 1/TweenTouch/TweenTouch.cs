@@ -1,17 +1,18 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class TweenTouch : StoppableTween
 {
     public TweeningData td;
 
     // TempPosition
-    private Vector3 ObjectJumpPosition;
-    private float ObjectMaxHeight;
-    private float ObjectInitialHeight;
-    private Vector3 originalScale;
+    [SerializeField] private float ObjectMaxHeight;
+    [SerializeField] private float ObjectInitialHeight;
+    [SerializeField] private Vector3 originalScale;
     private ParticleSystem VFX;
     private float TimeScale;
     private float TimeBounce;
+    private Vector3 initialRotation;
 
     public bool tweenOnDisable;
 
@@ -21,12 +22,11 @@ public class TweenTouch : StoppableTween
 
     public void Start()
     {
+        initialRotation = transform.localRotation.eulerAngles;
         VFX = GetComponentInChildren<ParticleSystem>();
-
         ObjectInitialHeight = transform.position.y;
-        ObjectMaxHeight = transform.position.y + td.up_max_position;
+        ObjectMaxHeight = td.up_max_position + transform.position.y;
         originalScale = transform.localScale;
-        ObjectJumpPosition = new Vector3(transform.position.x, ObjectMaxHeight, transform.position.z);
         TimeScale = td.time_scale * 0.3f;
         TimeBounce = td.time_bounce * 0.3f;
 
@@ -42,7 +42,7 @@ public class TweenTouch : StoppableTween
 
     public void Tween2()
     {  //retour
-        LeanTween.moveY(gameObject, ObjectInitialHeight, TimeBounce + (TimeBounce / 2)).setEaseOutBounce();
+        //LeanTween.moveY(gameObject, ObjectInitialHeight, TimeBounce + (TimeBounce / 2)).setEaseOutBounce();
     }
     
     public void Swap()
@@ -52,45 +52,64 @@ public class TweenTouch : StoppableTween
     
     public void Tween()
     {
-        // ! remove looping
+       
+            //particlesystem
+            if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
+            {
+                VFX.Play();
+            }
 
-        //bounce (aller)
-        LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setDelay(td.delay).setEaseOutExpo().setOnComplete(Tween2);
+
+
+        //bounce
+        //transform.DOPunchPosition(ObjectMaxHeight, TimeBounce).SetDelay(td.delay);
+        //transform.DOPunchScale(td.stretch_squash, TimeScale).SetDelay(td.delay);
+
+            transform.DOMoveY(ObjectMaxHeight, TimeBounce).SetDelay(td.delay).OnComplete(() => transform.DOMoveY(ObjectInitialHeight, TimeBounce));
+            transform.DOScale(td.stretch_squash, TimeScale).SetDelay(td.delay).OnComplete(() => transform.DOScale(originalScale, TimeScale));
+        //LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setDelay(td.delay).setEaseOutExpo().setOnComplete(Tween2);
 
         //stretch&squash (aller)
-        LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setDelay(td.delay).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
 
-        //rotation
+        //LeanTween.scale(gameObject, td.stretch_squash, TimeScale).setDelay(td.delay).setEaseOutExpo().setOnComplete(ScaleGood);//.setLoopCount(-1);
 
-        if (td.EaseOutCubic)
-            LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
 
-        if (td.Punch)
-            LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setDelay(td.delay).setEasePunch();//.setLoopCount(-1);
-        
-        //particlesystem
-        if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
-        {
-            VFX.Play(); 
-        }
 
-        // Test swap rail
-        if (transform.tag == "SwapRail")
-        {
-            Debug.Log("Object is a Swap rail");
-            
-            if(swapState)
+        if (transform.CompareTag("SwapRail"))
             {
-                LeanTween.rotateAround(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation).setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
-                swapState = false;
+                Debug.Log("Object is a Swap rail");
+
+                if (swapState)
+                {
+                transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * td.rotation_degrees)), td.time_rotation);
+                    //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
+                    swapState = false;
+                }
+                else
+                {
+                transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * -td.rotation_degrees)), td.time_rotation);
+                    //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, -td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
+                    swapState = true;
+                }
+
             }
             else
             {
-                LeanTween.rotateAround(gameObject, td.RotationAxis, -td.rotation_degrees, td.time_rotation).setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
-                swapState = true;
-            }
-        }
-        // End test
+                //Rotation
+                if (td.EaseOutCubic) {
+                    //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
+                    Debug.Log("Test");
+                //transform.DORotate(transform.rotation.eulerAngles + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.LocalAxisAdd);
+                transform.DOLocalRotate(initialRotation + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.FastBeyond360);
+
+                }
+                else if (td.Punch) {
+                    //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEasePunch();//.setLoopCount(-1);
+                    transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * td.rotation_degrees)), td.time_rotation).SetDelay(td.delay).SetEase(Ease.OutBounce);
+                }
+           }
+        
+        
     }
 
     private void OnDisable()
