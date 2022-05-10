@@ -87,7 +87,7 @@ public class TouchDetection : MonoBehaviour
             // test Children GO tween
             foreach (Transform child in tweenableTouchHitInfo.transform)
             {
-                if (child != null && child.GetComponent<TweenTouch>() != null)
+                if (child != null && child.GetComponent<TweenTouch>() != null && child.CompareTag("TweenChild"))
                 { 
                     Debug.Log("tweening of " + transform.name + " is activated");
                     child.GetComponent<TweenTouch>().Tween();  
