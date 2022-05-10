@@ -1096,7 +1096,6 @@ GameObject:
   m_Component:
   - component: {fileID: 837898554}
   - component: {fileID: 837898556}
-  - component: {fileID: 837898555}
   m_Layer: 9
   m_Name: Religieuse
   m_TagString: Untagged
@@ -1122,20 +1121,6 @@ Transform:
   m_Father: {fileID: 1507715098}
   m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -45.149}
---- !u!114 &837898555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837898553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  td: {fileID: 11400000, guid: c7a2e264dce9ea043a7a126dd2a37323, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &837898556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1444,7 +1429,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1136605145}
   - component: {fileID: 1136605147}
-  - component: {fileID: 1136605146}
   m_Layer: 9
   m_Name: Macarons_Obstacle
   m_TagString: Untagged
@@ -1471,20 +1455,6 @@ Transform:
   m_Father: {fileID: 1507715098}
   m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: -21.249}
---- !u!114 &1136605146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136605144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  td: {fileID: 11400000, guid: c7a2e264dce9ea043a7a126dd2a37323, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &1136605147
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3241,7 +3211,7 @@ GameObject:
   - component: {fileID: 5758836598741111551}
   m_Layer: 0
   m_Name: VDD_Religieuse_TopChantilly
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3723,7 +3693,7 @@ GameObject:
   - component: {fileID: 6514515163215705316}
   m_Layer: 0
   m_Name: LCR_Macaron_00
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3742,7 +3712,7 @@ GameObject:
   - component: {fileID: 6354866030779742497}
   m_Layer: 9
   m_Name: A_VDD_Leaf_012
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4163,7 +4133,7 @@ GameObject:
   - component: {fileID: 6573982439987125543}
   m_Layer: 9
   m_Name: A_VDD_Leaf_008
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4198,7 +4168,7 @@ GameObject:
   - component: {fileID: 8133312224332715578}
   m_Layer: 9
   m_Name: LCR_IceCreamBall02
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4798,7 +4768,7 @@ GameObject:
   - component: {fileID: 3110201761885872016}
   m_Layer: 0
   m_Name: VDD_Religieuse
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6498,7 +6468,7 @@ GameObject:
   - component: {fileID: 8113733989294509900}
   m_Layer: 9
   m_Name: A_VDD_Leaf_001
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6555,7 +6525,7 @@ GameObject:
   - component: {fileID: 8462133311656703216}
   m_Layer: 9
   m_Name: A_VDD_Leaf_003
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6808,7 +6778,7 @@ GameObject:
   - component: {fileID: 8972434481986486087}
   m_Layer: 0
   m_Name: VDD_Religieuse_Top
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7102,7 +7072,7 @@ GameObject:
   - component: {fileID: 7773142984773061179}
   m_Layer: 9
   m_Name: LCR_IceCreamBall00
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7171,7 +7141,7 @@ GameObject:
   - component: {fileID: 8276115285066214711}
   m_Layer: 9
   m_Name: A_VDD_Leaf_014
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7221,7 +7191,7 @@ GameObject:
   - component: {fileID: 4447441499431200740}
   m_Layer: 9
   m_Name: A_VDD_Leaf_006
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7290,7 +7260,7 @@ GameObject:
   - component: {fileID: 7507987770329801908}
   m_Layer: 9
   m_Name: LCR_IceCreamBall03
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7646,7 +7616,7 @@ GameObject:
   - component: {fileID: 8490018664442855684}
   m_Layer: 9
   m_Name: LCR_Strawberry01
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7760,7 +7730,7 @@ GameObject:
   - component: {fileID: 6639533276280775978}
   m_Layer: 0
   m_Name: LCR_Macaron_01
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7904,7 +7874,7 @@ GameObject:
   - component: {fileID: 7687286126195391704}
   m_Layer: 0
   m_Name: LCR_Macaron_02
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8124,7 +8094,7 @@ GameObject:
   - component: {fileID: 6754740760087180404}
   m_Layer: 9
   m_Name: LCR_Strawberry02
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8619,7 +8589,7 @@ GameObject:
   - component: {fileID: 7687322630109066796}
   m_Layer: 9
   m_Name: A_VDD_Leaf_011
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9404,7 +9374,7 @@ GameObject:
   - component: {fileID: 8120805322250287172}
   m_Layer: 9
   m_Name: A_VDD_Leaf_013
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9423,7 +9393,7 @@ GameObject:
   - component: {fileID: 6877559500797876866}
   m_Layer: 9
   m_Name: LCR_Chantilly00
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9484,7 +9454,7 @@ GameObject:
   - component: {fileID: 8477519791656946898}
   m_Layer: 9
   m_Name: A_VDD_Leaf_015
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10112,7 +10082,7 @@ GameObject:
   - component: {fileID: 7449380087009520628}
   m_Layer: 9
   m_Name: A_VDD_Leaf_000
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10328,7 +10298,7 @@ GameObject:
   - component: {fileID: 6631012248910468788}
   m_Layer: 9
   m_Name: A_VDD_Leaf_007
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10588,7 +10558,7 @@ GameObject:
   - component: {fileID: 6549596627715178220}
   m_Layer: 9
   m_Name: A_VDD_Leaf_004
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10715,7 +10685,7 @@ GameObject:
   - component: {fileID: 8309432905318350797}
   m_Layer: 9
   m_Name: LCR_Strawberry00
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11309,7 +11279,7 @@ GameObject:
   - component: {fileID: 6980104560158674169}
   m_Layer: 9
   m_Name: LCR_IceCreamBall01
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11616,7 +11586,7 @@ GameObject:
   - component: {fileID: 7809610855500523915}
   m_Layer: 9
   m_Name: LCR_Chantilly01
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11685,7 +11655,7 @@ GameObject:
   - component: {fileID: 7967710788234897544}
   m_Layer: 9
   m_Name: LCR_Strawberry03
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11704,7 +11674,7 @@ GameObject:
   - component: {fileID: 7176574653456854667}
   m_Layer: 9
   m_Name: LCR_Chantilly02
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11737,7 +11707,7 @@ GameObject:
   - component: {fileID: 7635348524587848360}
   m_Layer: 9
   m_Name: A_VDD_Leaf_005
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12210,7 +12180,7 @@ GameObject:
   - component: {fileID: 8558502357852965729}
   m_Layer: 0
   m_Name: LCR_Macaron_03
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12419,7 +12389,7 @@ GameObject:
   - component: {fileID: 7549029349595617799}
   m_Layer: 9
   m_Name: A_VDD_Leaf_002
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13138,7 +13108,7 @@ GameObject:
   - component: {fileID: 8550351567498092226}
   m_Layer: 9
   m_Name: A_VDD_Leaf_010
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13650,7 +13620,7 @@ GameObject:
   - component: {fileID: 8455415437832877561}
   m_Layer: 9
   m_Name: A_VDD_Leaf_009
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
