@@ -22,7 +22,7 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>(); 
     }
 
-    private void OnTriggerEnter(Collider other)
+    /* private void OnTriggerEnter(Collider other)
     {
         if (Mathf.Pow(2f, other.gameObject.layer) == collisionMask)
         {
@@ -33,7 +33,7 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
 
             if (collisionEntity.MoveSpeed < minSpeedToValidateHit)
             {
-                collisionEntity.GoToPreviousPoint();
+                // collisionEntity.GoToPreviousPoint();
             }
             else
             {
@@ -41,7 +41,7 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
 
                 if (hitCount < hitsBeforeStateChange)
                 {
-                    collisionEntity.GoToPreviousPoint();
+                    // collisionEntity.GoToPreviousPoint();
                     StartCoroutine(nameof(BlinkOnce));
                 }
                 else
@@ -60,7 +60,7 @@ public class ChangeObjectStateOnCollision : MonoBehaviour
                 }
             }
         }
-    }
+    } */
 
     private IEnumerator BlinkOnce()
     {

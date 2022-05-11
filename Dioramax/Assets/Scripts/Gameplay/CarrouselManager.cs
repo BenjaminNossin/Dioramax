@@ -1,15 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CarrouselManager : MonoBehaviour
 {
-    public static List<CarrouselProp> carrouselProps = new List<CarrouselProp>();
+    [SerializeField] private List<Select_Ours> oursonTweens = new();
+    public static List<CarrouselProp> CarrouselProps { get; set; }
 
     public static CarrouselManager Instance;
 
     private void Awake()
     {
+        CarrouselProps = new List<CarrouselProp>();
         if (Instance)
         {
             Destroy(Instance); 
@@ -17,7 +18,6 @@ public class CarrouselManager : MonoBehaviour
 
         Instance = this; 
     }
-
 
     public void SetFinalColorsDecorator()
     {
@@ -27,12 +27,12 @@ public class CarrouselManager : MonoBehaviour
     int i;
     private void SetFinalColors()
     {
-        for (i = 0; i < carrouselProps.Count; i++)
+        for (i = 0; i < CarrouselProps.Count; i++)
         {
-            if (carrouselProps[i].isActive)
+            if (CarrouselProps[i].IsActive)
             {
-                carrouselProps[i].SetFinalColor();
-                if (carrouselProps[i].IsValidProp)
+                CarrouselProps[i].SetFinalColor();
+                if (CarrouselProps[i].IsValidProp)
                 {
                     TouchDetection.ValidCarrouselPropAmount++;
                 }
@@ -41,12 +41,17 @@ public class CarrouselManager : MonoBehaviour
 
         if (TouchDetection.ValidCarrouselPropAmount != 3)
         {
-            for (i = 0; i < carrouselProps.Count; i++)
+            for (i = 0; i < CarrouselProps.Count; i++)
             {
-                if (carrouselProps[i].isActive)
+                if (CarrouselProps[i].IsActive)
                 {
-                    carrouselProps[i].BackToDefaultColor();
+                    CarrouselProps[i].BackToDefaultColor();
                 }
+            }
+
+            for (int i = 0; i < oursonTweens.Count; i++)
+            {
+                oursonTweens[i].enabled = false;
             }
 
             TouchDetection.CarrouselPropActivated = 0;
@@ -54,7 +59,7 @@ public class CarrouselManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Puzzle carrousel completed !");
+            GameLogger.Log("Puzzle carrousel completed !");
         }
     }
 }

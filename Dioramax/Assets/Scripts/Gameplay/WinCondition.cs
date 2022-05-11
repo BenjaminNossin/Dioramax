@@ -3,24 +3,50 @@ using UnityEngine;
 public class WinCondition : MonoBehaviour
 {
     [Space, SerializeField] private DioramaPuzzleName entityPuzzleName; // PLACEHOLDER
-    [SerializeField] private int entityNumber; // PLACEHOLDER
+    public int entityNumber;
+    [SerializeField] private bool overrideWinConditionCall; // for rats in case more than one fall in the same hole; 
+    public bool OverrideWinConditionCall { get; set; }
+
+    [Header("DEBUG")]
+    public bool simulateWinConditionIsMet; 
 
     private bool winConditionIsMet;
     private bool WinConditionEventIsRegistered;
 
+    private void Awake()
+    {
+        OverrideWinConditionCall = overrideWinConditionCall; 
+    }
+
     void Update()
     {
-        if (winConditionIsMet && !WinConditionEventIsRegistered)
+        if (overrideWinConditionCall) return; 
+
+        if (!simulateWinConditionIsMet)
         {
-            WinConditionEventIsRegistered = true;
-            WinConditionController.Instance.ValidateWinCondition((int)entityPuzzleName, entityNumber);
+            if (winConditionIsMet && !WinConditionEventIsRegistered)
+            {
+                SetWinCondition(true);
+
+                // if puzzle name == tuyaux, cf "Trucs à intégrer GA"
+            }
+            else if (!winConditionIsMet && WinConditionEventIsRegistered)
+            {
+                WinConditionEventIsRegistered = false;
+                SetWinCondition(false);
+            }
         }
-        else if (!winConditionIsMet && WinConditionEventIsRegistered)
+        else if (!WinConditionEventIsRegistered)
         {
-            WinConditionEventIsRegistered = false;
-            WinConditionController.Instance.InvalidateWinCondition((int)entityPuzzleName, entityNumber);
+            SetWinCondition(true);
         }
-    } 
+    }
+
+    public void SetWinCondition(bool eventIsRegistered)
+    {
+        WinConditionEventIsRegistered = eventIsRegistered;
+        LevelManager.Instance.ValidateWinCondition((int)entityPuzzleName, entityNumber);
+    }
 
     public void UpdateWinCondition(bool conditionStatus)
     {
