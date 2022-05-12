@@ -9,30 +9,40 @@ using System;
 public class TouchDetection : MonoBehaviour
 {
     // Test screen distorsion effect 
-    [SerializeField] private ParticleSystem TouchDistorsion;
+    //[SerializeField] private ParticleSystem TouchDistorsion;
     //
+    [SerializeField] private bool isDiorama1; 
 
+    [Header("General")]
+    [SerializeField] private LayerMask tweenableTouchMask;
+    [SerializeField] private LayerMask finishMask;
+
+    [Header("Diorama 1")]
     [SerializeField] private LayerMask buttonMask;
     [SerializeField] private LayerMask carrouselPropMask;
+    [SerializeField] private LayerMask tweenableOursonMask;
+    [SerializeField] private LayerMask ratMask;
 
-    // [SerializeField] private InteractableEntity placeholderFeedback;
+    [Header("Diorama 2")]
+    [SerializeField] private LayerMask switchMask;
 
-    private bool buttonDetected, carrouselBearDetected; 
+
+    private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected,
+        switchDetected; // :D    
     private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
     private readonly UnityEvent<MeshRenderer[]> OnRequireSharedEvent = new();
     private UnityAction<MeshRenderer[]> OnRequireSharedCallback;
 
-    private MeshRenderer[] currentMeshRendererArray;
-    private MeshRenderer[] previousMeshRendererArray;
-    private int[] equalityArray;
-
     public static Action<Vector3> OnDoubleTapDetection { get; set; } 
     public static int CarrouselPropActivated { get; set; }
     public static int ValidCarrouselPropAmount { get; set; }
     private int carrouselPropActivated; // DEBUG
-    private bool canCast = true; 
+    private bool canCast = true;
+    private const float CAST_LENGTH = 250f;
+    private const float RAY_DEBUG_DURATION = 0.5f;
+    private const float CAST_RADIUS = 0.3f;
 
     void Start()
     {
@@ -44,111 +54,117 @@ public class TouchDetection : MonoBehaviour
     {
         carrouselPropActivated = CarrouselPropActivated;
     }
-    public bool TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
+
+    public void TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
     {
-        if (!canCast) return false; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
+        if (!canCast) return; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
 
-        Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.red, 0.5f);
-        buttonDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, 100f, buttonMask);
-        carrouselBearDetected = Physics.Raycast(touchStart, (toucheEnd - touchStart), out RaycastHit bearHitInfo, 100f, carrouselPropMask);
+        GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.red, RAY_DEBUG_DURATION);
 
-        if (Input.touchCount == 1) // un seul doigt sur l'écran
+        // use Physics.RaycastAll instead to see if the object detected is the first or hidden behind others
+        // NEED REFACTORING too much raycasts
+        #region General Casts
+        finishMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit finishHitInto, CAST_LENGTH, finishMask);
+        tweenableTouchDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, CAST_LENGTH, tweenableTouchMask);
+
+        if (finishMaskDetected && LevelManager.LevelIsFinished)
         {
-            // shouldn't activate when finger slides for rotation /!\ TouchPhase.Ended does not work
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            // show victory UI
+            EndOfLevelUI.Instance.ShowEndOfLevelPanel();
+            LevelManager.Instance.DeactivateZRotationUIOnLevelEnd();
+        }
+
+        if (tweenableTouchDetected)
+        {
+            GameLogger.Log("Touch Tween");
+            GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+
+            if (tweenableTouchHitInfo.transform.GetComponent<TweenTouch>() != null)
             {
-                if (buttonDetected)
-                {
-                    print("Tween Activé");
-                    buttonHitInfo.transform.GetComponent<TweenTouch>().Tween();
+                tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
+            }
+            
+            // test Children GO tween
+            foreach (Transform child in tweenableTouchHitInfo.transform)
+            {
+                if (child != null && child.GetComponent<TweenTouch>() != null && child.CompareTag("TweenChild"))
+                { 
+                    Debug.Log("tweening of " + transform.name + " is activated");
+                    child.GetComponent<TweenTouch>().Tween();  
                 }
             }
+            // end test
         }
+        #endregion
 
-        if (buttonDetected)
+        if (isDiorama1)
         {
-            Debug.DrawRay(touchStart, (toucheEnd - touchStart) * 100f, Color.green, 0.5f);
-            StartCoroutine(CanCast()); 
+            #region Diorama1 Casts
+            buttonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, CAST_LENGTH, buttonMask);
+            carrouselBearDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit bearHitInfo, CAST_LENGTH, carrouselPropMask);
+            tweenableOursonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, CAST_LENGTH, tweenableOursonMask);
+            ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
 
-            DetectedButtonProp = buttonHitInfo.transform.GetComponent<ButtonProp>();
-            ButtonPropsManager.Instance.SetCurrentButtonProp(DetectedButtonProp);
-
-            if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
+            if (LevelManager.IsPhase3)
             {
-                Debug.Log("this was a double tap");
-                OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
-            }
-        } 
-        else if (carrouselBearDetected)
-        {
-            detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
-            detectedCarrouselProp.SetActiveColor(); 
-        }
+                if (tweenableOursonDetected)
+                {
+                    GameLogger.Log("Ourson Tween");
+                    GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                    tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
+                }
 
-        return buttonDetected || carrouselBearDetected;
+                if (carrouselBearDetected)
+                {
+                    GameLogger.Log("carrousel bear detected");
+                    detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
+                    detectedCarrouselProp.SetActiveColor();
+                }
+            }
+
+            // check that rat have been hit through the vent, by looking at them
+            // STILL WIP
+            // use list to avoid GetComponent all the time, and update it if the component is a new reference
+            if (ratMaskDetected)
+            {
+                ratHitInfo.transform.GetComponent<FreezeStateController>().InvertFreezeState();
+            }
+
+            if (buttonDetected)
+            {
+                GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                StartCoroutine(CanCast());
+
+                DetectedButtonProp = buttonHitInfo.transform.GetComponent<ButtonProp>();
+                ButtonPropsManager.Instance.SetCurrentButtonProp(DetectedButtonProp);
+
+                if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
+                {
+                    GameLogger.Log("this was a double tap");
+                    OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
+                }
+            }
+            #endregion
+        }
+        else
+        {
+            #region Diorama2 Casts
+            switchDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit switchHitInfo, CAST_LENGTH, switchMask);
+
+            if (switchDetected)
+            {
+                GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                switchHitInfo.transform.GetComponent<Switcher>().InvertBoolAndDoSwitch(); 
+            }
+            #endregion
+        }       
     }
 
     System.Collections.IEnumerator CanCast()
     {
         canCast = false; 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         canCast = true; 
     }
-
-    /* private void SetPlaceholderReference(InteractableEntity current)
-    {
-        if (!previousButton) return; 
-
-        if (previousButton != current)
-        {
-            if (currentButton.InteractablesCanBeShared)
-            {
-                InteractableEntityRemote previousEntity = previousButton as InteractableEntityRemote;
-                InteractableEntityRemote currentEntity = currentButton as InteractableEntityRemote;
-
-                previousMeshRendererArray = previousEntity.entitiesMeshRenderers; 
-                currentMeshRendererArray = currentEntity.entitiesMeshRenderers; 
-
-                equalityArray = new int[previousMeshRendererArray.Length];
-                for (int i = 0; i < equalityArray.Length; i++)
-                {
-                    equalityArray[i] = 0;
-                }
-
-                for (int i = 0; i < previousMeshRendererArray.Length; i++)
-                {
-                    if (previousMeshRendererArray.Length > currentMeshRendererArray.Length)
-                    {
-                        for (int j = 0; j < currentMeshRendererArray.Length; j++)
-                        {
-                            if (i <= j)
-                            {
-                                equalityArray[i] = currentMeshRendererArray[i] == previousMeshRendererArray[i] ? 1 : 0;
-                            }
-                        }
-                    }
-                    else if (previousMeshRendererArray.Length < currentMeshRendererArray.Length)
-                    {
-                        for (int j = 0; j < currentMeshRendererArray.Length; j++)
-                        {
-                            if (i <= j)
-                            {
-                                equalityArray[i] = currentMeshRendererArray[i] == previousMeshRendererArray[i] ? 1 : 0;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (int j = 0; j < currentMeshRendererArray.Length; j++)
-                        {
-                            equalityArray[i] = currentMeshRendererArray[i] == previousMeshRendererArray[i] ? 1 : 0;                           
-                        }
-                    }
-                }
-
-                previousButton.SwapOrChangeBack(false, equalityArray); 
-            }
-        }
-    }  */
 }

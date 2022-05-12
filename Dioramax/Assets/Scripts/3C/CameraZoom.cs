@@ -9,11 +9,11 @@ using UnityEngine.Events;
 public class CameraZoom : MonoBehaviour
 {
     private Camera mainCam;
+    [SerializeField] private Transform transfToMove; 
     [SerializeField, Range(5, 50)] private float maxZoomIn = 45;
     [SerializeField, Range (70, 150)] private float maxZoomOut = 70;
     [SerializeField, Range(10f, 50f)] private float zoomSpeed = 10f;
     private float currentMoveSpeed; 
-
 
     private Touch touchTop;
     private Touch touchBottom; 
@@ -62,7 +62,7 @@ public class CameraZoom : MonoBehaviour
     {
         if (updateGamefeelCurve)
         {
-            // Debug.Log("zoom gamefeel");
+            // GameLogger.Log("zoom gamefeel");
             currentMoveSpeed = moveSpeed * gamefeelCurve.Evaluate(OnEvaluationEndedCallback); 
             UpdatePinch(touchTop, touchBottom); // even more stupid to check tose again in the function..  
         }
@@ -113,8 +113,8 @@ public class CameraZoom : MonoBehaviour
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
         {
             dotProduct = Vector2.Dot(Controls.InitialTouch0Direction.normalized, (currentTouch0Delta).normalized);
-            zoomingOut = Mathf.Sign(dotProduct) == -1; 
-            // Debug.Log("dot product is : " + dotProduct);
+            zoomingOut = Mathf.Sign(dotProduct) == -1;
+            // GameLogger.Log("dot product is : " + dotProduct);
 
             canZoomIn = zoomValue > maxZoomIn;
             canZoomOut = zoomValue < maxZoomOut;
@@ -122,10 +122,10 @@ public class CameraZoom : MonoBehaviour
             {
                 if (canZoomOut)
                 {
-                    // Debug.Log("zooming out");
+                    // GameLogger.Log("zooming out");
                     zoomValue++;
 
-                    transform.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                    transfToMove.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
                         (updateGamefeelCurve ?
                         currentMoveSpeed :
                         zoomSpeed);
@@ -135,10 +135,10 @@ public class CameraZoom : MonoBehaviour
             {
                 if (canZoomIn)
                 {
-                    // Debug.Log("zooming in");
+                    // GameLogger.Log("zooming in");
                     zoomValue--;
 
-                    transform.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                    transfToMove.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
                         (updateGamefeelCurve ?
                         currentMoveSpeed :
                         zoomSpeed);

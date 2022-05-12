@@ -3,9 +3,13 @@ using UnityEngine.SceneManagement; // DEBUG : this won't be here later on
 
 public class UIDebugger : MonoBehaviour
 {
+    public bool dontDestroyOnLoad; 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (dontDestroyOnLoad)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public void LoadScene(int index)

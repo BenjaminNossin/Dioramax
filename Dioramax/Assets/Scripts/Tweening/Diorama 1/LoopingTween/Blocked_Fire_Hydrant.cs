@@ -1,17 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Blocked_Fire_Hydrant : MonoBehaviour
+public class StoppableTween : MonoBehaviour
 {
+    private void OnDisable()
+    {
+        LeanTween.cancelAll();
+    }
+}
 
-
+public class Blocked_Fire_Hydrant : StoppableTween
+{
     [SerializeField] Vector3 orientation;
     [SerializeField] float time_rotation;
     [SerializeField] float up_max_position;
     [SerializeField] float time_bounce;
 
-    // Start is called before the first frame update
     void Start()
     {
        
@@ -19,11 +22,5 @@ public class Blocked_Fire_Hydrant : MonoBehaviour
 
         //bounce
         LeanTween.moveLocalY(gameObject, up_max_position, time_bounce).setEaseShake().setLoopPingPong();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -3,13 +3,26 @@ using UnityEngine;
 public class RatSink : MonoBehaviour
 {
     [SerializeField] private LayerMask ratMask;
+    [SerializeField] private WinCondition winCondition;
 
     private void OnTriggerEnter(Collider other)
     {
         if (Mathf.Pow(2, other.gameObject.layer) == ratMask)
         {
-            Destroy(other.gameObject); // DEBUG. I will not destroy object in the final version (too much gc)
-            Debug.Log("rat has been detected"); 
+            other.gameObject.SetActive(false);
+            other.transform.GetComponent<SimulateEntityPhysics>().RemoveRbFromList(); 
+
+            if (!winCondition.OverrideWinConditionCall)
+            {
+                winCondition.SetWinCondition(true);
+            }
+            else
+            {
+                LevelManager.Instance.ValidateWinCondition((int)DioramaPuzzleName.Rats, LevelManager.OverrideWinConditionNumber);
+                LevelManager.OverrideWinConditionNumber++; 
+            }
+
+            GameLogger.Log("rat has been sinked"); 
         }
-    }
+    } 
 }
