@@ -11,14 +11,17 @@ public class TouchDetection : MonoBehaviour
     // Test screen distorsion effect 
     //[SerializeField] private ParticleSystem TouchDistorsion;
     //
-    [SerializeField] private bool isDiorama1; 
+    [SerializeField] private DioramaName dioramaName; 
 
     [Header("General")]
     [SerializeField] private LayerMask tweenableTouchMask;
     [SerializeField] private LayerMask finishMask;
 
+    [Header("Tutorial")]
+    [SerializeField] private LayerMask tutorialButtonMask; 
+
     [Header("Diorama 1")]
-    [SerializeField] private LayerMask buttonMask;
+    [SerializeField] private LayerMask buttonMask; // remove it. Only need tutorial button
     [SerializeField] private LayerMask carrouselPropMask;
     [SerializeField] private LayerMask tweenableOursonMask;
     [SerializeField] private LayerMask ratMask;
@@ -28,12 +31,14 @@ public class TouchDetection : MonoBehaviour
 
 
     private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected,
-        switchDetected; // :D    
+        switchDetected, tutorialButtonDetected; // :D    
     private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
     private readonly UnityEvent<MeshRenderer[]> OnRequireSharedEvent = new();
     private UnityAction<MeshRenderer[]> OnRequireSharedCallback;
+
+    public static Action OnTutorialButtonDetection { get; set; }
 
     public static Action<Vector3> OnDoubleTapDetection { get; set; } 
     public static int CarrouselPropActivated { get; set; }
@@ -78,11 +83,43 @@ public class TouchDetection : MonoBehaviour
         {
             GameLogger.Log("Touch Tween");
             GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
-            tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
+
+            if (tweenableTouchHitInfo.transform.GetComponent<TweenTouch>() != null)
+            {
+                tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
+            }
+            
+            // test Children GO tween
+            foreach (Transform child in tweenableTouchHitInfo.transform)
+            {
+                if (child != null && child.GetComponent<TweenTouch>() != null && child.CompareTag("TweenChild"))
+                { 
+                    Debug.Log("tweening of " + transform.name + " is activated");
+                    child.GetComponent<TweenTouch>().Tween();  
+                }
+            }
+            // end test
         }
         #endregion
 
-        if (isDiorama1)
+        if (dioramaName == DioramaName.Tutorial)
+        {
+            tutorialButtonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ballTutorialHitInfo, CAST_LENGTH, tutorialButtonMask);
+            ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
+
+            if (tutorialButtonDetected)
+            {
+                GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                OnTutorialButtonDetection();
+            }
+            
+            if (ratMaskDetected)
+            {
+                //ratHitInfo.transform.GetComponent<FreezeStateController>().InvertFreezeState(); // uncomment when bug is fixed
+                HideObjectOnTriggerEnter.OnBallTutorialComplete(); // DEBUG
+            }
+        }
+        else if (dioramaName == DioramaName.Diorama1)
         {
             #region Diorama1 Casts
             buttonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, CAST_LENGTH, buttonMask);

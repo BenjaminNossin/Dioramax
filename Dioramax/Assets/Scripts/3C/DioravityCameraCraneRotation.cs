@@ -18,7 +18,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     [Space, SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
     public float RotationSensitivity { get; set; }
 
-    private bool yxRotation;
+    public static bool YXRotation { get; set; } 
 
     UnityAction OnEvaluationEndedCallback;
 
@@ -29,6 +29,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
     private bool updateGamefeelCurve;
+    private float curveValue; 
 
     // TODO : Subscribing for the gamefeel event should NOT be done here, but on an interface or CurveEvaluator.
     private void OnEnable()
@@ -59,10 +60,11 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     {
         if (updateGamefeelCurve)
         {
-            if (yxRotation)
+            if (YXRotation)
             {
                 // GameLogger.Log("yx rotation gamefeel");
-                UpdateXYRotation(swipeDirection, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
+                curveValue = gamefeelCurve.Evaluate(OnEvaluationEndedCallback); 
+                UpdateXYRotation(swipeDirection, swipeForce * curveValue);
             }
         }
 
@@ -88,7 +90,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
             if (PointIsInsideRectangle(380, 35, 780, 160, Input.GetTouch(i).position)) return; 
         } 
 
-        yxRotation = true;
+        YXRotation = true;
 
         swipeDirection = _swipeDirection;
         swipeForce = _swipeForce;
@@ -113,7 +115,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     /// <param name="bottomDirection">The direction of swipe from the thumb</param>
     public void UpdateZRotation() // increase rotation speed over time (rotationForce = Lerp(min, max, t))
     {
-        yxRotation = false;
+        YXRotation = false;
         direction = ZRotationButton.LeftIsSelected ? -1 : ZRotationButton.RightIsSelected ? 1 : 0; 
 
         transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZRotationForce * direction);
@@ -152,5 +154,6 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     {
         // GameLogger.Log("on ended rotation callback");
         updateGamefeelCurve = false;
+        YXRotation = false;
     }
 }

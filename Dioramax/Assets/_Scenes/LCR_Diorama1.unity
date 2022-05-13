@@ -688,8 +688,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!1 &165809595 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
@@ -797,7 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 0
+  entityPuzzleName: 4
   entityNumber: 3
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
@@ -1871,8 +1869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!65 &638577609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3287,7 +3283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 1
+  entityPuzzleName: 5
   entityNumber: 2
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -3303,9 +3299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d3059aedd9a1f47bba26990420a607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ratMask:
+  objectToHideMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   winCondition: {fileID: 1325478875}
 --- !u!135 &1325478877
 SphereCollider:
@@ -3840,85 +3836,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427342758}
   m_Mesh: {fileID: -5454209550490210320, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
---- !u!1 &1436204026
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1436204027}
-  - component: {fileID: 1436204028}
-  - component: {fileID: 1436204030}
-  - component: {fileID: 1436204029}
-  m_Layer: 0
-  m_Name: Hole_Physics
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1436204027
+--- !u!4 &1436204027 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+  m_PrefabInstance: {fileID: 2318516155809582032}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436204026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.517, y: -2.645, z: -0.164}
-  m_LocalScale: {x: 0.885, y: 0.885, z: 0.885}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8214430527376360239}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1436204028
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436204026}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1436204029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436204026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityPuzzleName: 1
-  entityNumber: 0
-  overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
---- !u!114 &1436204030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436204026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d3059aedd9a1f47bba26990420a607, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ratMask:
-    serializedVersion: 2
-    m_Bits: 256
-  winCondition: {fileID: 1436204029}
 --- !u!1 &1457613639
 GameObject:
   m_ObjectHideFlags: 0
@@ -4041,7 +3963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 0
+  entityPuzzleName: 4
   entityNumber: 2
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -4216,7 +4138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 1
+  entityPuzzleName: 5
   entityNumber: 1
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -4232,9 +4154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d3059aedd9a1f47bba26990420a607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ratMask:
+  objectToHideMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   winCondition: {fileID: 1529941091}
 --- !u!135 &1529941093
 SphereCollider:
@@ -4378,7 +4300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 0
+  entityPuzzleName: 4
   entityNumber: 0
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -5067,7 +4989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 0
+  entityPuzzleName: 4
   entityNumber: 1
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -5559,8 +5481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!65 &2006401108
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5755,8 +5675,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!65 &2079906061
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9276,6 +9194,67 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3408533773720743330}
   m_Mesh: {fileID: 5888627694580925845, guid: a290eaf7fd851d749a2c17a3aacafd71, type: 3}
+--- !u!1001 &2318516155809582032
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8214430527376360239}
+    m_Modifications:
+    - target: {fileID: 2318516155063627818, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_Name
+      value: Hole_Physics
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.517
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.645
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.164
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: entityPuzzleName
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a05907ee64be34740b141464a16f6f83, type: 3}
 --- !u!1 &2350502343892755722
 GameObject:
   m_ObjectHideFlags: 0
@@ -17084,7 +17063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 2
+  entityPuzzleName: 6
   entityNumber: 2
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
@@ -17406,8 +17385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!1 &7084984876121121858
 GameObject:
   m_ObjectHideFlags: 0
@@ -17545,8 +17522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!4 &7144104791463210947
 Transform:
   m_ObjectHideFlags: 0
@@ -19276,8 +19251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!1 &8159597242512776549
 GameObject:
   m_ObjectHideFlags: 0
@@ -19610,7 +19583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 2
+  entityPuzzleName: 6
   entityNumber: 0
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
@@ -19741,8 +19714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!33 &8325077444904357301
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -19894,8 +19865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!1 &8420451634489544258
 GameObject:
   m_ObjectHideFlags: 0
@@ -20185,8 +20154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!33 &8608642596839654840
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20315,7 +20282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 2
+  entityPuzzleName: 6
   entityNumber: 1
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
@@ -20583,8 +20550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!33 &8814508613884207763
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20668,8 +20633,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!1 &8885847286902660425
 GameObject:
   m_ObjectHideFlags: 0
@@ -21083,8 +21046,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85201f303110ed5429506ce02654c223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up_max_position: -6
-  time_bounce: 0.5
 --- !u!33 &9219506478143405532
 MeshFilter:
   m_ObjectHideFlags: 0

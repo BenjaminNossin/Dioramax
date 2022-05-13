@@ -4,8 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TweenTouch")]
 public class TweeningData : ScriptableObject
 {
+    [Header("Delay")]
+    public float delay;
+
     [Header("Move")]
-    [Range(0,1)]public float up_max_position;
+    [Range(0,2)]public float up_max_position;
     public float time_bounce;
 
 
@@ -18,7 +21,8 @@ public class TweeningData : ScriptableObject
     public float time_rotation;
     [Header("Rotation Curve (only use one)")]
     public bool EaseOutCubic;
-    public bool Punch;
+    public bool EaseOutCirc;
+    public bool EaseInBack;
     [Header("Vector.right = 1,0,0 | Vector.up = 0,1,0")]
     public Vector3 RotationAxis;
 

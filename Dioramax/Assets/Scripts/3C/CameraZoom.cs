@@ -20,7 +20,11 @@ public class CameraZoom : MonoBehaviour
 
     private bool zoomStartIsRegistered;
 
-    private bool zoomingOut;
+    public static bool ZoomingOut { get; set; }
+    public static bool ZoomingIn { get; set; } // for tutorial. !ZoomingOut != ZoomingIn
+
+    private bool zoomingIn, zoomingOut; // DEBUG
+
     private bool canZoomIn;
     private bool canZoomOut;
 
@@ -56,6 +60,12 @@ public class CameraZoom : MonoBehaviour
         Input.multiTouchEnabled = true;
         zoomValue = mainCam.fieldOfView;
         canZoomIn = canZoomOut = true; 
+    }
+
+    private void Update()
+    {
+        zoomingIn = ZoomingIn;
+        zoomingOut = ZoomingOut;
     }
 
     /* private void Update()
@@ -113,17 +123,18 @@ public class CameraZoom : MonoBehaviour
         if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
         {
             dotProduct = Vector2.Dot(Controls.InitialTouch0Direction.normalized, (currentTouch0Delta).normalized);
-            zoomingOut = Mathf.Sign(dotProduct) == -1;
+            ZoomingOut = Mathf.Sign(dotProduct) == -1;
             // GameLogger.Log("dot product is : " + dotProduct);
 
             canZoomIn = zoomValue > maxZoomIn;
             canZoomOut = zoomValue < maxZoomOut;
-            if (zoomingOut)
+            if (ZoomingOut)
             {
                 if (canZoomOut)
                 {
                     // GameLogger.Log("zooming out");
                     zoomValue++;
+                    ZoomingIn = false; 
 
                     transfToMove.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
                         (updateGamefeelCurve ?
@@ -137,6 +148,7 @@ public class CameraZoom : MonoBehaviour
                 {
                     // GameLogger.Log("zooming in");
                     zoomValue--;
+                    ZoomingIn = true; 
 
                     transfToMove.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
                         (updateGamefeelCurve ?
