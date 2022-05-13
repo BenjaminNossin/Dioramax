@@ -92,6 +92,9 @@ public class Controls : MonoBehaviour
             {
                 GameLogger.Log("calling out of double touch frames");
 
+                DioravityCameraCraneRotation.YXRotation = false;
+                CameraZoom.ZoomingIn = CameraZoom.ZoomingOut = false;
+
                 transitionningOutOfDoubleTouch = true;
 
                 ResetDoubleTouchValues();
@@ -175,6 +178,7 @@ public class Controls : MonoBehaviour
 
                     transitionningOutOfDoubleTouch = false;
                     FrameCount = 0;
+
                     StartCoroutine(StopWaitingForDoubleTap());
                     SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
                     OnTouchEnded(PreviousState);

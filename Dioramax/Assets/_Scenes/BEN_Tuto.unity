@@ -578,6 +578,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962330732}
   m_CullTransparentMesh: 1
+--- !u!1 &1140867594 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6522873615412036931, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1140867595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140867594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 1
+  entityNumber: 0
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 0
 --- !u!1 &1160234425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,6 +1267,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078332464, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332465, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332466, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1078332470, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: quad
       value: 
@@ -1272,11 +1305,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 6.34
       objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1323,6 +1356,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
   m_PrefabInstance: {fileID: 1865566549}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1865566553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1865566554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865566553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPuzzleName: 0
+  entityNumber: 0
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 0
 --- !u!1001 &906384282658102158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1441,7 +1495,7 @@ PrefabInstance:
       objectReference: {fileID: 1865566550}
     - target: {fileID: 535588761921137741, guid: 1e3780767e50bb243b011bc2a1728822, type: 3}
       propertyPath: skipIntroCinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 535588761921137741, guid: 1e3780767e50bb243b011bc2a1728822, type: 3}
       propertyPath: objToDeactivateOnLevelEnd
@@ -1506,3 +1560,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3150118556342799676, guid: 1e3780767e50bb243b011bc2a1728822, type: 3}
   m_PrefabInstance: {fileID: 2843479948783871364}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2843479948783871370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843479948783871365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700a3b1e04bea3449983a7e5d60c3727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
+  winConditionHolders:
+  - puzzleName: Rotation XY
+    winCondition: {fileID: 1865566554}
+  - puzzleName: Zoom
+    winCondition: {fileID: 1140867595}
+  - puzzleName: Rotation Z
+    winCondition: {fileID: 0}
+  - puzzleName: Touch & Unfreeze
+    winCondition: {fileID: 0}
+  requiredRotationDuration: 1
+  requiredIndividualZoomDuration: 1

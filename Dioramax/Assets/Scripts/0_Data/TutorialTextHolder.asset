@@ -14,16 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialPrompts:
   - promptName: XY Rotation
-    textToDisplay: Swipe your finger accross your screen to rotate around the diorama
-      !
+    section:
+    - index: 0
+      textToDisplay: Swipe your finger accross your screen to rotate around the diorama
+        !
   - promptName: Zoom
-    textToDisplay: With two fingers, you can also zoom in and out !
+    section:
+    - index: 0
+      textToDisplay: With two fingers, you can also zoom in and out !
+    - index: 0
+      textToDisplay: Great ! Now try zooming out !
+    - index: 0
+      textToDisplay: Great ! Now try zooming in !
   - promptName: Z Rotation
-    textToDisplay: You see those buttons down here ? They allow you to rotate the
-      diorama in a totally new way !
+    section:
+    - index: 0
+      textToDisplay: You see those buttons that juste appeared down there ? They
+        allow you to rotate the diorama in a totally new way !
+    - index: 0
+      textToDisplay: Great ! Now try the left one !
+    - index: 0
+      textToDisplay: Great ! Now try the right one !
   - promptName: Touch & Unfreeze
-    textToDisplay: Now, let's have this little marble be influenced by gravity again.
-      We call this unfreezing it !
+    section:
+    - index: 0
+      textToDisplay: Now, let's have this little marble be influenced by gravity
+        again. We call this unfreezing it !
   - promptName: Final
-    textToDisplay: Great job, you are done ! When you feel ready, touch the star
-      that you just freed !
+    section:
+    - index: 0
+      textToDisplay: Great job, you are done ! When you feel ready, touch the star
+        that you just freed !
