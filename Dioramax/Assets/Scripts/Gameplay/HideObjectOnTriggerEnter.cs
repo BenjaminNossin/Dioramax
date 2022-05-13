@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class RatSink : MonoBehaviour
+public class HideObjectOnTriggerEnter : MonoBehaviour
 {
-    [SerializeField] private LayerMask ratMask;
+    [SerializeField] private LayerMask objectToHideMask;
     [SerializeField] private WinCondition winCondition;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Mathf.Pow(2, other.gameObject.layer) == ratMask)
+        if (Mathf.Pow(2, other.gameObject.layer) == objectToHideMask)
         {
             other.gameObject.SetActive(false);
             other.transform.GetComponent<SimulateEntityPhysics>().RemoveRbFromList(); 
@@ -22,7 +22,7 @@ public class RatSink : MonoBehaviour
                 LevelManager.OverrideWinConditionNumber++; 
             }
 
-            GameLogger.Log("rat has been sinked"); 
+            GameLogger.Log("object has been hidden and removed from the physics simulation"); 
         }
     } 
 }
