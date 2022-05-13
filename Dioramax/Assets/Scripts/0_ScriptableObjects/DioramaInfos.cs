@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DioramaPuzzleName { NONE = -1, Tuyaux, Rats, Carrousel, Train, Tente, Mine, TutoXYRotation, TutoZoom, TutoZRotation, TutoTouchAndUnfreeze }
+public enum DioramaPuzzleName { NONE = -1, TutoXYRotation, TutoZoom, TutoZRotation, TutoTouchAndUnfreeze, Tuyaux, Rats, Carrousel, Train, Tente, Mine }
 public enum DioramaName { NONE = -1, Diorama1, Diorama2, Tutorial }
 [CreateAssetMenu(fileName = "New Diorama infos", menuName = "Dioravity/Diorama/Infos")]
 public class DioramaInfos : ScriptableObject 

@@ -795,7 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 0
+  entityPuzzleName: 4
   entityNumber: 3
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
@@ -3283,7 +3283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 1
+  entityPuzzleName: 5
   entityNumber: 2
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -3299,9 +3299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d3059aedd9a1f47bba26990420a607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ratMask:
+  objectToHideMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   winCondition: {fileID: 1325478875}
 --- !u!135 &1325478877
 SphereCollider:
@@ -3963,7 +3963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 0
+  entityPuzzleName: 4
   entityNumber: 2
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -4138,7 +4138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 1
+  entityPuzzleName: 5
   entityNumber: 1
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -4154,9 +4154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d3059aedd9a1f47bba26990420a607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ratMask:
+  objectToHideMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   winCondition: {fileID: 1529941091}
 --- !u!135 &1529941093
 SphereCollider:
@@ -4300,7 +4300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 0
+  entityPuzzleName: 4
   entityNumber: 0
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -4989,7 +4989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 0
+  entityPuzzleName: 4
   entityNumber: 1
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 1
@@ -9248,6 +9248,10 @@ PrefabInstance:
     - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: entityPuzzleName
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a05907ee64be34740b141464a16f6f83, type: 3}
@@ -17059,7 +17063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 2
+  entityPuzzleName: 6
   entityNumber: 2
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
@@ -19579,7 +19583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 2
+  entityPuzzleName: 6
   entityNumber: 0
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
@@ -20278,7 +20282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPuzzleName: 2
+  entityPuzzleName: 6
   entityNumber: 1
   overrideWinConditionCall: 0
   simulateWinConditionIsMet: 0
