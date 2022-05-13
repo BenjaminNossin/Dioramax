@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Carrousel")]
     [SerializeField] GameObject ratAnimationObj;
-    public static int OverrideWinConditionNumber; 
+    public static int OverrideWinConditionNumber { get; set; } 
 
     [Header("CAMERA")]
     [SerializeField] private Transform cameraCrane;

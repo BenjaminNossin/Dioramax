@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // because there is too much hardcoded stuff in the LevelManager. This should only be temporary
 public class TutorialWinConditionController : MonoBehaviour
 {
     [SerializeField] private DioramaInfos dioramaInfos; 
-    [SerializeField] private WinConditionHolder[] winConditionHolders = new WinConditionHolder[4]; // peut-être pas besoin
     private int tutorialPhase;
     public static bool OverrideIsDone { get; set; }
 
@@ -32,33 +29,54 @@ public class TutorialWinConditionController : MonoBehaviour
 
     // Unfreeze
     [Header("Unfreeze")]
-    [SerializeField] private Collider ratCollider;
+    [SerializeField] private Collider ballCollider;
 
     [Header("Final")]
     [SerializeField] private Collider starCollider;
 
+    /* [Header("-- DEBUG --")]
+    [SerializeField] private bool overridePhaseIndex; 
+    [SerializeField] private int fakePhase; */
+
 
     private void OnEnable()
     {
-        TouchDetection.OnTutorialButtonDetection += TutorialButtonDetected; 
+        TouchDetection.OnTutorialButtonDetection += TutorialButtonDetected;
+        HideObjectOnTriggerEnter.OnBallTutorialComplete += TutorialBallDetected;
     }
 
     private void OnDisable()
     {
         TouchDetection.OnTutorialButtonDetection -= TutorialButtonDetected;
+        HideObjectOnTriggerEnter.OnBallTutorialComplete -= TutorialBallDetected;
     }
 
     private void Start()
     {
         cameraCraneZRotation.SetActive(false);
         buttonCollider.enabled = false;
-        ratCollider.enabled = false;
+        ballCollider.enabled = false;
         starCollider.enabled = false;
     }
 
     void Update()
     {
         if (LevelManager.GameState != GameState.Playing) return; 
+
+        /* if (overridePhaseIndex && !OverrideIsDone)
+        {
+            tutorialPhase = fakePhase; 
+
+            if (fakePhase == 3)
+            {
+                TutorialButtonDetected(); 
+            }
+            else if (fakePhase >= 4)
+            {
+                LevelInfosUI.Instance.ActivatePuzzleUIOnWin(0);
+                TutorialBallDetected(); 
+            }
+        } */
 
         if (tutorialPhase == 0)
         {
@@ -68,7 +86,7 @@ public class TutorialWinConditionController : MonoBehaviour
             {
                 xyRotationCounter += 0.02f;
 
-                if (!OverrideIsDone)
+                if (!OverrideIsDone && xyRotationCounter >= requiredRotationDuration * 0.5f)
                 {
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay(); 
@@ -89,11 +107,11 @@ public class TutorialWinConditionController : MonoBehaviour
         {
             // Zoom
 
-            if (CameraZoom.ZoomingOut)
+            if (CameraZoom.ZoomingIn)
             {
                 zoomInCounter += 0.02f;
 
-                if (!OverrideIsDone)
+                if (!OverrideIsDone && zoomInCounter >= requiredIndividualZoomDuration * 0.4f)
                 {
                     OverrideIsDone = true;
                     Debug.Log("zooming out"); 
@@ -101,11 +119,11 @@ public class TutorialWinConditionController : MonoBehaviour
                 }
             }
 
-            if (CameraZoom.ZoomingIn)
+            if (CameraZoom.ZoomingOut)
             {
                 zoomOutCounter += 0.02f;
 
-                if (!OverrideIsDone)
+                if (!OverrideIsDone && zoomOutCounter >= requiredIndividualZoomDuration * 0.4f)
                 {
                     OverrideIsDone = true;
                     Debug.Log("zooming in");
@@ -131,7 +149,7 @@ public class TutorialWinConditionController : MonoBehaviour
             {
                 zRotationLeftCounter += 0.02f;
 
-                if (!OverrideIsDone)
+                if (!OverrideIsDone && zRotationLeftCounter >= requiredIndividualZRotation * 0.4f)
                 {
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay();
@@ -142,7 +160,7 @@ public class TutorialWinConditionController : MonoBehaviour
             {
                 zRotationRightCounter += 0.02f;
 
-                if (!OverrideIsDone)
+                if (!OverrideIsDone && zRotationRightCounter >= requiredIndividualZRotation * 0.4f)
                 {
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay();
@@ -166,11 +184,8 @@ public class TutorialWinConditionController : MonoBehaviour
         else if (tutorialPhase == 4)
         {
             // Unfreeze
-            ratCollider.enabled = true;
+            ballCollider.enabled = true;
         }
-
-        // GameLogger.Log("Tutorial is FINISHED"); 
-        // LevelManager.LevelIsFinished = true;
     }
 
     private void TutorialButtonDetected()
@@ -178,22 +193,26 @@ public class TutorialWinConditionController : MonoBehaviour
         // dissolve shield a bit
         // puzzle completion vfx etc.. 
 
+        if (tutorialPhase != 3) return; 
+
         GameLogger.Log("suceeded Button Touch tutorial");
-        LevelInfosUI.Instance.ActivatePuzzleUIOnWin(1);
+        LevelInfosUI.Instance.ActivatePuzzleUIOnWin(0);
 
         OverrideIsDone = false;
         tutorialPhase = 4;
         TutorialPromptsUI.Instance.ShowPrompt(tutorialPhase, 0);
     }
 
-    private void TutorialRatDetected()
+    private void TutorialBallDetected()
     {
         // totally dissolve shield
         // deactivate shield collider
         // activate star collider + fx etc..
 
+        if (tutorialPhase != 4) return;
+
         GameLogger.Log("suceeded Unfreeze tutorial");
-        LevelInfosUI.Instance.ActivatePuzzleUIOnWin(2);
+        LevelInfosUI.Instance.ActivatePuzzleUIOnWin(1);
 
         OverrideIsDone = false;
         tutorialPhase = 5;
@@ -202,11 +221,4 @@ public class TutorialWinConditionController : MonoBehaviour
 
         starCollider.enabled = true; 
     }
-}
-
-[System.Serializable]
-public class WinConditionHolder
-{
-    public string puzzleName;
-    public WinCondition winCondition; 
 }
