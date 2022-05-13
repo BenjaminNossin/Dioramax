@@ -3303,6 +3303,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   winCondition: {fileID: 1325478875}
+  isTutorial: 0
 --- !u!135 &1325478877
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4158,6 +4159,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   winCondition: {fileID: 1529941091}
+  isTutorial: 0
 --- !u!135 &1529941093
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5199,14 +5201,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078332464, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332465, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332465, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: dioramaName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332465, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: tutorialButtonMask.m_Bits
+      value: 16384
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332466, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1078332470, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: quad
       value: 
       objectReference: {fileID: 1475195777}
     - target: {fileID: 3329036745582398296, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: openingCinematic
+      value: 
+      objectReference: {fileID: 7400000, guid: 2089f09bb26e30641b107b467399586d, type: 2}
+    - target: {fileID: 3329036745582398296, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: cameraFadePanelImage
       value: 
       objectReference: {fileID: 1457613641}
+    - target: {fileID: 3533724392168430052, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: dioramaName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533724392168430052, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: tutorialButtonMask.m_Bits
+      value: 16384
+      objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: diorama
       value: 
@@ -18606,7 +18640,7 @@ MonoBehaviour:
   cameraTransformOnPhase2: {fileID: 184983660}
   skipIntroCinematic: 1
   overridePhaseSystem: 0
-  isDiorama1: 1
+  dioramaName: 1
 --- !u!114 &7778398950724897747
 MonoBehaviour:
   m_ObjectHideFlags: 0
