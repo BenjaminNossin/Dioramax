@@ -842,6 +842,7 @@ GameObject:
   - component: {fileID: 2376960037988702086}
   - component: {fileID: 6700387894708178681}
   - component: {fileID: 535588761921137741}
+  - component: {fileID: 2843479948783871370}
   m_Layer: 0
   m_Name: Prefab_Tuto_Unity
   m_TagString: Untagged
@@ -931,7 +932,34 @@ MonoBehaviour:
   cameraTransformOnPhase2: {fileID: 0}
   skipIntroCinematic: 0
   overridePhaseSystem: 0
-  isDiorama1: 0
+  dioramaName: 0
+--- !u!114 &2843479948783871370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150118556342799676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700a3b1e04bea3449983a7e5d60c3727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
+  winConditionHolders:
+  - puzzleName: Rotation XY
+    winCondition: {fileID: 0}
+  - puzzleName: Zoom
+    winCondition: {fileID: 0}
+  - puzzleName: Rotation Z
+    winCondition: {fileID: 0}
+  - puzzleName: Touch & Unfreeze
+    winCondition: {fileID: 0}
+  requiredRotationDuration: 5
+  requiredIndividualZoomDuration: 1
+  cameraCraneZRotation: {fileID: 0}
+  requiredIndividualZRotation: 1
+  buttonCollider: {fileID: 0}
 --- !u!1 &3241028771341582857
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,6 +1816,7 @@ GameObject:
   - component: {fileID: 1556952677165703832}
   - component: {fileID: 3815640414692434816}
   - component: {fileID: 2689106079257397657}
+  - component: {fileID: 1226821626}
   m_Layer: 0
   m_Name: Button_005
   m_TagString: Untagged
@@ -1860,6 +1889,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1226821626
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336060882318393901}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15286797, y: 0.15072013, z: 0.06502937}
+  m_Center: {x: -3.1086245e-15, y: -0.000000005820768, z: 0.016326293}
 --- !u!1 &6504625129802050312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2589,6 +2631,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627819, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: simulateWinConditionIsMet
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627822, guid: a05907ee64be34740b141464a16f6f83, type: 3}

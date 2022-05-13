@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour
     [Header("DEBUG")]
     public bool skipIntroCinematic; 
     public bool overridePhaseSystem;
-    public bool isDiorama1; 
+    public DioramaName dioramaName; 
 
     #region Unity Callbacks
 
@@ -73,10 +73,15 @@ public class LevelManager : MonoBehaviour
         {
             CameraCinematic.Instance.SetAnimatorState(0);
             SetGameState(GameState.Playing);
+
+            if (dioramaName == DioramaName.Tutorial)
+            {
+                TutorialPromptsUI.Instance.ShowStartingPrompt();
+            }
         }
 
         // PALCEHOLDER
-        if (isDiorama1)
+        if (dioramaName == DioramaName.Diorama1)
         {
             phaseHolders[0].phases[0].materialsToSet[0].SetFloat("DissolveAmount", 0);
 

@@ -29,6 +29,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
     private bool updateGamefeelCurve;
+    private float curveValue; 
 
     // TODO : Subscribing for the gamefeel event should NOT be done here, but on an interface or CurveEvaluator.
     private void OnEnable()
@@ -62,7 +63,8 @@ public class DioravityCameraCraneRotation : MonoBehaviour
             if (YXRotation)
             {
                 // GameLogger.Log("yx rotation gamefeel");
-                UpdateXYRotation(swipeDirection, swipeForce * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
+                curveValue = gamefeelCurve.Evaluate(OnEvaluationEndedCallback); 
+                UpdateXYRotation(swipeDirection, swipeForce * curveValue);
             }
         }
 
@@ -152,5 +154,6 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     {
         // GameLogger.Log("on ended rotation callback");
         updateGamefeelCurve = false;
+        YXRotation = false;
     }
 }

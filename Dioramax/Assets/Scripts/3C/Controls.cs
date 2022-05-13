@@ -91,8 +91,6 @@ public class Controls : MonoBehaviour
             if (CurrentState == TouchState.Zooming)
             {
                 GameLogger.Log("calling out of double touch frames");
-
-                DioravityCameraCraneRotation.YXRotation = false;
                 CameraZoom.ZoomingIn = CameraZoom.ZoomingOut = false;
 
                 transitionningOutOfDoubleTouch = true;

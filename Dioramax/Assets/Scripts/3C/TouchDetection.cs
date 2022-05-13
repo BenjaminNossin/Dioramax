@@ -11,14 +11,17 @@ public class TouchDetection : MonoBehaviour
     // Test screen distorsion effect 
     //[SerializeField] private ParticleSystem TouchDistorsion;
     //
-    [SerializeField] private bool isDiorama1; 
+    [SerializeField] private DioramaName dioramaName; 
 
     [Header("General")]
     [SerializeField] private LayerMask tweenableTouchMask;
     [SerializeField] private LayerMask finishMask;
 
+    [Header("Tutorial")]
+    [SerializeField] private LayerMask tutorialButtonMask; 
+
     [Header("Diorama 1")]
-    [SerializeField] private LayerMask buttonMask;
+    [SerializeField] private LayerMask buttonMask; // remove it. Only need tutorial button
     [SerializeField] private LayerMask carrouselPropMask;
     [SerializeField] private LayerMask tweenableOursonMask;
     [SerializeField] private LayerMask ratMask;
@@ -28,12 +31,14 @@ public class TouchDetection : MonoBehaviour
 
 
     private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected,
-        switchDetected; // :D    
+        switchDetected, tutorialButtonDetected; // :D    
     private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
     private readonly UnityEvent<MeshRenderer[]> OnRequireSharedEvent = new();
     private UnityAction<MeshRenderer[]> OnRequireSharedCallback;
+
+    public static Action OnTutorialButtonDetection { get; set; }
 
     public static Action<Vector3> OnDoubleTapDetection { get; set; } 
     public static int CarrouselPropActivated { get; set; }
@@ -97,7 +102,16 @@ public class TouchDetection : MonoBehaviour
         }
         #endregion
 
-        if (isDiorama1)
+        if (dioramaName == DioramaName.Tutorial)
+        {
+            tutorialButtonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, CAST_LENGTH, tutorialButtonMask);
+
+            if (tutorialButtonDetected)
+            {
+                OnTutorialButtonDetection();
+            }
+        }
+        else if (dioramaName == DioramaName.Diorama1)
         {
             #region Diorama1 Casts
             buttonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, CAST_LENGTH, buttonMask);
