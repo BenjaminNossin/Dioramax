@@ -140,7 +140,7 @@ MonoBehaviour:
   requiredIndividualZoomDuration: 1
   cameraCraneZRotation: {fileID: 1658879798}
   requiredIndividualZRotation: 1
-  buttonCollider: {fileID: 0}
+  buttonCollider: {fileID: 68456667}
   ballCollider: {fileID: 2843479948835258922}
   starCollider: {fileID: 2843479949610391056}
 --- !u!1 &68456665
@@ -152,6 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 68456666}
+  - component: {fileID: 68456667}
   m_Layer: 14
   m_Name: ButtonTutorial
   m_TagString: Untagged
@@ -174,6 +175,19 @@ Transform:
   m_Father: {fileID: 3669723168185730844}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &68456667
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68456665}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15286797, y: 0.15072013, z: 0.06502937}
+  m_Center: {x: -0.0000000037252934, y: -0.0000000055879372, z: 0.016326293}
 --- !u!1001 &87482176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2078,6 +2092,10 @@ PrefabInstance:
       propertyPath: diorama
       value: 
       objectReference: {fileID: 919132148518660280}
+    - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: XYForceMultiplier
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
       value: Prefab_3C_CameraCrane
@@ -2587,7 +2605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 741415318469104647, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
