@@ -76,6 +76,7 @@ public class LevelManager : MonoBehaviour
 
             if (dioramaName == DioramaName.Tutorial)
             {
+                TutorialPromptsUI.OverridenCinematic = true; 
                 TutorialPromptsUI.Instance.ShowStartingPrompt();
             }
         }
