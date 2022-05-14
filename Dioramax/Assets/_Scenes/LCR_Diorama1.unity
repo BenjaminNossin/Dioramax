@@ -260,7 +260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
-  tweenOnDisable: 0
 --- !u!1 &62668759
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
-  tweenOnDisable: 1
 --- !u!1001 &79743186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1064,7 +1062,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
-  tweenOnDisable: 0
 --- !u!136 &356045469
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1688,6 +1685,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7913923095790550378, guid: c0044d4caa5b09e419196431402258d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b85ebdca71ff73d49b7006ad3edadb39, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0044d4caa5b09e419196431402258d7, type: 3}
 --- !u!4 &602917212 stripped
@@ -2077,7 +2078,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
-  tweenOnDisable: 1
 --- !u!1 &693222237
 GameObject:
   m_ObjectHideFlags: 0
@@ -2335,7 +2335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
-  tweenOnDisable: 1
 --- !u!1 &878460260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2668,7 +2667,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
-  tweenOnDisable: 0
 --- !u!1 &1060585760
 GameObject:
   m_ObjectHideFlags: 0
@@ -3106,7 +3104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8f6897d99a83a5f48a51bf071f5f29ae, type: 2}
-  tweenOnDisable: 1
 --- !u!1 &1286033198
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,7 +3499,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
-  tweenOnDisable: 0
 --- !u!1001 &1388352029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5201,6 +5197,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078332462, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1078332464, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -6784,6 +6784,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7913923095790550378, guid: c0044d4caa5b09e419196431402258d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b85ebdca71ff73d49b7006ad3edadb39, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0044d4caa5b09e419196431402258d7, type: 3}
 --- !u!33 &802646327938686408
@@ -12948,7 +12952,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: d29708fad9db92f40bb4fe1056203e60, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &4536692283406114580
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15159,7 +15162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: d9cdcb4ee6747de46a0093049a553ec7, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &5894743587532843617
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15585,7 +15587,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 91970ae015ede7548907a8b59dc0719c, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &6148679370700484418
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16112,7 +16113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 71e66e1632aad2540a01e540252c23a2, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &6401840352566120760
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17325,7 +17325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &7070022174214630034
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17380,7 +17379,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: d9cdcb4ee6747de46a0093049a553ec7, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &7078520561453123080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17866,7 +17864,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 9556d083fa4303e43bdb1407d0169733, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &7316184819096554386
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17911,7 +17908,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 0b8b86e95b6569e4d90fa359c0a3080e, type: 2}
-  tweenOnDisable: 0
 --- !u!4 &7337067939646834713
 Transform:
   m_ObjectHideFlags: 0
@@ -19337,7 +19333,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: ccbbb086971dec146a44ef9ea42e616a, type: 2}
-  tweenOnDisable: 0
 --- !u!136 &8165873816005643773
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19521,7 +19516,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &8236519518287276712
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19782,7 +19776,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: a1452b522d112af49a62e5ef5ea18d97, type: 2}
-  tweenOnDisable: 0
 --- !u!23 &8382384138672723189
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19932,7 +19925,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8aa0277fab490fd4e85889921af2143c, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &8420451634489544260
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20230,7 +20222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 88ea4b82b2124c2469348f8078c2d2ea, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &8637355396523705049
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20527,7 +20518,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: d9cdcb4ee6747de46a0093049a553ec7, type: 2}
-  tweenOnDisable: 0
 --- !u!65 &8775870791519786373
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21041,7 +21031,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 8c6a32d5007d4a147b7731afbf797cbe, type: 2}
-  tweenOnDisable: 0
 --- !u!135 &9184371618464783849
 SphereCollider:
   m_ObjectHideFlags: 0

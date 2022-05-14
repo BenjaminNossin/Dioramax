@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Distortion
+  m_Name: M_DistortionD1
   m_Shader: {fileID: -6465566751694194690, guid: e2caf53766e9f894a940e3c6f4eade70, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -32,6 +32,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 8400000, guid: 9dafea5bcbf1ee34dab754f092826ede, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_24cfd2cc672e4608be3e5132c33c55d5_Texture_1:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -66,8 +70,8 @@ Material:
     - _Float: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _TwirlAmount: 5
+    - _TwirlAmount: 8
     - _Visibility: 1
     m_Colors:
-    - _DistortionAmount: {r: 0, g: 0.12, b: 0, a: 0}
+    - _DistortionAmount: {r: 0, g: 0.15, b: 0, a: 0}
   m_BuildTextureStacks: []

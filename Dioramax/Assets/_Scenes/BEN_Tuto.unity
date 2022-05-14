@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.19900322, g: 0.42036024, b: 0.9811321, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 0ffaa0b7117ba8c47a9d05ae701d4b4d, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 697d8c4f4b3496542a2da1166c9dd0d2, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10237491, g: 0.10098698, b: 0.25912094, a: 1}
+  m_IndirectSpecularColor: {r: 0.11807304, g: 0.40207312, b: 0.39678138, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -357,7 +357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &354967128
 Transform:
   m_ObjectHideFlags: 0
@@ -1204,7 +1204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1160234426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1952,6 +1952,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1676652895588182473, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8774cbf9f4c232a4aa4efcefd896a984, type: 2}
     - target: {fileID: 1676652895588182475, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2010,6 +2014,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078332462, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1078332464, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2026,6 +2034,30 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1078332467, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332469, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332469, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_FocalLength
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332469, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 9dafea5bcbf1ee34dab754f092826ede, type: 2}
+    - target: {fileID: 1078332469, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 32727
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078332470, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: rt
+      value: 
+      objectReference: {fileID: 8400000, guid: 9dafea5bcbf1ee34dab754f092826ede, type: 2}
     - target: {fileID: 1078332470, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: quad
       value: 
@@ -2552,6 +2584,10 @@ PrefabInstance:
     - target: {fileID: 741415318469104647, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
       propertyPath: m_Name
       value: Prefab_UI_TutorialPrompts
+      objectReference: {fileID: 0}
+    - target: {fileID: 741415318469104647, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
@@ -3134,7 +3170,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1865566551}
   decoyCamera: {fileID: 1865566550}
   cameraTransformOnPhase2: {fileID: 0}
-  skipIntroCinematic: 0
+  skipIntroCinematic: 1
   overridePhaseSystem: 0
   dioramaName: 0
 --- !u!1 &2413618555120785778
@@ -4665,14 +4701,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360980344399540555}
-  m_LocalRotation: {x: -0.000000032719868, y: 0.7485433, z: -0.66308594, w: 0.000000028984406}
-  m_LocalPosition: {x: 0.040364377, y: 0.15295434, z: -0.15479814}
+  m_LocalRotation: {x: 0, y: 0.7660445, z: -0.6427876, w: 0}
+  m_LocalPosition: {x: 0.0423, y: 0.1529, z: -0.1457}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 543450652188668418}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 80, y: 180, z: 0}
 --- !u!114 &6721992598985352206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5433,14 +5469,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7742780736655058533}
-  m_LocalRotation: {x: -0.7556393, y: 0, z: 0, w: 0.65498805}
-  m_LocalPosition: {x: -0.059045766, y: 0.15441844, z: -0.15351364}
+  m_LocalRotation: {x: -0.7660445, y: 0, z: 0, w: 0.64278764}
+  m_LocalPosition: {x: -0.05904603, y: 0.1542, z: -0.1478}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 543450652188668418}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -100, y: 0, z: 0}
 --- !u!114 &8712061106407443810
 MonoBehaviour:
   m_ObjectHideFlags: 0
