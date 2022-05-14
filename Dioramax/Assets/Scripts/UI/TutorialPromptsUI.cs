@@ -17,22 +17,25 @@ public class TutorialPromptsUI : MonoBehaviour
             Destroy(Instance); 
         }
 
-        Instance = this; 
+
+        Instance = this;
+        tutorialTextHolder.SetTmpReference(tmpText);
     }
 
     private void Start()
     {
+        if (OverridenCinematic) return; 
         textHolderPanel.SetActive(false); 
-        tutorialTextHolder.SetTmpReference(tmpText);
     }
 
+    public static bool OverridenCinematic; 
     public void ShowStartingPrompt()
     {
-        Debug.Log("showing starting prompt"); 
         textHolderPanel.SetActive(true); 
         tutorialTextHolder.ShowPrompt(0, 0);
 
-        StartCoroutine(HidePanel()); 
+        StartCoroutine(HidePanel());
+        Debug.Log("showing starting prompt");
     }
 
     public void ShowPrompt(int index, int subIndex)
