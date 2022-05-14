@@ -21,12 +21,12 @@ public class LevelManager : MonoBehaviour
 
     public static int[][] EntitiesToValidate { get; set; }
     private byte validatedPuzzleAmount;
-    public static bool LevelIsFinished { get; private set; }
+    public static bool LevelIsFinished { get; set; } // should be private set. Changed because of tutorial
     public static bool IsPhase3 { get; private set; }
 
     [Header("Carrousel")]
     [SerializeField] GameObject ratAnimationObj;
-    public static int OverrideWinConditionNumber; 
+    public static int OverrideWinConditionNumber { get; set; } 
 
     [Header("CAMERA")]
     [SerializeField] private Transform cameraCrane;
@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour
     [Header("DEBUG")]
     public bool skipIntroCinematic; 
     public bool overridePhaseSystem;
-    public bool isDiorama1; 
+    public DioramaName dioramaName; 
 
     #region Unity Callbacks
 
@@ -73,10 +73,15 @@ public class LevelManager : MonoBehaviour
         {
             CameraCinematic.Instance.SetAnimatorState(0);
             SetGameState(GameState.Playing);
+
+            if (dioramaName == DioramaName.Tutorial)
+            {
+                TutorialPromptsUI.Instance.ShowStartingPrompt();
+            }
         }
 
         // PALCEHOLDER
-        if (isDiorama1)
+        if (dioramaName == DioramaName.Diorama1)
         {
             phaseHolders[0].phases[0].materialsToSet[0].SetFloat("DissolveAmount", 0);
 

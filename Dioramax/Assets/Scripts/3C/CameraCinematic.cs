@@ -6,6 +6,8 @@ public class CameraCinematic : MonoBehaviour
     public static CameraCinematic Instance { get; private set; }
 
     [SerializeField] private Animator animator;
+    [SerializeField] private AnimationClip openingCinematic; // TODO : REFACTORING
+
     [SerializeField] private AnimationClip phase2Cinematic; // TODO : REFACTORING
 
     [Space, SerializeField] private Image cameraFadePanelImage;
@@ -24,6 +26,11 @@ public class CameraCinematic : MonoBehaviour
             Destroy(Instance); 
         }
         Instance = this; 
+    }
+
+    private void Start()
+    {
+        animator.Play(openingCinematic.name); 
     }
 
     public void FadeCameraPanel()

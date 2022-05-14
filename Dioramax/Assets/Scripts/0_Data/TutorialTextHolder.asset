@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7efdd61198bd04f92e0fa8d0b7ff24, type: 3}
+  m_Name: TutorialTextHolder
+  m_EditorClassIdentifier: 
+  tutorialPrompts:
+  - promptName: XY Rotation
+    section:
+    - index: 0
+      textToDisplay: Swipe your finger accross the screen to rotate around the diorama
+        !
+  - promptName: Zoom
+    section:
+    - index: 0
+      textToDisplay: With two fingers, you can also zoom in and out !
+    - index: 0
+      textToDisplay: Great ! Now try zooming out !
+    - index: 0
+      textToDisplay: Great ! Now try zooming in !
+  - promptName: Z Rotation
+    section:
+    - index: 0
+      textToDisplay: You see those buttons that juste appeared down there ? They
+        allow you to rotate the diorama in a totally new way !
+    - index: 0
+      textToDisplay: Great ! Now try the left one !
+    - index: 0
+      textToDisplay: Great ! Now try the right one !
+  - promptName: Touch
+    section:
+    - index: 0
+      textToDisplay: Now, let's push that big button over there ! The one with the
+        cute cat on it.
+  - promptName: Unfreeze
+    section:
+    - index: 0
+      textToDisplay: You see the rat over there ? Like many objects you will find
+        later, he is freezed. Unfreeze him so that he becomes subject to gravity
+        again. Then, lead him into the hole !
+  - promptName: Final
+    section:
+    - index: 0
+      textToDisplay: Great job, you are done ! When you feel ready, touch the star
+        that you just freed !
