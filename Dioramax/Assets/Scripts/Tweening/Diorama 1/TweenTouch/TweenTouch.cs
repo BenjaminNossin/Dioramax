@@ -15,7 +15,7 @@ public class TweenTouch : StoppableTween
     private float TimeBounce;
     private Vector3 initialRotation;
 
-    public bool tweenOnDisable;
+   // public bool tweenOnDisable;
 
 
     // Swap test 
@@ -119,11 +119,11 @@ public class TweenTouch : StoppableTween
         
     }
 
-    private void OnDisable()
+   /* private void OnDisable()
     {
         if (tweenOnDisable)
         {
             LeanTween.scale(gameObject, Vector3.one, TimeScale).setEaseOutBounce(); 
         }
-    }
+    }*/
 }
