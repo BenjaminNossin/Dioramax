@@ -6,6 +6,7 @@ public class TweeningData : ScriptableObject
 {
     [Header("Delay")]
     public float delay;
+    public float DelayStopVFX;
 
     [Header("Move")]
     [Range(0,2)]public float up_max_position;
