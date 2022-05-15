@@ -151,13 +151,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ffdd07ed5bbbe4cb3af168cd38ab97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDiorama1: 0
+  dioramaName: 0
   tweenableTouchMask:
     serializedVersion: 2
     m_Bits: 512
   finishMask:
     serializedVersion: 2
     m_Bits: 1024
+  tutorialButtonMask:
+    serializedVersion: 2
+    m_Bits: 0
   buttonMask:
     serializedVersion: 2
     m_Bits: 64
@@ -355,13 +358,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ffdd07ed5bbbe4cb3af168cd38ab97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDiorama1: 0
+  dioramaName: 0
   tweenableTouchMask:
     serializedVersion: 2
     m_Bits: 512
   finishMask:
     serializedVersion: 2
     m_Bits: 1024
+  tutorialButtonMask:
+    serializedVersion: 2
+    m_Bits: 0
   buttonMask:
     serializedVersion: 2
     m_Bits: 64
@@ -444,7 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diorama: {fileID: 0}
-  XYForceMultiplier: 1
+  XYForceMultiplier: 2.5
   ZRotationForce: 40
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
