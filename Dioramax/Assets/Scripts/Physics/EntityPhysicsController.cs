@@ -46,7 +46,7 @@ public class EntityPhysicsController : MonoBehaviour
             {
                 try
                 {
-                    rb.AddForce(mainCamTransform.up * -GRAVITY_FORCE, ForceMode.Acceleration);
+                    rb.AddForce(mainCamTransform.up * -GRAVITY_FORCE * gravityForceMultiplier, ForceMode.Acceleration);
                 }
                 catch { }
             } 

@@ -71,8 +71,11 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        dissolveMaterial = phaseHolders[(int)PhaseHolderName.Etoile].phases[0].materialsToSet[0];
-        dissolveMaterial.SetFloat("DissolveAmount", 0); 
+        if (dioramaName != DioramaName.Diorama2) // waiting to have dissolve material on diorama 2
+        {
+            dissolveMaterial = phaseHolders[(int)PhaseHolderName.Etoile].phases[0].materialsToSet[0];
+            dissolveMaterial.SetFloat("DissolveAmount", 0);
+        }
 
         if (skipIntroCinematic)
         {
