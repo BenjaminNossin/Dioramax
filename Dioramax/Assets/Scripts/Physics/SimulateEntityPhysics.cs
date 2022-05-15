@@ -1,7 +1,6 @@
 using UnityEngine;
 
 // on indivividual objects
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(FreezeStateController))]
 public class SimulateEntityPhysics : MonoBehaviour
 {

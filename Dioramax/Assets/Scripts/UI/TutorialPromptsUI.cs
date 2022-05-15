@@ -31,32 +31,27 @@ public class TutorialPromptsUI : MonoBehaviour
     public static bool OverridenCinematic; 
     public void ShowStartingPrompt()
     {
-        textHolderPanel.SetActive(true); 
-        tutorialTextHolder.ShowPrompt(0, 0);
-
-        StartCoroutine(HidePanel());
+        StartCoroutine(ShowPanel(0, 0));
         Debug.Log("showing starting prompt");
     }
 
-    public void ShowPrompt(int index, int subIndex)
+    public void ShowNextPrompt(int index, int subIndex)
     {
-        textHolderPanel.SetActive(true);
-        tutorialTextHolder.ShowPrompt(index, subIndex);
-
-        StartCoroutine(HidePanel());
+        HidePanel();
+        StartCoroutine(ShowPanel(index, subIndex));
     }
 
-    public void OverrideHidePanelDelay()
+    private readonly WaitForSeconds WFS = new(1f);
+    private IEnumerator ShowPanel(int index, int subIndex)
     {
-        textHolderPanel.SetActive(false);
-        StopCoroutine(HidePanel()); 
+        yield return WFS;
+        textHolderPanel.SetActive(true);
+        tutorialTextHolder.ShowPrompt(index, subIndex);
     }
 
     // use a fadeout tween instead
-    private readonly WaitForSeconds WFS = new(10f);
-    private IEnumerator HidePanel()
+    public void HidePanel()
     {
-        yield return WFS;
         textHolderPanel.SetActive(false);
     }
 }

@@ -21,7 +21,7 @@ public class EntityPhysicsController : MonoBehaviour
         Instance = this; 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdateEntities(); 
     }
@@ -38,14 +38,15 @@ public class EntityPhysicsController : MonoBehaviour
 
     private void UpdateEntities()
     {
+        Debug.DrawRay(transform.position, mainCamTransform.up * -30, Color.red);
+
         if (entityRbList.Count > 0)
         {
             foreach (Rigidbody rb in entityRbList)
             {
                 try
                 {
-                    Debug.DrawRay(transform.position, transform.InverseTransformDirection(mainCamTransform.up) * -30, Color.red); 
-                    rb.AddForce(transform.InverseTransformDirection(mainCamTransform.up) * -GRAVITY_FORCE, ForceMode.Acceleration);
+                    rb.AddForce(mainCamTransform.up * -GRAVITY_FORCE, ForceMode.Acceleration);
                 }
                 catch { }
             } 

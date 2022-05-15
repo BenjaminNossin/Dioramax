@@ -71,6 +71,9 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        dissolveMaterial = phaseHolders[(int)PhaseHolderName.Etoile].phases[0].materialsToSet[0];
+        dissolveMaterial.SetFloat("DissolveAmount", 0); 
+
         if (skipIntroCinematic)
         {
             CameraCinematic.Instance.SetAnimatorState(0);
