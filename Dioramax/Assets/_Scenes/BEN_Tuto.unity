@@ -144,6 +144,7 @@ MonoBehaviour:
   buttonCollider: {fileID: 68456667}
   ballCollider: {fileID: 2843479948835258922}
   starCollider: {fileID: 2843479949610391056}
+  tweenStarFinish: {fileID: 8491226721135744055}
 --- !u!1 &68456665
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +418,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
       propertyPath: m_Name
-      value: VFX_Puzzle_Complete
+      value: VFX_Puzzle_Complete_Button
       objectReference: {fileID: 0}
     - target: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
       propertyPath: m_IsActive
@@ -469,6 +470,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
+--- !u!1 &474472141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
+  m_PrefabInstance: {fileID: 474472140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &499100518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,7 +1714,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
       propertyPath: m_Name
-      value: VFX_Puzzle_Complete (1)
+      value: VFX_Puzzle_Complete_Ball
       objectReference: {fileID: 0}
     - target: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
       propertyPath: m_IsActive
@@ -1760,6 +1766,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
+--- !u!1 &1464269360 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2335911071064042051, guid: 02fbfc9128ce11d41bb74fc1440904ab, type: 3}
+  m_PrefabInstance: {fileID: 1464269359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1475195777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1676652895588182472, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
@@ -3179,10 +3190,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
+  dioramaName: 0
   objToDeactivateOnLevelEnd: {fileID: 1658879798}
   phase2to3Delay: 1
-  phaseHolders: []
-  puzzleCompleteVFXS: []
+  shieldDissolveAmountPerPhase:
+  - 0.38
+  phaseHolders:
+  - editorName: Etoile
+    phaseHolderName: 0
+    phases:
+    - phaseNumber: 0
+      scriptsToSet: []
+      objToSet: []
+      particlesToSet: []
+      materialsToSet:
+      - {fileID: 2100000, guid: b813612e02eee8440a4473af039e4b30, type: 2}
+      collidersToSet: []
+  puzzleCompleteVFXS:
+  - {fileID: 474472141}
+  - {fileID: 1464269360}
   reussiteTuyauxVFX: []
   ratAnimationObj: {fileID: 0}
   cameraCrane: {fileID: 1865566552}
@@ -3191,7 +3217,6 @@ MonoBehaviour:
   cameraTransformOnPhase2: {fileID: 0}
   skipIntroCinematic: 1
   overridePhaseSystem: 0
-  dioramaName: 0
 --- !u!1 &2413618555120785778
 GameObject:
   m_ObjectHideFlags: 0

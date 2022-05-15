@@ -6,6 +6,7 @@ public class TutorialWinConditionController : MonoBehaviour
     [SerializeField] private DioramaInfos dioramaInfos;
     private int tutorialPhase;
     public static bool OverrideIsDone { get; set; }
+    public static bool Phase1IsRead { get; set; }
 
     [Space, SerializeField, Range(0f, 1f)] private float promptDisappearDelay = 0.5f;
 
@@ -36,6 +37,7 @@ public class TutorialWinConditionController : MonoBehaviour
 
     [Header("Final")]
     [SerializeField] private Collider starCollider;
+    [SerializeField] private Tween_Star_Finish tweenStarFinish; 
 
     /* [Header("-- DEBUG --")]
     [SerializeField] private bool overridePhaseIndex; 
@@ -46,12 +48,14 @@ public class TutorialWinConditionController : MonoBehaviour
     {
         TouchDetection.OnTutorialButtonDetection += TutorialButtonDetected;
         HideObjectOnTriggerEnter.OnBallTutorialComplete += TutorialBallDetected;
+        LevelManager.OnTutorialTweenStarFinish += ActivateTweenStarFinish; 
     }
 
     private void OnDisable()
     {
         TouchDetection.OnTutorialButtonDetection -= TutorialButtonDetected;
         HideObjectOnTriggerEnter.OnBallTutorialComplete -= TutorialBallDetected;
+        LevelManager.OnTutorialTweenStarFinish -= ActivateTweenStarFinish;
     }
 
     private void Start()
@@ -60,6 +64,7 @@ public class TutorialWinConditionController : MonoBehaviour
         buttonCollider.enabled = false;
         ballCollider.enabled = false;
         starCollider.enabled = false;
+        tweenStarFinish.enabled = false; 
     }
 
     void FixedUpdate()
@@ -207,6 +212,10 @@ public class TutorialWinConditionController : MonoBehaviour
         GameLogger.Log("suceeded Button Touch tutorial");
         LevelInfosUI.Instance.ActivatePuzzleUIOnWin(0);
 
+        LevelManager.Instance.ValidatedPuzzleAmount = 1;
+        LevelManager.Instance.ActivatePuzzleCompleteVFX(0);
+        LevelManager.Instance.TriggerStarPhase(PhaseHolderName.Etoile, 0);
+
         OverrideIsDone = false;
         tutorialPhase = 4;
         TutorialPromptsUI.Instance.ShowPrompt(tutorialPhase, 0);
@@ -223,11 +232,20 @@ public class TutorialWinConditionController : MonoBehaviour
         GameLogger.Log("suceeded Unfreeze tutorial");
         LevelInfosUI.Instance.ActivatePuzzleUIOnWin(1);
 
+        LevelManager.Instance.ValidatedPuzzleAmount = 2;
+        LevelManager.Instance.ActivatePuzzleCompleteVFX(1);
+        LevelManager.Instance.TriggerStarPhase(PhaseHolderName.Etoile);
+
         OverrideIsDone = false;
         tutorialPhase = 5;
         TutorialPromptsUI.Instance.ShowPrompt(tutorialPhase, 0);
-        LevelManager.LevelIsFinished = true;
 
+        LevelManager.LevelIsFinished = true;
         starCollider.enabled = true; 
+    }
+
+    private void ActivateTweenStarFinish()
+    {
+        // tweenStarFinish.enabled = true; waiting to have the correct values in editor
     }
 }
