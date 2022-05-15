@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using DG.Tweening;
 
 public class TweenTouch : StoppableTween
@@ -14,6 +15,7 @@ public class TweenTouch : StoppableTween
     private float TimeScale;
     private float TimeBounce;
     private Vector3 initialRotation;
+    private bool VFXPlaying;
 
    // public bool tweenOnDisable;
 
@@ -33,6 +35,9 @@ public class TweenTouch : StoppableTween
 
         //Swap test
         swapState = true;
+        
+        // Deactivate VFX
+        VFXPlaying = true;
     }
 /*
     public void ScaleGood()
@@ -55,18 +60,32 @@ public class TweenTouch : StoppableTween
     {
        
             //particlesystem
-            if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
+            
+            //Active selon le tag 
+            if(!VFX.CompareTag("NoVFX") && !VFX.CompareTag("StopVFX"))
             {
-                VFX.Play();
+                 if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
+                  {
+                        VFX.Play();
+                  }
+            }
+            // deactivate a VFX 
+            else if(VFX.CompareTag("StopVFX") && VFXPlaying)
+            {
+                VFXPlaying = false;
+
+                if(VFX)
+                {
+                    VFX.Stop();
+                StartCoroutine(StopDelay());
+                }
             }
 
-
-
         //bounce_Move
-            //transform.DOPunchPosition(ObjectMaxHeight, TimeBounce).SetDelay(td.delay);
-            //transform.DOPunchScale(td.stretch_squash, TimeScale).SetDelay(td.delay);
+        //transform.DOPunchPosition(ObjectMaxHeight, TimeBounce).SetDelay(td.delay);
+        //transform.DOPunchScale(td.stretch_squash, TimeScale).SetDelay(td.delay);
 
-         transform.DOMoveY(ObjectMaxHeight, TimeBounce).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOMoveY(ObjectInitialHeight, TimeBounce).SetEase(Ease.OutBounce));
+        transform.DOMoveY(ObjectMaxHeight, TimeBounce).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOMoveY(ObjectInitialHeight, TimeBounce).SetEase(Ease.OutBounce));
             //LeanTween.moveY(gameObject, ObjectMaxHeight, TimeBounce).setDelay(td.delay).setEaseOutExpo().setOnComplete(Tween2);
 
         //stretch&squash_Scale
@@ -115,15 +134,23 @@ public class TweenTouch : StoppableTween
                // transform.DOLocalRotate(initialRotation + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.FastBeyond360).SetDelay(td.delay).SetEase(Ease.InBack);
             }
            }
-        
-        
+
+
     }
 
-   /* private void OnDisable()
+    /* private void OnDisable()
+     {
+         if (tweenOnDisable)
+         {
+             LeanTween.scale(gameObject, Vector3.one, TimeScale).setEaseOutBounce(); 
+         }
+     }*/
+    IEnumerator StopDelay()
     {
-        if (tweenOnDisable)
-        {
-            LeanTween.scale(gameObject, Vector3.one, TimeScale).setEaseOutBounce(); 
-        }
-    }*/
+
+        yield return new WaitForSeconds(td.DelayStopVFX);
+        VFXPlaying = true;
+        VFX.Play();
+    }
+
 }
