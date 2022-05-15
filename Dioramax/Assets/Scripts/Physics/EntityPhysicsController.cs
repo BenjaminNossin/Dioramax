@@ -4,40 +4,52 @@ using UnityEngine;
 // reference to all physicable objects
 public class EntityPhysicsController : MonoBehaviour
 {
-    [SerializeField, Range(5, 20)] private float gravityForce = 9.81f;
-    private List<SimulateEntityPhysics> entityPhysicsList = new List<SimulateEntityPhysics>();
+    [SerializeField] private Transform mainCamTransform; 
+    public static EntityPhysicsController Instance; 
+
+    [SerializeField, Range(0.05f, 2f)] private float gravityForceMultiplier = 1f;
     private List<Rigidbody> entityRbList = new List<Rigidbody>();
 
-    private void OnEnable()
+    private const float GRAVITY_FORCE = 9.81f; 
+
+    private void Awake()
     {
-        SimulateEntityPhysics.OnInitializePhysicsEntity += AddToList;
+        if (Instance)
+        {
+            Destroy(Instance); 
+        }
+        Instance = this; 
     }
 
-    private void OnDisable()
-    {
-        SimulateEntityPhysics.OnInitializePhysicsEntity -= AddToList;
-    }
-
-    void Update()
+    void FixedUpdate()
     {
         UpdateEntities(); 
     }
 
-    private void AddToList(SimulateEntityPhysics entityToAdd, Rigidbody rb)
+    public void AddRbToList(Rigidbody rb)
     {
-        entityPhysicsList.Add(entityToAdd);
         entityRbList.Add(rb);
+    }
+
+    public void RemoveRbFromList(Rigidbody rb)
+    {
+        entityRbList.Remove(rb); 
     }
 
     private void UpdateEntities()
     {
-        foreach (Rigidbody rb in entityRbList)
+        Debug.DrawRay(transform.position, mainCamTransform.up * -30, Color.red);
+
+        if (entityRbList.Count > 0)
         {
-            try
+            foreach (Rigidbody rb in entityRbList)
             {
-                rb.AddForce(transform.InverseTransformDirection(Camera.main.transform.up) * -gravityForce, ForceMode.Acceleration);
-            }
-            catch { } // PLACEHOLDER. Some rats are destroyed, so it returns null. Change this
-        } 
+                try
+                {
+                    rb.AddForce(mainCamTransform.up * -GRAVITY_FORCE, ForceMode.Acceleration);
+                }
+                catch { }
+            } 
+        }
     }
 }

@@ -1,23 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-
-
-public class Select_Ours : MonoBehaviour
+public class Select_Ours : StoppableTween
 {
-    [SerializeField] float up_max_position;
+  /*  [SerializeField] float up_max_position;
     [SerializeField] float time_bounce;
-
-    // Start is called before the first frame update
-    void Start()
+*/
+    private void OnEnable()
     {
-        LeanTween.moveLocalZ(gameObject, up_max_position, time_bounce).setEaseInOutSine().setLoopPingPong();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
+    //        ObjectMaxHeight = up_max_position + transform.position.y;
+        // LeanTween.moveLocalZ(gameObject, up_max_position, time_bounce).setEaseInOutSine().setLoopPingPong();
+        transform.DOMoveY(0.5f, 0.5f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }
 }

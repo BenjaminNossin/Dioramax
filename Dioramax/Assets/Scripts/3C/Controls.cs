@@ -75,7 +75,7 @@ public class Controls : MonoBehaviour
     {
         /* if (fixedUpdateSeconds >= 1f)
         {
-            Debug.Log("mobile fixedUpdate fps : " + mobileFixedUpdateFPSCounter);
+            GameLogger.Log("mobile fixedUpdate fps : " + mobileFixedUpdateFPSCounter);
             fixedUpdateSeconds = 0f;
             mobileFixedUpdateFPSCounter = 0; 
         }
@@ -83,13 +83,15 @@ public class Controls : MonoBehaviour
         mobileFixedUpdateFPSCounter++;
         fixedUpdateSeconds += Time.fixedDeltaTime; */
 
+        if (LevelManager.GameState != GameState.Playing) return; 
 
         // Do Once
         if (Input.touchCount < 2 && !touch1HasBeenUnregistered)
         {
             if (CurrentState == TouchState.Zooming)
             {
-                Debug.Log("calling out of double touch frames");
+                GameLogger.Log("calling out of double touch frames");
+                CameraZoom.ZoomingIn = CameraZoom.ZoomingOut = false;
 
                 transitionningOutOfDoubleTouch = true;
 
@@ -131,21 +133,20 @@ public class Controls : MonoBehaviour
                     cameraPosition = mainCam.transform.position;
                     SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Tap); // technically double tap should only work when hitting specific objects
 
-                    // if something detected, enter drag and NOT rotating state
                     // SHOULD BE DONE IN FIXED UPDATE
-                    if (touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition, doubleTap))
-                    {
-                        SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Drag);
-                    }
+                    touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition, doubleTap);
 
-                    doubleTap = true;
-                    // Debug.Log("touch state is " + touchState);
+                    // if something draggable is detected, enter drag and NOT rotating state
+                    // if blablabla.. -> SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Drag);
+
+                    doubleTap = true; // for the next entering of Began if done within short delay
+                    // GameLogger.Log("touch state is " + touchState);
                 }
                 else if (currentTouch0.phase == TouchPhase.Stationary)
                 {
                     if (FrameCount >= FRAMES_DELAY_TO_HOLD)
                     {
-                        // Debug.Log("transition to Hold state");
+                        // GameLogger.Log("transition to Hold state");
                         doubleTap = false;
                         SetTouchState(TouchState.Hold);
                     }
@@ -155,7 +156,7 @@ public class Controls : MonoBehaviour
                     // all of this because Input.touches[1] sends wrong data from time to time..
                     if (currentTouchMoveForce >= cameraRotation.RotationSensitivity)
                     {
-                        // Debug.Log("not swiping. State is now Rotating");
+                        // GameLogger.Log("not swiping. State is now Rotating");
                         doubleTap = false;
 
                         cameraRotation.UpdateXYRotation(touch0Direction.normalized, currentTouchMoveForce);
@@ -170,11 +171,12 @@ public class Controls : MonoBehaviour
                 }
                 else if (Input.touches[0].phase == TouchPhase.Ended)
                 {
-                    // Debug.Log("mono touch ended");
+                    // GameLogger.Log("mono touch ended");
                     ResetDoubleTouchValues();
 
                     transitionningOutOfDoubleTouch = false;
                     FrameCount = 0;
+
                     StartCoroutine(StopWaitingForDoubleTap());
                     SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
                     OnTouchEnded(PreviousState);
@@ -187,7 +189,7 @@ public class Controls : MonoBehaviour
 
                 if (currentTouchMoveForce >= CAMERA_SENSIBILITY)
                 {
-                    // Debug.Log("zooming");
+                    // GameLogger.Log("zooming");
 
                     if (!middlePointIsSet)
                     {
@@ -203,11 +205,6 @@ public class Controls : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void LateUpdate()
-    {
-
     }
 
     private void ResetDoubleTouchValues()
@@ -246,7 +243,7 @@ public class Controls : MonoBehaviour
 
         if (touchCount == 2)
         {
-            // Debug.Log("updating double touch");
+            // GameLogger.Log("updating double touch");
 
             currentTouch1 = Input.GetTouch(1);
             touch1CurrentPosition = mainCam.ScreenToWorldPoint(new Vector3(

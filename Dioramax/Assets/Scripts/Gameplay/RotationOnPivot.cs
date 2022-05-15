@@ -12,12 +12,16 @@ public class RotationOnPivot : MonoBehaviour
     [SerializeField] private bool multiSnapAngles; 
     [SerializeField] private List<float> snapAngleValues; // hide if multiSnapAngles is false
 
-    [Header("-- DEBUG --")]
-    [SerializeField] private MeshRenderer meshRenderer;
+    [Header("Other")]
+    [SerializeField] private TweenTouch tweenTouch;
+    [SerializeField] private Collider buttonCollider;
+    [SerializeField] private Collider tweenCollider;
+
 
     public bool IsLocked { get; set; }
     private float distanceFromRequiredAngle;
     private Transform selfTransform;
+    private bool validPositionIsRegistered; 
 
     private void Start()
     {
@@ -25,22 +29,14 @@ public class RotationOnPivot : MonoBehaviour
         selfTransform = transform;
 
         selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
-
-        meshRenderer.material.color = Color.red;
     }
 
     private void Update()
     {
-        winCondition.UpdateWinCondition(selfTransform.localRotation == Quaternion.identity);
-
-        if (IsLocked) return; 
+        if (IsLocked || validPositionIsRegistered) return;
 
         distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
-
-        // rotate by using the inverse of camera rotation
-        selfTransform.localRotation = Mathf.Abs(distanceFromRequiredAngle) <= snapValue ?
-                                      Quaternion.identity :
-                                      Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
+        selfTransform.localRotation = Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
 
         if (multiSnapAngles)
         {
@@ -50,6 +46,26 @@ public class RotationOnPivot : MonoBehaviour
                 {
                     selfTransform.localRotation = Quaternion.Euler(0f, 0f, snapAngleValues[i]);
                 }
+            }
+        }
+    }
+
+    public void CheckWinConditionOnLock()
+    {
+        if (Mathf.Abs(distanceFromRequiredAngle) <= snapValue)
+        {
+            selfTransform.localRotation = Quaternion.identity;
+
+            if (!validPositionIsRegistered)
+            {
+                validPositionIsRegistered = true;
+                winCondition.UpdateWinCondition(true);
+
+                // fx and stop button tween
+                LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber);
+                tweenTouch.enabled = false;
+                buttonCollider.enabled = false;
+                tweenCollider.enabled = false;
             }
         }
     }
