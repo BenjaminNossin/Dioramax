@@ -77,7 +77,7 @@ public class TweenTouch : StoppableTween
 
         if (transform.CompareTag("SwapRail"))
             {
-                Debug.Log("Object is a Swap rail");
+               // Debug.Log("Object is a Swap rail");
 
                 if (swapState)
                 {
@@ -98,7 +98,7 @@ public class TweenTouch : StoppableTween
                 //Rotation
                 if (td.EaseOutCubic) {
                     //LeanTween.rotateAroundLocal(gameObject, td.RotationAxis, td.rotation_degrees, td.time_rotation);//.setDelay(td.delay).setEaseOutCubic();//.setLoopCount(-1);
-                    Debug.Log("Test");
+                    //Debug.Log("Test");
                 //transform.DORotate(transform.rotation.eulerAngles + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.LocalAxisAdd);
                 transform.DOLocalRotate(initialRotation + (td.RotationAxis * (td.rotation_degrees)), td.time_rotation, RotateMode.FastBeyond360).SetDelay(td.delay).SetEase(Ease.OutCubic);
 
