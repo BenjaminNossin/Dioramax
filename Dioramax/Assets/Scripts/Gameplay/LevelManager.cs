@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
     [Header("General")]
     [SerializeField] private DioramaInfos dioramaInfos;
     [SerializeField] private DioramaName dioramaName;
-    [SerializeField] private GameObject objToDeactivateOnLevelEnd;
+    [SerializeField] private List<GameObject> objToDeactivateOnLevelEnd = new(); 
     [SerializeField, Range(0f, 5f)] private float phase2to3Delay = 1f;
     [SerializeField] private float[] shieldDissolveAmountPerPhase = new float[] { 0.3f, 0.4f }; 
 
@@ -154,9 +154,12 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void DeactivateZRotationUIOnLevelEnd()
+    public void DeactivateObjectsOnLevelEnd()
     {
-        objToDeactivateOnLevelEnd.SetActive(false);
+        foreach (GameObject go in objToDeactivateOnLevelEnd)
+        {
+            go.SetActive(false);
+        }
     }
 
     public void InvalidateWinCondition(int array, int index)

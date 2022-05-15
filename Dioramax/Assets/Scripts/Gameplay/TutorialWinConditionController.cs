@@ -70,21 +70,6 @@ public class TutorialWinConditionController : MonoBehaviour
     {
         if (LevelManager.GameState != GameState.Playing) return; 
 
-        /* if (overridePhaseIndex && !OverrideIsDone)
-        {
-            tutorialPhase = fakePhase; 
-
-            if (fakePhase == 3)
-            {
-                TutorialButtonDetected(); 
-            }
-            else if (fakePhase >= 4)
-            {
-                LevelInfosUI.Instance.ActivatePuzzleUIOnWin(0);
-                TutorialBallDetected(); 
-            }
-        } */
-
         if (tutorialPhase == 0)
         {
             // XY rotation
@@ -205,6 +190,6 @@ public class TutorialWinConditionController : MonoBehaviour
 
     private void ActivateTweenStarFinish()
     {
-        // tweenStarFinish.enabled = true; waiting to have the correct values in editor
+        tweenStarFinish.enabled = true; 
     }
 }

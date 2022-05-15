@@ -76,7 +76,7 @@ public class TouchDetection : MonoBehaviour
         {
             // show victory UI
             EndOfLevelUI.Instance.ShowEndOfLevelPanel();
-            LevelManager.Instance.DeactivateZRotationUIOnLevelEnd();
+            LevelManager.Instance.DeactivateObjectsOnLevelEnd();
         }
 
         if (tweenableTouchDetected)

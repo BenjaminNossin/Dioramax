@@ -175,7 +175,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3669723168185730844}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &68456667
 BoxCollider:
@@ -288,11 +288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8743142803029175267, guid: 6b369f944aa36b24e992234c2101873b, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8743142803029175267, guid: 6b369f944aa36b24e992234c2101873b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8743142803029175267, guid: 6b369f944aa36b24e992234c2101873b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1983,6 +1983,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_3C_ZRotation
       objectReference: {fileID: 0}
+    - target: {fileID: 950039883967027161, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 950039883967027164, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2073,6 +2077,11 @@ PrefabInstance:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 950039883967027160, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
   m_PrefabInstance: {fileID: 1658879797}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1670999207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 741415318469104647, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
+  m_PrefabInstance: {fileID: 741415317877870863}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &1681122252 stripped
 ParticleSystem:
@@ -2219,7 +2228,7 @@ PrefabInstance:
       objectReference: {fileID: 1457613641}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: maxZoomIn
-      value: 25
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: zoomSpeed
@@ -2227,7 +2236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: maxZoomOut
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: dioramaTransf
@@ -2846,6 +2855,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 906384281453859780, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_Color.a
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 906384281453859782, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 906384282050149490, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3362,7 +3379,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
   dioramaName: 0
-  objToDeactivateOnLevelEnd: {fileID: 1658879798}
+  objToDeactivateOnLevelEnd:
+  - {fileID: 1658879798}
+  - {fileID: 1670999207}
   phase2to3Delay: 1
   shieldDissolveAmountPerPhase:
   - 0.38
@@ -3851,8 +3870,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 68456666}
   - {fileID: 938186172}
+  - {fileID: 68456666}
   m_Father: {fileID: 543450652188668418}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
