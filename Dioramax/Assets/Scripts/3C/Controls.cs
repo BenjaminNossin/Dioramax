@@ -200,7 +200,7 @@ public class Controls : MonoBehaviour
                     } 
 
                     SetTouchState(TouchState.Zooming);
-                    cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
+                    cameraZoom.ZoomInOrOut(currentTouch0, currentTouch1);
                     SetPinchValue(false, true);
                 }
             }
