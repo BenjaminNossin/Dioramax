@@ -7744,8 +7744,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7151409969371521306}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 6.25}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 6.250002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9959,7 +9959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7945240975568010719}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12708521, y: 0.057979107, z: 6.109271}
+  m_LocalPosition: {x: 0.12708521, y: 0.06, z: 6.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12714,6 +12714,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4527929818975817549, guid: 879cbade41134d043925a1e1b4706f2a, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527929818975817549, guid: 879cbade41134d043925a1e1b4706f2a, type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6453284414967322077, guid: 879cbade41134d043925a1e1b4706f2a, type: 3}
@@ -12758,6 +12762,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6453284414967322077, guid: 879cbade41134d043925a1e1b4706f2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7048266835474387972, guid: 879cbade41134d043925a1e1b4706f2a, type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -16695,6 +16703,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1353956285262241924, guid: 6f5d3691f9fa18e4598638fcd33ee2c9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1733103777990415767, guid: 6f5d3691f9fa18e4598638fcd33ee2c9, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -17731,6 +17743,11 @@ MeshRenderer:
 --- !u!4 &7211788509321029348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6453284414967322077, guid: 879cbade41134d043925a1e1b4706f2a, type: 3}
+  m_PrefabInstance: {fileID: 4439353567410910009}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7211788509321029350 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5196757944176066962, guid: 879cbade41134d043925a1e1b4706f2a, type: 3}
   m_PrefabInstance: {fileID: 4439353567410910009}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7215531106914275875
@@ -18838,11 +18855,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111453c4969e1ab4db486cdb15360f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotationAxis: {x: 0, y: 0, z: 1}
   rotation_degrees: -360
-  time_rotation: 8
-  up_max_position: 6.3
-  time_hover: 6
+  time_rotation: 5
+  up_max_position: 0.5
+  TimeUp: 2
   scale: {x: 1.2, y: 1.2, z: 1.1}
+  time_scale: 1
+  UpAxis: {x: 0, y: 1, z: 0}
 --- !u!1 &7945240975568010719
 GameObject:
   m_ObjectHideFlags: 0
@@ -18862,7 +18882,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!135 &7945240975568010720
 SphereCollider:
@@ -18889,16 +18909,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd33418909e640245969c7b4e63b58bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion_stretch: {x: 0, y: 0, z: 0}
-  time_explosion: 0
-  up_max_position_start: 0
-  delay: 0
-  rotation_degrees: 0
-  time_rotation: 0
-  up_max_position: 0
-  time_bounce: 0
-  stretch_squash: {x: 0, y: 0, z: 0}
-  time_stretchsquash: 0
+  TimeUp: 2
+  TimeFall: 4
+  up_max_position: 4
+  time_scale: 2
+  ScaleUp: {x: 1.4, y: 1.4, z: 1.4}
+  RotationAxis: {x: 0, y: 0, z: 1}
+  rotation_degrees_1: 3600
+  rotation_degrees_2: 360
+  time_rotation_1: 4
+  time_rotation_2: 1
+  VFX: {fileID: 7211788509321029350}
 --- !u!4 &7945794951097828090
 Transform:
   m_ObjectHideFlags: 0
