@@ -5343,6 +5343,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+--- !u!4 &1865566550 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9027789502008531972, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1865566553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
@@ -18566,8 +18571,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: b8672e9d4a1f4e2428615a484e9b8725, type: 2}
+  dioramaName: 1
   objToDeactivateOnLevelEnd: {fileID: 1209153188}
   phase2to3Delay: 1.5
+  shieldDissolveAmountPerPhase:
+  - 0.3
+  - 0.4
   phaseHolders:
   - editorName: Etoile du carrousel
     phaseHolderName: 0
@@ -18644,7 +18653,6 @@ MonoBehaviour:
   cameraTransformOnPhase2: {fileID: 184983660}
   skipIntroCinematic: 1
   overridePhaseSystem: 0
-  dioramaName: 1
 --- !u!114 &7778398950724897747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18657,7 +18665,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9dea37827eaf349bb121990a0a9f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityForce: 9.81
+  mainCamTransform: {fileID: 1865566550}
+  gravityForceMultiplier: 1
 --- !u!4 &7827352750767423343
 Transform:
   m_ObjectHideFlags: 0
