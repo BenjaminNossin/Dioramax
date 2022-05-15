@@ -1362,6 +1362,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cbb26cce96a3d53478bea00b82e6de35, type: 3}
   - {fileID: 21300000, guid: 596e0d0077806aa4093af7105ae7081c, type: 3}
   previousDioramaInfos: {fileID: 0}
+--- !u!4 &1244144449 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9027789502008531972, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+  m_PrefabInstance: {fileID: 1865566549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1336235366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2499,13 +2504,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 327763100, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -711.1997
+      objectReference: {fileID: 0}
+    - target: {fileID: 327763100, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.92567
+      objectReference: {fileID: 0}
+    - target: {fileID: 327763100, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -412
+      objectReference: {fileID: 0}
     - target: {fileID: 327763101, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
       propertyPath: m_Color.a
       value: 0.7176471
       objectReference: {fileID: 0}
     - target: {fileID: 721836757047750979, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
       propertyPath: m_text
-      value: 
+      value: You see the rat over there ? Like many objects you will find later,
+        he is freezed. Unfreeze him so that he becomes subject to gravity again.
+        Then, lead him into the hole !
       objectReference: {fileID: 0}
     - target: {fileID: 721836757047750979, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
       propertyPath: m_fontColor.b
@@ -2518,6 +2537,10 @@ PrefabInstance:
     - target: {fileID: 721836757047750979, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
       propertyPath: m_fontColor.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 721836757047750979, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 721836757047750979, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
       propertyPath: m_VerticalAlignment
@@ -2618,6 +2641,14 @@ PrefabInstance:
     - target: {fileID: 741415318469104647, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092206788671767316, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 226.577
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092206788671767316, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d4ab62f333ce404e852dd1f62620370, type: 3}
@@ -5574,7 +5605,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9dea37827eaf349bb121990a0a9f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityForce: 9.81
+  mainCamTransform: {fileID: 1244144449}
+  gravityForceMultiplier: 1
 --- !u!65 &8990195754123674472
 BoxCollider:
   m_ObjectHideFlags: 0

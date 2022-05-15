@@ -96,6 +96,8 @@ public class TutorialWinConditionController : MonoBehaviour
 
                 if (!OverrideIsDone && xyRotationCounter >= requiredRotationDuration * promptDisappearDelay)
                 {
+                    GameLogger.Log($"Override is done : {OverrideIsDone} && xy rotation : {xyRotationCounter}");
+
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay(); 
                 }
@@ -121,8 +123,9 @@ public class TutorialWinConditionController : MonoBehaviour
 
                 if (!OverrideIsDone && zoomInCounter >= requiredIndividualZoomDuration * promptDisappearDelay)
                 {
+                    GameLogger.Log($"Override is done : {OverrideIsDone} && zoom in : {zoomInCounter}");
+
                     OverrideIsDone = true;
-                    Debug.Log("zooming out"); 
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay();
                 }
             }
@@ -133,8 +136,9 @@ public class TutorialWinConditionController : MonoBehaviour
 
                 if (!OverrideIsDone && zoomOutCounter >= requiredIndividualZoomDuration * promptDisappearDelay)
                 {
+                    GameLogger.Log($"Override is done : {OverrideIsDone} && zoom out : {zoomOutCounter}");
+
                     OverrideIsDone = true;
-                    Debug.Log("zooming in");
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay();
                 }
             }
@@ -165,6 +169,7 @@ public class TutorialWinConditionController : MonoBehaviour
 
                 if (!OverrideIsDone && zRotationLeftCounter >= requiredIndividualZRotation * promptDisappearDelay)
                 {
+                    GameLogger.Log($"Override is done : {OverrideIsDone} && Zrotation left counter : {zRotationLeftCounter}"); 
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay();
                 }
@@ -176,6 +181,7 @@ public class TutorialWinConditionController : MonoBehaviour
 
                 if (!OverrideIsDone && zRotationRightCounter >= requiredIndividualZRotation * promptDisappearDelay)
                 {
+                    GameLogger.Log($"Override is done : {OverrideIsDone} && Zrotation right counter : {zRotationLeftCounter}");
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay();
                 }

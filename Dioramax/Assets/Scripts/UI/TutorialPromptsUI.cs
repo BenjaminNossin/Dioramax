@@ -53,7 +53,7 @@ public class TutorialPromptsUI : MonoBehaviour
     }
 
     // use a fadeout tween instead
-    private readonly WaitForSeconds WFS = new(5f);
+    private readonly WaitForSeconds WFS = new(10f);
     private IEnumerator HidePanel()
     {
         yield return WFS;
