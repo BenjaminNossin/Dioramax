@@ -413,7 +413,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh75712
+  m_Name: pb_Mesh74210
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -889,7 +889,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh75732
+  m_Name: pb_Mesh74230
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5340,7 +5340,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh75766
+  m_Name: pb_Mesh74264
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6455,6 +6455,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272662088}
   m_CullTransparentMesh: 1
+--- !u!1 &1341540246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1341540247}
+  m_Layer: 0
+  m_Name: Diorama2_Center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1341540247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341540246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3.69}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 543450652749408369}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1344381471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6833,7 +6865,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh75556
+  m_Name: pb_Mesh74054
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15442,7 +15474,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh75794
+  m_Name: pb_Mesh74294
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19690,6 +19722,10 @@ PrefabInstance:
       propertyPath: maxZoomIn
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1078332464, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: dioramaTransf
+      value: 
+      objectReference: {fileID: 1341540247}
     - target: {fileID: 1078332465, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -19722,6 +19758,10 @@ PrefabInstance:
       propertyPath: maxZoomIn
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: dioramaTransf
+      value: 
+      objectReference: {fileID: 1341540247}
     - target: {fileID: 3533724392168430052, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: dioramaName
       value: 2
@@ -19733,7 +19773,7 @@ PrefabInstance:
     - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: diorama
       value: 
-      objectReference: {fileID: 919132149031203531}
+      objectReference: {fileID: 1341540246}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
       value: Prefab_3C_CameraCrane
@@ -24840,8 +24880,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149031203531}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.31, y: 0, z: -3.37}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.31, y: 0, z: -7.06}
   m_LocalScale: {x: 31, y: 31, z: 31}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24857,8 +24897,8 @@ Transform:
   - {fileID: 921720155883795896}
   - {fileID: 7259491897389456336}
   - {fileID: 147928587}
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 1341540247}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &548556796087891752
 Transform:

@@ -10,8 +10,6 @@ using UnityEngine.Events;
 /// </summary>
 public class DioravityCameraCraneRotation : MonoBehaviour
 {
-    [SerializeField] private GameObject diorama;
-
     [Space, SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
     [SerializeField, Range(20f, 100f)] private float ZRotationForce = 50;
 

@@ -22,7 +22,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1078332463
 Transform:
   m_ObjectHideFlags: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70355df5a5bce84408dd20696f42693e, type: 3}
   m_Name: 
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75ffdd07ed5bbbe4cb3af168cd38ab97, type: 3}
   m_Name: 
@@ -160,7 +160,7 @@ MonoBehaviour:
     m_Bits: 1024
   tutorialButtonMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   buttonMask:
     serializedVersion: 2
     m_Bits: 64
@@ -183,15 +183,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dioramaTransf: {fileID: 0}
   transfToMove: {fileID: 9027789502008531972}
   maxZoomIn: 40
   maxZoomOut: 100
-  zoomSpeed: 18
+  zoomSpeed: 40
   gamefeelCurve: {fileID: 3533724393244289011}
 --- !u!114 &1078332470
 MonoBehaviour:
@@ -367,7 +368,7 @@ MonoBehaviour:
     m_Bits: 1024
   tutorialButtonMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   buttonMask:
     serializedVersion: 2
     m_Bits: 64
@@ -395,10 +396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dioramaTransf: {fileID: 0}
   transfToMove: {fileID: 9027789502008531972}
   maxZoomIn: 40
   maxZoomOut: 100
-  zoomSpeed: 18
+  zoomSpeed: 40
   gamefeelCurve: {fileID: 3533724393244289011}
 --- !u!1 &3533724393244289020
 GameObject:
