@@ -3,9 +3,11 @@ using UnityEngine;
 // because there is too much hardcoded stuff in the LevelManager. This should only be temporary
 public class TutorialWinConditionController : MonoBehaviour
 {
-    [SerializeField] private DioramaInfos dioramaInfos; 
+    [SerializeField] private DioramaInfos dioramaInfos;
     private int tutorialPhase;
     public static bool OverrideIsDone { get; set; }
+
+    [Space, SerializeField, Range(0f, 1f)] private float promptDisappearDelay = 0.5f;
 
     // XY rotation
     [Header("XY Rotation Tutorial")]
@@ -22,6 +24,7 @@ public class TutorialWinConditionController : MonoBehaviour
     [SerializeField] private GameObject cameraCraneZRotation;
     [SerializeField, Range(0.5f, 5f)] private float requiredIndividualZRotation = 1f;
     private float zRotationLeftCounter, zRotationRightCounter;
+    private bool cameraIsActive; 
 
     // Touch
     [Header("Touch")]
@@ -59,7 +62,7 @@ public class TutorialWinConditionController : MonoBehaviour
         starCollider.enabled = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (LevelManager.GameState != GameState.Playing) return; 
 
@@ -86,7 +89,7 @@ public class TutorialWinConditionController : MonoBehaviour
             {
                 xyRotationCounter += 0.02f;
 
-                if (!OverrideIsDone && xyRotationCounter >= requiredRotationDuration * 0.5f)
+                if (!OverrideIsDone && xyRotationCounter >= requiredRotationDuration * promptDisappearDelay)
                 {
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay(); 
@@ -111,7 +114,7 @@ public class TutorialWinConditionController : MonoBehaviour
             {
                 zoomInCounter += 0.02f;
 
-                if (!OverrideIsDone && zoomInCounter >= requiredIndividualZoomDuration * 0.4f)
+                if (!OverrideIsDone && zoomInCounter >= requiredIndividualZoomDuration * promptDisappearDelay)
                 {
                     OverrideIsDone = true;
                     Debug.Log("zooming out"); 
@@ -123,7 +126,7 @@ public class TutorialWinConditionController : MonoBehaviour
             {
                 zoomOutCounter += 0.02f;
 
-                if (!OverrideIsDone && zoomOutCounter >= requiredIndividualZoomDuration * 0.4f)
+                if (!OverrideIsDone && zoomOutCounter >= requiredIndividualZoomDuration * promptDisappearDelay)
                 {
                     OverrideIsDone = true;
                     Debug.Log("zooming in");
@@ -142,14 +145,20 @@ public class TutorialWinConditionController : MonoBehaviour
         }
         else if (tutorialPhase == 2)
         {
-            cameraCraneZRotation.SetActive(true);
             // Z Rotation
+            if (!cameraIsActive)
+            {
+                cameraIsActive = true; 
+                cameraCraneZRotation.SetActive(true);
+            }
+
+            if (!ZRotationButton.ButtonIsSelected) return;
 
             if (ZRotationButton.LeftIsSelected)
             {
                 zRotationLeftCounter += 0.02f;
 
-                if (!OverrideIsDone && zRotationLeftCounter >= requiredIndividualZRotation * 0.4f)
+                if (!OverrideIsDone && zRotationLeftCounter >= requiredIndividualZRotation * promptDisappearDelay)
                 {
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay();
@@ -160,7 +169,7 @@ public class TutorialWinConditionController : MonoBehaviour
             {
                 zRotationRightCounter += 0.02f;
 
-                if (!OverrideIsDone && zRotationRightCounter >= requiredIndividualZRotation * 0.4f)
+                if (!OverrideIsDone && zRotationRightCounter >= requiredIndividualZRotation * promptDisappearDelay)
                 {
                     OverrideIsDone = true;
                     TutorialPromptsUI.Instance.OverrideHidePanelDelay();
