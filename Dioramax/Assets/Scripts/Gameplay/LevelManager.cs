@@ -10,17 +10,20 @@ public class LevelManager : MonoBehaviour
 
     [Header("General")]
     [SerializeField] private DioramaInfos dioramaInfos;
+    [SerializeField] private DioramaName dioramaName;
     [SerializeField] private GameObject objToDeactivateOnLevelEnd;
-    [SerializeField, Range(0f, 5f)] private float phase2to3Delay = 1f; 
+    [SerializeField, Range(0f, 5f)] private float phase2to3Delay = 1f;
+    [SerializeField] private float[] shieldDissolveAmountPerPhase = new float[] { 0.3f, 0.4f }; 
 
     [Space, SerializeField] private PhaseHolder[] phaseHolders = new PhaseHolder[5];
     [SerializeField] private GameObject[] puzzleCompleteVFXS = new GameObject[3];
+    public static System.Action OnTutorialTweenStarFinish; 
 
     [Header("Tuyaux")]
     [SerializeField] private ParticleSystem[] reussiteTuyauxVFX;
 
     public static int[][] EntitiesToValidate { get; set; }
-    private byte validatedPuzzleAmount;
+    public byte ValidatedPuzzleAmount { get; set; }
     public static bool LevelIsFinished { get; set; } // should be private set. Changed because of tutorial
     public static bool IsPhase3 { get; private set; }
 
@@ -37,7 +40,6 @@ public class LevelManager : MonoBehaviour
     [Header("DEBUG")]
     public bool skipIntroCinematic; 
     public bool overridePhaseSystem;
-    public DioramaName dioramaName; 
 
     #region Unity Callbacks
 
@@ -69,6 +71,9 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        dissolveMaterial = phaseHolders[(int)PhaseHolderName.Etoile].phases[0].materialsToSet[0];
+        dissolveMaterial.SetFloat("DissolveAmount", 0); 
+
         if (skipIntroCinematic)
         {
             CameraCinematic.Instance.SetAnimatorState(0);
@@ -133,15 +138,15 @@ public class LevelManager : MonoBehaviour
         {
             GameLogger.Log($"puzzle {(DioramaPuzzleName)array} is finished");
             LevelInfosUI.Instance.ActivatePuzzleUIOnWin(array); 
-            validatedPuzzleAmount++;
+            ValidatedPuzzleAmount++;
 
             ActivatePuzzleCompleteVFX(array);
             if (!overridePhaseSystem) 
             {
-                TriggerBoucheIncendiePhase(PhaseHolderName.BoucheIncendie, validatedPuzzleAmount - 1); 
+                TriggerBoucheIncendiePhase(PhaseHolderName.BoucheIncendie, ValidatedPuzzleAmount - 1); 
             }
 
-            if (validatedPuzzleAmount == dioramaInfos.puzzleAmount)
+            if (ValidatedPuzzleAmount == dioramaInfos.puzzleAmount)
             {
                 // GameLogger.Log("Level is FINISHED"); 
                 LevelIsFinished = true;
@@ -161,7 +166,7 @@ public class LevelManager : MonoBehaviour
         EntitiesToValidate[array][index] = 0;
     }
 
-    private void ActivatePuzzleCompleteVFX(int index)
+    public void ActivatePuzzleCompleteVFX(int index)
     {
         GameLogger.Log("Puzzle complete vfx");
         puzzleCompleteVFXS[index].SetActive(true);
@@ -179,17 +184,21 @@ public class LevelManager : MonoBehaviour
         #region Star
     private float currentDissolveAmount, minDissolveAmount, maxDissolveAmount;
     private Material dissolveMaterial; 
-    public void TriggerStarPhase(PhaseHolderName phaseHolderName, int phaseNumber)
+    public void TriggerStarPhase(PhaseHolderName phaseHolderName, int phaseNumber = -1)
     {
-        maxDissolveAmount = validatedPuzzleAmount == 1 ? 0.3f : validatedPuzzleAmount == 2 ? 0.4f : 1;
+        maxDissolveAmount = ValidatedPuzzleAmount == 1 ? shieldDissolveAmountPerPhase[0] : 1;
+        if (dioramaName != DioramaName.Tutorial)
+        {
+            maxDissolveAmount = ValidatedPuzzleAmount == 1 ? shieldDissolveAmountPerPhase[0] : ValidatedPuzzleAmount == 2 ? shieldDissolveAmountPerPhase[1] : 1;
+        }
 
         // NEED REFACTORING
-        if (validatedPuzzleAmount == 1)
+        if (ValidatedPuzzleAmount == 1)
         {
             Debug.Log("star phase 1"); 
             dissolveMaterial = phaseHolders[(int)phaseHolderName].phases[phaseNumber].materialsToSet[0];
         }
-        else if (validatedPuzzleAmount == 3)
+        else if (ValidatedPuzzleAmount == 3)
         {
             // PLACEHOLDER
             GameLogger.Log("star final phase");
@@ -197,7 +206,7 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(DelayFinish(phaseHolderName, phaseNumber));
         }
 
-        StartCoroutine(LerpStarDissolve(phaseHolderName, phaseNumber)); 
+        StartCoroutine(LerpStarDissolve()); 
     }
 
     // wait end of dissolve
@@ -215,7 +224,7 @@ public class LevelManager : MonoBehaviour
     readonly WaitForFixedUpdate waitForFixedUpdate;
     private readonly float dissolveDuration = 2f;
     private float currentTime; 
-    private System.Collections.IEnumerator LerpStarDissolve(PhaseHolderName phaseHolderName, int phaseNumber) // turn into async routine or separate thread
+    private System.Collections.IEnumerator LerpStarDissolve() // turn into async routine or separate thread
     {
         yield return waitForFixedUpdate;
         currentDissolveAmount = Mathf.Lerp(minDissolveAmount, maxDissolveAmount, currentTime);
@@ -225,13 +234,18 @@ public class LevelManager : MonoBehaviour
 
         if (currentTime <= dissolveDuration)
         {
-            StartCoroutine(LerpStarDissolve(phaseHolderName, phaseNumber));
+            StartCoroutine(LerpStarDissolve());
         }
         else 
         {
             minDissolveAmount = maxDissolveAmount;
             currentTime = 0f; 
-            StopCoroutine(LerpStarDissolve(phaseHolderName, phaseNumber)); 
+            StopCoroutine(LerpStarDissolve());
+
+            if (dioramaName == DioramaName.Tutorial && ValidatedPuzzleAmount == dioramaInfos.puzzleAmount)
+            {
+                OnTutorialTweenStarFinish(); 
+            }
         }
     }
     #endregion
@@ -243,12 +257,12 @@ public class LevelManager : MonoBehaviour
     public void TriggerBoucheIncendiePhase(PhaseHolderName _phaseHolderName, int _phaseNumber)
     {
         // NEED REFACTORING
-        if (validatedPuzzleAmount == 1)
+        if (ValidatedPuzzleAmount == 1)
         {
             // change to have something similar to phase 2 and better see star fade ?
             ActivateBoucheIncendiePhase1(_phaseHolderName, _phaseNumber);
         }
-        else if (validatedPuzzleAmount == 2)
+        else if (ValidatedPuzzleAmount == 2)
         {
             // phase 3 done within phase 2
             CameraCinematic.Instance.FadeCameraPanel();
@@ -283,7 +297,7 @@ public class LevelManager : MonoBehaviour
     // star fade and THEN bouche d'incendie animation
     private void OnFadeInComplete()
     {
-        TriggerStarPhase(PhaseHolderName.Etoile, validatedPuzzleAmount - 1); // PLAYER SHOULD ALWAYS SEE THIS
+        TriggerStarPhase(PhaseHolderName.Etoile, ValidatedPuzzleAmount - 1); // PLAYER SHOULD ALWAYS SEE THIS
         // CameraCinematic.Instance.PlayPhase2Cinematic();
         StartCoroutine(ActivateSecondPhase());
     }

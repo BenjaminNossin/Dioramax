@@ -115,8 +115,7 @@ public class TouchDetection : MonoBehaviour
             
             if (ratMaskDetected)
             {
-                //ratHitInfo.transform.GetComponent<FreezeStateController>().InvertFreezeState(); // uncomment when bug is fixed
-                HideObjectOnTriggerEnter.OnBallTutorialComplete(); // DEBUG
+                ratHitInfo.collider.GetComponent<FreezeStateController>().InvertFreezeState(); // uncomment when bug is fixed
             }
         }
         else if (dioramaName == DioramaName.Diorama1)
