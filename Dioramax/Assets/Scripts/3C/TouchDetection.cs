@@ -84,9 +84,9 @@ public class TouchDetection : MonoBehaviour
             GameLogger.Log("Touch Tween");
             GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
 
-            if (tweenableTouchHitInfo.transform.GetComponent<TweenTouch>() != null)
+            if (tweenableTouchHitInfo.collider.GetComponent<TweenTouch>() != null)
             {
-                tweenableTouchHitInfo.transform.GetComponent<TweenTouch>().Tween();
+                tweenableTouchHitInfo.collider.GetComponent<TweenTouch>().Tween();
             }
             
             // test Children GO tween
@@ -132,13 +132,13 @@ public class TouchDetection : MonoBehaviour
                 {
                     GameLogger.Log("Ourson Tween");
                     GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
-                    tweenableOursonHitInfo.transform.GetComponent<Select_Ours>().enabled = true;
+                    tweenableOursonHitInfo.collider.GetComponent<Select_Ours>().enabled = true;
                 }
 
                 if (carrouselBearDetected)
                 {
                     GameLogger.Log("carrousel bear detected");
-                    detectedCarrouselProp = bearHitInfo.transform.GetComponent<CarrouselProp>();
+                    detectedCarrouselProp = bearHitInfo.collider.GetComponent<CarrouselProp>();
                     detectedCarrouselProp.SetActiveColor();
                 }
             }
@@ -148,7 +148,7 @@ public class TouchDetection : MonoBehaviour
             // use list to avoid GetComponent all the time, and update it if the component is a new reference
             if (ratMaskDetected)
             {
-                ratHitInfo.transform.GetComponent<FreezeStateController>().InvertFreezeState();
+                ratHitInfo.collider.GetComponent<FreezeStateController>().InvertFreezeState();
             }
 
             if (buttonDetected)
@@ -156,7 +156,7 @@ public class TouchDetection : MonoBehaviour
                 GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
                 StartCoroutine(CanCast());
 
-                DetectedButtonProp = buttonHitInfo.transform.GetComponent<ButtonProp>();
+                DetectedButtonProp = buttonHitInfo.collider.GetComponent<ButtonProp>();
                 ButtonPropsManager.Instance.SetCurrentButtonProp(DetectedButtonProp);
 
                 if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
@@ -175,7 +175,7 @@ public class TouchDetection : MonoBehaviour
             if (switchDetected)
             {
                 GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
-                switchHitInfo.transform.GetComponent<Switcher>().InvertBoolAndDoSwitch(); 
+                switchHitInfo.collider.GetComponent<Switcher>().InvertBoolAndDoSwitch(); 
             }
             #endregion
         }       
