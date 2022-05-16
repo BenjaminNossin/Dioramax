@@ -91,6 +91,7 @@ public class Controls : MonoBehaviour
             if (CurrentState == TouchState.Zooming)
             {
                 GameLogger.Log("calling out of double touch frames");
+                CameraZoom.ZoomingIn = CameraZoom.ZoomingOut = false;
 
                 transitionningOutOfDoubleTouch = true;
 
@@ -175,6 +176,7 @@ public class Controls : MonoBehaviour
 
                     transitionningOutOfDoubleTouch = false;
                     FrameCount = 0;
+
                     StartCoroutine(StopWaitingForDoubleTap());
                     SetTouchState(TouchState.None); // ONLY PLACE where state can be set to none
                     OnTouchEnded(PreviousState);
@@ -198,7 +200,7 @@ public class Controls : MonoBehaviour
                     } 
 
                     SetTouchState(TouchState.Zooming);
-                    cameraZoom.UpdatePinch(currentTouch0, currentTouch1);
+                    cameraZoom.ZoomInOrOut(currentTouch0, currentTouch1);
                     SetPinchValue(false, true);
                 }
             }
