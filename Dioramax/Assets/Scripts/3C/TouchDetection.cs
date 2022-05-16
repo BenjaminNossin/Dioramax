@@ -61,6 +61,7 @@ public class TouchDetection : MonoBehaviour
         carrouselPropActivated = CarrouselPropActivated;
     }
 
+    private Collider detectedCollider = null; 
     public void TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
     {
         if (!canCast) return; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
@@ -105,18 +106,21 @@ public class TouchDetection : MonoBehaviour
 
         if (dioramaName == DioramaName.Tutorial)
         {
-            tutorialButtonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ballTutorialHitInfo, CAST_LENGTH, tutorialButtonMask);
+            tutorialButtonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tutorialButtonHitInfo, CAST_LENGTH, tutorialButtonMask);
             ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
 
             if (tutorialButtonDetected)
             {
                 GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
+                tutorialButtonHitInfo.collider.GetComponent<TweenTouch>().Tween();
                 OnTutorialButtonDetection();
             }
             
             if (ratMaskDetected)
             {
-                ratHitInfo.collider.GetComponent<FreezeStateController>().InvertFreezeState(); // uncomment when bug is fixed
+                detectedCollider = ratHitInfo.collider;
+                detectedCollider.GetComponent<FreezeStateController>().InvertFreezeState();
+                detectedCollider.GetComponent<TweenTouch>().Tween();
             }
         }
         else if (dioramaName == DioramaName.Diorama1)
