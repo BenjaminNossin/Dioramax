@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Dissolve_D1
+  m_Shader: {fileID: -6465566751694194690, guid: 97077eca7fc8c8d4881fb05870f38e7c, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 3eac6f99f5e47dc43946cc30909f3808, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6588a1cc1454463ca07065be5d49e922_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 0f04833c7168fff4c84f51d04aea617b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_814ca7f0fab54496b10797c59d8ced29_Texture_1:
+        m_Texture: {fileID: 2800000, guid: c025ae81067e29040b37fa3df29b2a7a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ff1504ce88d44f1b9feccb8e27888a65_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 260fe39fbfa3871459173fef21f6bc1a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - DissolveAmount: 1
+    - _Alpha: 0.315
+    - _DissolveAmount: 0
+    - _EdgeSize: 0.065
+    - _NoiseScale: 309.9
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ScrollScale: 25
+    - _SmoothnessScroll: 0.32
+    - _SpeedScroll: 12.5
+    m_Colors:
+    - _ColorDissolve: {r: 0, g: 594.3216, b: 1011.95294, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &5011618184164745106
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
