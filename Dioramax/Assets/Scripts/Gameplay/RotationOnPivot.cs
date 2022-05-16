@@ -82,8 +82,15 @@ public class RotationOnPivot : MonoBehaviour
 
     private void CheckIfWasDetected(Collider _detectedCollider)
     {
-        IsLocked = selfCollider == _detectedCollider;
-        CheckWinConditionOnLock();
+        if (selfCollider == _detectedCollider)
+        {
+            IsLocked = !IsLocked;
+            CheckWinConditionOnLock();
+        }
+        else
+        {
+            IsLocked = false; 
+        }
     }
 }
 
