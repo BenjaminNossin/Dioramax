@@ -752,6 +752,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winCondition: {fileID: 260966034}
   transfToRotate: {fileID: 260966033}
+  meshRenderers:
+  - {fileID: 1017875225251237198}
   snapValue: 20
   initialZRotation: 45
   multiSnapAngles: 0
@@ -3000,8 +3002,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 3
   entityNumber: 2
-  overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
+  overrideWinConditionCall: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1325478876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3725,6 +3727,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winCondition: {fileID: 1459963605}
   transfToRotate: {fileID: 1459963604}
+  meshRenderers:
+  - {fileID: 6235940224520396626}
   snapValue: 20
   initialZRotation: 0
   multiSnapAngles: 0
@@ -4020,8 +4024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 3
   entityNumber: 1
-  overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
+  overrideWinConditionCall: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1529941092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4202,6 +4206,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winCondition: {fileID: 1585757339}
   transfToRotate: {fileID: 1585757338}
+  meshRenderers:
+  - {fileID: 4002615616940452687}
   snapValue: 20
   initialZRotation: 135
   multiSnapAngles: 0
@@ -4882,6 +4888,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winCondition: {fileID: 1754208485}
   transfToRotate: {fileID: 1754208484}
+  meshRenderers:
+  - {fileID: 5931768028698704211}
   snapValue: 20
   initialZRotation: 90
   multiSnapAngles: 0
@@ -9020,11 +9028,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: overrideWinConditionCall
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: simulateWinConditionIsMet
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627822, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: objectToHideMask.m_Bits

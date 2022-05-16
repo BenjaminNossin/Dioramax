@@ -7,6 +7,8 @@ public class RotationOnPivot : MonoBehaviour
     [Header("Gameplay")]
     [SerializeField] private WinCondition winCondition;
     [SerializeField] private Transform transfToRotate;
+    [SerializeField] private MeshRenderer[] meshRenderers;
+
 
     [Header("Values")]
     [SerializeField, Range(0f, 30)] private float snapValue = 10f;
@@ -39,7 +41,12 @@ public class RotationOnPivot : MonoBehaviour
         IsLocked = false;
 
         transfToRotate.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
-        selfCollider = GetComponent<Collider>(); 
+        selfCollider = GetComponent<Collider>();
+
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material.SetInt("_Freezed", IsLocked ? 1 : 0);
+        }
     }
 
     private void Update()
@@ -85,11 +92,20 @@ public class RotationOnPivot : MonoBehaviour
         if (selfCollider == _detectedCollider)
         {
             IsLocked = !IsLocked;
-            CheckWinConditionOnLock();
         }
         else
         {
             IsLocked = false; 
+        }
+
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material.SetInt("_Freezed", IsLocked ? 1 : 0);
+        }
+
+        if (IsLocked)
+        {
+            CheckWinConditionOnLock(); 
         }
     }
 }
