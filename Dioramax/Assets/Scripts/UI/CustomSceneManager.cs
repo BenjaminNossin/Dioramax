@@ -34,6 +34,15 @@ public class CustomSceneManager : MonoBehaviour
         SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
     }
 
+    private int currentScene; 
+    public void LoadNextScene()
+    {
+        currentScene = SceneManager.GetActiveScene().buildIndex;
+        if (currentScene == 4) return; 
+
+        SceneManager.LoadSceneAsync(currentScene + 1, LoadSceneMode.Single);
+    }
+
     public void SetDioramaToLoad(DioramaName diorama)
     {
         dioramaToLoad = diorama; 
