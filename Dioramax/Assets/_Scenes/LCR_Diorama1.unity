@@ -3235,8 +3235,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 3
   entityNumber: 2
-  overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
+  overrideWinConditionCall: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1325478876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4230,8 +4230,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 3
   entityNumber: 1
-  overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
+  overrideWinConditionCall: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1529941092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4988,6 +4988,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
+--- !u!1 &1658879798 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 950039883967027160, guid: aa6a85219a136174fb94561fe16490ba, type: 3}
+  m_PrefabInstance: {fileID: 1658879797}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1681122252 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1676652895588182474, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
@@ -5373,11 +5378,6 @@ Transform:
   m_Father: {fileID: 6969808670163652971}
   m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1855434085 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
-  m_PrefabInstance: {fileID: 1865566549}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1865566549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9563,11 +9563,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: overrideWinConditionCall
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: simulateWinConditionIsMet
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627822, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: objectToHideMask.m_Bits
@@ -18418,7 +18418,7 @@ MonoBehaviour:
   previousDioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
   dioramaName: 1
   objToDeactivateOnLevelEnd:
-  - {fileID: 1855434085}
+  - {fileID: 1658879798}
   phase2to3Delay: 1.5
   shieldDissolveAmountPerPhase:
   - 0.3
@@ -18498,7 +18498,7 @@ MonoBehaviour:
   mainCamera: {fileID: 642649565}
   decoyCamera: {fileID: 788362702}
   cameraTransformOnPhase2: {fileID: 184983660}
-  skipIntroCinematic: 1
+  skipIntroCinematic: 0
   overridePhaseSystem: 0
 --- !u!114 &7778398950724897747
 MonoBehaviour:
