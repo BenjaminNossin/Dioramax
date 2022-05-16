@@ -21,16 +21,17 @@ public class TouchDetection : MonoBehaviour
     [SerializeField] private LayerMask tutorialButtonMask; 
 
     [Header("Diorama 1")]
-    [SerializeField] private LayerMask buttonMask; // remove it. Only need tutorial button
+    [SerializeField] private LayerMask tuyauMask; // remove it. Only need tutorial button
     [SerializeField] private LayerMask carrouselPropMask;
     [SerializeField] private LayerMask tweenableOursonMask;
     [SerializeField] private LayerMask ratMask;
+    public static Action<Collider> OnTuyauDetected { get; set; }
 
     [Header("Diorama 2")]
     [SerializeField] private LayerMask switchMask;
 
 
-    private bool buttonDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected,
+    private bool tuyauDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected,
         switchDetected, tutorialButtonDetected; // :D    
     private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
@@ -121,7 +122,7 @@ public class TouchDetection : MonoBehaviour
         else if (dioramaName == DioramaName.Diorama1)
         {
             #region Diorama1 Casts
-            buttonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit buttonHitInfo, CAST_LENGTH, buttonMask);
+            tuyauDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tuyauHitInfo, CAST_LENGTH, tuyauMask);
             carrouselBearDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit bearHitInfo, CAST_LENGTH, carrouselPropMask);
             tweenableOursonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, CAST_LENGTH, tweenableOursonMask);
             ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
@@ -151,13 +152,12 @@ public class TouchDetection : MonoBehaviour
                 ratHitInfo.collider.GetComponent<FreezeStateController>().InvertFreezeState();
             }
 
-            if (buttonDetected)
+            if (tuyauDetected)
             {
                 GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
                 StartCoroutine(CanCast());
 
-                DetectedButtonProp = buttonHitInfo.collider.GetComponent<ButtonProp>();
-                ButtonPropsManager.Instance.SetCurrentButtonProp(DetectedButtonProp);
+                OnTuyauDetected(tuyauHitInfo.collider); 
 
                 if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
                 {
