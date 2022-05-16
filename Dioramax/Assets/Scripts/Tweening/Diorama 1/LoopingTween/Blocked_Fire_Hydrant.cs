@@ -1,10 +1,14 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class StoppableTween : MonoBehaviour
 {
     private void OnDisable()
     {
         LeanTween.cancelAll();
+
+        DOTween.CompleteAll(true);
+        DOTween.KillAll(); 
     }
 }
 
@@ -16,8 +20,7 @@ public class Blocked_Fire_Hydrant : StoppableTween
     [SerializeField] float time_bounce;
 
     void Start()
-    {
-       
+    {      
         LeanTween.rotateLocal(gameObject, orientation, time_rotation).setEaseShake().setLoopPingPong();
 
         //bounce

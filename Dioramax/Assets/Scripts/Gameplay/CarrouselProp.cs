@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(Select_Ours))]
 public class CarrouselProp : MonoBehaviour
 {
     [SerializeField] private GameObject goodOursonVFX;
@@ -9,11 +10,14 @@ public class CarrouselProp : MonoBehaviour
     [SerializeField] private WinCondition winCondition;
     [SerializeField] private bool isValidProp;
 
+    private Select_Ours selectOurs; 
+
     public bool IsValidProp { get; private set; }
     public bool IsActive { get; private set; }
 
     private void Start()
     {
+        selectOurs = GetComponent<Select_Ours>();
         IsValidProp = isValidProp;
 
         CarrouselManager.CarrouselProps.Add(this); 
@@ -25,6 +29,7 @@ public class CarrouselProp : MonoBehaviour
 
         TouchDetection.CarrouselPropActivated++;
         IsActive = true;
+        selectOurs.enabled = IsActive; 
 
         if (TouchDetection.CarrouselPropActivated == 3)
         {
@@ -51,6 +56,7 @@ public class CarrouselProp : MonoBehaviour
     private void BackToDefault()
     {
         IsActive = false;
+        selectOurs.enabled = IsActive; 
 
         if (IsValidProp)
         {

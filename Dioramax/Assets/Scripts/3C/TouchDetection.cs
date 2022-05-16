@@ -134,10 +134,7 @@ public class TouchDetection : MonoBehaviour
                 if (carrouselBearDetected)
                 {
                     GameLogger.Log("carrousel bear detected");
-                    detectedCollider = bearHitInfo.collider;
-
-                    detectedCollider.GetComponent<CarrouselProp>().SetActiveColor();
-                    detectedCollider.GetComponent<Select_Ours>().enabled = true;
+                    bearHitInfo.collider.GetComponent<CarrouselProp>().SetActiveColor();
                 }
             }
 
