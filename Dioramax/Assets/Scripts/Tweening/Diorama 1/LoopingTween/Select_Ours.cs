@@ -1,4 +1,3 @@
-using UnityEngine;
 using DG.Tweening;
 
 public class Select_Ours : StoppableTween

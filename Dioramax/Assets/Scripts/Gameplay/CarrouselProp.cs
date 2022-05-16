@@ -32,7 +32,7 @@ public class CarrouselProp : MonoBehaviour
         }
     }
 
-    public void SetFinalColor()
+    public void IsValidPropFeedback()
     {
         if (IsValidProp)
         {
@@ -42,7 +42,7 @@ public class CarrouselProp : MonoBehaviour
         winCondition.UpdateWinCondition(isValidProp);
     }
 
-    public void BackToDefaultColor()
+    public void BackToDefaultState()
     {
         Invoke(nameof(BackToDefault), 2f);
         winCondition.UpdateWinCondition(false);

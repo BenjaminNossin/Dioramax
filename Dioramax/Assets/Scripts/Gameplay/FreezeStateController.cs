@@ -1,6 +1,7 @@
 using UnityEngine;
 
 // a very basic script that inverts freeze state when touched, and adds/remove rb from list of simulated entities
+[RequireComponent(typeof(TweenTouch))]
 public class FreezeStateController : MonoBehaviour
 {
     [SerializeField] private bool freezeOnStart;

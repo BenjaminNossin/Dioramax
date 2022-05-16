@@ -21,19 +21,17 @@ public class TouchDetection : MonoBehaviour
     [SerializeField] private LayerMask tutorialButtonMask; 
 
     [Header("Diorama 1")]
-    [SerializeField] private LayerMask tuyauMask; // remove it. Only need tutorial button
+    [SerializeField] private LayerMask tuyauMask; 
     [SerializeField] private LayerMask carrouselPropMask;
-    [SerializeField] private LayerMask tweenableOursonMask;
     [SerializeField] private LayerMask ratMask;
     public static Action<Collider> OnTuyauDetected { get; set; }
 
     [Header("Diorama 2")]
     [SerializeField] private LayerMask switchMask;
+    // fire (draggable)
 
-
-    private bool tuyauDetected, carrouselBearDetected, tweenableTouchDetected, tweenableOursonDetected, finishMaskDetected, ratMaskDetected,
+    private bool tuyauDetected, carrouselBearDetected, tweenableTouchDetected, finishMaskDetected, ratMaskDetected,
         switchDetected, tutorialButtonDetected; // :D    
-    private static ButtonProp DetectedButtonProp;
     private CarrouselProp detectedCarrouselProp; 
 
     private readonly UnityEvent<MeshRenderer[]> OnRequireSharedEvent = new();
@@ -62,7 +60,7 @@ public class TouchDetection : MonoBehaviour
     }
 
     private Collider detectedCollider = null; 
-    public void TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd, bool doubleTap)
+    public void TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
     {
         if (!canCast) return; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
 
@@ -73,6 +71,7 @@ public class TouchDetection : MonoBehaviour
         #region General Casts
         finishMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit finishHitInto, CAST_LENGTH, finishMask);
         tweenableTouchDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, CAST_LENGTH, tweenableTouchMask);
+        ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
 
         if (finishMaskDetected && LevelManager.LevelIsFinished)
         {
@@ -95,19 +94,26 @@ public class TouchDetection : MonoBehaviour
             foreach (Transform child in tweenableTouchHitInfo.transform)
             {
                 if (child != null && child.GetComponent<TweenTouch>() != null && child.CompareTag("TweenChild"))
-                { 
-                    Debug.Log("tweening of " + transform.name + " is activated");
+                {
+                    GameLogger.Log("tweening of " + transform.name + " is activated");
                     child.GetComponent<TweenTouch>().Tween();  
                 }
             }
             // end test
         }
+
+        if (ratMaskDetected)
+        {
+            detectedCollider = ratHitInfo.collider;
+            detectedCollider.GetComponent<FreezeStateController>().InvertFreezeState();
+            detectedCollider.GetComponent<TweenTouch>().Tween();
+        }
         #endregion
 
         if (dioramaName == DioramaName.Tutorial)
         {
+            #region Tutorial Casts
             tutorialButtonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tutorialButtonHitInfo, CAST_LENGTH, tutorialButtonMask);
-            ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
 
             if (tutorialButtonDetected)
             {
@@ -115,45 +121,24 @@ public class TouchDetection : MonoBehaviour
                 tutorialButtonHitInfo.collider.GetComponent<TweenTouch>().Tween();
                 OnTutorialButtonDetection();
             }
-            
-            if (ratMaskDetected)
-            {
-                detectedCollider = ratHitInfo.collider;
-                detectedCollider.GetComponent<FreezeStateController>().InvertFreezeState();
-                detectedCollider.GetComponent<TweenTouch>().Tween();
-            }
+            #endregion
         }
         else if (dioramaName == DioramaName.Diorama1)
         {
             #region Diorama1 Casts
             tuyauDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tuyauHitInfo, CAST_LENGTH, tuyauMask);
             carrouselBearDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit bearHitInfo, CAST_LENGTH, carrouselPropMask);
-            tweenableOursonDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableOursonHitInfo, CAST_LENGTH, tweenableOursonMask);
-            ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
 
             if (LevelManager.IsPhase3)
             {
-                if (tweenableOursonDetected)
-                {
-                    GameLogger.Log("Ourson Tween");
-                    GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
-                    tweenableOursonHitInfo.collider.GetComponent<Select_Ours>().enabled = true;
-                }
-
                 if (carrouselBearDetected)
                 {
                     GameLogger.Log("carrousel bear detected");
-                    detectedCarrouselProp = bearHitInfo.collider.GetComponent<CarrouselProp>();
-                    detectedCarrouselProp.SetActiveColor();
-                }
-            }
+                    detectedCollider = bearHitInfo.collider;
 
-            // check that rat have been hit through the vent, by looking at them
-            // STILL WIP
-            // use list to avoid GetComponent all the time, and update it if the component is a new reference
-            if (ratMaskDetected)
-            {
-                ratHitInfo.collider.GetComponent<FreezeStateController>().InvertFreezeState();
+                    detectedCollider.GetComponent<CarrouselProp>().SetActiveColor();
+                    detectedCollider.GetComponent<Select_Ours>().enabled = true;
+                }
             }
 
             if (tuyauDetected)
@@ -161,13 +146,10 @@ public class TouchDetection : MonoBehaviour
                 GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
                 StartCoroutine(CanCast());
 
-                OnTuyauDetected(tuyauHitInfo.collider); 
+                detectedCollider = tuyauHitInfo.collider;
 
-                if (doubleTap && DetectedButtonProp.CanOverrideCameraPositionOnDoubleTap())
-                {
-                    GameLogger.Log("this was a double tap");
-                    OnDoubleTapDetection(DetectedButtonProp.GetCameraPositionOverride());
-                }
+                detectedCollider.GetComponent<TweenTouch>().Tween();
+                OnTuyauDetected(detectedCollider); 
             }
             #endregion
         }
@@ -185,10 +167,11 @@ public class TouchDetection : MonoBehaviour
         }       
     }
 
+    private readonly WaitForSeconds WFS = new (0.2f); 
     System.Collections.IEnumerator CanCast()
     {
         canCast = false; 
-        yield return new WaitForSeconds(0.2f);
+        yield return WFS;
 
         canCast = true; 
     }
