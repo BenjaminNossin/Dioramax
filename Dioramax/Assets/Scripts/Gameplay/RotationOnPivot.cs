@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Collider))]
 public class RotationOnPivot : MonoBehaviour
 {
     [Header("Gameplay")]
     [SerializeField] private WinCondition winCondition;
+    [SerializeField] private Transform transfToRotate;
 
     [Header("Values")]
     [SerializeField, Range(0f, 30)] private float snapValue = 10f;
@@ -14,21 +16,30 @@ public class RotationOnPivot : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private TweenTouch tweenTouch;
-    [SerializeField] private Collider buttonCollider;
     [SerializeField] private Collider tweenCollider;
+    private Collider selfCollider; 
 
 
     public bool IsLocked { get; set; }
     private float distanceFromRequiredAngle;
-    private Transform selfTransform;
-    private bool validPositionIsRegistered; 
+    private bool validPositionIsRegistered;
+
+    private void OnEnable()
+    {
+        TouchDetection.OnTuyauDetected += CheckIfWasDetected;
+    }
+
+    private void OnDisable()
+    {
+        TouchDetection.OnTuyauDetected -= CheckIfWasDetected;
+    }
 
     private void Start()
     {
         IsLocked = false;
-        selfTransform = transform;
 
-        selfTransform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
+        transfToRotate.localRotation = Quaternion.Euler(new Vector3(0f, 0f, initialZRotation));
+        selfCollider = GetComponent<Collider>(); 
     }
 
     private void Update()
@@ -36,15 +47,15 @@ public class RotationOnPivot : MonoBehaviour
         if (IsLocked || validPositionIsRegistered) return;
 
         distanceFromRequiredAngle = DioravityCameraCraneRotation.ZAngleWithIdentityRotation - initialZRotation;
-        selfTransform.localRotation = Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
+        transfToRotate.localRotation = Quaternion.Euler(0f, 0f, initialZRotation + (DioravityCameraCraneRotation.ZAngleWithIdentityRotation * -1f));
 
         if (multiSnapAngles)
         {
             for (int i = 0; i < snapAngleValues.Count; i++)
             {
-                if (Mathf.Abs(selfTransform.localEulerAngles.z - snapAngleValues[i]) <= snapValue)
+                if (Mathf.Abs(transfToRotate.localEulerAngles.z - snapAngleValues[i]) <= snapValue)
                 {
-                    selfTransform.localRotation = Quaternion.Euler(0f, 0f, snapAngleValues[i]);
+                    transfToRotate.localRotation = Quaternion.Euler(0f, 0f, snapAngleValues[i]);
                 }
             }
         }
@@ -54,7 +65,7 @@ public class RotationOnPivot : MonoBehaviour
     {
         if (Mathf.Abs(distanceFromRequiredAngle) <= snapValue)
         {
-            selfTransform.localRotation = Quaternion.identity;
+            transfToRotate.localRotation = Quaternion.identity;
 
             if (!validPositionIsRegistered)
             {
@@ -64,10 +75,15 @@ public class RotationOnPivot : MonoBehaviour
                 // fx and stop button tween
                 LevelManager.Instance.OnTuyauxValidPosition(winCondition.entityNumber);
                 tweenTouch.enabled = false;
-                buttonCollider.enabled = false;
                 tweenCollider.enabled = false;
             }
         }
+    }
+
+    private void CheckIfWasDetected(Collider _detectedCollider)
+    {
+        IsLocked = selfCollider == _detectedCollider;
+        CheckWinConditionOnLock();
     }
 }
 

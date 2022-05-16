@@ -22,7 +22,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1078332463
 Transform:
   m_ObjectHideFlags: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70355df5a5bce84408dd20696f42693e, type: 3}
   m_Name: 
@@ -146,19 +146,22 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75ffdd07ed5bbbe4cb3af168cd38ab97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDiorama1: 0
+  dioramaName: 0
   tweenableTouchMask:
     serializedVersion: 2
     m_Bits: 512
   finishMask:
     serializedVersion: 2
     m_Bits: 1024
-  buttonMask:
+  tutorialButtonMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  tuyauMask:
     serializedVersion: 2
     m_Bits: 64
   carrouselPropMask:
@@ -180,15 +183,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078332462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dioramaTransf: {fileID: 0}
   transfToMove: {fileID: 9027789502008531972}
   maxZoomIn: 40
-  maxZoomOut: 100
-  zoomSpeed: 18
+  maxZoomOut: 120
+  zoomSpeed: 40
   gamefeelCurve: {fileID: 3533724393244289011}
 --- !u!114 &1078332470
 MonoBehaviour:
@@ -355,14 +359,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ffdd07ed5bbbe4cb3af168cd38ab97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDiorama1: 0
+  dioramaName: 0
   tweenableTouchMask:
     serializedVersion: 2
     m_Bits: 512
   finishMask:
     serializedVersion: 2
     m_Bits: 1024
-  buttonMask:
+  tutorialButtonMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  tuyauMask:
     serializedVersion: 2
     m_Bits: 64
   carrouselPropMask:
@@ -389,10 +396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095892304df4db6449213845cf688e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dioramaTransf: {fileID: 0}
   transfToMove: {fileID: 9027789502008531972}
   maxZoomIn: 40
-  maxZoomOut: 100
-  zoomSpeed: 18
+  maxZoomOut: 120
+  zoomSpeed: 40
   gamefeelCurve: {fileID: 3533724393244289011}
 --- !u!1 &3533724393244289020
 GameObject:
@@ -443,9 +451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6589459fcc2cde47adfecc3396b9bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diorama: {fileID: 0}
-  XYForceMultiplier: 1
-  ZRotationForce: 40
+  XYForceMultiplier: 1.5
+  ZRotationForce: 50
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
 --- !u!114 &3533724393244289011
@@ -510,6 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1865566559}
+  openingCinematic: {fileID: 7400000, guid: a05ea991c1afac54aa0fc1ffcc9e0660, type: 2}
   phase2Cinematic: {fileID: 7400000, guid: 35ec432f3669c024a8d05c3c65a91163, type: 2}
   cameraFadePanelImage: {fileID: 0}
   fadeOutSpeedMultiplier: 1
