@@ -4,13 +4,25 @@ using UnityEngine;
 [RequireComponent(typeof(TweenTouch))]
 public class FreezeStateController : MonoBehaviour
 {
-    [SerializeField] private bool freezeOnStart;
+    [SerializeField] private MeshRenderer[] meshRenderers; 
+
+    [Space, SerializeField] private bool freezeOnStart;
     [SerializeField] private SimulateEntityPhysics simulateEntityPhysics; 
     public bool Freezed { get; private set; }
 
     private void Start()
     {
         Freezed = freezeOnStart;
+
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
+        }
+
+        /* for (int i = 0; i < freezeMaterialInstances.Length; i++)
+        {
+            freezeMaterialInstances[i].SetInteger("_Freezed", Freezed ? 1 : 0); 
+        } */
 
         if (!Freezed)
         {
@@ -21,6 +33,11 @@ public class FreezeStateController : MonoBehaviour
     public void InvertFreezeState()
     {
         Freezed = !Freezed;
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
+        }
+
         AddOrRemoveSelfRb();
     }
 
