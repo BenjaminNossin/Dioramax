@@ -10,6 +10,7 @@ public class Debug_StickTrains : MonoBehaviour
 
     [Space, SerializeField] private bool freezeAllExceptSelected = true;
     public static List<FreezeStateController> AllTrainsFreezeController { get; private set; }
+    [SerializeField] private FreezeStateController[] linkableFreezeControllers;  
 
     public static bool IsOn;
     public static Transform Parent;
@@ -34,7 +35,7 @@ public class Debug_StickTrains : MonoBehaviour
 
     private void Start()
     {
-        Parent = parent; 
+        Parent = parent;
     }
 
     public void StickOnOrOff()
@@ -57,13 +58,18 @@ public class Debug_StickTrains : MonoBehaviour
                 OnDetachChildren();
             }
         }
+
+        for (int i = 0; i < linkableFreezeControllers.Length; i++)
+        {
+            linkableFreezeControllers[i].IsLinked = IsOn;
+        }
     }
 
     private void UpdateAllFreezeStates(FreezeStateController detectedTrainFreezeController)
     {
         for (int i = 0; i < AllTrainsFreezeController.Count; i++)
         {
-            if (AllTrainsFreezeController[i] != detectedTrainFreezeController)
+            if (AllTrainsFreezeController[i] != detectedTrainFreezeController && !AllTrainsFreezeController[i].IsLinked)
             {
                 AllTrainsFreezeController[i].SetFreezeState(freezeAllExceptSelected);
             }

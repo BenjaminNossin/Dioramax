@@ -23,6 +23,9 @@ public class TweenTouch : StoppableTween
     // Swap test 
     private bool swapState;
 
+    [Header("--DEBUG--")]
+    [SerializeField] private bool doTween = true; 
+
     public void Start()
     {
         initialRotation = transform.localRotation.eulerAngles;
@@ -43,6 +46,8 @@ public class TweenTouch : StoppableTween
     
     public void Tween()
     {
+        if (!doTween) return; 
+
         //particlesystem
         //Active selon le tag 
         if (VFX)

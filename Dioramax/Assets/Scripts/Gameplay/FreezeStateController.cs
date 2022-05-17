@@ -15,6 +15,7 @@ public class FreezeStateController : MonoBehaviour
     [SerializeField] private FreezeStateController otherFreeze;
 
     public bool Freezed { get; private set; }
+    public bool IsLinked { get; set; }
 
     private void OnDisable()
     {
