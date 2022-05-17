@@ -3002,8 +3002,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 3
   entityNumber: 2
-  overrideWinConditionCall: 1
-  simulateWinConditionIsMet: 0
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1325478876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3712,7 +3712,7 @@ MonoBehaviour:
   entityPuzzleName: 2
   entityNumber: 2
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1459963606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4024,8 +4024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPuzzleName: 3
   entityNumber: 1
-  overrideWinConditionCall: 1
-  simulateWinConditionIsMet: 0
+  overrideWinConditionCall: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1529941092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4191,7 +4191,7 @@ MonoBehaviour:
   entityPuzzleName: 2
   entityNumber: 0
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1585757340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4873,7 +4873,7 @@ MonoBehaviour:
   entityPuzzleName: 2
   entityNumber: 1
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 0
+  simulateWinConditionIsMet: 1
 --- !u!114 &1754208486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5154,7 +5154,7 @@ PrefabInstance:
       objectReference: {fileID: 1457613641}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: maxZoomIn
-      value: 35
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: maxZoomOut
@@ -9028,11 +9028,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: overrideWinConditionCall
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: simulateWinConditionIsMet
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627822, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: objectToHideMask.m_Bits
@@ -17724,7 +17724,7 @@ MonoBehaviour:
   mainCamera: {fileID: 642649565}
   decoyCamera: {fileID: 788362702}
   cameraTransformOnPhase2: {fileID: 184983660}
-  skipIntroCinematic: 0
+  skipIntroCinematic: 1
   overridePhaseSystem: 0
 --- !u!114 &7778398950724897747
 MonoBehaviour:

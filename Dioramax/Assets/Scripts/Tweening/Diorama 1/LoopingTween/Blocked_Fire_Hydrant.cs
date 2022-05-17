@@ -5,10 +5,7 @@ public class StoppableTween : MonoBehaviour
 {
     private void OnDisable()
     {
-        LeanTween.cancelAll();
-
-        DOTween.CompleteAll(true);
-        DOTween.KillAll(); 
+        DOTween.KillAll(true); 
     }
 }
 
