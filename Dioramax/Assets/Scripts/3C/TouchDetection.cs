@@ -30,6 +30,11 @@ public class TouchDetection : MonoBehaviour
     [SerializeField] private LayerMask switchMask;
     // fire (draggable)
 
+    [Header("--DEBUG--")]
+    [SerializeField] private LayerMask teleporterMask;
+    public static Action<FreezeStateController> OnTrainDetection { get; set; } 
+
+
     private bool tuyauDetected, carrouselBearDetected, tweenableTouchDetected, finishMaskDetected, defaultGameplayEntityDetected,
         switchDetected, tutorialButtonDetected; // :D    
     private CarrouselProp detectedCarrouselProp; 
@@ -59,7 +64,8 @@ public class TouchDetection : MonoBehaviour
         carrouselPropActivated = CarrouselPropActivated;
     }
 
-    private Collider detectedCollider = null; 
+    private Collider detectedCollider = null;
+    private FreezeStateController freezeStateController;
     public void TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
     {
         if (!canCast) return; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
@@ -105,8 +111,21 @@ public class TouchDetection : MonoBehaviour
         if (defaultGameplayEntityDetected)
         {
             detectedCollider = dgeHitInfo.collider;
-            detectedCollider.GetComponent<FreezeStateController>().InvertFreezeState();
+            freezeStateController = detectedCollider.GetComponent<FreezeStateController>(); // GROS WIP DEGEU
+
+            freezeStateController.InvertFreezeState();
             detectedCollider.GetComponent<TweenTouch>().Tween();
+
+            if (dioramaName == DioramaName.Diorama2)
+            {                
+                OnTrainDetection(freezeStateController); 
+            }
+        }
+
+        // DEBUG
+        if (Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tpHitInfo, CAST_LENGTH, teleporterMask))
+        {
+            tpHitInfo.collider.GetComponent<Debug_Teleporter>().CallTeleport(); 
         }
         #endregion
 
