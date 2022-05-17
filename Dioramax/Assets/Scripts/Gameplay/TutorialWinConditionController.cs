@@ -26,10 +26,6 @@ public class TutorialWinConditionController : MonoBehaviour
     private float zRotationLeftCounter, zRotationRightCounter;
     private bool cameraIsActive; 
 
-    // Touch
-    [Header("Touch")]
-    [SerializeField] private Collider buttonCollider;
-
     // Unfreeze
     [Header("Unfreeze")]
     [SerializeField] private Collider ballCollider;
@@ -60,7 +56,6 @@ public class TutorialWinConditionController : MonoBehaviour
     private void Start()
     {
         cameraCraneZRotation.SetActive(false);
-        buttonCollider.enabled = false;
         ballCollider.enabled = false;
         starCollider.enabled = false;
         tweenStarFinish.enabled = false; 
@@ -136,11 +131,6 @@ public class TutorialWinConditionController : MonoBehaviour
                 TutorialPromptsUI.Instance.ShowNextPrompt(tutorialPhase, 0);
             }
         }
-        else if (tutorialPhase == 3)
-        {
-            // Touch 
-            buttonCollider.enabled = true;
-        }
         else if (tutorialPhase == 4) 
         {
             // Unfreeze
@@ -150,9 +140,6 @@ public class TutorialWinConditionController : MonoBehaviour
 
     private void TutorialButtonDetected()
     {
-        // dissolve shield a bit
-        // puzzle completion vfx etc.. 
-
         if (tutorialPhase != 3) return; 
 
         GameLogger.Log("suceeded Button Touch tutorial");
@@ -168,10 +155,6 @@ public class TutorialWinConditionController : MonoBehaviour
 
     private void TutorialBallDetected()
     {
-        // totally dissolve shield
-        // deactivate shield collider
-        // activate star collider + fx etc..
-
         if (tutorialPhase != 4) return;
 
         GameLogger.Log("suceeded Unfreeze tutorial");

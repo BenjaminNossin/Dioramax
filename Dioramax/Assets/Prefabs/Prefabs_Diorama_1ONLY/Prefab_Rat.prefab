@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 1161763065}
   - component: {fileID: 496885463}
   - component: {fileID: 1877459725}
+  - component: {fileID: 7289229454372605700}
   m_Layer: 8
   m_Name: Prefab_Rat
   m_TagString: Untagged
@@ -183,8 +184,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9507ad7b94a4564ea88b83ace0407f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderers:
+  - {fileID: 6165434839125512057}
+  - {fileID: 6234290355271595878}
+  - {fileID: 2427836943012169424}
+  - {fileID: 2418270908547656613}
+  - {fileID: 6224374148469237650}
+  - {fileID: 5678551795789201229}
+  - {fileID: 4787285327187743878}
+  - {fileID: 8056671657439257899}
+  - {fileID: 871403798395162229}
+  - {fileID: 1894975413515325592}
+  - {fileID: 7891990135034087546}
   freezeOnStart: 1
   simulateEntityPhysics: {fileID: 496885463}
+--- !u!114 &7289229454372605700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509116430494460100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: 0ccfc6ac1d76cb44387dc49246ceba58, type: 2}
 --- !u!1 &1561334370340641558
 GameObject:
   m_ObjectHideFlags: 0
