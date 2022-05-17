@@ -16,6 +16,7 @@ public class TouchDetection : MonoBehaviour
     [Header("General")]
     [SerializeField] private LayerMask tweenableTouchMask;
     [SerializeField] private LayerMask finishMask;
+    [SerializeField] private LayerMask defaultGameplayEntity;
 
     [Header("Tutorial")]
     [SerializeField] private LayerMask tutorialButtonMask; 
@@ -23,14 +24,13 @@ public class TouchDetection : MonoBehaviour
     [Header("Diorama 1")]
     [SerializeField] private LayerMask tuyauMask; 
     [SerializeField] private LayerMask carrouselPropMask;
-    [SerializeField] private LayerMask ratMask;
     public static Action<Collider> OnTuyauDetected { get; set; }
 
     [Header("Diorama 2")]
     [SerializeField] private LayerMask switchMask;
     // fire (draggable)
 
-    private bool tuyauDetected, carrouselBearDetected, tweenableTouchDetected, finishMaskDetected, ratMaskDetected,
+    private bool tuyauDetected, carrouselBearDetected, tweenableTouchDetected, finishMaskDetected, defaultGameplayEntityDetected,
         switchDetected, tutorialButtonDetected; // :D    
     private CarrouselProp detectedCarrouselProp; 
 
@@ -71,7 +71,7 @@ public class TouchDetection : MonoBehaviour
         #region General Casts
         finishMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit finishHitInto, CAST_LENGTH, finishMask);
         tweenableTouchDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit tweenableTouchHitInfo, CAST_LENGTH, tweenableTouchMask);
-        ratMaskDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit ratHitInfo, CAST_LENGTH, ratMask);
+        defaultGameplayEntityDetected = Physics.SphereCast(touchStart, CAST_RADIUS, (toucheEnd - touchStart), out RaycastHit dgeHitInfo, CAST_LENGTH, defaultGameplayEntity);
 
         if (finishMaskDetected && LevelManager.LevelIsFinished)
         {
@@ -102,9 +102,9 @@ public class TouchDetection : MonoBehaviour
             // end test
         }
 
-        if (ratMaskDetected)
+        if (defaultGameplayEntityDetected)
         {
-            detectedCollider = ratHitInfo.collider;
+            detectedCollider = dgeHitInfo.collider;
             detectedCollider.GetComponent<FreezeStateController>().InvertFreezeState();
             detectedCollider.GetComponent<TweenTouch>().Tween();
         }

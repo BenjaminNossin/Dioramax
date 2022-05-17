@@ -100,7 +100,7 @@ public class RotationOnPivot : MonoBehaviour
 
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenderers[i].material.SetInt("_Freezed", IsLocked ? 1 : 0);
+            meshRenderers[i].material.SetInt("_Freezed", IsLocked ? 1 : 0); 
         }
 
         if (IsLocked)

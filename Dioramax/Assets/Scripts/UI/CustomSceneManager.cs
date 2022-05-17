@@ -3,29 +3,27 @@ using UnityEngine.SceneManagement;
 
 public class CustomSceneManager : MonoBehaviour
 {
-    public static CustomSceneManager Instance; 
-
     [SerializeField] private bool isMainMenu;
     [SerializeField] private DioramaName dioramaToLoad = DioramaName.Tutorial; // will be modified via save system with SetDioramaToLoad
 
+    [Header("--DEBUG--")]
+    [SerializeField] private bool dontDestroyOnLoad;
+
     private void Awake()
     {
-        if (Instance)
+        if (dontDestroyOnLoad)
         {
-            Destroy(Instance);
+            DontDestroyOnLoad(gameObject);
         }
-
-        Instance = this; 
     }
-
-    private void Update()
+        
+    public void LoadLastSavedDiorama()
     {
-        // use a specific button if needed
-        if (isMainMenu && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (isMainMenu)
         {
-            SceneManager.LoadSceneAsync((int)dioramaToLoad + 1, LoadSceneMode.Single); 
+            SceneManager.LoadSceneAsync((int)dioramaToLoad + 1, LoadSceneMode.Single);
             // have a fade out screen. When it's done, allowSceneActivation = true; 
-        }
+        }        
     }
 
     public void LoadScene(int index)
