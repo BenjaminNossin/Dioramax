@@ -56,16 +56,4 @@ public class Tween_Star_Finish : MonoBehaviour
         transform.DOScale(ScaleUp, time_scale).SetEase(Ease.InSine).SetLoops(-1, LoopType.Yoyo);
 
     }
-
-    // Start is called before the first frame update
-    void Update()
-    {
-        
-       
-
-
-
-
-
-    }
 }

@@ -43,28 +43,20 @@ public class TweenTouch : StoppableTween
     
     public void Tween()
     {
-       
-            //particlesystem
-            
-            //Active selon le tag 
-            if(!VFX.CompareTag("NoVFX") && !VFX.CompareTag("StopVFX"))
+        //particlesystem
+        //Active selon le tag 
+        if (VFX)
+        {
+            if (!VFX.CompareTag("NoVFX") && !VFX.CompareTag("StopVFX"))
             {
-                 if (VFX) // car pas de vfx sur certains objets.. (moulin, bouche d'incendie, bouton)
-                  {
-                        VFX.Play();
-                  }
+                VFX.Play();
             }
-            // deactivate a VFX when touched
-            else if(VFX.CompareTag("StopVFX") && VFXPlaying)
+            else if (VFX.CompareTag("StopVFX") && VFXPlaying)
             {
                 VFXPlaying = false;
-
-                if(VFX)
-                {
-                    VFX.Stop();
                 StartCoroutine(StopDelay());
-                }
             }
+        }
 
         //Move
 
@@ -80,11 +72,13 @@ public class TweenTouch : StoppableTween
 
                 if (swapState)
                 {
+
                 transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * td.rotation_degrees)), td.time_rotation).SetEase(Ease.OutCubic);
                     swapState = false;
                 }
                 else
                 {
+
                 transform.DORotate((transform.rotation.eulerAngles + (td.RotationAxis * -td.rotation_degrees)), td.time_rotation).SetEase(Ease.OutCubic);
                     swapState = true;
                 }
@@ -116,10 +110,11 @@ public class TweenTouch : StoppableTween
     //Couroutine Wait delay before activating VFX again
     IEnumerator StopDelay()
     {
-
+        Debug.Log(VFX);
+        VFX.gameObject.SetActive(false);
         yield return new WaitForSeconds(td.DelayStopVFX);
         VFXPlaying = true;
-        VFX.Play();
+        VFX.gameObject.SetActive(true);
     }
 
 }
