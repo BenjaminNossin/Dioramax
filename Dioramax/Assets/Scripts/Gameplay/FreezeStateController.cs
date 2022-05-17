@@ -7,8 +7,30 @@ public class FreezeStateController : MonoBehaviour
     [SerializeField] private MeshRenderer[] meshRenderers; 
 
     [Space, SerializeField] private bool freezeOnStart;
-    [SerializeField] private SimulateEntityPhysics simulateEntityPhysics; 
+    [SerializeField] private SimulateEntityPhysics simulateEntityPhysics;
+
+    [Header("--DEBUG--")]
+    [SerializeField] private bool useDebugTrain;
+    [SerializeField] private bool keepIndividualFreeze; 
+    [SerializeField] private FreezeStateController otherFreeze;
+
     public bool Freezed { get; private set; }
+
+    private void OnDisable()
+    {
+        if (otherFreeze)
+        {
+            Debug_StickTrains.OnDetachChildren += FreezeSelfAndReference; 
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (otherFreeze)
+        {
+            Debug_StickTrains.OnDetachChildren -= FreezeSelfAndReference; 
+        }
+    }
 
     private void Start()
     {
@@ -19,14 +41,9 @@ public class FreezeStateController : MonoBehaviour
             meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
         }
 
-        /* for (int i = 0; i < freezeMaterialInstances.Length; i++)
-        {
-            freezeMaterialInstances[i].SetInteger("_Freezed", Freezed ? 1 : 0); 
-        } */
-
         if (!Freezed)
         {
-            simulateEntityPhysics.AddRbToList();
+            simulateEntityPhysics.AddRbToList();           
         }
     }
 
@@ -38,18 +55,47 @@ public class FreezeStateController : MonoBehaviour
             meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
         }
 
-        AddOrRemoveSelfRb();
+        if (!useDebugTrain)
+        {
+            AddOrRemoveSelfRb();
+        }
+        else
+        {
+            if (!keepIndividualFreeze && Debug_StickTrains.IsOn)
+            {
+                otherFreeze.SetFreezeState(Freezed);
+            }
+        }
     }
 
     public void AddOrRemoveSelfRb()
     {
-        if (Freezed)
+        if (!useDebugTrain)
         {
-            simulateEntityPhysics.RemoveRbFromList();
+            if (Freezed)
+            {
+                simulateEntityPhysics.RemoveRbFromList();
+            }
+            else
+            {
+                simulateEntityPhysics.AddRbToList();
+            }
         }
-        else
+    }
+
+    public void SetFreezeState(bool state)
+    {
+        Freezed = state;
+        for (int i = 0; i < meshRenderers.Length; i++)
         {
-            simulateEntityPhysics.AddRbToList();
+            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
         }
+    }
+
+    private void FreezeSelfAndReference()
+    {
+        Freezed = true; 
+        SetFreezeState(Freezed); 
+        otherFreeze.SetFreezeState(Freezed); 
     }
 }
