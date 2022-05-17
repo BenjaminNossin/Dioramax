@@ -31,7 +31,7 @@ public class CarrouselManager : MonoBehaviour
         {
             if (CarrouselProps[i].IsActive)
             {
-                CarrouselProps[i].SetFinalColor();
+                CarrouselProps[i].IsValidPropFeedback();
                 if (CarrouselProps[i].IsValidProp)
                 {
                     TouchDetection.ValidCarrouselPropAmount++;
@@ -45,7 +45,7 @@ public class CarrouselManager : MonoBehaviour
             {
                 if (CarrouselProps[i].IsActive)
                 {
-                    CarrouselProps[i].BackToDefaultColor();
+                    CarrouselProps[i].BackToDefaultState();
                 }
             }
 
