@@ -63,6 +63,7 @@ public class TweenTouch : StoppableTween
     }
     public void Tween()
     {
+        if (!doTween) return;
         //Particle effects Active selon le tag 
         if (VFX)
         {
