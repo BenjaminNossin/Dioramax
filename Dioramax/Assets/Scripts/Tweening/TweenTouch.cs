@@ -16,9 +16,9 @@ public class TweenTouch : StoppableTween
     private float TimeBounce;
     private Vector3 initialRotation;
     private bool VFXPlaying;
-
-   // public bool tweenOnDisable;
-
+    private Renderer rend;
+    // public bool tweenOnDisable;
+    private float FrozenState;
 
     // Swap test 
     private bool swapState;
@@ -38,6 +38,20 @@ public class TweenTouch : StoppableTween
         
         // Deactivate VFX
         VFXPlaying = true;
+
+        //Freeze on Start
+        FrozenState = 0;
+        rend = transform.GetComponent<MeshRenderer>();
+        
+        if (gameObject.CompareTag("Freezable"))
+        {
+            rend.material = td.FreezeMaterial;
+            rend.material.SetFloat("Freezed", FrozenState);
+            // gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
+
+            // renderer
+        }
+
     }
 
     
@@ -65,7 +79,25 @@ public class TweenTouch : StoppableTween
         //stretch&squash_Scale
         transform.DOScale(td.stretch_squash, TimeScale).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOScale(originalScale, TimeScale).SetEase(Ease.OutBack));
 
+        // Freeze
+        
+        if (gameObject.CompareTag("Freezable"))
+        {
+            if (FrozenState == 1)
+            {
+                FrozenState = 0;
+                rend.material.SetFloat("Freezed", FrozenState);
+            }
 
+           else if (FrozenState == 0) 
+            {
+                FrozenState = 1;
+               rend.material.SetFloat("Freezed", FrozenState);
+            }
+        }
+
+
+        //gameObject.GetComponent<MeshRenderer>().material.SetFloat("_Freezed", 0);
 
         if (transform.CompareTag("SwapRail"))
             {
