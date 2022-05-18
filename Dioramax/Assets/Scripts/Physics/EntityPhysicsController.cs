@@ -8,7 +8,7 @@ public class EntityPhysicsController : MonoBehaviour
     public static EntityPhysicsController Instance; 
 
     [SerializeField, Range(0.05f, 2f)] private float gravityForceMultiplier = 1f;
-    private List<Rigidbody> entityRbList = new List<Rigidbody>();
+    private readonly List<Rigidbody> entityRbList = new();
 
     private const float GRAVITY_FORCE = 9.81f; 
 
@@ -46,7 +46,7 @@ public class EntityPhysicsController : MonoBehaviour
             {
                 try
                 {
-                    rb.AddForce(mainCamTransform.up * -GRAVITY_FORCE * gravityForceMultiplier, ForceMode.Acceleration);
+                    rb.AddForce(-GRAVITY_FORCE * gravityForceMultiplier * mainCamTransform.up, ForceMode.Acceleration);
                 }
                 catch { }
             } 
