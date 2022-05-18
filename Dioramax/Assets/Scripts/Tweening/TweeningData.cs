@@ -27,6 +27,9 @@ public class TweeningData : ScriptableObject
     [Header("Vector.right = 1,0,0 | Vector.up = 0,1,0")]
     public Vector3 RotationAxis;
 
+    [Header("Freeze Material")]
+    public Material FreezeMaterial;
+
 
     //[Header("ParticleSystem")]
     // public GameObject ParticleSystem;

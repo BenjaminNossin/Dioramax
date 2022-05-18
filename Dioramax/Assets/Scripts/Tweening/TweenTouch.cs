@@ -16,9 +16,9 @@ public class TweenTouch : StoppableTween
     private float TimeBounce;
     private Vector3 initialRotation;
     private bool VFXPlaying;
-
-   // public bool tweenOnDisable;
-
+    private Renderer rend;
+    // public bool tweenOnDisable;
+    private float FrozenState;
 
     // Swap test 
     private bool swapState;
@@ -41,15 +41,30 @@ public class TweenTouch : StoppableTween
         
         // Deactivate VFX
         VFXPlaying = true;
+
+        //Freeze on Start
+        FrozenState = 0;
+        rend = transform.GetComponent<MeshRenderer>();
+        
+        if (gameObject.CompareTag("Freezable"))
+        {
+            rend.material = td.FreezeMaterial;
+            rend.material.SetFloat("Freezed", FrozenState);
+            // gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
+
+            // renderer
+        }
+
     }
 
-    
+    private void SwapFreeze()
+    {
+
+    }
     public void Tween()
     {
-        if (!doTween) return; 
-
-        //particlesystem
-        //Active selon le tag 
+        if (!doTween) return;
+        //Particle effects Active selon le tag 
         if (VFX)
         {
             if (!VFX.CompareTag("NoVFX") && !VFX.CompareTag("StopVFX"))
@@ -62,16 +77,41 @@ public class TweenTouch : StoppableTween
                 StartCoroutine(StopDelay());
             }
         }
-
-        //Move
-
+        // end Particle Effetcs
+        
+        //Move Object
         transform.DOMoveY(ObjectMaxHeight, TimeBounce).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOMoveY(ObjectInitialHeight, TimeBounce).SetEase(Ease.OutBounce));
 
         //stretch&squash_Scale
         transform.DOScale(td.stretch_squash, TimeScale).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOScale(originalScale, TimeScale).SetEase(Ease.OutBack));
 
+        // Freeze Objects 
+        //SwapFreeze();
+        // Creat a function with the swap freeze named : SwapFreez then call it if the transfrom parent has a rend else call it for each childrens
+        if (gameObject.CompareTag("Freezable") && rend != null)
+        {
+            if (FrozenState == 1)
+            {
+                FrozenState = 0;
+                rend.material.SetFloat("Freezed", FrozenState);
+            }
 
+           else if (FrozenState == 0 && rend != null) 
+            {
+                FrozenState = 1;
+               rend.material.SetFloat("Freezed", FrozenState);
+            }
+        }
+        else if(rend != null)
+        {
+            foreach(Renderer Childrend in transform)
+            {
 
+            }
+        }
+        // End Freez Object
+        
+        // Swap Rail Logic
         if (transform.CompareTag("SwapRail"))
             {
 
@@ -108,8 +148,6 @@ public class TweenTouch : StoppableTween
 
             }
            }
-
-
     }
 
     //Couroutine Wait delay before activating VFX again
