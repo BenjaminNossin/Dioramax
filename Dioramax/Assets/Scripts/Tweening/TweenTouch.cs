@@ -42,7 +42,6 @@ public class TweenTouch : StoppableTween
 
         //Freeze on Start
         FrozenState = 1;
-        rend = transform.GetComponent<MeshRenderer>();
 
         if (transform.CompareTag("Freezable"))
         {
