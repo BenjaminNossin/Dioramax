@@ -35,6 +35,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("CAMERA")]
     [SerializeField] private Transform cameraCrane;
+    [SerializeField] private Transform cameras;
     [SerializeField] private Transform mainCamera;
     [SerializeField] private Transform decoyCamera;
     [SerializeField] private Transform cameraTransformOnPhase2;
@@ -294,13 +295,9 @@ public class LevelManager : MonoBehaviour
     private void OnFadeOutComplete()
     {
         Debug.Log("teleporting camera on fade out complete"); 
-        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.Euler(32.5f, 1.54f, 0f));
-
-        mainCamera.transform.position = cameraTransformOnPhase2.position; // reposition to star when Phase2Cinematic has been done
-        mainCamera.transform.localRotation = Quaternion.identity;
-
-        decoyCamera.transform.position = cameraTransformOnPhase2.position; // reposition to star when Phase2Cinematic has been done
-        decoyCamera.transform.localRotation = Quaternion.identity;
+        cameras.transform.position = cameraTransformOnPhase2.position;
+        Debug.Log($"new position is {cameraTransformOnPhase2.position}"); 
+        cameras.transform.localRotation = Quaternion.Euler(32.5f, 1.54f, 0f);
     }
 
     // star fade and THEN bouche d'incendie animation
@@ -308,34 +305,16 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("triggering star phase on fade in complete"); 
         TriggerStarPhase(PhaseHolderName.Etoile, ValidatedPuzzleAmount - 1); // PLAYER SHOULD ALWAYS SEE THIS
-        // CameraCinematic.Instance.PlayPhase2Cinematic();
         StartCoroutine(ActivateSecondPhase());
     }
 
     // call this from animEvent if possible
-    private WaitForSeconds WFS = new(1f);
-    private WaitForSeconds WFSFakePhase2Cinematic = new(3f);
-    private WaitForSeconds WFSBackToPlaying = new(0.5f);
-
+    private WaitForSeconds WFS = new(0.5f);
     private System.Collections.IEnumerator ActivateSecondPhase()
     {
-        SetGameState(GameState.Cinematic); // to do from CameraCinematic or animation
-
         yield return WFS;
         ActivateBoucheIncendiePhase2(secondPuzzlePhaseHolderName, secondPuzzlePhaseNumber);
-
-        // WIP until I do new animation called in CameraCinematic.PlayPhase2Cinematic()(issue with local/world positions)
-        yield return WFSFakePhase2Cinematic;
-        cameraCrane.SetPositionAndRotation(new Vector3(1f, 7f, 0f), Quaternion.identity);
-
-        mainCamera.transform.position = new Vector3(0f, 0f, -45f);
-        mainCamera.transform.localRotation = Quaternion.identity;
-
-        decoyCamera.transform.position = new Vector3(0f, 0f, -45f);
-        decoyCamera.transform.localRotation = Quaternion.identity;
-
-        yield return WFSBackToPlaying;
-        SetGameState(GameState.Playing); // to do from CameraCinematic or animation
+        CameraCinematic.Instance.PlayPhase2Cinematic();
     }
 
     private void ActivateBoucheIncendiePhase2(PhaseHolderName phaseHolderName, int phaseNumber)
