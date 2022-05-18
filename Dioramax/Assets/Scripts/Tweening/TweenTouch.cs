@@ -54,11 +54,13 @@ public class TweenTouch : StoppableTween
 
     }
 
-    
+    private void SwapFreeze()
+    {
+
+    }
     public void Tween()
     {
-        //particlesystem
-        //Active selon le tag 
+        //Particle effects Active selon le tag 
         if (VFX)
         {
             if (!VFX.CompareTag("NoVFX") && !VFX.CompareTag("StopVFX"))
@@ -71,17 +73,18 @@ public class TweenTouch : StoppableTween
                 StartCoroutine(StopDelay());
             }
         }
-
-        //Move
-
+        // end Particle Effetcs
+        
+        //Move Object
         transform.DOMoveY(ObjectMaxHeight, TimeBounce).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOMoveY(ObjectInitialHeight, TimeBounce).SetEase(Ease.OutBounce));
 
         //stretch&squash_Scale
         transform.DOScale(td.stretch_squash, TimeScale).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOScale(originalScale, TimeScale).SetEase(Ease.OutBack));
 
-        // Freeze
-        
-        if (gameObject.CompareTag("Freezable"))
+        // Freeze Objects 
+        //SwapFreeze();
+        // Creat a function with the swap freeze named : SwapFreez then call it if the transfrom parent has a rend else call it for each childrens
+        if (gameObject.CompareTag("Freezable") && rend != null)
         {
             if (FrozenState == 1)
             {
@@ -89,16 +92,22 @@ public class TweenTouch : StoppableTween
                 rend.material.SetFloat("Freezed", FrozenState);
             }
 
-           else if (FrozenState == 0) 
+           else if (FrozenState == 0 && rend != null) 
             {
                 FrozenState = 1;
                rend.material.SetFloat("Freezed", FrozenState);
             }
         }
+        else if(rend != null)
+        {
+            foreach(Renderer Childrend in transform)
+            {
 
-
-        //gameObject.GetComponent<MeshRenderer>().material.SetFloat("_Freezed", 0);
-
+            }
+        }
+        // End Freez Object
+        
+        // Swap Rail Logic
         if (transform.CompareTag("SwapRail"))
             {
 
@@ -135,8 +144,6 @@ public class TweenTouch : StoppableTween
 
             }
            }
-
-
     }
 
     //Couroutine Wait delay before activating VFX again
