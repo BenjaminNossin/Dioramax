@@ -2,10 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 using System;
-
-using System.Collections.Generic;
-using System.Xml.Serialization;
-using System.Text;
+using System.Collections;
 
 public class CustomSceneManager : MonoBehaviour
 {
@@ -16,7 +13,7 @@ public class CustomSceneManager : MonoBehaviour
     [SerializeField] private bool dontDestroyOnLoad;
     private bool isSharing;
 
-    public string path;
+    public string fullPath;
 
     private void Awake()
     {
@@ -32,20 +29,20 @@ public class CustomSceneManager : MonoBehaviour
         {
             SceneManager.LoadSceneAsync((int)dioramaToLoad + 1, LoadSceneMode.Single);
             // have a fade out screen. When it's done, allowSceneActivation = true; 
-        }        
+        }
     }
 
     public void LoadScene(int index)
     {
-        if (index > SceneManager.sceneCountInBuildSettings - 1 || index < 0) return; 
+        if (index > SceneManager.sceneCountInBuildSettings - 1 || index < 0) return;
         SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
     }
 
-    private int currentScene; 
+    private int currentScene;
     public void LoadNextScene()
     {
         currentScene = SceneManager.GetActiveScene().buildIndex;
-        if (currentScene == 4) return; 
+        if (currentScene == 4) return;
 
         SceneManager.LoadSceneAsync(currentScene + 1, LoadSceneMode.Single);
     }
@@ -58,13 +55,13 @@ public class CustomSceneManager : MonoBehaviour
 
     public void SetDioramaToLoad(DioramaName diorama)
     {
-        dioramaToLoad = diorama; 
+        dioramaToLoad = diorama;
     }
 
-    private WaitForSeconds WFS = new(1f); 
-    private System.Collections.IEnumerator TakeScreenshotAndShare()
+    private WaitForSeconds WFS = new(1f);
+    private IEnumerator TakeScreenshotAndShare()
     {
-        isSharing = true; 
+        isSharing = true;
         yield return new WaitForEndOfFrame();
 
         Texture2D ss = new(Screen.width, Screen.height, TextureFormat.RGB24, false);
@@ -86,7 +83,7 @@ public class CustomSceneManager : MonoBehaviour
         //	new NativeShare().AddFile( filePath ).AddTarget( "com.whatsapp" ).Share();
 
         yield return WFS;
-        isSharing = false; 
+        isSharing = false;
     }
 
     public void QuitApplication()
@@ -94,28 +91,35 @@ public class CustomSceneManager : MonoBehaviour
         Application.Quit();
     }
 
-    private int screenshotCount; 
-    private System.Collections.IEnumerator CaptureScreenshot()
+    private string oldName, newName;
+    private int screenShotnNbr; 
+    private IEnumerator CaptureScreenshot()
     {
         yield return new WaitForEndOfFrame();
 
-        path = Application.persistentDataPath + "/Screenshots/" + "_" + screenshotCount + ".png";
-        GameLogger.Log($"file saved {Application.persistentDataPath + "_" + screenshotCount }");
+        /*oldName = $"{DateTime.Now}";
+        GameLogger.Log($"old : { oldName }");
+
+        newName = oldName.Replace("/", ".");
+        GameLogger.Log($"new : {newName}"); */
+
+        fullPath = Application.persistentDataPath + "\\" + "_" + screenShotnNbr + ".jpg";
+        GameLogger.Log($"full path : {fullPath}");
+        screenShotnNbr++; 
 
         // android path : Galaxy A6\Phone\Android\data\com.DefaultCompany.Dioravity
-
-        screenshotCount++;
 
         Texture2D screenImage = new(Screen.width, Screen.height);
         //Get Image from screen
         screenImage.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
-        screenImage.Apply(); 
+        screenImage.Apply();
 
         //Convert to png
         byte[] imageBytesJPG = screenImage.EncodeToJPG();
 
         //Save image to file
-        File.WriteAllBytes(path, imageBytesJPG);
+        File.WriteAllBytes(fullPath, imageBytesJPG);
     }
 }
+
 
