@@ -1,5 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using System.IO;
+using System;
+
+using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.Text;
 
 public class CustomSceneManager : MonoBehaviour
 {
@@ -8,6 +14,9 @@ public class CustomSceneManager : MonoBehaviour
 
     [Header("--DEBUG--")]
     [SerializeField] private bool dontDestroyOnLoad;
+    private bool isSharing;
+
+    public string path;
 
     private void Awake()
     {
@@ -16,7 +25,7 @@ public class CustomSceneManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-        
+
     public void LoadLastSavedDiorama()
     {
         if (isMainMenu)
@@ -41,13 +50,72 @@ public class CustomSceneManager : MonoBehaviour
         SceneManager.LoadSceneAsync(currentScene + 1, LoadSceneMode.Single);
     }
 
+    public void Share()
+    {
+        // StartCoroutine(TakeScreenshotAndShare());
+        StartCoroutine(CaptureScreenshot());
+    }
+
     public void SetDioramaToLoad(DioramaName diorama)
     {
         dioramaToLoad = diorama; 
+    }
+
+    private WaitForSeconds WFS = new(1f); 
+    private System.Collections.IEnumerator TakeScreenshotAndShare()
+    {
+        isSharing = true; 
+        yield return new WaitForEndOfFrame();
+
+        Texture2D ss = new(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        ss.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        ss.Apply();
+
+        string filePath = Path.Combine(string.Concat(Application.temporaryCachePath, "shared img.png"));
+        File.WriteAllBytes(filePath, ss.EncodeToPNG());
+
+        Destroy(ss);
+
+        new NativeShare().AddFile(filePath)
+            .SetSubject("Subject goes here").SetText("Hello world!").SetUrl("https://github.com/yasirkula/UnityNativeShare")
+            .SetCallback((result, shareTarget) => GameLogger.Log("Share result: " + result + ", selected app: " + shareTarget))
+            .Share();
+
+        // Share on WhatsApp only, if installed (Android only)
+        //if( NativeShare.TargetExists( "com.whatsapp" ) )
+        //	new NativeShare().AddFile( filePath ).AddTarget( "com.whatsapp" ).Share();
+
+        yield return WFS;
+        isSharing = false; 
     }
 
     public void QuitApplication()
     {
         Application.Quit();
     }
+
+    private int screenshotCount; 
+    private System.Collections.IEnumerator CaptureScreenshot()
+    {
+        yield return new WaitForEndOfFrame();
+
+        path = Application.persistentDataPath + "/Screenshots/" + "_" + screenshotCount + ".png";
+        GameLogger.Log($"file saved {Application.persistentDataPath + "_" + screenshotCount }");
+
+        // android path : Galaxy A6\Phone\Android\data\com.DefaultCompany.Dioravity
+
+        screenshotCount++;
+
+        Texture2D screenImage = new(Screen.width, Screen.height);
+        //Get Image from screen
+        screenImage.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        screenImage.Apply(); 
+
+        //Convert to png
+        byte[] imageBytesJPG = screenImage.EncodeToJPG();
+
+        //Save image to file
+        File.WriteAllBytes(path, imageBytesJPG);
+    }
 }
+
