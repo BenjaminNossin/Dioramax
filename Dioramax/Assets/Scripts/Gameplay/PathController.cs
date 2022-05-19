@@ -30,7 +30,7 @@ public class PathController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (Nodes.Length != 0 && refreshNodesArrayOnReferenceLoss)
+        if (Nodes.Length != 0)
         {
             for (var i = 0; i < Nodes.Length; i++)
             {
@@ -50,14 +50,12 @@ public class PathController : MonoBehaviour
                         // Gizmos.DrawLine(currentIndexNodePosition, Nodes[i].GetNextPossibleNodesTransform()[j].position);
                         if (i+1 < Nodes.Length)
                         {
-                            DrawPath(Nodes[i], Nodes[i + 1]); 
+                            DrawPath(Nodes[i], Nodes[i].GetNextPossibleNodes()[j]); 
                         }
                     }
                     catch (MissingReferenceException)
                     {
-                        GameLogger.Log($"{Nodes[i].gameObject} is missing one or more references in its nextPossibleNodes array. Fill or remove them."); 
                     }
-
                 }
             }
         } 
@@ -100,17 +98,20 @@ public class PathController : MonoBehaviour
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                try
+                Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
+                /* try
                 {
                     Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
                 }
-                catch (System.Exception)
-                {
-                    GameLogger.Log("A PathNode component has been added to the new object. \n If that object is not supposed to have that component, " +
-                        "please remove it from the PathController child hierarchy.");
-                }
+                catch { } */
             }
         }
+    }
+
+    private void AddMissingpathNodeComponent(GameObject gO)
+    {
+        // gO.AddComponent<PathNode>();
+        GameLogger.Log($"A PathNode component was added to {gO} because it did not had one");
     }
 
     public Vector3 GetNodePosition(int index) => Nodes[index].GetNodePosition();
