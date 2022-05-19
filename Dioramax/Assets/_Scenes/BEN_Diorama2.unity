@@ -6204,6 +6204,7 @@ MonoBehaviour:
   isMainMenu: 0
   dioramaToLoad: 0
   dontDestroyOnLoad: 0
+  fullPath: 
 --- !u!1001 &652424692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7975,6 +7976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 676e6167bbb67c74495b788640b87bbd, type: 2}
+  doTween: 0
 --- !u!54 &1168016279
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17627,6 +17629,9 @@ MonoBehaviour:
   locoStickPoint: {fileID: 2382905098691288346}
   wagonStickPoint: {fileID: 6213345206183924264}
   freezeAllExceptSelected: 1
+  linkableFreezeControllers:
+  - {fileID: 6207675322537631519}
+  - {fileID: 1981401785858129897}
   freezeAllOnDetach: 1
 --- !u!1 &1718780836
 GameObject:
@@ -22191,6 +22196,18 @@ PrefabInstance:
       propertyPath: diorama
       value: 
       objectReference: {fileID: 1341540246}
+    - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: maxAllowedSwipeForce
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533724393244289011, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: curveDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533724393244289011, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: curveMaxDuration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
       value: Prefab_3C_CameraCrane
@@ -27470,6 +27487,7 @@ MonoBehaviour:
   reussiteTuyauxVFX: []
   ratAnimationObj: {fileID: 0}
   cameraCrane: {fileID: 1865566552}
+  cameras: {fileID: 0}
   mainCamera: {fileID: 1865566551}
   decoyCamera: {fileID: 1865566550}
   cameraTransformOnPhase2: {fileID: 0}
@@ -31826,6 +31844,14 @@ PrefabInstance:
       propertyPath: otherFreeze
       value: 
       objectReference: {fileID: 6207675322537631519}
+    - target: {fileID: 5779456402318435149, guid: cf7b826874029014995f019a30f2a5ca, type: 3}
+      propertyPath: doTween
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779456402318435149, guid: cf7b826874029014995f019a30f2a5ca, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf7b826874029014995f019a30f2a5ca, type: 3}
 --- !u!1 &5443537149305111404
@@ -32094,6 +32120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 676e6167bbb67c74495b788640b87bbd, type: 2}
+  doTween: 0
 --- !u!65 &5779456402561639258
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34219,6 +34246,14 @@ PrefabInstance:
     - target: {fileID: 3892225266261561860, guid: 92d84e9110353fc48abc665c261c7cd0, type: 3}
       propertyPath: m_Name
       value: Stickpoint_Loco
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199868610442044734, guid: 92d84e9110353fc48abc665c261c7cd0, type: 3}
+      propertyPath: doTween
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199868610442044734, guid: 92d84e9110353fc48abc665c261c7cd0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5811949867633028324, guid: 92d84e9110353fc48abc665c261c7cd0, type: 3}
       propertyPath: m_RootOrder

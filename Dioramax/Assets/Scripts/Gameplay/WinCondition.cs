@@ -3,7 +3,7 @@ using UnityEngine;
 public class WinCondition : MonoBehaviour
 {
     [Space, SerializeField] private DioramaPuzzleName entityPuzzleName; // PLACEHOLDER
-    public int entityNumber;
+    public int entityNumber; 
     [SerializeField] private bool overrideWinConditionCall; // for rats in case more than one fall in the same hole; 
     public bool OverrideWinConditionCall { get; set; }
 

@@ -41,7 +41,7 @@ public class Debug_TrainMovement : MonoBehaviour
             }
             else
             {
-                transform.SetPositionAndRotation(targetTransf.position, Quaternion.Euler(targetTransf.rotation.eulerAngles));
+                transform.parent.SetPositionAndRotation(targetTransf.position, Quaternion.Euler(targetTransf.rotation.eulerAngles));
             }
         }
     }
