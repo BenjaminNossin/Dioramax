@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2389381, g: 0.4281911, b: 0.719298, a: 1}
+  m_IndirectSpecularColor: {r: 0.86249197, g: 0.3592239, b: 0.6961366, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -180,6 +180,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964f466f58e1be947a13cc1d7655e834, type: 3}
+--- !u!1 &30863291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 30863292}
+  m_Layer: 0
+  m_Name: Diorama2Center
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &30863292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30863291}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.94, y: 0, z: 4.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 465408120}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &116535162 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4811662028204594315, guid: 964f466f58e1be947a13cc1d7655e834, type: 3}
@@ -636,6 +668,14 @@ PrefabInstance:
       propertyPath: curveDuration
       value: 2.67
       objectReference: {fileID: 0}
+    - target: {fileID: 2024677769643840879, guid: 24120c7b526622d46beab099b74cefe6, type: 3}
+      propertyPath: dioramaTransf
+      value: 
+      objectReference: {fileID: 30863292}
+    - target: {fileID: 3248034489105072318, guid: 24120c7b526622d46beab099b74cefe6, type: 3}
+      propertyPath: dioramaTransf
+      value: 
+      objectReference: {fileID: 30863292}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24120c7b526622d46beab099b74cefe6, type: 3}
 --- !u!4 &320305575 stripped
@@ -937,7 +977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465408117}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.31, y: 0, z: -3.37}
+  m_LocalPosition: {x: 7.3700004, y: 0, z: -7.98}
   m_LocalScale: {x: 31.38472, y: 31.38472, z: 31.38472}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -967,8 +1007,8 @@ Transform:
   - {fileID: 1710589655602164095}
   - {fileID: 6054378025791032335}
   - {fileID: 8353292228714733200}
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 30863292}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &471245436 stripped
 Transform:
@@ -1116,7 +1156,7 @@ MonoBehaviour:
   isMainMenu: 0
   dioramaToLoad: 0
   dontDestroyOnLoad: 0
-  path: 
+  fullPath: 
 --- !u!4 &623133499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8910152615021241498, guid: 161094bec9c475c4189a39e11e923bf3, type: 3}
@@ -11339,7 +11379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8207786428424081019, guid: 730a02f6cd3368e439bdbcaec3a78d7e, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8207786428424081019, guid: 730a02f6cd3368e439bdbcaec3a78d7e, type: 3}
       propertyPath: m_LocalPosition.x

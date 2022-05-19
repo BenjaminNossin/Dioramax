@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening; 
 
 // stores all the node data and update path according to switches
 // this script is NOT in charge of the entity navigation along the path
@@ -46,7 +47,11 @@ public class PathController : MonoBehaviour
                 {
                     try
                     {
-                        Gizmos.DrawLine(currentIndexNodePosition, Nodes[i].GetNextPossibleNodesTransform()[j].position);
+                        // Gizmos.DrawLine(currentIndexNodePosition, Nodes[i].GetNextPossibleNodesTransform()[j].position);
+                        if (i+1 < Nodes.Length)
+                        {
+                            DrawPath(Nodes[i], Nodes[i + 1]); 
+                        }
                     }
                     catch (MissingReferenceException)
                     {
@@ -56,6 +61,21 @@ public class PathController : MonoBehaviour
                 }
             }
         } 
+    }
+
+    private void DrawPath(PathNode node1, PathNode node2)
+    {
+        Vector3 v1;
+        Vector3 v2;
+        for (float f = 0; f < 1.0f; f += 0.1f)
+        {
+            v1 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointToWorld(), node2.GetNodePosition(),
+                node2.GetControlPointToWorld(), f);
+            v2 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointToWorld(), node2.GetNodePosition(),
+                 node2.GetControlPointToWorld(), f+0.1f);
+
+            Gizmos.DrawLine(v1, v2); 
+        }
     }
 
     private void Awake()
