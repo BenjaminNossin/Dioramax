@@ -18,7 +18,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     public static bool YXRotation { get; set; } 
 
-    UnityAction OnEvaluationEndedCallback;
+    private UnityAction OnEvaluationEndedCallback;
 
     public static float ZRotation { get; set; }
     public static float ZLocalRotation { get; set; }
@@ -26,8 +26,12 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
+    [SerializeField, Range(50, 400)] private float maxAllowedSwipeForce = 200f;
+
     private bool updateGamefeelCurve;
-    private float curveValue; 
+    private float curveValue;
+    private float force;
+    private bool needToSetForce = true;
 
     // TODO : Subscribing for the gamefeel event should NOT be done here, but on an interface or CurveEvaluator.
     private void OnEnable()
@@ -36,7 +40,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
         TouchDetection.OnDoubleTapDetection += SetCameraRotationOnDoubleTap;
 
-        OnEvaluationEndedCallback += SetToFalse;
+        OnEvaluationEndedCallback += ResetBoolValues;
     }
 
     private void OnDisable()
@@ -45,13 +49,14 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
         TouchDetection.OnDoubleTapDetection -= SetCameraRotationOnDoubleTap;
 
-        OnEvaluationEndedCallback -= SetToFalse;
+        OnEvaluationEndedCallback -= ResetBoolValues;
     }
 
 
     private void Start()
     {
         RotationSensitivity = rotationSensitivity;
+        needToSetForce = true;
     }
 
     private void Update()
@@ -61,7 +66,13 @@ public class DioravityCameraCraneRotation : MonoBehaviour
             if (YXRotation)
             {
                 // GameLogger.Log("yx rotation gamefeel");
-                curveValue = gamefeelCurve.Evaluate(OnEvaluationEndedCallback); 
+                if (needToSetForce)
+                {
+                    needToSetForce = false;
+                    force = Mathf.Clamp(swipeForce / maxAllowedSwipeForce, 0, 1);
+                }
+
+                curveValue = gamefeelCurve.Evaluate(OnEvaluationEndedCallback, force); 
                 UpdateXYRotation(swipeDirection, swipeForce * curveValue);
             }
         }
@@ -148,10 +159,11 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         }
     }
 
-    private void SetToFalse()
+    private void ResetBoolValues()
     {
         // GameLogger.Log("on ended rotation callback");
         updateGamefeelCurve = false;
         YXRotation = false;
+        needToSetForce = true; 
     }
 }
