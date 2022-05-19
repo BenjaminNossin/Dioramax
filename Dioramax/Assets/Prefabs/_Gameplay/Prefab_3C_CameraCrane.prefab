@@ -451,10 +451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6589459fcc2cde47adfecc3396b9bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYForceMultiplier: 1.5
+  XYForceMultiplier: 2
   ZRotationForce: 50
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
+  maxAllowedSwipeForce: 400
 --- !u!114 &3533724393244289011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,52 +474,34 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.15226832
-      outSlope: -0.15226832
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.037202917
-      value: 0.9943352
-      inSlope: -0.35061514
-      outSlope: -0.35061514
+      time: 0.012972441
+      value: 0.98373395
+      inSlope: -0.038011044
+      outSlope: -0.038011044
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.24051577
-      value: 0.8361081
-      inSlope: -2.010858
-      outSlope: -2.010858
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.13200215
-      outWeight: 0.32114804
-    - serializedVersion: 3
-      time: 0.46078154
-      value: 0.2879739
-      inSlope: -1.213941
-      outSlope: -1.213941
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.09073239
+      outWeight: 0.07147071
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -0.16634583
-      outSlope: -0.16634583
+      value: 0.9714065
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.07888215
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  curveDuration: 2.99
+  curveMaxDuration: 15
 --- !u!114 &7964244908747386689
 MonoBehaviour:
   m_ObjectHideFlags: 0
