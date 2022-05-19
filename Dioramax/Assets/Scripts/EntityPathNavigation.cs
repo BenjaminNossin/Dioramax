@@ -80,13 +80,12 @@ public class EntityPathNavigation : MonoBehaviour
         SubDestination = pointsAlongPath[subDestinationIndex];
         normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
 
-        // entityToMoveTransform.LookAt(SubDestination);
+        entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
     }
 
     // distance between two points on a segment
     private void CheckMicroDistance()
     {
-        GameLogger.Log("checking micro distance"); 
         distanceFromNextSubNode = Vector3.Distance(entityToMoveTransform.position, new Vector3(
                                                                                     SubDestination.x, 
                                                                                     entityToMoveTransform.position.y, 

@@ -32024,6 +32024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110d4b1821e2ba845a2d702adbec04f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathResolution: 20
   refreshNodesArrayOnReferenceLoss: 1
 --- !u!64 &8607213600099841500
 MeshCollider:
@@ -32310,7 +32311,7 @@ PrefabInstance:
       objectReference: {fileID: 2382905098691288346}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: navigationSpeedMultiplier
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: initialNodesDebugArray.Array.size
@@ -32343,6 +32344,14 @@ PrefabInstance:
     - target: {fileID: 6551863119997799997, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6577903225607664593, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6577903225607664593, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 6723121595412290778, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_IsActive
