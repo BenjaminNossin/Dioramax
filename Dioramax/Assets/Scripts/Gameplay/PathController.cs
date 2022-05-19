@@ -10,6 +10,7 @@ public class PathController : MonoBehaviour
     private PathNode[] Nodes; // even though it changes in editor, the value is reset to O when  hitting Play
 
     private Vector3 currentIndexNodePosition;
+    public static int Resolution = 10; 
 
     [Header("DEBUG")]
     public bool refreshNodesArrayOnReferenceLoss;
@@ -76,29 +77,27 @@ public class PathController : MonoBehaviour
     {
         PopulateArray();
     }
-
    
     // call this from EntityPathNavigation.
     // f is data on train
     // reinit f from train when nextNode is reached
     public Vector3 GetPointAlongPathBetweenNodes(PathNode node1, PathNode node2, float f) // entre 0 et 1
     {
-        return DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUT(), node2.GetNodePosition(),
-            node2.GetControlPointIN(), f); 
+        return DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
+            node2.GetControlPointINPosition(), f);  
     }
 
+    Vector3 v1, v2; 
     private void DrawPath(PathNode node1, PathNode node2)
     {
-        Vector3 v1;
-        Vector3 v2;
         // i IN
-        // i+1 OUT
-        for (float f = 0; f < 1.0f; f += 0.1f)
+        // i+1 OUT 
+        for (float f = 0; f < 1.0f; f += (1/Resolution))
         {
-            v1 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUT(), node2.GetNodePosition(),
-                node2.GetControlPointIN(), f);
-            v2 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUT(), node2.GetNodePosition(),
-                 node2.GetControlPointIN(), f + 0.1f);
+            v1 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
+                node2.GetControlPointINPosition(), f);
+            v2 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
+                 node2.GetControlPointINPosition(), f + (1/Resolution));
 
             Gizmos.DrawLine(v1, v2);
         }
@@ -122,19 +121,10 @@ public class PathController : MonoBehaviour
         }
     }
 
-    public Vector3 GetNodePosition(int index) => Nodes[index].GetNodePosition();
+    public Vector3 GetNodePosition(int index) => Nodes[index].GetNodePosition(); // bad, already done at the PathNode level
+                                                                                 // this class should only deal with macro infos 
 
     public int GetNodeArraySize() => Nodes.Length;
-
-    public void AddNode()
-    {
-
-    }
-
-    public void RemoveNode()
-    {
-
-    }
 
     public PathNode[] GetPathNodes() => Nodes; 
 }

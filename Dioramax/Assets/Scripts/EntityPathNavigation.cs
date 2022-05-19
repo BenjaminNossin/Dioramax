@@ -9,7 +9,7 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private Transform entityToMove;
     [SerializeField] private bool loopPath;
     [SerializeField] private Transform[] initialNodesDebugArray;
-    private Vector3[] initialNodesDebugArrayPositions; 
+    private PathNode[] currentAndNextNode; 
 
     private PathNode[] pathNodes;
     private int destinationNodeIndex;
@@ -17,7 +17,7 @@ public class EntityPathNavigation : MonoBehaviour
     private int nodeArraySize;
     private Vector3 nextNodePosition, lastNodePosition; 
 
-    private const float SNAP_VALUE = 0.2f; 
+    private const float SNAP_VALUE = 0.05f; 
 
     private void Awake()
     {
@@ -30,12 +30,6 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Start()
     {
-        initialNodesDebugArrayPositions = new Vector3[initialNodesDebugArray.Length]; 
-        for (int i = 0; i < initialNodesDebugArray.Length; i++)
-        {
-            initialNodesDebugArrayPositions[i] = initialNodesDebugArray[i].position; 
-        }
-
         /* transform.position = PathController.Instance.GetNodePosition(0);
         GotoNextPoint(); */
         // bad to call GetPathNodes() twice
@@ -46,14 +40,40 @@ public class EntityPathNavigation : MonoBehaviour
         lastNodePosition = pathNodes[^1].GetNodePosition();
         entityToMove.position = new Vector3(pathNodes[0].GetNodePosition().x, transform.position.y, pathNodes[0].GetNodePosition().z);
 
-        entityToMove.DOPath(initialNodesDebugArrayPositions, 1f, PathType.CubicBezier, PathMode.Full3D, 5, Color.red);  
+        entityToMove.DOPath(
+            GetCubicBezierNodeData(pathNodes[0]), 
+            1f, 
+            PathType.CubicBezier, 
+            PathMode.Full3D, 
+            PathController.Resolution, 
+            Color.red);  
+
         // SetNextDestination();
     }
-
+     
     void Update()
     {
         // CheckDistanceFromNextNode(); 
-    } 
+    }
+
+    // infos always grouped by three : destNode, currNodeCtrlPoint, destNodeCtrlPoint; 
+    // first node is the function caller's target position
+    // called on start and on every SetNextDestination
+    private readonly Vector3[] cubicBezierCurveNodeData = new Vector3[3];  
+    private Vector3[] GetCubicBezierNodeData(PathNode node1)
+    {
+        currentAndNextNode = new PathNode[2];
+
+        currentAndNextNode[0] = node1;
+        currentAndNextNode[1] = node1.GetNextActiveNode();
+
+        // data structure you use is poorly done for the kind of array iteration you would need here 
+        cubicBezierCurveNodeData[0] = currentAndNextNode[1].GetNodePosition();
+        cubicBezierCurveNodeData[1] = currentAndNextNode[0].GetControlPointOUTPosition();
+        cubicBezierCurveNodeData[2] = currentAndNextNode[1].GetControlPointINPosition();
+
+        return cubicBezierCurveNodeData; 
+    }
 
     private void CheckDistanceFromNextNode()
     {

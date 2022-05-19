@@ -21,18 +21,13 @@ public class PathNode : MonoBehaviour
 
     public bool IsActiveNode { get; set; }
 
-    private Transform nextNode; // updated via switching
+    private PathNode nextActiveNode; // updated via switching
     private Vector3 selfPosition; // caching to avoid costly calls to the C++ side of engine
     private Vector3 previousNodePosition; // idem
 
     private void OnValidate()
     {
-        InitorUpdate();
-    }
-
-    private void Awake()
-    {
-        InitorUpdate();
+        InitOrUpdate();
     }
 
     private void OnDrawGizmos()
@@ -42,42 +37,43 @@ public class PathNode : MonoBehaviour
         Handles.DrawLine(transform.position, transform.TransformPoint(controlPointIn), LineThickness); 
     }
 
-    private void Start()
+    private void Awake()
     {
         if (neightboursNodes.Length == 1)
         {
-            SetNextNode(0); 
+            SetNextNode(0);
         }
+
+        InitOrUpdate();
     }
 
     public void SetNextNode(int index)
     {
-        nextNode = neighboursTransform[index];
+        nextActiveNode = neightboursNodes[index];
     }
-
-    private void InitorUpdate()
+    private void InitOrUpdate()
     {
         LineThickness = lineThickness; 
 
-        IsActiveNode = true;
+        IsActiveNode = true; // PROBABLY WRONG
         selfPosition = transform.position;
         if (previousNode)
         {
             previousNodePosition = previousNode.transform.position;
         }
     }
-
     public Vector3 GetNodePosition() => selfPosition;
     public Vector3 GetPreviousNodePosition() => previousNodePosition; 
     public Transform[] GetNextPossibleNodesTransform() => neighboursTransform;
     public PathNode[] GetNextPossibleNodes() => neightboursNodes;
+    public PathNode GetNextActiveNode() => nextActiveNode;
     public int GetNextPossibleNodesArraySize() => (int)(neighboursTransform?.Length);
     public Vector3 GetControlPointToWorld(bool getIn= true) => transform.TransformPoint(getIn ? controlPointIn : controlPointOut);
-    public Vector3 GetControlPointIN()
+    public Vector3 GetControlPointINPosition()
     {
         return transform.TransformPoint(controlPointIn); 
     }
-    public Vector3 GetControlPointOUT()
+    public Vector3 GetControlPointOUTPosition()
     {
         return transform.TransformPoint(controlPointOut);
     }
