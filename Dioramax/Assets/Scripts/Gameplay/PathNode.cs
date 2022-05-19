@@ -11,6 +11,8 @@ public class PathNode : MonoBehaviour
     private Vector3 selfPosition; // caching to avoid costly calls to the C++ side of engine
     private Vector3 previousNodePosition; // idem
 
+    private Vector3 controlPoint; 
+
     public void SetNextNode(int index)
     {
         nextNode = nextPossibleNodes[index]; 
@@ -24,6 +26,12 @@ public class PathNode : MonoBehaviour
     private void Awake()
     {
         Init();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(transform.position, transform.TransformPoint(controlPoint)); 
     }
 
     private void Init()
@@ -40,4 +48,5 @@ public class PathNode : MonoBehaviour
     public Vector3 GetPreviousNodePosition() => previousNodePosition; 
     public Transform[] GetNextPossibleNodesTransform() => nextPossibleNodes;
     public int GetNextPossibleNodesArraySize() => nextPossibleNodes.Length;
+    public Vector3 GetControlPointToWorld() => transform.TransformPoint(controlPoint); 
 }
