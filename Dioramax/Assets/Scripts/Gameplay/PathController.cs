@@ -55,25 +55,12 @@ public class PathController : MonoBehaviour
                     }
                     catch (MissingReferenceException)
                     {
+                        GameLogger.Log("The gameobject you added as child is missing a NodePath component. \n " +
+                            "Please add it, or take the gameobject out of the child list. "); 
                     }
                 }
             }
         } 
-    }
-
-    private void DrawPath(PathNode node1, PathNode node2)
-    {
-        Vector3 v1;
-        Vector3 v2;
-        for (float f = 0; f < 1.0f; f += 0.1f)
-        {
-            v1 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointToWorld(), node2.GetNodePosition(),
-                node2.GetControlPointToWorld(), f);
-            v2 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointToWorld(), node2.GetNodePosition(),
-                 node2.GetControlPointToWorld(), f+0.1f);
-
-            Gizmos.DrawLine(v1, v2); 
-        }
     }
 
     private void Awake()
@@ -88,6 +75,33 @@ public class PathController : MonoBehaviour
     private void Start()
     {
         PopulateArray();
+    }
+
+   
+    // call this from EntityPathNavigation.
+    // f is data on train
+    // reinit f from train when nextNode is reached
+    public Vector3 GetPointAlongPathBetweenNodes(PathNode node1, PathNode node2, float f) // entre 0 et 1
+    {
+        return DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUT(), node2.GetNodePosition(),
+            node2.GetControlPointIN(), f); 
+    }
+
+    private void DrawPath(PathNode node1, PathNode node2)
+    {
+        Vector3 v1;
+        Vector3 v2;
+        // i IN
+        // i+1 OUT
+        for (float f = 0; f < 1.0f; f += 0.1f)
+        {
+            v1 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUT(), node2.GetNodePosition(),
+                node2.GetControlPointIN(), f);
+            v2 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUT(), node2.GetNodePosition(),
+                 node2.GetControlPointIN(), f + 0.1f);
+
+            Gizmos.DrawLine(v1, v2);
+        }
     }
 
     private void PopulateArray()
@@ -106,12 +120,6 @@ public class PathController : MonoBehaviour
                 catch { } */
             }
         }
-    }
-
-    private void AddMissingpathNodeComponent(GameObject gO)
-    {
-        // gO.AddComponent<PathNode>();
-        GameLogger.Log($"A PathNode component was added to {gO} because it did not had one");
     }
 
     public Vector3 GetNodePosition(int index) => Nodes[index].GetNodePosition();

@@ -834,11 +834,51 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1272226936393648068}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: controlPointIn.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: controlPointIn.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: controlPointOut.x
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: controlPointOut.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 652424694}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 394064883}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.data[0]
       value: 
       objectReference: {fileID: 652424693}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 394064882}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.data[0]
+      value: 
+      objectReference: {fileID: 652424693}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.data[1]
       value: 
       objectReference: {fileID: 394064882}
     - target: {fileID: 7082379054339734929, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
@@ -936,6 +976,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7257743331627053286, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
   m_PrefabInstance: {fileID: 373808096}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &373808098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+  m_PrefabInstance: {fileID: 373808096}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &376469582
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,10 +1032,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousNode: {fileID: 0}
-  nextPossibleNodesTransforms: []
-  nextPossibleNodes:
+  neighboursTransform:
   - {fileID: 1272226936393648068}
-  controlPoint: {x: 0, y: 0, z: 0}
+  neightboursNodes:
+  - {fileID: 8439592539299411747}
+  controlPointIn: {x: 0, y: 0, z: 0}
+  controlPointOut: {x: -0.09, y: 0.04, z: 0}
+  lineThickness: 1
 --- !u!1001 &382448825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1092,9 +1146,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousNode: {fileID: 373808097}
-  nextPossibleNodesTransforms: []
-  nextPossibleNodes: []
-  controlPoint: {x: 0, y: 0, z: 0}
+  neighboursTransform: []
+  neightboursNodes: []
+  controlPointIn: {x: 0, y: 0, z: 0}
+  controlPointOut: {x: 0, y: 0, z: 0}
+  lineThickness: 1
 --- !u!1 &419916122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,9 +1196,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousNode: {fileID: 1272226936393648068}
-  nextPossibleNodesTransforms: []
-  nextPossibleNodes: []
-  controlPoint: {x: 0, y: 0, z: 0}
+  neighboursTransform:
+  - {fileID: 1272226936393648068}
+  neightboursNodes:
+  - {fileID: 8439592539299411747}
+  controlPointIn: {x: 0, y: 0, z: 0}
+  controlPointOut: {x: 0, y: 0, z: 0}
+  lineThickness: 1
 --- !u!43 &480921632
 Mesh:
   m_ObjectHideFlags: 0
@@ -5341,8 +5401,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501377880}
-  m_LocalRotation: {x: 0, y: 0, z: 0.3907311, w: 0.9205049}
-  m_LocalPosition: {x: -0.4495, y: -0.3594, z: 0.0268}
+  m_LocalRotation: {x: -0, y: -0, z: 0.3907311, w: 0.9205049}
+  m_LocalPosition: {x: -0.44949993, y: -0.35940006, z: 0.026800007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5362,9 +5422,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousNode: {fileID: 652424693}
-  nextPossibleNodesTransforms: []
-  nextPossibleNodes: []
-  controlPoint: {x: 0, y: 0, z: 0}
+  neighboursTransform:
+  - {fileID: 0}
+  neightboursNodes:
+  - {fileID: 0}
+  controlPointIn: {x: 0, y: 0, z: 0}
+  controlPointOut: {x: 0, y: 0, z: 0}
+  lineThickness: 1
 --- !u!1001 &604349314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5645,15 +5709,43 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 373808097}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: controlPointOut.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 2052001029}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 501377882}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.data[0]
       value: 
       objectReference: {fileID: 2052001028}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 501377881}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.data[0]
+      value: 
+      objectReference: {fileID: 2052001028}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.data[1]
       value: 
       objectReference: {fileID: 501377881}
     - target: {fileID: 7082379054339734929, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
@@ -5723,6 +5815,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7257743331627053286, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
   m_PrefabInstance: {fileID: 652424692}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &652424694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+  m_PrefabInstance: {fileID: 652424692}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &694570508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20737,8 +20840,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052001027}
-  m_LocalRotation: {x: 0, y: 0, z: 0.3907311, w: 0.9205049}
-  m_LocalPosition: {x: -0.437, y: -0.2615, z: 0.0268}
+  m_LocalRotation: {x: -0, y: -0, z: 0.3907311, w: 0.9205049}
+  m_LocalPosition: {x: -0.437, y: -0.26150003, z: 0.026800007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20758,9 +20861,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousNode: {fileID: 652424693}
-  nextPossibleNodesTransforms: []
-  nextPossibleNodes: []
-  controlPoint: {x: 0, y: 0, z: 0}
+  neighboursTransform: []
+  neightboursNodes: []
+  controlPointIn: {x: 0, y: 0, z: 0}
+  controlPointOut: {x: 0, y: 0, z: 0}
+  lineThickness: 1
 --- !u!1 &2123374114
 GameObject:
   m_ObjectHideFlags: 0
@@ -31554,21 +31659,61 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 376469583}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: controlPoint.y
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 373808098}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neightboursNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 419916124}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.data[0]
       value: 
-      objectReference: {fileID: 373808097}
+      objectReference: {fileID: 373808098}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.data[1]
       value: 
-      objectReference: {fileID: 419916123}
+      objectReference: {fileID: 419916124}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: nextPossibleNodes.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.data[0]
+      value: 
+      objectReference: {fileID: 373808097}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: neighboursTransform.Array.data[1]
+      value: 
+      objectReference: {fileID: 419916123}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: nextPossibleNodesTransforms.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: nextPossibleNodesTransforms.Array.data[0]
+      value: 
+      objectReference: {fileID: 373808097}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: nextPossibleNodesTransforms.Array.data[1]
+      value: 
+      objectReference: {fileID: 419916123}
     - target: {fileID: 7082379054339734929, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: m_Name
       value: LCR_Rail_Switch_000
@@ -31647,6 +31792,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+--- !u!114 &8439592539299411747 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+  m_PrefabInstance: {fileID: 8439592539299411746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8443262012122651138
 GameObject:
   m_ObjectHideFlags: 0
@@ -31710,9 +31866,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousNode: {fileID: 0}
-  nextPossibleNodesTransforms: []
-  nextPossibleNodes: []
-  controlPoint: {x: 0, y: 0, z: 0}
+  neighboursTransform: []
+  neightboursNodes: []
+  controlPointIn: {x: 0, y: 0, z: 0}
+  controlPointOut: {x: 0, y: 0, z: 0}
+  lineThickness: 1
 --- !u!23 &8453294664857395492
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32337,9 +32495,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousNode: {fileID: 0}
-  nextPossibleNodesTransforms: []
-  nextPossibleNodes: []
-  controlPoint: {x: 0, y: 0, z: 0}
+  neighboursTransform: []
+  neightboursNodes: []
+  controlPointIn: {x: 0, y: 0, z: 0}
+  controlPointOut: {x: 0, y: 0, z: 0}
+  lineThickness: 1
 --- !u!23 &9165046150944829920
 MeshRenderer:
   m_ObjectHideFlags: 0

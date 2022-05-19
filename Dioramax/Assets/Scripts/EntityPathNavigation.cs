@@ -1,17 +1,20 @@
 using UnityEngine;
+using DG.Tweening;
 
 // makes an entity move along a path
 public class EntityPathNavigation : MonoBehaviour
 {
     public static EntityPathNavigation Instance;
 
+    [SerializeField] private Transform entityToMove;
     [SerializeField] private bool loopPath;
-    private PathNode[] pathNodes;
+    [SerializeField] private Transform[] initialNodesDebugArray;
+    private Vector3[] initialNodesDebugArrayPositions; 
 
+    private PathNode[] pathNodes;
     private int destinationNodeIndex;
     private float distanceFromNextNode;
     private int nodeArraySize;
-
     private Vector3 nextNodePosition, lastNodePosition; 
 
     private const float SNAP_VALUE = 0.2f; 
@@ -27,6 +30,12 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Start()
     {
+        initialNodesDebugArrayPositions = new Vector3[initialNodesDebugArray.Length]; 
+        for (int i = 0; i < initialNodesDebugArray.Length; i++)
+        {
+            initialNodesDebugArrayPositions[i] = initialNodesDebugArray[i].position; 
+        }
+
         /* transform.position = PathController.Instance.GetNodePosition(0);
         GotoNextPoint(); */
         // bad to call GetPathNodes() twice
@@ -34,17 +43,22 @@ public class EntityPathNavigation : MonoBehaviour
         PathController.Instance.GetPathNodes().CopyTo(pathNodes, 0);
         nodeArraySize = PathController.Instance.GetNodeArraySize();
 
-        lastNodePosition = pathNodes[^1].GetNodePosition(); 
-        transform.position = new Vector3(pathNodes[0].GetNodePosition().x, transform.position.y, pathNodes[0].GetNodePosition().z);
+        lastNodePosition = pathNodes[^1].GetNodePosition();
+        entityToMove.position = new Vector3(pathNodes[0].GetNodePosition().x, transform.position.y, pathNodes[0].GetNodePosition().z);
 
-        SetNextDestination();
+        entityToMove.DOPath(initialNodesDebugArrayPositions, 1f, PathType.CubicBezier, PathMode.Full3D, 5, Color.red);  
+        // SetNextDestination();
     }
 
-
     void Update()
-    {         
+    {
+        // CheckDistanceFromNextNode(); 
+    } 
+
+    private void CheckDistanceFromNextNode()
+    {
         if (Vector3.Distance(transform.position, lastNodePosition) < SNAP_VALUE &&
-            destinationNodeIndex == pathNodes.Length-1 && !loopPath) return; // arrived at the end of path
+            destinationNodeIndex == pathNodes.Length - 1 && !loopPath) return; // arrived at the end of path
 
         distanceFromNextNode = Vector3.Distance(transform.position, nextNodePosition);
 
@@ -52,12 +66,11 @@ public class EntityPathNavigation : MonoBehaviour
         if (distanceFromNextNode < SNAP_VALUE)
         {
             GameLogger.Log("snapping to current node");
-            transform.position = new Vector3(pathNodes[destinationNodeIndex].GetNodePosition().x, transform.position.y, pathNodes[destinationNodeIndex].GetNodePosition().z); 
+            transform.position = new Vector3(pathNodes[destinationNodeIndex].GetNodePosition().x, transform.position.y, pathNodes[destinationNodeIndex].GetNodePosition().z);
             SetNextDestination(); // this is called too often
         }
-    } 
+    }
 
-    // go if more than 90°
     private void SetNextDestination()
     {
         if (nodeArraySize == 0)
