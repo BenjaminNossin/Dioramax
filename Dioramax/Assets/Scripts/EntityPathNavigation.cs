@@ -79,32 +79,43 @@ public class EntityPathNavigation : MonoBehaviour
         subDestinationIndex += 1; // (subDestinationIndex + 1) % pointsAlongPath.Length; // no need of modulo here
         SubDestination = pointsAlongPath[subDestinationIndex];
         normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
-
-        entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
     }
 
     // distance between two points on a segment
+    private float duration; 
     private void CheckMicroDistance()
     {
         distanceFromNextSubNode = Vector3.Distance(entityToMoveTransform.position, new Vector3(
                                                                                     SubDestination.x, 
                                                                                     entityToMoveTransform.position.y, 
                                                                                     SubDestination.z));
-
+        duration += Time.fixedDeltaTime; 
         if (distanceFromNextSubNode <= SNAP_VALUE)
         {
             if (subDestinationIndex == pointsAlongPath.Length && !loopPath) return; 
 
             GameLogger.Log("snapping to current sub node");
+            GameLogger.Log($"duration: {duration}"); 
             entityToMoveTransform.position = new Vector3(pointsAlongPath[subDestinationIndex].x, entityToMoveTransform.position.y, pointsAlongPath[subDestinationIndex].z);
             SetSubDestination();
         }
     }
 
+    private float angleBetweenStartAndTargedNode = 100f; // hardcoded placeholder 
+
+    // duration = 6
+    private float framesToReachTargetNode = 300; // 50 * (1/NavigationSpeedMultiplier)
+    
     private void MoveEntityAlongPath()
     {
         Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection, Color.blue); 
         entityToMoveTransform.position += Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection;
+        //entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
+        entityToMoveTransform.rotation = Quaternion.Euler(
+            entityToMoveTransform.rotation.eulerAngles.x,
+            entityToMoveTransform.rotation.eulerAngles.y + (angleBetweenStartAndTargedNode / framesToReachTargetNode),
+            entityToMoveTransform.rotation.eulerAngles.z); 
+
         //Debug.Break(); 
         /* entityToMoveTransform.Translate(
             Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection, 
