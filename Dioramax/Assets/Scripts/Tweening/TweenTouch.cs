@@ -89,8 +89,6 @@ public class TweenTouch : StoppableTween
             if (transform.CompareTag("Freezable"))
             {
                 int i;
-                for (i = 0; i < transform.childCount; i++)
-                {
 
                     if (FrozenState == 1)
                     {
@@ -112,7 +110,6 @@ public class TweenTouch : StoppableTween
                              }
 
                     }
-                }
             }
 
     // End Freeze Objects
