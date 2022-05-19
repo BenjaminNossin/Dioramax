@@ -6204,6 +6204,7 @@ MonoBehaviour:
   isMainMenu: 0
   dioramaToLoad: 0
   dontDestroyOnLoad: 0
+  fullPath: 
 --- !u!1001 &652424692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22195,6 +22196,18 @@ PrefabInstance:
       propertyPath: diorama
       value: 
       objectReference: {fileID: 1341540246}
+    - target: {fileID: 3533724393244289010, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: maxAllowedSwipeForce
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533724393244289011, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: curveDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533724393244289011, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: curveMaxDuration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3533724393244289020, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_Name
       value: Prefab_3C_CameraCrane
@@ -27474,6 +27487,7 @@ MonoBehaviour:
   reussiteTuyauxVFX: []
   ratAnimationObj: {fileID: 0}
   cameraCrane: {fileID: 1865566552}
+  cameras: {fileID: 0}
   mainCamera: {fileID: 1865566551}
   decoyCamera: {fileID: 1865566550}
   cameraTransformOnPhase2: {fileID: 0}
