@@ -45,8 +45,7 @@ public class EntityPathNavigation : MonoBehaviour
             1f, 
             PathType.CubicBezier, 
             PathMode.Full3D, 
-            PathController.Resolution, 
-            Color.red);  
+            PathController.Resolution);  
 
         // SetNextDestination();
     }

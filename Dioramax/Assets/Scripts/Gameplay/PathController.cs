@@ -29,7 +29,7 @@ public class PathController : MonoBehaviour
         PopulateArray();
     }
 
-    private void OnDrawGizmos()
+    /* private void OnDrawGizmos()
     {
         if (Nodes.Length != 0)
         {
@@ -62,7 +62,7 @@ public class PathController : MonoBehaviour
                 }
             }
         } 
-    }
+    } */
 
     private void Awake()
     {

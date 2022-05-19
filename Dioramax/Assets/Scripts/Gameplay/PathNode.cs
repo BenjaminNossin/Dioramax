@@ -30,12 +30,12 @@ public class PathNode : MonoBehaviour
         InitOrUpdate();
     }
 
-    private void OnDrawGizmos()
+    /* private void OnDrawGizmos()
     {
         Handles.color = Color.white;
         Gizmos.DrawLine(transform.position, transform.TransformPoint(controlPointIn));
         Handles.DrawLine(transform.position, transform.TransformPoint(controlPointIn), LineThickness); 
-    }
+    } */
 
     private void Awake()
     {
