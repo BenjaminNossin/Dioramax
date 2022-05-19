@@ -451,11 +451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6589459fcc2cde47adfecc3396b9bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYForceMultiplier: 1.5
+  XYForceMultiplier: 2
   ZRotationForce: 50
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
-  maxAllowedSwipeForce: 128
+  maxAllowedSwipeForce: 400
 --- !u!114 &3533724393244289011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,17 +481,17 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.4501422
-      value: 0.86516154
-      inSlope: -0.2763971
-      outSlope: -0.2763971
+      time: 0.012972441
+      value: 0.98373395
+      inSlope: -0.038011044
+      outSlope: -0.038011044
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.07147071
     - serializedVersion: 3
       time: 1
-      value: 0.8
+      value: 0.9714065
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -501,7 +501,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  curveMaxDuration: 5
+  curveMaxDuration: 15
 --- !u!114 &7964244908747386689
 MonoBehaviour:
   m_ObjectHideFlags: 0
