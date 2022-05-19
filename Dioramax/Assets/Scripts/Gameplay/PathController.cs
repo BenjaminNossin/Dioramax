@@ -29,7 +29,7 @@ public class PathController : MonoBehaviour
         PopulateArray();
     }
 
-    /* private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (Nodes.Length != 0)
         {
@@ -62,7 +62,7 @@ public class PathController : MonoBehaviour
                 }
             }
         } 
-    } */
+    } 
 
     private void Awake()
     {
@@ -70,21 +70,27 @@ public class PathController : MonoBehaviour
         {
             Destroy(Instance);
         }
-        Instance = this; 
+        Instance = this;
     }
 
     private void Start()
     {
         PopulateArray();
     }
-   
-    // call this from EntityPathNavigation.
-    // f is data on train
-    // reinit f from train when nextNode is reached
-    public Vector3 GetPointAlongPathBetweenNodes(PathNode node1, PathNode node2, float f) // entre 0 et 1
+
+    // call this from EntityPathNavigation, on Start and every time you reach target node
+    private float f;
+    public Vector3[] GetPointsAlongPathBetweenNodes(PathNode node1, PathNode node2, ref Vector3[] pointsAlongPath)
     {
-        return DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
-            node2.GetControlPointINPosition(), f);  
+        f = 0f; 
+        for (int i = 0; i < Resolution; i++)
+        {
+            pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
+            node2.GetControlPointINPosition(), f);
+            f += (1f / Resolution); 
+        }
+
+        return pointsAlongPath; 
     }
 
     Vector3 v1, v2; 
@@ -92,12 +98,12 @@ public class PathController : MonoBehaviour
     {
         // i IN
         // i+1 OUT 
-        for (float f = 0; f < 1.0f; f += (1/Resolution))
+        for (float f = 0; f < 1.0f; f += (1f/Resolution))
         {
             v1 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
                 node2.GetControlPointINPosition(), f);
             v2 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
-                 node2.GetControlPointINPosition(), f + (1/Resolution));
+                 node2.GetControlPointINPosition(), f + (1f/Resolution));
 
             Gizmos.DrawLine(v1, v2);
         }

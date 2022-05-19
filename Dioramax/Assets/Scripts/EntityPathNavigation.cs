@@ -6,9 +6,10 @@ public class EntityPathNavigation : MonoBehaviour
 {
     public static EntityPathNavigation Instance;
 
-    [SerializeField] private Transform entityToMove;
+    [SerializeField] private Transform entityToMoveTransform;
     [SerializeField] private bool loopPath;
     [SerializeField] private Transform[] initialNodesDebugArray;
+    [SerializeField, Range(0.25f, 2f)] private float navigationSpeedMultiplier = 1f;
     private PathNode[] currentAndNextNode; 
 
     private PathNode[] pathNodes;
@@ -17,7 +18,11 @@ public class EntityPathNavigation : MonoBehaviour
     private int nodeArraySize;
     private Vector3 nextNodePosition, lastNodePosition; 
 
-    private const float SNAP_VALUE = 0.05f; 
+    private const float SNAP_VALUE = 0.05f;
+    private Vector3[] pointsAlongPath;
+
+    [Header("--DEBUG--")]
+    [SerializeField] private GameObject debugObject; 
 
     private void Awake()
     {
@@ -30,50 +35,90 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Start()
     {
-        /* transform.position = PathController.Instance.GetNodePosition(0);
-        GotoNextPoint(); */
-        // bad to call GetPathNodes() twice
         pathNodes = new PathNode[PathController.Instance.GetPathNodes().Length]; 
         PathController.Instance.GetPathNodes().CopyTo(pathNodes, 0);
         nodeArraySize = PathController.Instance.GetNodeArraySize();
-
         lastNodePosition = pathNodes[^1].GetNodePosition();
-        entityToMove.position = new Vector3(pathNodes[0].GetNodePosition().x, transform.position.y, pathNodes[0].GetNodePosition().z);
 
-        entityToMove.DOPath(
-            GetCubicBezierNodeData(pathNodes[0]), 
-            1f, 
-            PathType.CubicBezier, 
-            PathMode.Full3D, 
-            PathController.Resolution);  
+        pointsAlongPath = new Vector3[PathController.Resolution];
 
+        GetNewPointsOnReachingDestinationNode();
+        entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
+
+        SetSubDestination(); 
         // SetNextDestination();
     }
      
-    void Update()
+    void FixedUpdate()
     {
-        // CheckDistanceFromNextNode(); 
+        CheckMicroDistance();
+        MoveEntityAlongPath(); 
     }
 
-    // infos always grouped by three : destNode, currNodeCtrlPoint, destNodeCtrlPoint; 
-    // first node is the function caller's target position
-    // called on start and on every SetNextDestination
-    private readonly Vector3[] cubicBezierCurveNodeData = new Vector3[3];  
-    private Vector3[] GetCubicBezierNodeData(PathNode node1)
+    // called on Start and every time you reach target node
+    private void GetNewPointsOnReachingDestinationNode()
     {
-        currentAndNextNode = new PathNode[2];
-
-        currentAndNextNode[0] = node1;
-        currentAndNextNode[1] = node1.GetNextActiveNode();
-
-        // data structure you use is poorly done for the kind of array iteration you would need here 
-        cubicBezierCurveNodeData[0] = currentAndNextNode[1].GetNodePosition();
-        cubicBezierCurveNodeData[1] = currentAndNextNode[0].GetControlPointOUTPosition();
-        cubicBezierCurveNodeData[2] = currentAndNextNode[1].GetControlPointINPosition();
-
-        return cubicBezierCurveNodeData; 
+        pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[0], pathNodes[1], ref pointsAlongPath);
+        for (int i = 0; i < pointsAlongPath.Length; i++)
+        {
+            GameLogger.Log("instantiating debug object");
+            Instantiate(debugObject, pointsAlongPath[i], Quaternion.identity);
+        }
     }
 
+    private int subDestinationIndex;
+    private Vector3 SubDestination;
+    private float distanceFromNextSubNode;
+    private Vector3 normalizedMoveDirection;
+    private void SetSubDestination()
+    {
+        if (pointsAlongPath.Length == 0)
+            return;
+
+        GameLogger.Log("setting sub destination"); 
+        subDestinationIndex += 1; // (subDestinationIndex + 1) % pointsAlongPath.Length; // no need of modulo here
+        SubDestination = pointsAlongPath[subDestinationIndex];
+        normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+
+        // entityToMoveTransform.LookAt(SubDestination);
+    }
+
+    // distance between two points on a segment
+    private void CheckMicroDistance()
+    {
+        GameLogger.Log("checking micro distance"); 
+        distanceFromNextSubNode = Vector3.Distance(entityToMoveTransform.position, new Vector3(
+                                                                                    SubDestination.x, 
+                                                                                    entityToMoveTransform.position.y, 
+                                                                                    SubDestination.z));
+
+        if (distanceFromNextSubNode <= SNAP_VALUE)
+        {
+            if (subDestinationIndex == pointsAlongPath.Length && !loopPath) return; 
+
+            GameLogger.Log("snapping to current sub node");
+            entityToMoveTransform.position = new Vector3(pointsAlongPath[subDestinationIndex].x, entityToMoveTransform.position.y, pointsAlongPath[subDestinationIndex].z);
+            SetSubDestination();
+        }
+    }
+
+    private void MoveEntityAlongPath()
+    {
+        Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection, Color.blue); 
+        entityToMoveTransform.position += Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection;
+        //Debug.Break(); 
+        /* entityToMoveTransform.Translate(
+            Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection, 
+            Space.Self); */
+    }
+
+    // distance from target node (end of current segment)
+    private void CheckMacroDistance()
+    {
+
+    }
+
+    // need rework. This will become CheckMacroDistance
     private void CheckDistanceFromNextNode()
     {
         if (Vector3.Distance(transform.position, lastNodePosition) < SNAP_VALUE &&
@@ -86,10 +131,11 @@ public class EntityPathNavigation : MonoBehaviour
         {
             GameLogger.Log("snapping to current node");
             transform.position = new Vector3(pathNodes[destinationNodeIndex].GetNodePosition().x, transform.position.y, pathNodes[destinationNodeIndex].GetNodePosition().z);
-            SetNextDestination(); // this is called too often
+            // SetNextDestination(); // this is called too often
         }
     }
 
+    // when you reached target of macroDistance
     private void SetNextDestination()
     {
         if (nodeArraySize == 0)
