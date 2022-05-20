@@ -10,7 +10,6 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private bool loopPath;
     [SerializeField] private Transform[] initialNodesDebugArray;
     [SerializeField, Range(0.25f, 2f)] private float navigationSpeedMultiplier = 1f;
-    private PathNode[] currentAndNextNode; 
 
     private PathNode[] pathNodes;
     private int destinationNodeIndex;
@@ -41,6 +40,7 @@ public class EntityPathNavigation : MonoBehaviour
         lastNodePosition = pathNodes[^1].GetNodePosition();
 
         pointsAlongPath = new Vector3[PathController.Resolution];
+        currentNodeIndex = 0; 
 
         GetNewPointsOnReachingDestinationNode();
         entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
@@ -56,14 +56,16 @@ public class EntityPathNavigation : MonoBehaviour
     }
 
     // called on Start and every time you reach target node
+    private int currentNodeIndex, targetNodeIndex; 
     private void GetNewPointsOnReachingDestinationNode()
     {
-        pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[0], pathNodes[1], ref pointsAlongPath);
-        for (int i = 0; i < pointsAlongPath.Length; i++)
+        pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[currentNodeIndex],
+            pathNodes[currentNodeIndex].GetNextActiveNode(), ref pointsAlongPath);
+
+         for (int i = 0; i < pointsAlongPath.Length; i++)
         {
-            GameLogger.Log("instantiating debug object");
             Instantiate(debugObject, pointsAlongPath[i], Quaternion.identity);
-        }
+        } 
     }
 
     private int subDestinationIndex;
@@ -76,9 +78,14 @@ public class EntityPathNavigation : MonoBehaviour
             return;
 
         GameLogger.Log("setting sub destination"); 
-        subDestinationIndex += 1; // (subDestinationIndex + 1) % pointsAlongPath.Length; // no need of modulo here
+        subDestinationIndex = (subDestinationIndex + 1) % pointsAlongPath.Length; 
         SubDestination = pointsAlongPath[subDestinationIndex];
-        normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+
+        try
+        {
+            normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+        }
+        catch (System.IndexOutOfRangeException) { }
     }
 
     // distance between two points on a segment
@@ -92,34 +99,32 @@ public class EntityPathNavigation : MonoBehaviour
         duration += Time.fixedDeltaTime; 
         if (distanceFromNextSubNode <= SNAP_VALUE)
         {
-            if (subDestinationIndex == pointsAlongPath.Length && !loopPath) return; 
+            if (Vector3.Distance(transform.position, pointsAlongPath[PathController.Resolution - 1]) < SNAP_VALUE) // arrived at the end of path
+            {
+                currentNodeIndex = pathNodes[currentNodeIndex].GetNextActiveNode().nodeIndex;
+                GameLogger.Log($"Reached Target Node. Next node index is {currentNodeIndex}");
+                // targetNodeIndex = pathNodes[currentNodeIndex].GetNextActiveNode().nodeIndex; 
 
-            GameLogger.Log("snapping to current sub node");
-            GameLogger.Log($"duration: {duration}"); 
+                GetNewPointsOnReachingDestinationNode();
+            }
+
             entityToMoveTransform.position = new Vector3(pointsAlongPath[subDestinationIndex].x, entityToMoveTransform.position.y, pointsAlongPath[subDestinationIndex].z);
             SetSubDestination();
         }
     }
 
-    private float angleBetweenStartAndTargedNode = 100f; // hardcoded placeholder 
-
+    private float angleBetweenStartAndTargedNode; // hardcoded placeholder 
     // duration = 6
     private float framesToReachTargetNode = 300; // 50 * (1/NavigationSpeedMultiplier)
-    
+                                                 // private
     private void MoveEntityAlongPath()
     {
         Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection, Color.blue); 
         entityToMoveTransform.position += Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection;
-        //entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
-        entityToMoveTransform.rotation = Quaternion.Euler(
-            entityToMoveTransform.rotation.eulerAngles.x,
-            entityToMoveTransform.rotation.eulerAngles.y + (angleBetweenStartAndTargedNode / framesToReachTargetNode),
-            entityToMoveTransform.rotation.eulerAngles.z); 
+
+        entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
 
         //Debug.Break(); 
-        /* entityToMoveTransform.Translate(
-            Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection, 
-            Space.Self); */
     }
 
     // distance from target node (end of current segment)

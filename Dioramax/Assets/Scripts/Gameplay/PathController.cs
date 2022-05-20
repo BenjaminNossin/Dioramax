@@ -85,12 +85,21 @@ public class PathController : MonoBehaviour
     public Vector3[] GetPointsAlongPathBetweenNodes(PathNode node1, PathNode node2, ref Vector3[] pointsAlongPath)
     {
         f = 0f; 
+        // default
         for (int i = 0; i < Resolution; i++)
         {
             pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
             node2.GetControlPointINPosition(), f);
             f += (1f / Resolution); 
-        }
+        } 
+
+        // revert
+        /* for (int i = 0; i < Resolution; i++)
+        {
+            pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(node2.GetNodePosition(), node2.GetControlPointOUTPosition(), node1.GetNodePosition(),
+            node1.GetControlPointINPosition(), f);
+            f += (1f / Resolution);
+        } */
 
         return pointsAlongPath; 
     }
@@ -120,6 +129,7 @@ public class PathController : MonoBehaviour
             for (int i = 0; i < transform.childCount; i++)
             {
                 Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
+                Nodes[i].nodeIndex = i; 
                 /* try
                 {
                     Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();

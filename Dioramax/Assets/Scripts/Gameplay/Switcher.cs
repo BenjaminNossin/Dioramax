@@ -12,7 +12,7 @@ public class Switcher : MonoBehaviour
     private Collider[] blockers = new Collider[2]; // A = 0; B = 1; 
 
     private PathNode pathNode; // own pathNode
-    private Transform[] nextPossibleNodes; 
+    private PathNode[] nextPossibleNodes; 
 
     private bool goToPositionA; 
     private bool lerpDone; 
@@ -30,8 +30,8 @@ public class Switcher : MonoBehaviour
         pathNode = GetComponent<PathNode>();
 
         // bad to call GetNextPossibleNodesTransform() twice
-        nextPossibleNodes = new Transform[pathNode.GetNextPossibleNodesTransform().Length];
-        pathNode.GetNextPossibleNodesTransform().CopyTo(nextPossibleNodes, 0);
+        nextPossibleNodes = new PathNode[pathNode.GetNextPossibleNodes().Length];
+        pathNode.GetNextPossibleNodes().CopyTo(nextPossibleNodes, 0);
 
         SetActiveNode();
         SetActiveBlocker();
@@ -62,15 +62,15 @@ public class Switcher : MonoBehaviour
 
         for (int i = 0; i < nextPossibleNodes.Length; i++)
         {
-            nextPossibleNodes[i].GetComponent<PathNode>().IsActiveNode = false; // default all to false
+            nextPossibleNodes[i].IsActiveNode = false; // default all to false
 
             if (goToPositionA)
             {
-                nextPossibleNodes[0].GetComponent<PathNode>().IsActiveNode = true;
+                nextPossibleNodes[0].IsActiveNode = true;
             }
             else
             {
-                nextPossibleNodes[1].GetComponent<PathNode>().IsActiveNode = true;
+                nextPossibleNodes[1].IsActiveNode = true;
             }
         }
     }
