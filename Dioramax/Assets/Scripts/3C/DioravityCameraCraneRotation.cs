@@ -13,7 +13,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     [SerializeField] private GameObject diorama;
 
     [Space, SerializeField, Range(0.2f, 5f)] private float XYForceMultiplier = 2f;
-    [SerializeField, Range(1f, 50f)] private float ZRotationForce = 30;
+    [SerializeField, Range(20f, 100f)] private float ZRotationForce = 50;
 
     [Space, SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
     public float RotationSensitivity { get; set; }
