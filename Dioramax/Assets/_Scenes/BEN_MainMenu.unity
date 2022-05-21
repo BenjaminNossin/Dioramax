@@ -721,6 +721,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7067102299545306230, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681107300036815828, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3023522194542658002, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
@@ -823,18 +831,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3784100692874533021, guid: 7d9f4a8506c83d04c941a3e6cfc8b5cc, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 6482014957236383044, guid: 7d29f35b8f59a4e4d9853628de000c01, type: 2}
-    - target: {fileID: 5612681880380232453, guid: 7d9f4a8506c83d04c941a3e6cfc8b5cc, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 6482014957236383044, guid: 7d29f35b8f59a4e4d9853628de000c01, type: 2}
-    - target: {fileID: 8200974727542721064, guid: 7d9f4a8506c83d04c941a3e6cfc8b5cc, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 6482014957236383044, guid: 7d29f35b8f59a4e4d9853628de000c01, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9f4a8506c83d04c941a3e6cfc8b5cc, type: 3}
 --- !u!1001 &6133604967480738977
@@ -844,10 +840,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 580578452058046454, guid: 319d53ab43ac9ec4eaa8c0fc153477ce, type: 3}
-      propertyPath: m_enableVertexGradient
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6133604967431336793, guid: 319d53ab43ac9ec4eaa8c0fc153477ce, type: 3}
       propertyPath: m_Name
       value: Prefab_UI_Win
@@ -991,7 +983,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5708680878718849797, guid: 8471744b9d4ec24488c51396e7595c9c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.73150635
+      value: 0.7314453
       objectReference: {fileID: 0}
     - target: {fileID: 6103817380184975892, guid: 8471744b9d4ec24488c51396e7595c9c, type: 3}
       propertyPath: m_AnchorMax.y
