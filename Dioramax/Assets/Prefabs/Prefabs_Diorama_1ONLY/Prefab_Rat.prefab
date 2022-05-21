@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2418270908547656613}
   m_Layer: 0
   m_Name: A_VAL_RatNez_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,13 +93,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1509116430494460101}
   - component: {fileID: 496885465}
-  - component: {fileID: 113861505}
+  - component: {fileID: 1161763065}
   - component: {fileID: 496885463}
   - component: {fileID: 1877459725}
+  - component: {fileID: 7289229454372605700}
   m_Layer: 8
   m_Name: Prefab_Rat
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -112,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 1509116430494460100}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.5859592, y: -1.8366727, z: 1.0502193}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.8, y: 0.79999995, z: 0.79999995}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8544327005088266938}
@@ -142,7 +143,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.45
   m_Center: {x: 0.22, y: 0, z: -0.63}
---- !u!54 &113861505
+--- !u!54 &1161763065
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1add91b8b7addd44993d84422042973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 113861505}
+  rb: {fileID: 1161763065}
 --- !u!114 &1877459725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,8 +184,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9507ad7b94a4564ea88b83ace0407f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderers:
+  - {fileID: 6165434839125512057}
+  - {fileID: 6234290355271595878}
+  - {fileID: 2427836943012169424}
+  - {fileID: 2418270908547656613}
+  - {fileID: 6224374148469237650}
+  - {fileID: 5678551795789201229}
+  - {fileID: 4787285327187743878}
+  - {fileID: 8056671657439257899}
+  - {fileID: 871403798395162229}
+  - {fileID: 1894975413515325592}
+  - {fileID: 7891990135034087546}
   freezeOnStart: 1
   simulateEntityPhysics: {fileID: 496885463}
+--- !u!114 &7289229454372605700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509116430494460100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: 0ccfc6ac1d76cb44387dc49246ceba58, type: 2}
 --- !u!1 &1561334370340641558
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +224,7 @@ GameObject:
   - component: {fileID: 6224374148469237650}
   m_Layer: 0
   m_Name: A_VAL_RatOeilD_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -281,7 +307,7 @@ GameObject:
   - component: {fileID: 2427836943012169424}
   m_Layer: 0
   m_Name: A_VAL_RatCorps_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -364,7 +390,7 @@ GameObject:
   - component: {fileID: 1894975413515325592}
   m_Layer: 0
   m_Name: A_VAL_RatPateG_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -447,7 +473,7 @@ GameObject:
   - component: {fileID: 6165434839125512057}
   m_Layer: 0
   m_Name: A_VAL_RatBrasD_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,7 +556,7 @@ GameObject:
   - component: {fileID: 5678551795789201229}
   m_Layer: 0
   m_Name: A_VAL_RatOeilG_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -613,7 +639,7 @@ GameObject:
   - component: {fileID: 8056671657439257899}
   m_Layer: 0
   m_Name: A_VAL_RatOreilleG_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -696,7 +722,7 @@ GameObject:
   - component: {fileID: 4787285327187743878}
   m_Layer: 0
   m_Name: A_VAL_RatOreilleD_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -779,7 +805,7 @@ GameObject:
   - component: {fileID: 6234290355271595878}
   m_Layer: 0
   m_Name: A_VAL_RatBrasG_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -862,7 +888,7 @@ GameObject:
   - component: {fileID: 7891990135034087546}
   m_Layer: 0
   m_Name: A_VAL_RatQueue_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -945,7 +971,7 @@ GameObject:
   - component: {fileID: 871403798395162229}
   m_Layer: 0
   m_Name: A_VAL_RatPateD_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

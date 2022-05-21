@@ -1,37 +1,102 @@
 using UnityEngine;
 
 // a very basic script that inverts freeze state when touched, and adds/remove rb from list of simulated entities
+[RequireComponent(typeof(TweenTouch))]
 public class FreezeStateController : MonoBehaviour
 {
-    [SerializeField] private bool freezeOnStart;
-    [SerializeField] private SimulateEntityPhysics simulateEntityPhysics; 
+    [SerializeField] private MeshRenderer[] meshRenderers; 
+
+    [Space, SerializeField] private bool freezeOnStart;
+    [SerializeField] private SimulateEntityPhysics simulateEntityPhysics;
+
+    [Header("--DEBUG--")]
+    [SerializeField] private bool useDebugTrain;
+    [SerializeField] private bool keepIndividualFreeze; 
+    [SerializeField] private FreezeStateController otherFreeze;
+
     public bool Freezed { get; private set; }
+    public bool IsLinked { get; set; }
+
+    private void OnDisable()
+    {
+        if (otherFreeze)
+        {
+            Debug_StickTrains.OnDetachChildren += FreezeSelfAndReference; 
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (otherFreeze)
+        {
+            Debug_StickTrains.OnDetachChildren -= FreezeSelfAndReference; 
+        }
+    }
 
     private void Start()
     {
         Freezed = freezeOnStart;
 
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
+        }
+
         if (!Freezed)
         {
-            simulateEntityPhysics.AddRbToList();
+            simulateEntityPhysics.AddRbToList();           
         }
     }
 
     public void InvertFreezeState()
     {
         Freezed = !Freezed;
-        AddOrRemoveSelfRb();
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
+        }
+
+        if (!useDebugTrain)
+        {
+            AddOrRemoveSelfRb();
+        }
+        else
+        {
+            if (!keepIndividualFreeze && Debug_StickTrains.IsOn)
+            {
+                otherFreeze.SetFreezeState(Freezed);
+            }
+        }
     }
 
     public void AddOrRemoveSelfRb()
     {
-        if (Freezed)
+        if (!useDebugTrain)
         {
-            simulateEntityPhysics.RemoveRbFromList();
+            if (Freezed)
+            {
+                simulateEntityPhysics.RemoveRbFromList();
+            }
+            else
+            {
+                simulateEntityPhysics.AddRbToList();
+            }
         }
-        else
+    }
+
+    public void SetFreezeState(bool state)
+    {
+        Freezed = state;
+        for (int i = 0; i < meshRenderers.Length; i++)
         {
-            simulateEntityPhysics.AddRbToList();
+            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
         }
+    }
+
+    private void FreezeSelfAndReference()
+    {
+        Freezed = true; 
+        SetFreezeState(Freezed); 
+        otherFreeze.SetFreezeState(Freezed); 
     }
 }

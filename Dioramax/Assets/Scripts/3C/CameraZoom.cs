@@ -11,7 +11,7 @@ public class CameraZoom : MonoBehaviour
     private Camera mainCam;
     [SerializeField] private Transform dioramaTransf;
     [SerializeField] private Transform transfToMove; 
-    [SerializeField, Range(5, 50)] private float maxZoomIn = 45;
+    [SerializeField, Range(0.1f, 50)] private float maxZoomIn = 45;
     [SerializeField, Range (70, 150)] private float maxZoomOut = 70;
     [SerializeField, Range(10f, 60f)] private float zoomSpeed = 40f;
     private float currentMoveSpeed;

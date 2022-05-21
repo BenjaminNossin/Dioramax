@@ -35,7 +35,8 @@ public class CameraCinematic : MonoBehaviour
 
     public void FadeCameraPanel()
     {
-        InvokeRepeating(nameof(DoFadeOut), 0f, Time.deltaTime); 
+        InvokeRepeating(nameof(DoFadeOut), 0f, Time.deltaTime);
+        LevelManager.Instance.SetGameState(GameState.Cinematic); 
     }
 
     private void DoFadeOut()
@@ -60,7 +61,7 @@ public class CameraCinematic : MonoBehaviour
     }
 
     // done at the end of every cinematic
-    public void SetAnimatorState(int enabled) // can't serialize bool.. 
+    public void SetAnimatorState(int enabled)  
     {
         animator.enabled = enabled == 1; // PLACEHOLDER until I find how to get control of movement when animation is done; 
     }
@@ -68,8 +69,6 @@ public class CameraCinematic : MonoBehaviour
     // abstract this out
     public void PlayPhase2Cinematic()
     {
-        LevelManager.Instance.SetGameState(GameState.Cinematic);
-
         SetAnimatorState(1);
         animator.Play(phase2Cinematic.name); 
     }

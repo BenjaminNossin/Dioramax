@@ -1,14 +1,17 @@
 using UnityEngine;
+using DG.Tweening; 
 
 // stores all the node data and update path according to switches
 // this script is NOT in charge of the entity navigation along the path
 [ExecuteAlways]
 public class PathController : MonoBehaviour
 {
+    [SerializeField, Range(4, 50)] private int pathResolution = 20;  
     public static PathController Instance;
     private PathNode[] Nodes; // even though it changes in editor, the value is reset to O when  hitting Play
 
     private Vector3 currentIndexNodePosition;
+    public static int Resolution = 10; 
 
     [Header("DEBUG")]
     public bool refreshNodesArrayOnReferenceLoss;
@@ -29,7 +32,7 @@ public class PathController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (Nodes.Length != 0 && refreshNodesArrayOnReferenceLoss)
+        if (Nodes.Length != 0)
         {
             for (var i = 0; i < Nodes.Length; i++)
             {
@@ -46,17 +49,21 @@ public class PathController : MonoBehaviour
                 {
                     try
                     {
-                        Gizmos.DrawLine(currentIndexNodePosition, Nodes[i].GetNextPossibleNodesTransform()[j].position);
+                        // Gizmos.DrawLine(currentIndexNodePosition, Nodes[i].GetNextPossibleNodesTransform()[j].position);
+                        if (i+1 < Nodes.Length)
+                        {
+                            DrawPath(Nodes[i], Nodes[i].GetNextPossibleNodes()[j]); 
+                        }
                     }
                     catch (MissingReferenceException)
                     {
-                        GameLogger.Log($"{Nodes[i].gameObject} is missing one or more references in its nextPossibleNodes array. Fill or remove them."); 
+                        GameLogger.Log("The gameobject you added as child is missing a NodePath component. \n " +
+                            "Please add it, or take the gameobject out of the child list. "); 
                     }
-
                 }
             }
         } 
-    }
+    } 
 
     private void Awake()
     {
@@ -64,12 +71,44 @@ public class PathController : MonoBehaviour
         {
             Destroy(Instance);
         }
-        Instance = this; 
+        Instance = this;
+        Resolution = pathResolution; 
     }
 
     private void Start()
     {
         PopulateArray();
+    }
+
+    // call this from EntityPathNavigation, on Start and every time you reach target node
+    private float f;
+    public Vector3[] GetPointsAlongPathBetweenNodes(PathNode node1, PathNode node2, ref Vector3[] pointsAlongPath)
+    {
+        f = 0f; 
+        for (int i = 0; i < Resolution; i++)
+        {
+            pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
+            node2.GetControlPointINPosition(), f);
+            f += (1f / Resolution); 
+        }
+
+        return pointsAlongPath; 
+    }
+
+    Vector3 v1, v2; 
+    private void DrawPath(PathNode node1, PathNode node2)
+    {
+        // i IN
+        // i+1 OUT 
+        for (float f = 0; f < 1.0f; f += (1f/Resolution))
+        {
+            v1 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
+                node2.GetControlPointINPosition(), f);
+            v2 = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
+                 node2.GetControlPointINPosition(), f + (1f/Resolution));
+
+            Gizmos.DrawLine(v1, v2);
+        }
     }
 
     private void PopulateArray()
@@ -80,32 +119,17 @@ public class PathController : MonoBehaviour
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                try
+                Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
+                /* try
                 {
                     Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
                 }
-                catch (System.Exception)
-                {
-                    GameLogger.Log("A PathNode component has been added to the new object. \n If that object is not supposed to have that component, " +
-                        "please remove it from the PathController child hierarchy.");
-                }
+                catch { } */
             }
         }
     }
 
-    public Vector3 GetNodePosition(int index) => Nodes[index].GetNodePosition();
-
     public int GetNodeArraySize() => Nodes.Length;
-
-    public void AddNode()
-    {
-
-    }
-
-    public void RemoveNode()
-    {
-
-    }
 
     public PathNode[] GetPathNodes() => Nodes; 
 }

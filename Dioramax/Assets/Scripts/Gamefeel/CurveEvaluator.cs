@@ -7,12 +7,18 @@ using UnityEngine.Events;
 public class CurveEvaluator : MonoBehaviour
 {
     [SerializeField] private AnimationCurve animCurve;
-    [SerializeField, Range(0.25f, 4)] private float curveDuration = 2f;
+    [SerializeField, Range(0.25f, 50)] private float curveMaxDuration = 2f;
     public bool EvaluateCurve { get; private set; } 
     private bool routineHasBeenCalled;
     private float time = -0.2f;
 
     private UnityEvent gameFeelCurveEndEnvent = new UnityEvent();
+    private float _curveMaxDuration;
+
+    private void Awake()
+    {
+        _curveMaxDuration = curveMaxDuration;
+    }
 
     /// <summary>
     /// Evaluates the animCurve component
@@ -21,18 +27,21 @@ public class CurveEvaluator : MonoBehaviour
     /// <param name="time"> The time at which to evaluate </param>
     /// <param name="duration"> The duration of the curve evaluation </param>
     /// <returns> The curve Y value at give time </returns>
-    public float Evaluate(UnityAction call)
+    public float Evaluate(UnityAction call, float swipeNormalizedForce)
     {
+        _curveMaxDuration = curveMaxDuration * swipeNormalizedForce;
+        GameLogger.Log($"duration : {_curveMaxDuration}"); 
+
         if (!routineHasBeenCalled)
         {
             gameFeelCurveEndEnvent.AddListener(call); 
             routineHasBeenCalled = true;
-            StartCoroutine(nameof(SetEvaluationState), curveDuration); 
+            StartCoroutine(nameof(SetEvaluationState), _curveMaxDuration); 
         }                              
 
         if (EvaluateCurve)
         {
-            time += Time.fixedDeltaTime / curveDuration;
+            time += Time.fixedDeltaTime / _curveMaxDuration;
             return animCurve.Evaluate(time);
         }
 

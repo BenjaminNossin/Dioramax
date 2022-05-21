@@ -1,15 +1,30 @@
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
-public class Select_Ours : StoppableTween
+public class Select_Ours : StoppableTween 
 {
-  /*  [SerializeField] float up_max_position;
-    [SerializeField] float time_bounce;
-*/
+    private Vector3 initialPosition, currentPosition; 
+
+    private void Awake()
+    {
+        initialPosition = transform.position;
+    }
+
     private void OnEnable()
     {
-    //        ObjectMaxHeight = up_max_position + transform.position.y;
-        // LeanTween.moveLocalZ(gameObject, up_max_position, time_bounce).setEaseInOutSine().setLoopPingPong();
         transform.DOMoveY(0.5f, 0.5f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("select ourson on disable");
+        currentPosition = transform.position; 
+        BackToInitial(); 
+    }
+
+    private void BackToInitial()
+    {
+        transform.DOKill();
+        transform.DOMove(initialPosition, Mathf.Abs(initialPosition.y - currentPosition.y));
     }
 }
