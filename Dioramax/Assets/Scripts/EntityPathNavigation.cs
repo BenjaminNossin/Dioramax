@@ -1,5 +1,6 @@
 using UnityEngine;
-using DG.Tweening;
+using System;
+using System.Collections; 
 
 // makes an entity move along a path
 public class EntityPathNavigation : MonoBehaviour
@@ -20,8 +21,16 @@ public class EntityPathNavigation : MonoBehaviour
     private const float SNAP_VALUE = 0.05f;
     private Vector3[] pointsAlongPath;
 
+    private int lastVisitedPointOnSegmentIndex; 
+
     [Header("--DEBUG--")]
-    [SerializeField] private GameObject debugObject; 
+    [SerializeField] private GameObject debugObject;
+    [SerializeField] private GameObject previousDestination;
+    [SerializeField] private GameObject nextDestination;
+
+    public bool invertDirection; 
+    private bool hasInverted; //
+    private bool overrideLastVisitedSegment = true; 
 
     private void Awake()
     {
@@ -48,10 +57,50 @@ public class EntityPathNavigation : MonoBehaviour
         SetSubDestination(); 
         // SetNextDestination();
     }
-     
+
+    private Vector3 lastVisitedPointOnSegmentPosition; 
+    private void Update()
+    {
+        if (invertDirection != hasInverted)
+        {
+            overrideLastVisitedSegment = false; 
+            lastVisitedPointOnSegmentPosition = new Vector3(pointsAlongPath[lastVisitedPointOnSegmentIndex].x,
+                                                            pointsAlongPath[lastVisitedPointOnSegmentIndex].y,
+                                                            pointsAlongPath[lastVisitedPointOnSegmentIndex].z);
+
+            Instantiate(previousDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity); 
+             
+            InvertArray(pointsAlongPath); 
+            hasInverted = invertDirection;
+
+            // to find what is the new index of subDestination
+            for (int i = 0; i < pointsAlongPath.Length; i++)
+            {
+                if (Vector3.Distance(lastVisitedPointOnSegmentPosition, pointsAlongPath[i]) <= SNAP_VALUE)
+                {
+                    lastVisitedPointOnSegmentIndex = i; 
+                }
+            }
+
+            StartCoroutine(DelayNextFixedUpdate());
+            SetSubDestination();
+            
+            Instantiate(nextDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            Debug.Break(); 
+        }
+    }
+
+    private bool waitForNextFixedUpdate; 
+    private IEnumerator DelayNextFixedUpdate()
+    {
+        waitForNextFixedUpdate = true; 
+        yield return new WaitForFixedUpdate();
+        waitForNextFixedUpdate = false; 
+    }
+
     void FixedUpdate()
     {
-        if (currentNodeIndex != -1)
+        if (currentNodeIndex != -1 && !waitForNextFixedUpdate)
         {
             CheckMicroDistance();
             MoveEntityAlongPath();
@@ -75,6 +124,15 @@ public class EntityPathNavigation : MonoBehaviour
     private Vector3 SubDestination;
     private float distanceFromNextSubNode;
     private Vector3 normalizedMoveDirection;
+
+    private void InvertArray(Vector3[] array)
+    {
+        Debug.Log("INVERTING");
+        Array.Reverse(array);
+
+        // subDestinationIndex = 
+    }
+
     private void SetSubDestination()
     {
         if (pointsAlongPath.Length == 0)
@@ -82,10 +140,17 @@ public class EntityPathNavigation : MonoBehaviour
 
         GameLogger.Log("setting sub destination");
 
-        subDestinationIndex = (subDestinationIndex + 1) % pointsAlongPath.Length;
-        SubDestination = pointsAlongPath[subDestinationIndex];
+        if (overrideLastVisitedSegment)
+        {
+            lastVisitedPointOnSegmentIndex = subDestinationIndex;
+        }
 
-        if (subDestinationIndex != 0)
+        overrideLastVisitedSegment = true; 
+        subDestinationIndex = (lastVisitedPointOnSegmentIndex + 1) % pointsAlongPath.Length;
+        SubDestination = pointsAlongPath[subDestinationIndex];
+        normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+
+        /* if (subDestinationIndex != 0)
         {
             normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
         }
@@ -93,11 +158,10 @@ public class EntityPathNavigation : MonoBehaviour
         {
             Debug.Log("subDest index was 0"); 
             normalizedMoveDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
-        }
+        } */
     }
 
     // distance between two points on a segment
-    private float duration; 
     private void CheckMicroDistance()
     {
         distanceFromNextSubNode = Vector3.Distance(entityToMoveTransform.position, new Vector3(
@@ -105,7 +169,12 @@ public class EntityPathNavigation : MonoBehaviour
                                                                                     entityToMoveTransform.position.y, 
                                                                                     SubDestination.z));
 
-        duration += Time.fixedDeltaTime; 
+        /* if (hasInverted)
+        {
+            GameLogger.Log($"distance: {distanceFromNextSubNode}");
+            Debug.Break(); 
+        } */
+
         if (distanceFromNextSubNode <= SNAP_VALUE)
         {
             if (subDestinationIndex < PathController.Resolution - 1)
@@ -138,10 +207,10 @@ public class EntityPathNavigation : MonoBehaviour
                                                  // private
     private void MoveEntityAlongPath()
     {
-        Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection, Color.blue); 
+        Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection * 5f, Color.blue); 
         entityToMoveTransform.position += Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection;
 
-        entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
+        // entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z) * (hasInverted ? -1 : 1)); 
 
         //Debug.Break(); 
     }

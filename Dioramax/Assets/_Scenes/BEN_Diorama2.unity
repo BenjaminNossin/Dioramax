@@ -32099,7 +32099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110d4b1821e2ba845a2d702adbec04f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathResolution: 20
   refreshNodesArrayOnReferenceLoss: 1
 --- !u!64 &8607213600099841500
 MeshCollider:
@@ -32320,6 +32319,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3206202840286228948, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: freezeOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3723986802508474355, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -32352,6 +32355,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4884432307425032715, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: doTween
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4923901002572296994, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -32381,9 +32388,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2382905098691288346}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: nextDestination
+      value: 
+      objectReference: {fileID: 8343517188012826508, guid: b945b174d9d289c4b8c31b93cbfa2011, type: 3}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: previousDestination
+      value: 
+      objectReference: {fileID: 8343517188012826508, guid: a4bdd2860d466644f8928dbae13cac94, type: 3}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: arrayTest.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: entityToMoveTransform
       value: 
       objectReference: {fileID: 2382905098691288346}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: invertedArray.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: arrayTest.Array.data[1].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: arrayTest.Array.data[2].y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: arrayTest.Array.data[3].y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: arrayTest.Array.data[4].y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: navigationSpeedMultiplier
       value: 0.456
@@ -32549,11 +32588,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 4759000928039103860, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+    - {fileID: 6681776125435889505, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
     - {fileID: 8018126285987710090, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
     - {fileID: 3206202840286228948, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
-    - {fileID: 4884432307425032715, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
-    - {fileID: 6681776125435889505, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
 --- !u!23 &8905514867044337724
 MeshRenderer:
