@@ -31,7 +31,7 @@ public class EntityPathNavigation : MonoBehaviour
     private GameObject debugObjReference; 
 
     public bool invertDirection; 
-    private bool hasInverted; //
+    private bool isInverted; //
     private bool overrideLastVisitedSegment = true; 
 
     private void Awake()
@@ -70,33 +70,38 @@ public class EntityPathNavigation : MonoBehaviour
     private Vector3 lastVisitedPointOnSegmentPosition; 
     private void Update()
     {
-        if (invertDirection != hasInverted)
+        if (invertDirection != isInverted)
         {
-            overrideLastVisitedSegment = false; 
-            lastVisitedPointOnSegmentPosition = new Vector3(pointsAlongPath[lastVisitedPointOnSegmentIndex].x,
-                                                            pointsAlongPath[lastVisitedPointOnSegmentIndex].y,
-                                                            pointsAlongPath[lastVisitedPointOnSegmentIndex].z);
-
-            // Instantiate(previousDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity); 
-             
-            InvertArray(pointsAlongPath); 
-            hasInverted = invertDirection;
-
-            // to find what is the new index of subDestination
-            for (int i = 0; i < pointsAlongPath.Length; i++)
-            {
-                if (Vector3.Distance(lastVisitedPointOnSegmentPosition, pointsAlongPath[i]) <= SNAP_VALUE)
-                {
-                    lastVisitedPointOnSegmentIndex = i; 
-                }
-            }
-
-            StartCoroutine(DelayNextFixedUpdate());
-            SetSubDestination();
-            
-            // Instantiate(nextDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
-            // Debug.Break(); 
+            SetInversionState();
         }
+    }
+
+    private void SetInversionState()
+    {
+        overrideLastVisitedSegment = false;
+        lastVisitedPointOnSegmentPosition = new Vector3(pointsAlongPath[lastVisitedPointOnSegmentIndex].x,
+                                                        pointsAlongPath[lastVisitedPointOnSegmentIndex].y,
+                                                        pointsAlongPath[lastVisitedPointOnSegmentIndex].z);
+
+        // Instantiate(previousDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity); 
+
+        InvertArray(pointsAlongPath);
+        isInverted = invertDirection;
+
+        // to find what is the new index of subDestination
+        for (int i = 0; i < pointsAlongPath.Length; i++)
+        {
+            if (Vector3.Distance(lastVisitedPointOnSegmentPosition, pointsAlongPath[i]) <= SNAP_VALUE)
+            {
+                lastVisitedPointOnSegmentIndex = i;
+            }
+        }
+
+        StartCoroutine(DelayNextFixedUpdate());
+        SetSubDestination();
+
+        // Instantiate(nextDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+        // Debug.Break(); 
     }
 
     private bool waitForNextFixedUpdate; 
@@ -120,18 +125,20 @@ public class EntityPathNavigation : MonoBehaviour
     private int currentNodeIndex, previousNodeIndex; 
     private void GetNewPointsOnReachingDestinationNode()
     {
-        if (hasInverted)
+        if (isInverted)
         {
             currentNodeIndex = previousNodeIndex;
 
             // terrible code duplication
             pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[currentNodeIndex],
-                pathNodes[currentNodeIndex].GetPreviousNode(), ref pointsAlongPath, hasInverted);
+                pathNodes[currentNodeIndex].GetPreviousNode(), ref pointsAlongPath, isInverted);
+
+            InvertArray(pointsAlongPath);
         }
         else
         {
             pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[currentNodeIndex],
-                pathNodes[currentNodeIndex].GetNextActiveNode(), ref pointsAlongPath, hasInverted);
+                pathNodes[currentNodeIndex].GetNextActiveNode(), ref pointsAlongPath, isInverted);
         }
        
 
