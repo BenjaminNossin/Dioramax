@@ -81,6 +81,7 @@ public class PathNode : MonoBehaviour
         return returnedNode; 
     }
     public PathNode GetPreviousNode() => previousNode;
+    public int GetNodeIndex() => returnedNode.nodeIndex;
     public int GetNextActiveNodeIndex()
     {
         if (IsLeafNode) return -1; 
