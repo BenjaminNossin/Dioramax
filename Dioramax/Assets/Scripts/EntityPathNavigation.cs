@@ -31,7 +31,8 @@ public class EntityPathNavigation : MonoBehaviour
 
     public bool invertDirection; 
     private bool isInverted; //
-    private bool overrideLastVisitedSegment = true; 
+    private bool overrideLastVisitedSegment = true;
+    private bool cameFromLeafNode; 
 
     private void Awake()
     {
@@ -70,26 +71,47 @@ public class EntityPathNavigation : MonoBehaviour
     }
 
     private Vector3 lastVisitedPointOnSegmentPosition;
-    private int tempNodeIndex; 
+    private int tempNodeIndex;
     private void Update()
     {
-        if (invertDirection != isInverted)
+        if (invertDirection == isInverted) return;
+
+        isInverted = invertDirection;
+        if (isInverted)
         {
-            isInverted = invertDirection;
-            if (!isInverted)
+            if (destinationNodeIndex == -1)
             {
-                GameLogger.Log($"previous starting node (INVERTED to DEFAULT): {startingNodeIndex}");
-                GameLogger.Log($"previous destination node (INVERTED to DEFAULT): {destinationNodeIndex}");
+                cameFromLeafNode = true; 
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
 
-                startingNodeIndex = destinationNodeIndex;
-                destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
-
-                GameLogger.Log($"current starting node (INVERTED to DEFAULT): {startingNodeIndex}");
-                GameLogger.Log($"current destination node (INVERTED to DEFAULT): {destinationNodeIndex}");
+                GameLogger.Log($"new starting from leaf node (INVERTED to DEFAULT): {startingNodeIndex}");
+                GameLogger.Log($"new destination from leaf node (INVERTED to DEFAULT): {destinationNodeIndex}");
+                Debug.Break();
             }
+        }
+        else
+        {
+            GameLogger.Log($"previous starting node (INVERTED to DEFAULT): {startingNodeIndex}");
+            GameLogger.Log($"previous destination node (INVERTED to DEFAULT): {destinationNodeIndex}");
 
-            StoreLastVisitedPointOnSegmentPosition();
-            SetInversionState();          
+            startingNodeIndex = destinationNodeIndex;
+            destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+            GameLogger.Log($"current starting node (INVERTED to DEFAULT): {startingNodeIndex}");
+            GameLogger.Log($"current destination node (INVERTED to DEFAULT): {destinationNodeIndex}");
+        }
+
+        StoreLastVisitedPointOnSegmentPosition();
+        SetInversionState();
+
+    }
+
+    void FixedUpdate()
+    {
+        if (destinationNodeIndex != -1 && !waitForNextFixedUpdate)
+        {
+            CheckMicroDistance();
+            MoveEntityAlongPath();
         }
     }
 
@@ -130,15 +152,6 @@ public class EntityPathNavigation : MonoBehaviour
         waitForNextFixedUpdate = true; 
         yield return new WaitForFixedUpdate();
         waitForNextFixedUpdate = false; 
-    }
-
-    void FixedUpdate()
-    {
-        if (destinationNodeIndex != -1 && !waitForNextFixedUpdate)
-        {
-            CheckMicroDistance();
-            MoveEntityAlongPath();
-        }
     }
 
     // called on Start and every time you reach target node
@@ -205,12 +218,6 @@ public class EntityPathNavigation : MonoBehaviour
                                                                                     entityToMoveTransform.position.y, 
                                                                                     SubDestination.z));
 
-        /* if (hasInverted)
-        {
-            GameLogger.Log($"distance: {distanceFromNextSubNode}");
-            Debug.Break(); 
-        } */
-
         if (distanceFromNextSubNode <= SNAP_VALUE)
         {
             if (subDestinationIndex < PathController.Resolution - 1)
@@ -221,14 +228,20 @@ public class EntityPathNavigation : MonoBehaviour
             }
             else // arrived at the end of path
             {
-                Debug.Break();
-
                 GameLogger.Log($"previous starting node: {startingNodeIndex}");
                 GameLogger.Log($"previous destination node: {destinationNodeIndex}");
 
                 if (isInverted)
                 {
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+                    if (cameFromLeafNode)
+                    {
+                        cameFromLeafNode = false;
+                        startingNodeIndex = destinationNodeIndex; 
+                        destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+
+                        // Debug.Break();
+                    }
                 }
                 else
                 {

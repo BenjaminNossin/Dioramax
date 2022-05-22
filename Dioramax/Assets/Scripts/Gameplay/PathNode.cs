@@ -59,30 +59,9 @@ public class PathNode : MonoBehaviour
     public Transform[] GetNextPossibleNodesTransform() => neighboursTransform;
     public PathNode[] GetNextPossibleNodes() => neightboursNodes;
 
-    PathNode returnedNode; 
-    public PathNode GetNextActiveNode()
-    {
-        if (IsLeafNode) return null; 
-
-        if (neightboursNodes.Length == 1)
-        {
-            SetNextNode(0);
-            return nextActiveNode; 
-        }
-
-        for (int i = 0; i < neightboursNodes.Length; i++)
-        {
-            if (neightboursNodes[i].IsActiveNode)
-            {
-                returnedNode = neightboursNodes[i]; 
-            }
-        }
-
-        return returnedNode; 
-    }
-    public PathNode GetPreviousNode() => previousNode;
-    public int GetNodeIndex() => returnedNode.nodeIndex;
-    public int GetPreviousNodeIndex() => previousNode.nodeIndex;
+    PathNode returnedNode;
+    public int GetNextPossibleNodesArraySize() => (int)(neighboursTransform?.Length);
+    public int GetPreviousNodeIndex() => previousNode ? previousNode.nodeIndex : -1;
     public int GetNextActiveNodeIndex()
     {
         if (IsLeafNode) return -1; 
@@ -102,7 +81,6 @@ public class PathNode : MonoBehaviour
 
         return returnedNode.nodeIndex;
     }
-    public int GetNextPossibleNodesArraySize() => (int)(neighboursTransform?.Length);
     public Vector3 GetControlPointToWorld(bool getIn = true) => transform.TransformPoint(getIn ? controlPointIn : controlPointOut);
     public Vector3 GetControlPointINPosition() => transform.TransformPoint(controlPointIn); 
     public Vector3 GetControlPointOUTPosition() => transform.TransformPoint(controlPointOut);
