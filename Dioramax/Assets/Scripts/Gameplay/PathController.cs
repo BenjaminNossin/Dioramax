@@ -6,7 +6,6 @@ using DG.Tweening;
 [ExecuteAlways]
 public class PathController : MonoBehaviour
 {
-    [SerializeField, Range(4, 50)] private int pathResolution = 20;  
     public static PathController Instance;
     private PathNode[] Nodes; // even though it changes in editor, the value is reset to O when  hitting Play
 
@@ -72,7 +71,6 @@ public class PathController : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
-        Resolution = pathResolution; 
     }
 
     private void Start()
@@ -130,6 +128,7 @@ public class PathController : MonoBehaviour
             for (int i = 0; i < transform.childCount; i++)
             {
                 Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
+                Nodes[i].nodeIndex = i; 
                 /* try
                 {
                     Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
