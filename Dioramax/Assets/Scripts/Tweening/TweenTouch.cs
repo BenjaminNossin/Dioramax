@@ -89,8 +89,6 @@ public class TweenTouch : StoppableTween
             if (transform.CompareTag("Freezable"))
             {
                 int i;
-                for (i = 0; i < transform.childCount; i++)
-                {
 
                     if (FrozenState == 1)
                     {
@@ -98,7 +96,11 @@ public class TweenTouch : StoppableTween
                         for (i = 0; i < transform.childCount; i++)
                         {
                         FrozenState = 0;
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetFloat("Freezed", FrozenState);
+                        
+                            if(transform.GetChild(i).GetComponent<Renderer>() != null)
+                            {
+                                 transform.GetChild(i).GetComponent<Renderer>().material.SetFloat("Freezed", FrozenState);
+                            }
                         }
 
                     }
@@ -106,13 +108,14 @@ public class TweenTouch : StoppableTween
                     else if (FrozenState == 0)
                     {
                           for (i = 0; i < transform.childCount; i++)
-                             {
-                        FrozenState = 1;
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetFloat("Freezed", FrozenState);
-                             }
-
+                          {
+                            FrozenState = 1;
+                                if (transform.GetChild(i).GetComponent<Renderer>() != null)
+                                    {
+                                        transform.GetChild(i).GetComponent<Renderer>().material.SetFloat("Freezed", FrozenState);
+                                    }
+                          }
                     }
-                }
             }
 
     // End Freeze Objects
