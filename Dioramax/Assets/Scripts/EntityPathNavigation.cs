@@ -68,7 +68,7 @@ public class EntityPathNavigation : MonoBehaviour
                                                             pointsAlongPath[lastVisitedPointOnSegmentIndex].y,
                                                             pointsAlongPath[lastVisitedPointOnSegmentIndex].z);
 
-            // Instantiate(previousDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity); 
+            Instantiate(previousDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity); 
              
             InvertArray(pointsAlongPath); 
             hasInverted = invertDirection;
@@ -85,7 +85,7 @@ public class EntityPathNavigation : MonoBehaviour
             StartCoroutine(DelayNextFixedUpdate());
             SetSubDestination();
             
-            // Instantiate(nextDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            Instantiate(nextDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
             // Debug.Break(); 
         }
     }
@@ -129,8 +129,6 @@ public class EntityPathNavigation : MonoBehaviour
     {
         Debug.Log("INVERTING");
         Array.Reverse(array);
-
-        // subDestinationIndex = 
     }
 
     private void SetSubDestination()

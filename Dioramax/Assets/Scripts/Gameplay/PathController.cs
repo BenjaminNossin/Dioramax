@@ -80,26 +80,27 @@ public class PathController : MonoBehaviour
 
     // call this from EntityPathNavigation, on Start and every time you reach target node
     private float f;
-    public Vector3[] GetPointsAlongPathBetweenNodes(PathNode node1, PathNode node2, ref Vector3[] pointsAlongPath)
+    private PathNode _node1, _node2;
+    public Vector3[] GetPointsAlongPathBetweenNodes(PathNode node1, PathNode node2, ref Vector3[] pointsAlongPath, bool getRevertPath = false)
     {
-        f = 0f; 
-        // default
+        f = 0f;
+
+        _node1 = node1;
+        _node2 = node2;
+        if (getRevertPath)
+        {
+            _node1 = _node2;
+            _node2 = node1;
+        }
+
         for (int i = 0; i < Resolution; i++)
         {
-            pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
-            node2.GetControlPointINPosition(), f);
-            f += (1f / Resolution); 
-        } 
-
-        // revert
-        /* for (int i = 0; i < Resolution; i++)
-        {
-            pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(node2.GetNodePosition(), node2.GetControlPointOUTPosition(), node1.GetNodePosition(),
-            node1.GetControlPointINPosition(), f);
+            pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(_node1.GetNodePosition(), _node1.GetControlPointOUTPosition(), _node2.GetNodePosition(),
+            _node2.GetControlPointINPosition(), f);
             f += (1f / Resolution);
-        } */
+        }
 
-        return pointsAlongPath; 
+        return pointsAlongPath;
     }
 
     Vector3 v1, v2; 
