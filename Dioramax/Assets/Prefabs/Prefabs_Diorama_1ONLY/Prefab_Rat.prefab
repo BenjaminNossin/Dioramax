@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 2923188611664247095}
   - component: {fileID: 1351947621588371420}
   - component: {fileID: 2418270908547656613}
+  - component: {fileID: 3333509862974041907}
   m_Layer: 0
   m_Name: A_VAL_RatNez_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1509116430494460101}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1351947621588371420
 MeshFilter:
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3333509862974041907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925141197121646549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: 3bf15f77fb450ab468a2f704bbed6e37, type: 2}
+  doTween: 1
 --- !u!1 &1509116430494460100
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,10 +133,10 @@ Transform:
   m_Children:
   - {fileID: 8999815995488180698}
   - {fileID: 612676293035392244}
+  - {fileID: 2923188611664247095}
   - {fileID: 8544327005088266938}
   - {fileID: 7896288298117682816}
   - {fileID: 3145885925377398862}
-  - {fileID: 2923188611664247095}
   - {fileID: 9132846392620043911}
   - {fileID: 3623641428849259600}
   - {fileID: 363251609428337891}
@@ -344,7 +359,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1509116430494460101}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3196910091724505334
 MeshFilter:
@@ -510,7 +525,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1509116430494460101}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7835752083115977545
 MeshFilter:
@@ -857,7 +872,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1509116430494460101}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6762496374892389560
 MeshFilter:
@@ -920,9 +935,10 @@ GameObject:
   - component: {fileID: 1846599062550067217}
   - component: {fileID: 609832979121666196}
   - component: {fileID: 7891990135034087546}
+  - component: {fileID: 8176800973621961897}
   m_Layer: 0
   m_Name: A_VAL_RatQueue_low
-  m_TagString: Untagged
+  m_TagString: TweenChild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -992,6 +1008,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8176800973621961897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830220383023434784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: 743117908b8eecf4d8225f77b4b0e95e, type: 2}
+  doTween: 1
 --- !u!1 &9085948219867355556
 GameObject:
   m_ObjectHideFlags: 0
