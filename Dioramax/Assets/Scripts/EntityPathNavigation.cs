@@ -40,6 +40,7 @@ public class EntityPathNavigation : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
+        isInverted = invertDirection; 
     }
 
     void Start()
@@ -68,13 +69,25 @@ public class EntityPathNavigation : MonoBehaviour
         // SetNextDestination();
     }
 
-    private Vector3 lastVisitedPointOnSegmentPosition; 
+    private Vector3 lastVisitedPointOnSegmentPosition;
+    private int tempNodeIndex; 
     private void Update()
     {
         if (invertDirection != isInverted)
         {
             isInverted = invertDirection;
-            
+            if (!isInverted)
+            {
+                GameLogger.Log($"previous starting node (INVERTED to DEFAULT): {startingNodeIndex}");
+                GameLogger.Log($"previous destination node (INVERTED to DEFAULT): {destinationNodeIndex}");
+
+                startingNodeIndex = destinationNodeIndex;
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+                GameLogger.Log($"current starting node (INVERTED to DEFAULT): {startingNodeIndex}");
+                GameLogger.Log($"current destination node (INVERTED to DEFAULT): {destinationNodeIndex}");
+            }
+
             StoreLastVisitedPointOnSegmentPosition();
             SetInversionState();          
         }
@@ -208,6 +221,8 @@ public class EntityPathNavigation : MonoBehaviour
             }
             else // arrived at the end of path
             {
+                Debug.Break();
+
                 GameLogger.Log($"previous starting node: {startingNodeIndex}");
                 GameLogger.Log($"previous destination node: {destinationNodeIndex}");
 
@@ -237,8 +252,6 @@ public class EntityPathNavigation : MonoBehaviour
             {
                 SetSubDestination();
             }
-
-            Debug.Break();
         }
     }
 
