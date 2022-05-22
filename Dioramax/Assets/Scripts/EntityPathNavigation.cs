@@ -27,6 +27,8 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private GameObject debugObject;
     [SerializeField] private GameObject previousDestination;
     [SerializeField] private GameObject nextDestination;
+    private GameObject[] debugObject_PathPoints;
+    private GameObject debugObjReference; 
 
     public bool invertDirection; 
     private bool hasInverted; //
@@ -43,6 +45,13 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Start()
     {
+        debugObject_PathPoints = new GameObject[PathController.Resolution];
+        for (int i = 0; i < debugObject_PathPoints.Length; i++)
+        {
+            debugObjReference = Instantiate(debugObject, Vector3.zero, Quaternion.identity);
+            debugObject_PathPoints[i] = debugObjReference;
+        }
+
         pathNodes = new PathNode[PathController.Instance.GetPathNodes().Length]; 
         PathController.Instance.GetPathNodes().CopyTo(pathNodes, 0);
         nodeArraySize = PathController.Instance.GetNodeArraySize();
@@ -68,7 +77,7 @@ public class EntityPathNavigation : MonoBehaviour
                                                             pointsAlongPath[lastVisitedPointOnSegmentIndex].y,
                                                             pointsAlongPath[lastVisitedPointOnSegmentIndex].z);
 
-            Instantiate(previousDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity); 
+            // Instantiate(previousDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity); 
              
             InvertArray(pointsAlongPath); 
             hasInverted = invertDirection;
@@ -85,7 +94,7 @@ public class EntityPathNavigation : MonoBehaviour
             StartCoroutine(DelayNextFixedUpdate());
             SetSubDestination();
             
-            Instantiate(nextDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            // Instantiate(nextDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
             // Debug.Break(); 
         }
     }
@@ -108,15 +117,27 @@ public class EntityPathNavigation : MonoBehaviour
     }
 
     // called on Start and every time you reach target node
-    private int currentNodeIndex, targetNodeIndex; 
+    private int currentNodeIndex, previousNodeIndex; 
     private void GetNewPointsOnReachingDestinationNode()
     {
-        pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[currentNodeIndex],
-            pathNodes[currentNodeIndex].GetNextActiveNode(), ref pointsAlongPath);
+        if (hasInverted)
+        {
+            currentNodeIndex = previousNodeIndex;
+
+            // terrible code duplication
+            pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[currentNodeIndex],
+                pathNodes[currentNodeIndex].GetPreviousNode(), ref pointsAlongPath, hasInverted);
+        }
+        else
+        {
+            pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[currentNodeIndex],
+                pathNodes[currentNodeIndex].GetNextActiveNode(), ref pointsAlongPath, hasInverted);
+        }
+       
 
         for (int i = 0; i < pointsAlongPath.Length; i++)
         {
-            Instantiate(debugObject, pointsAlongPath[i], Quaternion.identity);
+            debugObject_PathPoints[i].transform.position = pointsAlongPath[i];
         } 
     }
 
@@ -124,13 +145,6 @@ public class EntityPathNavigation : MonoBehaviour
     private Vector3 SubDestination;
     private float distanceFromNextSubNode;
     private Vector3 normalizedMoveDirection;
-
-    private void InvertArray(Vector3[] array)
-    {
-        Debug.Log("INVERTING");
-        Array.Reverse(array);
-    }
-
     private void SetSubDestination()
     {
         if (pointsAlongPath.Length == 0)
@@ -143,23 +157,26 @@ public class EntityPathNavigation : MonoBehaviour
             lastVisitedPointOnSegmentIndex = subDestinationIndex;
         }
 
-        overrideLastVisitedSegment = true; 
+        overrideLastVisitedSegment = true;
         subDestinationIndex = (lastVisitedPointOnSegmentIndex + 1) % pointsAlongPath.Length;
         SubDestination = pointsAlongPath[subDestinationIndex];
-        normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
 
-        /* if (subDestinationIndex != 0)
+        if (subDestinationIndex != 0)
         {
             normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
         }
         else
         {
-            Debug.Log("subDest index was 0"); 
             normalizedMoveDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
-        } */
+        }
     }
 
-    // distance between two points on a segment
+    private void InvertArray(Vector3[] array)
+    {
+        Debug.Log("INVERTING");
+        Array.Reverse(array);
+    }
+
     private void CheckMicroDistance()
     {
         distanceFromNextSubNode = Vector3.Distance(entityToMoveTransform.position, new Vector3(
@@ -183,6 +200,7 @@ public class EntityPathNavigation : MonoBehaviour
             }
             else // arrived at the end of path
             {
+                previousNodeIndex = currentNodeIndex; 
                 currentNodeIndex = pathNodes[currentNodeIndex].GetNextActiveNodeIndex();
 
                 if (currentNodeIndex != -1 )
@@ -199,10 +217,6 @@ public class EntityPathNavigation : MonoBehaviour
         }
     }
 
-    private float angleBetweenStartAndTargedNode; // hardcoded placeholder 
-    // duration = 6
-    private float framesToReachTargetNode = 300; // 50 * (1/NavigationSpeedMultiplier)
-                                                 // private
     private void MoveEntityAlongPath()
     {
         Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection * 5f, Color.blue); 
@@ -213,51 +227,4 @@ public class EntityPathNavigation : MonoBehaviour
         //Debug.Break(); 
     }
 
-    // distance from target node (end of current segment)
-    private void CheckMacroDistance()
-    {
-
-    }
-
-    // need rework. This will become CheckMacroDistance
-    private void CheckDistanceFromNextNode()
-    {
-        if (Vector3.Distance(transform.position, lastNodePosition) < SNAP_VALUE &&
-            destinationNodeIndex == pathNodes.Length - 1 && !loopPath) return; // arrived at the end of path
-
-        distanceFromNextNode = Vector3.Distance(transform.position, nextNodePosition);
-
-        // enter here only once
-        if (distanceFromNextNode < SNAP_VALUE)
-        {
-            GameLogger.Log("snapping to current node");
-            transform.position = new Vector3(pathNodes[destinationNodeIndex].GetNodePosition().x, transform.position.y, pathNodes[destinationNodeIndex].GetNodePosition().z);
-            // SetNextDestination(); // this is called too often
-        }
-    }
-
-    // when you reached target of macroDistance
-    private void SetNextDestination()
-    {
-        if (nodeArraySize == 0)
-            return;
-
-        GameLogger.Log("setting next destination node");
-
-        destinationNodeIndex = (destinationNodeIndex + 1) % nodeArraySize;
-        nextNodePosition = pathNodes[destinationNodeIndex].GetNodePosition();
-
-        transform.LookAt(nextNodePosition);
-    }
-
-    // DEBUG for feature IV
-    /* public void GoToPreviousPoint()
-    {
-        if (entityPathController.Points.Length == 0)
-            return;
-
-        DestPoint = (DestPoint - 1) % entityPathController.Points.Length;
-        destinationDirection = (entityPathController.Nodes[DestPoint].position - transform.position).normalized;
-        transform.LookAt(entityPathController.Nodes[DestPoint].position);
-    } */
 }

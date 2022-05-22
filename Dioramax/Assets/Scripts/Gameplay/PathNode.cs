@@ -8,21 +8,17 @@ using UnityEditor;
 // holds reference to next possible nodes
 public class PathNode : MonoBehaviour
 {
-    [SerializeField] private Transform previousNode;
+    [SerializeField] private PathNode previousNode;
     [SerializeField] private Transform[] neighboursTransform; // A = 0, B = 1; 
     [SerializeField] private PathNode[] neightboursNodes; // A = 0, B = 1; 
     [SerializeField] private Vector3 controlPointIn;
     [SerializeField] private Vector3 controlPointOut;
-
-    [Space, SerializeField, Range(1f, 5f)] private float lineThickness = 1f; // A = 0, B = 1; 
-    private static float LineThickness; 
 
     public bool IsActiveNode { get; set; }
     public bool IsLeafNode { get; private set;  }  
 
     private PathNode nextActiveNode; // updated via switching
     private Vector3 selfPosition; // caching to avoid costly calls to the C++ side of engine
-    private Vector3 previousNodePosition; // idem
     public int nodeIndex; 
 
     private void OnValidate()
@@ -32,9 +28,9 @@ public class PathNode : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Handles.color = Color.white;
-        Handles.DrawLine(transform.position, transform.TransformPoint(controlPointOut), LineThickness);
-        Handles.DrawLine(transform.position, transform.TransformPoint(controlPointIn), LineThickness); 
+        Handles.color = PathController.HandlesColor;
+        Handles.DrawLine(transform.position, transform.TransformPoint(controlPointOut), PathController.LineThickness);
+        Handles.DrawLine(transform.position, transform.TransformPoint(controlPointIn), PathController.LineThickness); 
     } 
 
     private void Awake()
@@ -56,17 +52,10 @@ public class PathNode : MonoBehaviour
 
     private void InitOrUpdate()
     {
-        LineThickness = lineThickness; 
-
         IsActiveNode = true; // PROBABLY WRONG
         selfPosition = transform.position;
-        if (previousNode)
-        {
-            previousNodePosition = previousNode.transform.position;
-        }
     }
     public Vector3 GetNodePosition() => selfPosition;
-    public Vector3 GetPreviousNodePosition() => previousNodePosition; 
     public Transform[] GetNextPossibleNodesTransform() => neighboursTransform;
     public PathNode[] GetNextPossibleNodes() => neightboursNodes;
 
@@ -91,6 +80,7 @@ public class PathNode : MonoBehaviour
 
         return returnedNode; 
     }
+    public PathNode GetPreviousNode() => previousNode;
     public int GetNextActiveNodeIndex()
     {
         if (IsLeafNode) return -1; 

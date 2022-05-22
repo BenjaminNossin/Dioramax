@@ -830,9 +830,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: nodeIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: previousNode
       value: 
-      objectReference: {fileID: 1272226936393648068}
+      objectReference: {fileID: 8439592539299411747}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: controlPointIn.x
       value: 0.1
@@ -881,6 +885,10 @@ PrefabInstance:
       propertyPath: neighboursTransform.Array.data[1]
       value: 
       objectReference: {fileID: 394064882}
+    - target: {fileID: 5620581030224027458, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: m_Name
+      value: Prefab_Mesh_001
+      objectReference: {fileID: 0}
     - target: {fileID: 7082379054339734929, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: m_Name
       value: LCR_Rail_Switch_001
@@ -1062,7 +1070,6 @@ MonoBehaviour:
   - {fileID: 8439592539299411747}
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: -0.09, y: 0.04, z: 0}
-  lineThickness: 3
   nodeIndex: 0
 --- !u!1001 &382448825
 PrefabInstance:
@@ -1170,12 +1177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 373808097}
+  previousNode: {fileID: 373808098}
   neighboursTransform: []
   neightboursNodes: []
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
-  lineThickness: 1
   nodeIndex: 4
 --- !u!1 &419916122
 GameObject:
@@ -1221,12 +1227,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 1272226936393648068}
+  previousNode: {fileID: 8439592539299411747}
   neighboursTransform: []
   neightboursNodes: []
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
-  lineThickness: 1
   nodeIndex: 2
 --- !u!43 &480921632
 Mesh:
@@ -5446,12 +5451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 652424693}
+  previousNode: {fileID: 652424694}
   neighboursTransform: []
   neightboursNodes: []
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
-  lineThickness: 1
   nodeIndex: 7
 --- !u!1001 &604349314
 PrefabInstance:
@@ -5729,9 +5733,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: nodeIndex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: previousNode
       value: 
-      objectReference: {fileID: 373808097}
+      objectReference: {fileID: 373808098}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: controlPointOut.x
       value: 0.03
@@ -5772,6 +5780,10 @@ PrefabInstance:
       propertyPath: neighboursTransform.Array.data[1]
       value: 
       objectReference: {fileID: 501377881}
+    - target: {fileID: 5620581030224027458, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: m_Name
+      value: Prefab_Mesh_002
+      objectReference: {fileID: 0}
     - target: {fileID: 7082379054339734929, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: m_Name
       value: LCR_Rail_Switch_002
@@ -20908,12 +20920,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 652424693}
+  previousNode: {fileID: 652424694}
   neighboursTransform: []
   neightboursNodes: []
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
-  lineThickness: 1
   nodeIndex: 6
 --- !u!1 &2123374114
 GameObject:
@@ -30081,7 +30092,7 @@ PrefabInstance:
     - target: {fileID: 6295681535110955506, guid: c04844675004ada4599c03d5027b400b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 6295681535676141484}
+      objectReference: {fileID: 0}
     - target: {fileID: 6295681535110955506, guid: c04844675004ada4599c03d5027b400b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -30208,25 +30219,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c04844675004ada4599c03d5027b400b, type: 3}
---- !u!1 &6295681535676141483 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6295681536289414302, guid: c04844675004ada4599c03d5027b400b, type: 3}
-  m_PrefabInstance: {fileID: 6295681535676141482}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6295681535676141484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6295681535676141483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  td: {fileID: 0}
-  doTween: 1
 --- !u!1 &6317506714543504026
 GameObject:
   m_ObjectHideFlags: 0
@@ -31733,7 +31725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1238371008537672217, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: AIsInitialPosition
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1238371008537672222, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: m_Enabled
@@ -31746,7 +31738,7 @@ PrefabInstance:
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: previousNode
       value: 
-      objectReference: {fileID: 376469583}
+      objectReference: {fileID: 376469584}
     - target: {fileID: 1238371008537672223, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: lineThickness
       value: 3
@@ -31807,6 +31799,10 @@ PrefabInstance:
       propertyPath: nextPossibleNodesTransforms.Array.data[1]
       value: 
       objectReference: {fileID: 419916123}
+    - target: {fileID: 5620581030224027458, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
+      propertyPath: m_Name
+      value: Prefab_Mesh_000
+      objectReference: {fileID: 0}
     - target: {fileID: 7082379054339734929, guid: 6a66dcabbc477cc4a84a0a2e94d59b8f, type: 3}
       propertyPath: m_Name
       value: LCR_Rail_Switch_000
@@ -31988,7 +31984,6 @@ MonoBehaviour:
   neightboursNodes: []
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
-  lineThickness: 1
   nodeIndex: 9
 --- !u!23 &8453294664857395492
 MeshRenderer:
@@ -32146,6 +32141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110d4b1821e2ba845a2d702adbec04f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lineThickness: 3
+  handlesColor: {r: 1, g: 1, b: 1, a: 1}
   refreshNodesArrayOnReferenceLoss: 1
 --- !u!64 &8607213600099841500
 MeshCollider:
@@ -32472,7 +32469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: navigationSpeedMultiplier
-      value: 0.456
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: initialNodesDebugArray.Array.size
@@ -32890,7 +32887,6 @@ MonoBehaviour:
   neightboursNodes: []
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
-  lineThickness: 1
   nodeIndex: 8
 --- !u!23 &9165046150944829920
 MeshRenderer:

@@ -7,6 +7,13 @@ using DG.Tweening;
 public class PathController : MonoBehaviour
 {
     public static PathController Instance;
+
+    [Space, SerializeField, Range(1f, 5f)] private float lineThickness = 1f;
+    [SerializeField] private Color handlesColor = Color.white;
+
+    public static float LineThickness { get; private set; }
+    public static Color HandlesColor { get; private set; }
+
     private PathNode[] Nodes; // even though it changes in editor, the value is reset to O when  hitting Play
 
     private Vector3 currentIndexNodePosition;
@@ -17,6 +24,8 @@ public class PathController : MonoBehaviour
 
     private void OnValidate()
     {
+        LineThickness = lineThickness;
+        HandlesColor = handlesColor;
         if (refreshNodesArrayOnReferenceLoss)
         {
             PopulateArray();
