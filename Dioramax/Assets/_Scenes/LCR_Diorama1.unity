@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10237491, g: 0.10098698, b: 0.25912094, a: 1}
+  m_IndirectSpecularColor: {r: 0.24924183, g: 0.33886242, b: 0.51423734, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1071,7 +1071,7 @@ Transform:
   - {fileID: 1681122253}
   - {fileID: 755591675}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &354967132
 MonoBehaviour:
@@ -2736,7 +2736,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1161763065 stripped
 Rigidbody:
@@ -3230,7 +3230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6952084751916207573, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6952084751916207573, guid: f977003581949954bba2a10444faa0ea, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5284,6 +5284,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 4edf5600b39a9e04da4fc021048aca3c, type: 2}
   doTween: 1
+--- !u!4 &1785895573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3009781237548138753, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
+  m_PrefabInstance: {fileID: 6092739923621156825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1787459250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18106,7 +18111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9dea37827eaf349bb121990a0a9f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamTransform: {fileID: 0}
+  mainCamTransform: {fileID: 1785895573}
   gravityForceMultiplier: 1
 --- !u!4 &7827352750767423343
 Transform:

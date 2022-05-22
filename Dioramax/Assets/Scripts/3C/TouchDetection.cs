@@ -95,16 +95,9 @@ public class TouchDetection : MonoBehaviour
             {
                 tweenableTouchHitInfo.collider.GetComponent<TweenTouch>().Tween();
             }
-            
+
             // test Children GO tween
-            foreach (Transform child in tweenableTouchHitInfo.transform)
-            {
-                if (child != null && child.GetComponent<TweenTouch>() != null && child.CompareTag("TweenChild"))
-                {
-                    GameLogger.Log("tweening of " + transform.name + " is activated");
-                    child.GetComponent<TweenTouch>().Tween();  
-                }
-            }
+            ChildTweens(tweenableTouchHitInfo); 
             // end test
         }
 
@@ -115,6 +108,7 @@ public class TouchDetection : MonoBehaviour
 
             freezeStateController.InvertFreezeState();
             detectedCollider.GetComponent<TweenTouch>().Tween();
+            ChildTweens(dgeHitInfo);
 
             if (dioramaName == DioramaName.Diorama2)
             {                
@@ -181,6 +175,18 @@ public class TouchDetection : MonoBehaviour
             }
             #endregion
         }       
+    }
+
+    private void ChildTweens(RaycastHit hit)
+    {
+        foreach (Transform childransf in hit.transform)
+        {
+            if (childransf && childransf.GetComponent<TweenTouch>() && childransf.CompareTag("TweenChild"))
+            {
+                GameLogger.Log("tweening of " + childransf.name + " is activated");
+                childransf.GetComponent<TweenTouch>().Tween();
+            }
+        }
     }
 
     private readonly WaitForSeconds WFS = new (0.2f); 
