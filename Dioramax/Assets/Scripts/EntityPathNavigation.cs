@@ -48,7 +48,47 @@ public class EntityPathNavigation : MonoBehaviour
         SetSubDestination(); 
         // SetNextDestination();
     }
-     
+
+    private Vector3 lastVisitedPointOnSegmentPosition; 
+    private void Update()
+    {
+        if (invertDirection != hasInverted)
+        {
+            overrideLastVisitedSegment = false; 
+            lastVisitedPointOnSegmentPosition = new Vector3(pointsAlongPath[lastVisitedPointOnSegmentIndex].x,
+                                                            pointsAlongPath[lastVisitedPointOnSegmentIndex].y,
+                                                            pointsAlongPath[lastVisitedPointOnSegmentIndex].z);
+
+            Instantiate(previousDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity); 
+             
+            InvertArray(pointsAlongPath); 
+            hasInverted = invertDirection;
+
+            // to find what is the new index of subDestination
+            for (int i = 0; i < pointsAlongPath.Length; i++)
+            {
+                if (Vector3.Distance(lastVisitedPointOnSegmentPosition, pointsAlongPath[i]) <= SNAP_VALUE)
+                {
+                    lastVisitedPointOnSegmentIndex = i; 
+                }
+            }
+
+            StartCoroutine(DelayNextFixedUpdate());
+            SetSubDestination();
+            
+            Instantiate(nextDestination, pointsAlongPath[subDestinationIndex] + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            // Debug.Break(); 
+        }
+    }
+
+    private bool waitForNextFixedUpdate; 
+    private IEnumerator DelayNextFixedUpdate()
+    {
+        waitForNextFixedUpdate = true; 
+        yield return new WaitForFixedUpdate();
+        waitForNextFixedUpdate = false; 
+    }
+
     void FixedUpdate()
     {
         CheckMicroDistance();
@@ -70,6 +110,13 @@ public class EntityPathNavigation : MonoBehaviour
     private Vector3 SubDestination;
     private float distanceFromNextSubNode;
     private Vector3 normalizedMoveDirection;
+
+    private void InvertArray(Vector3[] array)
+    {
+        Debug.Log("INVERTING");
+        Array.Reverse(array);
+    }
+
     private void SetSubDestination()
     {
         if (pointsAlongPath.Length == 0)
