@@ -10,7 +10,7 @@ public class PathController : MonoBehaviour
     private PathNode[] Nodes; // even though it changes in editor, the value is reset to O when  hitting Play
 
     private Vector3 currentIndexNodePosition;
-    public static int Resolution = 10; 
+    public static int Resolution = 20; 
 
     [Header("DEBUG")]
     public bool refreshNodesArrayOnReferenceLoss;
