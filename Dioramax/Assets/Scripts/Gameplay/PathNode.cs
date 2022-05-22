@@ -1,43 +1,117 @@
 using UnityEngine;
+using System;
+
+#if UNITY_EDITOR
+using UnityEditor; 
+#endif
 
 // holds reference to next possible nodes
 public class PathNode : MonoBehaviour
 {
     [SerializeField] private Transform previousNode;
-    [SerializeField] private Transform[] nextPossibleNodes; // A = 0, B = 1; 
-    public bool IsActiveNode { get; set; }
+    [SerializeField] private Transform[] neighboursTransform; // A = 0, B = 1; 
+    [SerializeField] private PathNode[] neightboursNodes; // A = 0, B = 1; 
+    [SerializeField] private Vector3 controlPointIn;
+    [SerializeField] private Vector3 controlPointOut;
 
-    private Transform nextNode; // updated via switching
+    [Space, SerializeField, Range(1f, 5f)] private float lineThickness = 1f; // A = 0, B = 1; 
+    private static float LineThickness; 
+
+    public bool IsActiveNode { get; set; }
+    public bool IsLeafNode { get; private set;  }  
+
+    private PathNode nextActiveNode; // updated via switching
     private Vector3 selfPosition; // caching to avoid costly calls to the C++ side of engine
     private Vector3 previousNodePosition; // idem
-
-    public void SetNextNode(int index)
-    {
-        nextNode = nextPossibleNodes[index]; 
-    }
+    public int nodeIndex; 
 
     private void OnValidate()
     {
-        Init();
+        InitOrUpdate();
     }
+
+    private void OnDrawGizmos()
+    {
+        Handles.color = Color.white;
+        Handles.DrawLine(transform.position, transform.TransformPoint(controlPointOut), LineThickness);
+        Handles.DrawLine(transform.position, transform.TransformPoint(controlPointIn), LineThickness); 
+    } 
 
     private void Awake()
     {
-        Init();
+        IsLeafNode = neightboursNodes.Length == 0;
+
+        if (neightboursNodes.Length == 1)
+        {
+            SetNextNode(0);
+        }
+
+        InitOrUpdate();
     }
 
-    private void Init()
+    public void SetNextNode(int index)
     {
-        IsActiveNode = true;
+        nextActiveNode = neightboursNodes[index];
+    }
+
+    private void InitOrUpdate()
+    {
+        LineThickness = lineThickness; 
+
+        IsActiveNode = true; // PROBABLY WRONG
         selfPosition = transform.position;
         if (previousNode)
         {
             previousNodePosition = previousNode.transform.position;
         }
     }
-
     public Vector3 GetNodePosition() => selfPosition;
     public Vector3 GetPreviousNodePosition() => previousNodePosition; 
-    public Transform[] GetNextPossibleNodesTransform() => nextPossibleNodes;
-    public int GetNextPossibleNodesArraySize() => nextPossibleNodes.Length;
+    public Transform[] GetNextPossibleNodesTransform() => neighboursTransform;
+    public PathNode[] GetNextPossibleNodes() => neightboursNodes;
+
+    PathNode returnedNode; 
+    public PathNode GetNextActiveNode()
+    {
+        if (IsLeafNode) return null; 
+
+        if (neightboursNodes.Length == 1)
+        {
+            SetNextNode(0);
+            return nextActiveNode; 
+        }
+
+        for (int i = 0; i < neightboursNodes.Length; i++)
+        {
+            if (neightboursNodes[i].IsActiveNode)
+            {
+                returnedNode = neightboursNodes[i]; 
+            }
+        }
+
+        return returnedNode; 
+    }
+    public int GetNextActiveNodeIndex()
+    {
+        if (IsLeafNode) return -1; 
+
+        if (neightboursNodes.Length == 1)
+        {
+            SetNextNode(0);
+        }
+
+        for (int i = 0; i < neightboursNodes.Length; i++)
+        {
+            if (neightboursNodes[i].IsActiveNode)
+            {
+                returnedNode = neightboursNodes[i];
+            }
+        }
+
+        return returnedNode.nodeIndex;
+    }
+    public int GetNextPossibleNodesArraySize() => (int)(neighboursTransform?.Length);
+    public Vector3 GetControlPointToWorld(bool getIn = true) => transform.TransformPoint(getIn ? controlPointIn : controlPointOut);
+    public Vector3 GetControlPointINPosition() => transform.TransformPoint(controlPointIn); 
+    public Vector3 GetControlPointOUTPosition() => transform.TransformPoint(controlPointOut);
 }
