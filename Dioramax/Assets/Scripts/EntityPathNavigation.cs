@@ -27,7 +27,8 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private GameObject previousDestination;
     [SerializeField] private GameObject nextDestination;
     private GameObject[] debugObject_PathPoints;
-    private GameObject debugObjReference; 
+    private GameObject debugObjReference;
+    public int _startingNodeIndex; 
 
     public bool invertDirection; 
     private bool isInverted; //
@@ -58,7 +59,7 @@ public class EntityPathNavigation : MonoBehaviour
         nodeArraySize = PathController.Instance.GetNodeArraySize();
         lastNodePosition = pathNodes[^1].GetNodePosition();
 
-        startingNodeIndex = 0;
+        startingNodeIndex = _startingNodeIndex;
         destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
         pointsAlongPath = new Vector3[PathController.Resolution];
@@ -72,6 +73,7 @@ public class EntityPathNavigation : MonoBehaviour
 
     private Vector3 lastVisitedPointOnSegmentPosition;
     private int tempNodeIndex;
+
     private void Update()
     {
         if (invertDirection == isInverted) return;
@@ -79,31 +81,58 @@ public class EntityPathNavigation : MonoBehaviour
         isInverted = invertDirection;
         if (isInverted)
         {
+            GameLogger.Log($"previous starting node (INVERTED) : {startingNodeIndex}");
+            GameLogger.Log($"previous destination node (INVERTED) : {destinationNodeIndex}");
+
+            // here, I know my startingNodeIndex, but destination == -1
             if (destinationNodeIndex == -1)
             {
-                cameFromLeafNode = true; 
+                // cameFromLeafNode = true; 
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
 
-                GameLogger.Log($"new starting from leaf node (INVERTED to DEFAULT): {startingNodeIndex}");
-                GameLogger.Log($"new destination from leaf node (INVERTED to DEFAULT): {destinationNodeIndex}");
-                Debug.Break();
+                StoreLastVisitedPointOnSegmentPosition();
+                SetInversionState();
+                // Debug.Break();
             }
+            else
+            {
+                startingNodeIndex = destinationNodeIndex;
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+
+                StoreLastVisitedPointOnSegmentPosition();
+                SetInversionState();
+            }
+
+            GameLogger.Log($"current starting from leaf node (INVERTED): {startingNodeIndex}");
+            GameLogger.Log($"current destination from leaf node (INVERTED): {destinationNodeIndex}");
         }
         else
         {
-            GameLogger.Log($"previous starting node (INVERTED to DEFAULT): {startingNodeIndex}");
-            GameLogger.Log($"previous destination node (INVERTED to DEFAULT): {destinationNodeIndex}");
+            GameLogger.Log($"previous starting node (DEFAULT) : {startingNodeIndex}");
+            GameLogger.Log($"previous destination node (DEFAULT) : {destinationNodeIndex}");
+            
+            // coming from root node
+            if (destinationNodeIndex == -1)
+            {
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
-            startingNodeIndex = destinationNodeIndex;
-            destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+                GetNewPointsOnReachingDestinationNode();
+                entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
 
-            GameLogger.Log($"current starting node (INVERTED to DEFAULT): {startingNodeIndex}");
-            GameLogger.Log($"current destination node (INVERTED to DEFAULT): {destinationNodeIndex}");
+                SetSubDestination();
+            }
+            else
+            { 
+                startingNodeIndex = destinationNodeIndex;
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+                StoreLastVisitedPointOnSegmentPosition();
+                SetInversionState();
+            }
+
+            GameLogger.Log($"current starting node (DEFAULT) : {startingNodeIndex}");
+            GameLogger.Log($"current destination node (DEFAULT): {destinationNodeIndex}");
         }
-
-        StoreLastVisitedPointOnSegmentPosition();
-        SetInversionState();
-
     }
 
     void FixedUpdate()
@@ -211,6 +240,7 @@ public class EntityPathNavigation : MonoBehaviour
         Array.Reverse(array);
     }
 
+    // avoid calling BOTH this and the update
     private void CheckMicroDistance()
     {
         distanceFromNextSubNode = Vector3.Distance(entityToMoveTransform.position, new Vector3(
@@ -228,29 +258,39 @@ public class EntityPathNavigation : MonoBehaviour
             }
             else // arrived at the end of path
             {
-                GameLogger.Log($"previous starting node: {startingNodeIndex}");
-                GameLogger.Log($"previous destination node: {destinationNodeIndex}");
-
                 if (isInverted)
                 {
+                    GameLogger.Log($"previous starting node on reaching target (INVERTED): {startingNodeIndex}");
+                    GameLogger.Log($"previous destination node on reaching target  (INVERTED): {destinationNodeIndex}");
+
+                    startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
-                    if (cameFromLeafNode)
+
+                    GameLogger.Log($"current starting node on reaching target  (INVERTED): {startingNodeIndex}");
+                    GameLogger.Log($"current destination node on reaching target  (INVERTED): {destinationNodeIndex}");
+
+                    /* if (cameFromLeafNode)
                     {
                         cameFromLeafNode = false;
                         startingNodeIndex = destinationNodeIndex; 
                         destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
 
                         // Debug.Break();
-                    }
+                    } */
                 }
                 else
                 {
+                    GameLogger.Log($"previous starting node on reaching target  (DEFAULT): {startingNodeIndex}");
+                    GameLogger.Log($"previous destination node on reaching target  (DEFAULT): {destinationNodeIndex}");
+
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+                    GameLogger.Log($"current starting node on reaching target  (DEFAULT): {startingNodeIndex}");
+                    GameLogger.Log($"current destination node on reaching target  (DEFAULT): {destinationNodeIndex}");
                 }
 
-                GameLogger.Log($"current starting node: {startingNodeIndex}");
-                GameLogger.Log($"current destination node: {destinationNodeIndex}");
+                // Debug.Break();
 
                 if (destinationNodeIndex != -1 )
                 {
