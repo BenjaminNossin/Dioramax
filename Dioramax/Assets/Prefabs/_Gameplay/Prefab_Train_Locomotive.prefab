@@ -1204,10 +1204,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5907707286428763286}
-  - component: {fileID: 7615470374621522309}
   - component: {fileID: 6564040156020186874}
   - component: {fileID: 565891880530621733}
-  - component: {fileID: 4963759211462836347}
   - component: {fileID: 7524449113301548794}
   - component: {fileID: 7358835795313334830}
   - component: {fileID: 8583478432529056656}
@@ -1254,22 +1252,6 @@ Transform:
   m_Father: {fileID: 8137340378088503072}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: -90}
---- !u!54 &7615470374621522309
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5907707286428763281}
-  serializedVersion: 2
-  m_Mass: 2000
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!65 &6564040156020186874
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1318,23 +1300,10 @@ MonoBehaviour:
   - {fileID: 2032427985927491426}
   - {fileID: 6774724578361388512}
   freezeOnStart: 1
-  simulateEntityPhysics: {fileID: 4963759211462836347}
+  simulateEntityPhysics: {fileID: 0}
   useDebugTrain: 1
   keepIndividualFreeze: 0
   otherFreeze: {fileID: 0}
---- !u!114 &4963759211462836347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5907707286428763281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1add91b8b7addd44993d84422042973, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 7615470374621522309}
 --- !u!114 &7524449113301548794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1362,11 +1331,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityToMoveTransform: {fileID: 0}
-  meshHolderTransform: {fileID: 0}
   loopPath: 0
   initialNodesDebugArray: []
   navigationSpeedMultiplier: 1
   debugObject: {fileID: 0}
+  previousDestination: {fileID: 0}
+  nextDestination: {fileID: 0}
+  _startingNodeIndex: 0
   invertDirection: 0
 --- !u!114 &8583478432529056656
 MonoBehaviour:

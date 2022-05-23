@@ -10,7 +10,8 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private Transform entityToMoveTransform;
     [SerializeField] private bool loopPath;
     [SerializeField] private Transform[] initialNodesDebugArray;
-    [SerializeField, Range(0.25f, 2f)] private float navigationSpeedMultiplier = 1f;
+    [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
+    private float _navigationSpeedMultiplier; 
 
     private PathNode[] pathNodes;
     private float distanceFromNextNode;
@@ -76,8 +77,24 @@ public class EntityPathNavigation : MonoBehaviour
 
     private void Update()
     {
-        if (invertDirection == isInverted) return;
+        Debug.Log(destinationNodeIndex); 
+        if (invertDirection == isInverted)
+        {
+            UpdateOnDirectionChange();
+        }
+    }
 
+    void FixedUpdate()
+    {
+        if (destinationNodeIndex != -1 && !waitForNextFixedUpdate)
+        {
+            CheckMicroDistance();
+            MoveEntityAlongPath();
+        }
+    }
+
+    public void UpdateOnDirectionChange()
+    {
         isInverted = invertDirection;
         if (isInverted)
         {
@@ -100,7 +117,7 @@ public class EntityPathNavigation : MonoBehaviour
             }
         }
         else
-        {          
+        {
             // coming from root node
             if (destinationNodeIndex == -1)
             {
@@ -112,25 +129,16 @@ public class EntityPathNavigation : MonoBehaviour
                     entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
 
                     SetSubDestination();
-                } 
+                }
             }
             else
-            { 
+            {
                 startingNodeIndex = destinationNodeIndex;
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
             }
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (destinationNodeIndex != -1 && !waitForNextFixedUpdate)
-        {
-            CheckMicroDistance();
-            MoveEntityAlongPath();
         }
     }
 
@@ -200,7 +208,7 @@ public class EntityPathNavigation : MonoBehaviour
     private int subDestinationIndex;
     private Vector3 SubDestination;
     private float distanceFromNextSubNode;
-    private Vector3 normalizedMoveDirection;
+    public static Vector3 NormalizedMoveDirection { get; private set; }
     private void SetSubDestination()
     {
         if (pointsAlongPath.Length == 0)
@@ -217,11 +225,11 @@ public class EntityPathNavigation : MonoBehaviour
 
         if (subDestinationIndex != 0)
         {
-            normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+            NormalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
         }
         else
         {
-            normalizedMoveDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
+            NormalizedMoveDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
         }
     }
 
@@ -277,14 +285,18 @@ public class EntityPathNavigation : MonoBehaviour
         }
     }
 
+    public void UpdateNavigationSpeed(float lerpedValue = 1f)
+    {
+        _navigationSpeedMultiplier = navigationSpeedMultiplier * lerpedValue;
+    }
+
     private void MoveEntityAlongPath()
     {
-        Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection * 5f, Color.blue); 
-        entityToMoveTransform.position += Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection;
+        Debug.Log("moving"); 
+        Debug.DrawRay(entityToMoveTransform.position, NormalizedMoveDirection * 5f, Color.blue); 
+        entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedMoveDirection;
 
         // entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z) * (hasInverted ? -1 : 1)); 
-
-        //Debug.Break(); 
     }
 
 }
