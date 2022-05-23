@@ -81,6 +81,7 @@ public class PathNode : MonoBehaviour
 
         return returnedNode.nodeIndex;
     }
+    public bool IsRoot() => previousNode == null; 
     public Vector3 GetControlPointToWorld(bool getIn = true) => transform.TransformPoint(getIn ? controlPointIn : controlPointOut);
     public Vector3 GetControlPointINPosition() => transform.TransformPoint(controlPointIn); 
     public Vector3 GetControlPointOUTPosition() => transform.TransformPoint(controlPointOut);
