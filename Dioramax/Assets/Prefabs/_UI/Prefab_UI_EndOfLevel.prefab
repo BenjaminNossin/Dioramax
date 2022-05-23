@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 3869924043997131632}
   - component: {fileID: 3869924043997131635}
   - component: {fileID: 3869924043997131634}
+  - component: {fileID: 7808007381026720216}
   m_Layer: 5
   m_Name: Button_Home
   m_TagString: Untagged
@@ -229,6 +230,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7808007381026720216}
+        m_TargetAssemblyTypeName: TweenTouch, Assembly-CSharp
+        m_MethodName: Tween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 3869924044412881639}
         m_TargetAssemblyTypeName: CustomSceneManager, Assembly-CSharp
         m_MethodName: LoadScene
@@ -240,7 +253,21 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
+--- !u!114 &7808007381026720216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869924043997131636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: 6a0fbab826263284dbb0ed2c39ef4980, type: 2}
+  doTween: 1
 --- !u!1 &3869924044113475904
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +280,7 @@ GameObject:
   - component: {fileID: 3869924044113475964}
   - component: {fileID: 3869924044113475967}
   - component: {fileID: 3869924044113475966}
+  - component: {fileID: 6311924190297380247}
   m_Layer: 5
   m_Name: Button_Share_Img (1)
   m_TagString: Untagged
@@ -361,7 +389,33 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3869924044113475967}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6311924190297380247}
+        m_TargetAssemblyTypeName: TweenTouch, Assembly-CSharp
+        m_MethodName: Tween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6311924190297380247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869924044113475904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: 6a0fbab826263284dbb0ed2c39ef4980, type: 2}
+  doTween: 1
 --- !u!1 &3869924044299000639
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +627,7 @@ GameObject:
   - component: {fileID: 3869924044683532823}
   - component: {fileID: 3869924044683532822}
   - component: {fileID: 3869924044683532825}
+  - component: {fileID: 6620050563504263491}
   m_Layer: 5
   m_Name: Button_Replay
   m_TagString: Untagged
@@ -682,6 +737,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 6620050563504263491}
+        m_TargetAssemblyTypeName: TweenTouch, Assembly-CSharp
+        m_MethodName: Tween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 3869924044412881639}
         m_TargetAssemblyTypeName: CustomSceneManager, Assembly-CSharp
         m_MethodName: LoadNextScene
@@ -693,7 +760,21 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
+--- !u!114 &6620050563504263491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869924044683532827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: 6a0fbab826263284dbb0ed2c39ef4980, type: 2}
+  doTween: 1
 --- !u!1 &6127687583342196813
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +786,7 @@ GameObject:
   - component: {fileID: 4737657559878089313}
   - component: {fileID: 106744443460197685}
   - component: {fileID: 5740249089034989250}
+  - component: {fileID: 8033947697837056666}
   m_Layer: 5
   m_Name: star
   m_TagString: Untagged
@@ -729,7 +811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 278.51852}
+  m_AnchoredPosition: {x: 0, y: 269}
   m_SizeDelta: {x: 270, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &106744443460197685
@@ -770,6 +852,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8033947697837056666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6127687583342196813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111453c4969e1ab4db486cdb15360f4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationAxis: {x: 0, y: 0, z: 1}
+  rotation_degrees: 360
+  time_rotation: 2
+  up_max_position: 25
+  TimeUp: 0.5
+  scale: {x: 0.5, y: 0.5, z: 0.5}
+  time_scale: 1
+  UpAxis: {x: 0, y: 1, z: 0}
 --- !u!1 &6809098932607095034
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +884,7 @@ GameObject:
   - component: {fileID: 1645247654462721568}
   - component: {fileID: 1628473449948552114}
   - component: {fileID: 3473450029626934408}
+  - component: {fileID: 1892687195751160532}
   m_Layer: 5
   m_Name: Button_NextLevel
   m_TagString: Untagged
@@ -866,7 +969,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -902,7 +1005,33 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 0
+      - m_Target: {fileID: 1892687195751160532}
+        m_TargetAssemblyTypeName: TweenTouch, Assembly-CSharp
+        m_MethodName: Tween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1892687195751160532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6809098932607095034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: b723aa745e2364f48abadf0b4e92fa0d, type: 2}
+  doTween: 1
 --- !u!1 &8007772256831865719
 GameObject:
   m_ObjectHideFlags: 0
