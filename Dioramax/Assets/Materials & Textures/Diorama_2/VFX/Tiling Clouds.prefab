@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8671490912213691620}
   - component: {fileID: 5295401463810591313}
   - component: {fileID: 8867096634750395297}
+  - component: {fileID: 751852056}
   m_Layer: 0
   m_Name: Tiling Clouds
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2197641068795518570}
-  m_LocalRotation: {x: -0, y: 0.53939635, z: -0, w: 0.842052}
+  m_LocalRotation: {x: 0, y: 0.5393955, z: 0, w: 0.8420526}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 546.971, y: 546.971, z: 546.971}
   m_ConstrainProportionsScale: 0
@@ -41,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2197641068795518570}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 5737487933282892722, guid: 81633960eb236984cbd2c587c85dc148, type: 3}
 --- !u!23 &5295401463810591313
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 1c8c4a8ff9b6bfc4abd2a8e2b48cbba2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,5 +97,25 @@ CapsuleCollider:
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
-  m_Direction: 1
+  m_Direction: 2
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &751852056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2197641068795518570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111453c4969e1ab4db486cdb15360f4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationAxis: {x: 0, y: 1, z: 0}
+  rotation_degrees: 360
+  time_rotation: 40
+  up_max_position: 0
+  TimeUp: 1
+  scale: {x: 546.971, y: 546.971, z: 546.971}
+  time_scale: 0
+  UpAxis: {x: 0, y: 1, z: 0}

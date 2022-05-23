@@ -6,4 +6,11 @@ public class GameStateController : MonoBehaviour
     {
         LevelManager.Instance.SetGameState(gameState);
     }
+
+    private bool play;  
+    public void SwitchBetweenPauseAndPlay()
+    {
+        LevelManager.Instance.SetGameState(play ? GameState.Playing : GameState.Paused);
+        play = !play; 
+    }
 }
