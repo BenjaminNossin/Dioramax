@@ -37,6 +37,10 @@ public class CustomSceneManager : MonoBehaviour
         if (index > SceneManager.sceneCountInBuildSettings - 1 || index < 0) return;
         SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
     }
+    public void ReloadScene()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
 
     private int currentScene;
     public void LoadNextScene()
