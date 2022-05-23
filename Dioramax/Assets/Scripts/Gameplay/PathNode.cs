@@ -26,12 +26,15 @@ public class PathNode : MonoBehaviour
         InitOrUpdate();
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Handles.color = PathController.HandlesColor;
         Handles.DrawLine(transform.position, transform.TransformPoint(controlPointOut), PathController.LineThickness);
         Handles.DrawLine(transform.position, transform.TransformPoint(controlPointIn), PathController.LineThickness); 
-    } 
+    }
+
+#endif
 
     private void Awake()
     {
