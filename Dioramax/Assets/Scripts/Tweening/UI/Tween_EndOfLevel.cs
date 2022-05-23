@@ -12,6 +12,7 @@ public class Tween_EndOfLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.DOScale(stretch_squash, TimeScale).SetEase(Ease.OutExpo).SetLoop(-1) ;
+        transform.localScale = new Vector3(0, 0, 0);
+        transform.DOScale(stretch_squash, TimeScale).SetEase(Ease.OutBack).SetLoops(-1, LoopType.Restart) ;
     }
 }
