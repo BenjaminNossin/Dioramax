@@ -6,7 +6,7 @@ public class TrainPhysicsController : MonoBehaviour
     [SerializeField] private Transform mainCamTransform;
     [SerializeField] private Rigidbody rb; 
     [SerializeField, Range(0.05f, 2f)] private float gravityForceMultiplier = 1f;
-    [SerializeField, Range(0.7f, 1f)] private float tolerance = 0.9f; 
+    [SerializeField, Range(0.4f, 1f)] private float tolerance = 0.65f; 
 
     private float dotProductCamAndDirection;
     private float remappedTolerance;
@@ -25,23 +25,34 @@ public class TrainPhysicsController : MonoBehaviour
         remappedTolerance = Remap(dotProductCamAndDirection, tolerance, 1f, 0f, 1f);
         EntityPathNavigation.Instance.UpdateNavigationSpeed(remappedTolerance);
 
+
+        // within certain angle forward of backward
         if (IsBetweenMinAndMax(dotProductCamAndDirection, -tolerance, -1f) || IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f))
         {
+            // DONE ONCE
             if (!changeIsDone)
             {
-                changeIsDone = true; 
-                EntityPathNavigation.IsInverted = Mathf.Sign(dotProductCamAndDirection) == -1;
+                GameLogger.Log("CHANGING EVENT");
+                changeIsDone = true;
+                EntityPathNavigation.CurrentNavigationState = (NavigationState)Mathf.Sign(dotProductCamAndDirection);
             }
 
-            if (EntityPathNavigation.IsInverted != EntityPathNavigation.InvertDirection)
+            // DONE ONCE
+            if (EntityPathNavigation.CurrentNavigationState != EntityPathNavigation.PreviousNavigationState)
             {
                 GameLogger.Log("INVERTING EVENT");
                 EntityPathNavigation.Instance.UpdateOnDirectionChange();
             }
         } 
+        // out of certain angle
         else
         {
-            changeIsDone = false; 
+            // DONE ONCE
+            if (changeIsDone)
+            {
+                GameLogger.Log("OUT OF ALLOWED RANGE EVENT");
+                changeIsDone = false;
+            }
         }
     }
 

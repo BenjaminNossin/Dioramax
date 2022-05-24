@@ -3,6 +3,7 @@ using System;
 using System.Collections; 
 
 // makes an entity move along a path
+public enum NavigationState { NONE, Forward = 1, Backward = -1 }
 public class EntityPathNavigation : MonoBehaviour
 {
     public static EntityPathNavigation Instance;
@@ -21,8 +22,8 @@ public class EntityPathNavigation : MonoBehaviour
 
     private int lastVisitedPointOnSegmentIndex;
 
-    public static bool InvertDirection { get; set; }
-    public static bool IsInverted { get; set; }
+    public static NavigationState PreviousNavigationState { get; set; }
+    public static NavigationState CurrentNavigationState { get; set; }
     private bool overrideLastVisitedSegment = true;
 
     [Header("--DEBUG--")]
@@ -40,7 +41,7 @@ public class EntityPathNavigation : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
-        IsInverted = InvertDirection; 
+        CurrentNavigationState = PreviousNavigationState; 
     }
 
     void Start()
@@ -78,13 +79,12 @@ public class EntityPathNavigation : MonoBehaviour
 
     public void UpdateOnDirectionChange()
     {
-        IsInverted = InvertDirection;
-        if (IsInverted)
+        CurrentNavigationState = PreviousNavigationState;
+        if (CurrentNavigationState == NavigationState.Backward)
         {
             // here, I know my startingNodeIndex, but destination == -1
             if (destinationNodeIndex == -1)
             {
-                // cameFromLeafNode = true; 
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
                 // Debug.Break();
                 StoreLastVisitedPointOnSegmentPosition();
@@ -99,7 +99,7 @@ public class EntityPathNavigation : MonoBehaviour
                 SetInversionState();
             }
         }
-        else
+        else if (CurrentNavigationState == NavigationState.Forward)
         {
             // coming from root node
             if (destinationNodeIndex == -1)
@@ -173,18 +173,18 @@ public class EntityPathNavigation : MonoBehaviour
     private int destinationNodeIndex, startingNodeIndex; 
     private void GetNewPointsOnReachingDestinationNode()
     {
-        if (IsInverted)
+        if (CurrentNavigationState == NavigationState.Backward)
         {
             // terrible code duplication
             pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
-                pathNodes[destinationNodeIndex], ref pointsAlongPath, IsInverted);
+                pathNodes[destinationNodeIndex], ref pointsAlongPath, true);
 
             SetInversionState(true); 
         }
-        else
+        else 
         {
             pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
-                pathNodes[destinationNodeIndex], ref pointsAlongPath, IsInverted);
+                pathNodes[destinationNodeIndex], ref pointsAlongPath, false);
         }      
 
         for (int i = 0; i < pointsAlongPath.Length; i++)
@@ -244,12 +244,12 @@ public class EntityPathNavigation : MonoBehaviour
             }
             else // arrived at the end of path
             {
-                if (IsInverted)
+                if (CurrentNavigationState == NavigationState.Backward)
                 {
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
                 }
-                else
+                else if (CurrentNavigationState == NavigationState.Forward)
                 {
                     GameLogger.Log("setting destination node on reaching end"); 
                     startingNodeIndex = destinationNodeIndex;
