@@ -1,10 +1,9 @@
 using UnityEngine;
 
 
-public class TrainPhysicsController : MonoBehaviour
+public class TrainCustomPhysics : MonoBehaviour
 {
     [SerializeField] private Transform mainCamTransform;
-    [SerializeField] private Rigidbody rb; 
     [SerializeField, Range(0.05f, 2f)] private float gravityForceMultiplier = 1f;
     [SerializeField, Range(0.4f, 1f)] private float tolerance = 0.65f; 
 
@@ -18,11 +17,13 @@ public class TrainPhysicsController : MonoBehaviour
         UpdateEntities();
     }
 
+    private float direction; 
     private void UpdateEntities()
     {
         GameDrawDebugger.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
         dotProductCamAndDirection = Vector3.Dot(mainCamTransform.up * -1, EntityPathNavigation.NormalizedMoveDirection);
-        remappedTolerance = Remap(dotProductCamAndDirection, tolerance, 1f, 0f, 1f);
+        direction = Mathf.Sign(dotProductCamAndDirection);
+        remappedTolerance = Remap(dotProductCamAndDirection, tolerance * direction, 1f * direction, 0f, 1f * direction);
         EntityPathNavigation.Instance.UpdateNavigationSpeed(remappedTolerance);
 
 
@@ -34,7 +35,8 @@ public class TrainPhysicsController : MonoBehaviour
             {
                 GameLogger.Log("CHANGING EVENT");
                 changeIsDone = true;
-                EntityPathNavigation.CurrentNavigationState = (NavigationState)Mathf.Sign(dotProductCamAndDirection);
+                EntityPathNavigation.CurrentNavigationState = (NavigationState)direction; 
+                Debug.Log($"current navigation state: {EntityPathNavigation.CurrentNavigationState}"); 
             }
 
             // DONE ONCE

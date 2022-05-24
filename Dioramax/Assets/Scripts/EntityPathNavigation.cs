@@ -9,7 +9,6 @@ public class EntityPathNavigation : MonoBehaviour
     public static EntityPathNavigation Instance;
 
     [SerializeField] private Transform entityToMoveTransform;
-    [SerializeField] private bool loopPath;
     [SerializeField] private Transform[] initialNodesDebugArray;
     [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
     private float _navigationSpeedMultiplier; 
@@ -30,9 +29,11 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private GameObject debugObject;
     [SerializeField] private GameObject previousDestination;
     [SerializeField] private GameObject nextDestination;
-    private GameObject[] debugObject_PathPoints;
+    [SerializeField] private int overriddenStartingNodeIndex;
+    [SerializeField] private bool showDebugPoints;
     private GameObject debugObjReference;
-    public int overriddenStartingNodeIndex;
+    private GameObject[] debugObject_PathPoints;
+
 
     private void Awake()
     {
@@ -46,11 +47,14 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Start()
     {
-        debugObject_PathPoints = new GameObject[PathController.Resolution];
-        for (int i = 0; i < debugObject_PathPoints.Length; i++)
+        if (showDebugPoints)
         {
-            debugObjReference = Instantiate(debugObject, Vector3.zero, Quaternion.identity);
-            debugObject_PathPoints[i] = debugObjReference;
+            debugObject_PathPoints = new GameObject[PathController.Resolution];
+            for (int i = 0; i < debugObject_PathPoints.Length; i++)
+            {
+                debugObjReference = Instantiate(debugObject, Vector3.zero, Quaternion.identity);
+                debugObject_PathPoints[i] = debugObjReference;
+            }
         }
 
         pathNodes = new PathNode[PathController.Instance.GetPathNodes().Length]; 
@@ -63,7 +67,6 @@ public class EntityPathNavigation : MonoBehaviour
         pointsAlongPath = new Vector3[PathController.Resolution];
 
         Init(); 
-        // SetNextDestination();
     }
 
     private Vector3 lastVisitedPointOnSegmentPosition;
@@ -77,9 +80,16 @@ public class EntityPathNavigation : MonoBehaviour
         }
     }
 
+    private void Init()
+    {
+        GetNewPointsOnReachingDestinationNode();
+        entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
+
+        SetSubDestination();
+    }
+
     public void UpdateOnDirectionChange()
     {
-        CurrentNavigationState = PreviousNavigationState;
         if (CurrentNavigationState == NavigationState.Backward)
         {
             // here, I know my startingNodeIndex, but destination == -1
@@ -102,7 +112,7 @@ public class EntityPathNavigation : MonoBehaviour
         else if (CurrentNavigationState == NavigationState.Forward)
         {
             // coming from root node
-            if (destinationNodeIndex == -1)
+            if (destinationNodeIndex == -1 || PreviousNavigationState == NavigationState.NONE)
             {
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
@@ -120,14 +130,8 @@ public class EntityPathNavigation : MonoBehaviour
                 SetInversionState();
             }
         }
-    }
 
-    private void Init()
-    {
-        GetNewPointsOnReachingDestinationNode();
-        entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
-
-        SetSubDestination();
+        PreviousNavigationState = CurrentNavigationState;
     }
 
     private void StoreLastVisitedPointOnSegmentPosition()
@@ -187,10 +191,13 @@ public class EntityPathNavigation : MonoBehaviour
                 pathNodes[destinationNodeIndex], ref pointsAlongPath, false);
         }      
 
-        for (int i = 0; i < pointsAlongPath.Length; i++)
+        if (showDebugPoints)
         {
-            debugObject_PathPoints[i].transform.position = pointsAlongPath[i];
-        } 
+            for (int i = 0; i < pointsAlongPath.Length; i++)
+            {
+                debugObject_PathPoints[i].transform.position = pointsAlongPath[i];
+            }
+        }
     }
 
     private int subDestinationIndex;
@@ -281,7 +288,6 @@ public class EntityPathNavigation : MonoBehaviour
 
     private void MoveEntityAlongPath()
     {
-        Debug.Log("moving"); 
         entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedMoveDirection;
 
         // entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z) * (hasInverted ? -1 : 1)); 
