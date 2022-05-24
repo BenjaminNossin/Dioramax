@@ -8,42 +8,45 @@ public class TrainPhysicsController : MonoBehaviour
     [SerializeField, Range(0.05f, 2f)] private float gravityForceMultiplier = 1f;
     [SerializeField, Range(0.7f, 1f)] private float tolerance = 0.9f; 
 
-    private const float GRAVITY_FORCE = 9.81f;
     private float dotProductCamAndDirection;
+    private float remappedTolerance;
 
-    private bool goingBack; // event
-    private bool changeOfDirectionIsStored;
-    private float remappedTolerance; 
+    private bool changeIsDone; 
 
-    private void Update()
-    {
-        // goingBack
-        // changeOfDirectionIsStored
-        // EntityPathNavigation.Instance.UpdateOnDirectionChange(); 
-    }
-
-    void FixedUpdate()
+    void Update()
     {
         UpdateEntities();
     }
 
-    private float remappedValue; 
-    // BUG 23.05 : destination node stays -1, so the entity does not move.. 
     private void UpdateEntities()
     {
-        Debug.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
+        GameDrawDebugger.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
         dotProductCamAndDirection = Vector3.Dot(mainCamTransform.up * -1, EntityPathNavigation.NormalizedMoveDirection);
-        if (IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f))
+        remappedTolerance = Remap(dotProductCamAndDirection, tolerance, 1f, 0f, 1f);
+        EntityPathNavigation.Instance.UpdateNavigationSpeed(remappedTolerance);
+
+        if (IsBetweenMinAndMax(dotProductCamAndDirection, -tolerance, -1f) || IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f))
         {
-            // 0.8 -> 0;  1 -> 1
-            remappedTolerance = Remap(dotProductCamAndDirection, tolerance, 1f, 0f, 1f); 
-            EntityPathNavigation.Instance.UpdateNavigationSpeed(remappedTolerance); 
-            // rb.AddForce(-GRAVITY_FORCE * gravityForceMultiplier * lerpedTolerance * EntityPathNavigation.NormalizedMoveDirection, ForceMode.Acceleration);
+            if (!changeIsDone)
+            {
+                changeIsDone = true; 
+                EntityPathNavigation.IsInverted = Mathf.Sign(dotProductCamAndDirection) == -1;
+            }
+
+            if (EntityPathNavigation.IsInverted != EntityPathNavigation.InvertDirection)
+            {
+                GameLogger.Log("INVERTING EVENT");
+                EntityPathNavigation.Instance.UpdateOnDirectionChange();
+            }
+        } 
+        else
+        {
+            changeIsDone = false; 
         }
     }
 
     private float Remap(float value, float from1, float to1, float from2, float to2) 
-        => (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+        => (value - from1) / (to1 - from1) * (to2 - from2) + from2; 
 
     private bool IsBetweenMinAndMax(float value, float min, float max) => value >= min && value <= max; 
 }
