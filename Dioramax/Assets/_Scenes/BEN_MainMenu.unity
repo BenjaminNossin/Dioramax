@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 285197224536657966, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 630198222427458196, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: m_LocalScale.x
       value: 32.2208
@@ -165,6 +169,10 @@ PrefabInstance:
     - target: {fileID: 630198222427458196, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 12.694
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095589174450547009, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1095589174450547021, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: orthographic
@@ -238,6 +246,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 2.855
       objectReference: {fileID: 0}
+    - target: {fileID: 1095589174840183109, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095589174975991982, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095589175147459806, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1095589175481972953, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: orthographic
       value: 0
@@ -274,10 +294,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 2.855
       objectReference: {fileID: 0}
+    - target: {fileID: 1095589175481972957, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1095589175707603867, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: time_rotation
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 6593231963713341633, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: dioramas.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593231963713341633, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: dioramas.Array.data[0]
+      value: 
+      objectReference: {fileID: 2025305333}
+    - target: {fileID: 6593231963713341633, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+      propertyPath: dioramas.Array.data[1]
+      value: 
+      objectReference: {fileID: 1088535762}
     - target: {fileID: 7459751973369969453, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -388,6 +424,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1088535762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1095589174975991982, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+  m_PrefabInstance: {fileID: 66652171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2025305333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1095589175147459806, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
+  m_PrefabInstance: {fileID: 66652171}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1360891499358104676
 PrefabInstance:
   m_ObjectHideFlags: 0

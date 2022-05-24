@@ -2760,7 +2760,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1095589174450547022}
   - component: {fileID: 1095589174450547021}
-  - component: {fileID: 1095589174450547020}
   - component: {fileID: 1095589174450547023}
   m_Layer: 0
   m_Name: D1
@@ -2827,14 +2826,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1095589174450547020
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095589174450547009}
-  m_Enabled: 1
 --- !u!114 &1095589174450547023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2878,7 +2869,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1095589174840183106}
   - component: {fileID: 1095589174840183105}
-  - component: {fileID: 1095589174840183104}
   - component: {fileID: 1095589174840183107}
   m_Layer: 0
   m_Name: D2
@@ -2945,14 +2935,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1095589174840183104
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095589174840183109}
-  m_Enabled: 1
 --- !u!114 &1095589174840183107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3001,7 +2983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1095589174975991983
 Transform:
   m_ObjectHideFlags: 0
@@ -3033,7 +3015,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1095589175147459807
 Transform:
   m_ObjectHideFlags: 0
@@ -3060,7 +3042,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1095589175481972954}
   - component: {fileID: 1095589175481972953}
-  - component: {fileID: 1095589175481972952}
   - component: {fileID: 1095589175481972955}
   m_Layer: 0
   m_Name: D3
@@ -3127,14 +3108,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1095589175481972952
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095589175481972957}
-  m_Enabled: 1
 --- !u!114 &1095589175481972955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28418,6 +28391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7459751973369969453}
+  - component: {fileID: 6593231963713341633}
   m_Layer: 0
   m_Name: UI_RotatingDioramas
   m_TagString: Untagged
@@ -28442,6 +28416,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6593231963713341633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035786904628909190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604d528962a3a634f8c27997bc217437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dioramas:
+  - {fileID: 1095589175147459806}
+  - {fileID: 1095589174975991982}
 --- !u!1 &9047638709786223050
 GameObject:
   m_ObjectHideFlags: 0
