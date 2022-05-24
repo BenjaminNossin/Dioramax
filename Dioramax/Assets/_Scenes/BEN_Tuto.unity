@@ -619,7 +619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6872879436860005956, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6872879436860005956, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1257,6 +1257,7 @@ RectTransform:
   m_Children:
   - {fileID: 1658879799}
   - {fileID: 741415317877870865}
+  - {fileID: 3361968758461756401}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4219,7 +4220,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1075521801}
     m_Modifications:
     - target: {fileID: 3817721417828143952, guid: d409474129803524280538f93dd1cac4, type: 3}
       propertyPath: puzzleOff.Array.size
@@ -4255,7 +4256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3817721417828143953, guid: d409474129803524280538f93dd1cac4, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3817721417828143953, guid: d409474129803524280538f93dd1cac4, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4365,6 +4366,11 @@ GameObject:
 --- !u!1 &3361968758461756400 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7582523842916380557, guid: d409474129803524280538f93dd1cac4, type: 3}
+  m_PrefabInstance: {fileID: 3361968758461756396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3361968758461756401 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3817721417828143953, guid: d409474129803524280538f93dd1cac4, type: 3}
   m_PrefabInstance: {fileID: 3361968758461756396}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3664445101024925642

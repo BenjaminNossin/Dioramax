@@ -16293,6 +16293,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1547993386}
     m_Modifications:
+    - target: {fileID: 5578399475906093820, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6237893195176122932, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
       propertyPath: m_Name
       value: Prefab_UI_PuzzleProgression
@@ -16385,11 +16389,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6237893195176122939, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
+      propertyPath: puzzlesOn.Array.data[0]
+      value: 
+      objectReference: {fileID: 6237893196202352995}
+    - target: {fileID: 6237893195176122939, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
+      propertyPath: puzzlesOn.Array.data[1]
+      value: 
+      objectReference: {fileID: 6237893196202352996}
+    - target: {fileID: 6237893195176122939, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
+      propertyPath: puzzlesOn.Array.data[2]
+      value: 
+      objectReference: {fileID: 6237893196202352994}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
 --- !u!224 &6237893196202352993 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6237893195176122938, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
+  m_PrefabInstance: {fileID: 6237893196202352992}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6237893196202352994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4458366114489421650, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
+  m_PrefabInstance: {fileID: 6237893196202352992}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6237893196202352995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5578399475906093820, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
+  m_PrefabInstance: {fileID: 6237893196202352992}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6237893196202352996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 815361446693398246, guid: 72308e3e9e38e704fa756edaebb2af6f, type: 3}
   m_PrefabInstance: {fileID: 6237893196202352992}
   m_PrefabAsset: {fileID: 0}
 --- !u!33 &6258420477318901584
