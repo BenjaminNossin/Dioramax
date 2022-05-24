@@ -10,7 +10,7 @@ public class TrainCustomPhysics : MonoBehaviour
     private float dotProductCamAndDirection;
     private float remappedTolerance;
 
-    private bool changeIsDone; 
+    private bool changeIsDone, canMove; 
 
     void Update()
     {
@@ -21,14 +21,17 @@ public class TrainCustomPhysics : MonoBehaviour
     private void UpdateEntities()
     {
         GameDrawDebugger.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
+
+        canMove = IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f); 
+
         dotProductCamAndDirection = Vector3.Dot(mainCamTransform.up * -1, EntityPathNavigation.NormalizedMoveDirection);
         direction = Mathf.Sign(dotProductCamAndDirection);
         remappedTolerance = Remap(dotProductCamAndDirection, tolerance * direction, 1f * direction, 0f, 1f * direction);
-        EntityPathNavigation.Instance.UpdateNavigationSpeed(remappedTolerance);
 
+        EntityPathNavigation.Instance.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
 
         // within certain angle forward of backward
-        if (IsBetweenMinAndMax(dotProductCamAndDirection, -tolerance, -1f) || IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f))
+        if (canMove)
         {
             // DONE ONCE
             if (!changeIsDone)
@@ -61,5 +64,5 @@ public class TrainCustomPhysics : MonoBehaviour
     private float Remap(float value, float from1, float to1, float from2, float to2) 
         => (value - from1) / (to1 - from1) * (to2 - from2) + from2; 
 
-    private bool IsBetweenMinAndMax(float value, float min, float max) => value >= min && value <= max; 
+    private bool IsBetweenMinAndMax(float value, float min, float max) => Mathf.Abs(value) >= min && value <= max; 
 }
