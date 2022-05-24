@@ -136,11 +136,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
-  promptDisappearDelay: 0.5
-  requiredRotationDuration: 3
-  requiredIndividualZoomDuration: 1
+  promptDisappearDelay: 0
+  requiredRotationDuration: 2
+  requiredIndividualZoomDuration: 0.8
   cameraCraneZRotation: {fileID: 1658879798}
-  requiredIndividualZRotation: 1
+  requiredIndividualZRotation: 0.8
   ballCollider: {fileID: 2843479948835258922}
   starCollider: {fileID: 2843479949610391056}
   tweenStarFinish: {fileID: 8491226721135744055}
@@ -616,6 +616,18 @@ PrefabInstance:
     - target: {fileID: 906384282050149494, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_Name
       value: Prefab_UI_EndOfLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038946060454250730, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343625830590735875, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: popupTween
+      value: 
+      objectReference: {fileID: 1508596270}
+    - target: {fileID: 3869924044683532825, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReloadScene
       objectReference: {fileID: 0}
     - target: {fileID: 6872879436860005956, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_RootOrder
@@ -1734,6 +1746,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1676652895588182472, guid: 108a959af17a1d143aaf538f64ed6362, type: 3}
   m_PrefabInstance: {fileID: 1746341538}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1508596270 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3038946060454250730, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+  m_PrefabInstance: {fileID: 497855040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ee9f7385bd9d44dbfcc5e947f581d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1635864443
 GameObject:
   m_ObjectHideFlags: 0
