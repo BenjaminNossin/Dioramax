@@ -6,18 +6,26 @@ using DG.Tweening;
 [ExecuteAlways]
 public class PathController : MonoBehaviour
 {
-    [SerializeField, Range(4, 50)] private int pathResolution = 20;  
     public static PathController Instance;
+
+    [Space, SerializeField, Range(1f, 5f)] private float lineThickness = 1f;
+    [SerializeField] private Color handlesColor = Color.white;
+
+    public static float LineThickness { get; private set; }
+    public static Color HandlesColor { get; private set; }
+
     private PathNode[] Nodes; // even though it changes in editor, the value is reset to O when  hitting Play
 
     private Vector3 currentIndexNodePosition;
-    public static int Resolution = 10; 
+    public static int Resolution = 20; 
 
     [Header("DEBUG")]
     public bool refreshNodesArrayOnReferenceLoss;
 
     private void OnValidate()
     {
+        LineThickness = lineThickness;
+        HandlesColor = handlesColor;
         if (refreshNodesArrayOnReferenceLoss)
         {
             PopulateArray();
@@ -72,7 +80,6 @@ public class PathController : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
-        Resolution = pathResolution; 
     }
 
     private void Start()
@@ -82,17 +89,27 @@ public class PathController : MonoBehaviour
 
     // call this from EntityPathNavigation, on Start and every time you reach target node
     private float f;
-    public Vector3[] GetPointsAlongPathBetweenNodes(PathNode node1, PathNode node2, ref Vector3[] pointsAlongPath)
+    private PathNode _node1, _node2;
+    public Vector3[] GetPointsAlongPathBetweenNodes(PathNode node1, PathNode node2, ref Vector3[] pointsAlongPath, bool getRevertPath = false)
     {
-        f = 0f; 
-        for (int i = 0; i < Resolution; i++)
+        f = 0f;
+
+        _node1 = node1;
+        _node2 = node2;
+        if (getRevertPath)
         {
-            pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(node1.GetNodePosition(), node1.GetControlPointOUTPosition(), node2.GetNodePosition(),
-            node2.GetControlPointINPosition(), f);
-            f += (1f / Resolution); 
+            _node1 = _node2;
+            _node2 = node1;
         }
 
-        return pointsAlongPath; 
+        for (int i = 0; i < Resolution; i++)
+        {
+            pointsAlongPath[i] = DOCurve.CubicBezier.GetPointOnSegment(_node1.GetNodePosition(), _node1.GetControlPointOUTPosition(), _node2.GetNodePosition(),
+            _node2.GetControlPointINPosition(), f);
+            f += (1f / Resolution);
+        }
+
+        return pointsAlongPath;
     }
 
     Vector3 v1, v2; 
@@ -120,6 +137,7 @@ public class PathController : MonoBehaviour
             for (int i = 0; i < transform.childCount; i++)
             {
                 Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
+                Nodes[i].nodeIndex = i; 
                 /* try
                 {
                     Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();

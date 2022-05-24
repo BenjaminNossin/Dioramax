@@ -30,7 +30,7 @@ public class CurveEvaluator : MonoBehaviour
     public float Evaluate(UnityAction call, float swipeNormalizedForce)
     {
         _curveMaxDuration = curveMaxDuration * swipeNormalizedForce;
-        GameLogger.Log($"duration : {_curveMaxDuration}"); 
+        // GameLogger.Log($"duration : {_curveMaxDuration}"); 
 
         if (!routineHasBeenCalled)
         {

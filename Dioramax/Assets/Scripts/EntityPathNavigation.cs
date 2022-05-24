@@ -1,5 +1,6 @@
 using UnityEngine;
-using DG.Tweening;
+using System;
+using System.Collections; 
 
 // makes an entity move along a path
 public class EntityPathNavigation : MonoBehaviour
@@ -10,10 +11,8 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private bool loopPath;
     [SerializeField] private Transform[] initialNodesDebugArray;
     [SerializeField, Range(0.25f, 2f)] private float navigationSpeedMultiplier = 1f;
-    private PathNode[] currentAndNextNode; 
 
     private PathNode[] pathNodes;
-    private int destinationNodeIndex;
     private float distanceFromNextNode;
     private int nodeArraySize;
     private Vector3 nextNodePosition, lastNodePosition; 
@@ -21,8 +20,20 @@ public class EntityPathNavigation : MonoBehaviour
     private const float SNAP_VALUE = 0.05f;
     private Vector3[] pointsAlongPath;
 
+    private int lastVisitedPointOnSegmentIndex; 
+
     [Header("--DEBUG--")]
-    [SerializeField] private GameObject debugObject; 
+    [SerializeField] private GameObject debugObject;
+    [SerializeField] private GameObject previousDestination;
+    [SerializeField] private GameObject nextDestination;
+    private GameObject[] debugObject_PathPoints;
+    private GameObject debugObjReference;
+    public int _startingNodeIndex; 
+
+    public bool invertDirection; 
+    private bool isInverted; //
+    private bool overrideLastVisitedSegment = true;
+    private bool cameFromLeafNode; 
 
     private void Awake()
     {
@@ -31,14 +42,25 @@ public class EntityPathNavigation : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
+        isInverted = invertDirection; 
     }
 
     void Start()
     {
+        debugObject_PathPoints = new GameObject[PathController.Resolution];
+        for (int i = 0; i < debugObject_PathPoints.Length; i++)
+        {
+            debugObjReference = Instantiate(debugObject, Vector3.zero, Quaternion.identity);
+            debugObject_PathPoints[i] = debugObjReference;
+        }
+
         pathNodes = new PathNode[PathController.Instance.GetPathNodes().Length]; 
         PathController.Instance.GetPathNodes().CopyTo(pathNodes, 0);
         nodeArraySize = PathController.Instance.GetNodeArraySize();
         lastNodePosition = pathNodes[^1].GetNodePosition();
+
+        startingNodeIndex = _startingNodeIndex;
+        destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
         pointsAlongPath = new Vector3[PathController.Resolution];
 
@@ -48,22 +70,141 @@ public class EntityPathNavigation : MonoBehaviour
         SetSubDestination(); 
         // SetNextDestination();
     }
-     
+
+    private Vector3 lastVisitedPointOnSegmentPosition;
+    private int tempNodeIndex;
+
+    private void Update()
+    {
+        if (invertDirection == isInverted) return;
+
+        isInverted = invertDirection;
+        if (isInverted)
+        {
+            GameLogger.Log($"previous starting node (INVERTED) : {startingNodeIndex}");
+            GameLogger.Log($"previous destination node (INVERTED) : {destinationNodeIndex}");
+
+            // here, I know my startingNodeIndex, but destination == -1
+            if (destinationNodeIndex == -1)
+            {
+                // cameFromLeafNode = true; 
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+
+                StoreLastVisitedPointOnSegmentPosition();
+                SetInversionState();
+                // Debug.Break();
+            }
+            else
+            {
+                startingNodeIndex = destinationNodeIndex;
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+
+                StoreLastVisitedPointOnSegmentPosition();
+                SetInversionState();
+            }
+
+            GameLogger.Log($"current starting from leaf node (INVERTED): {startingNodeIndex}");
+            GameLogger.Log($"current destination from leaf node (INVERTED): {destinationNodeIndex}");
+        }
+        else
+        {
+            GameLogger.Log($"previous starting node (DEFAULT) : {startingNodeIndex}");
+            GameLogger.Log($"previous destination node (DEFAULT) : {destinationNodeIndex}");
+            
+            // coming from root node
+            if (destinationNodeIndex == -1)
+            {
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+                GetNewPointsOnReachingDestinationNode();
+                entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
+
+                SetSubDestination();
+            }
+            else
+            { 
+                startingNodeIndex = destinationNodeIndex;
+                destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+                StoreLastVisitedPointOnSegmentPosition();
+                SetInversionState();
+            }
+
+            GameLogger.Log($"current starting node (DEFAULT) : {startingNodeIndex}");
+            GameLogger.Log($"current destination node (DEFAULT): {destinationNodeIndex}");
+        }
+    }
+
     void FixedUpdate()
     {
-        CheckMicroDistance();
-        MoveEntityAlongPath(); 
+        if (destinationNodeIndex != -1 && !waitForNextFixedUpdate)
+        {
+            CheckMicroDistance();
+            MoveEntityAlongPath();
+        }
+    }
+
+    private void StoreLastVisitedPointOnSegmentPosition()
+    {
+        overrideLastVisitedSegment = false;
+        lastVisitedPointOnSegmentPosition = new Vector3(pointsAlongPath[lastVisitedPointOnSegmentIndex].x,
+                                                        pointsAlongPath[lastVisitedPointOnSegmentIndex].y,
+                                                        pointsAlongPath[lastVisitedPointOnSegmentIndex].z);
+    }
+
+    private void SetInversionState(bool calledFromReachingDestinationNode = false)
+    {
+        InvertArray(pointsAlongPath);
+
+        if (!calledFromReachingDestinationNode)
+        {
+
+            // to find what is the new index of subDestination
+            for (int i = 0; i < pointsAlongPath.Length; i++)
+            {
+                if (Vector3.Distance(lastVisitedPointOnSegmentPosition, pointsAlongPath[i]) <= SNAP_VALUE)
+                {
+                    lastVisitedPointOnSegmentIndex = i;
+                }
+            }
+
+            StartCoroutine(DelayNextFixedUpdate());
+            SetSubDestination();
+        }
+
+        // Debug.Break(); 
+    }
+
+    private bool waitForNextFixedUpdate; 
+    private IEnumerator DelayNextFixedUpdate()
+    {
+        waitForNextFixedUpdate = true; 
+        yield return new WaitForFixedUpdate();
+        waitForNextFixedUpdate = false; 
     }
 
     // called on Start and every time you reach target node
+    private int destinationNodeIndex, startingNodeIndex; 
     private void GetNewPointsOnReachingDestinationNode()
     {
-        pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[0], pathNodes[1], ref pointsAlongPath);
+        if (isInverted)
+        {
+            // terrible code duplication
+            pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
+                pathNodes[destinationNodeIndex], ref pointsAlongPath, isInverted);
+
+            SetInversionState(true); 
+        }
+        else
+        {
+            pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
+                pathNodes[destinationNodeIndex], ref pointsAlongPath, isInverted);
+        }      
+
         for (int i = 0; i < pointsAlongPath.Length; i++)
         {
-            GameLogger.Log("instantiating debug object");
-            Instantiate(debugObject, pointsAlongPath[i], Quaternion.identity);
-        }
+            debugObject_PathPoints[i].transform.position = pointsAlongPath[i];
+        } 
     }
 
     private int subDestinationIndex;
@@ -75,98 +216,106 @@ public class EntityPathNavigation : MonoBehaviour
         if (pointsAlongPath.Length == 0)
             return;
 
-        GameLogger.Log("setting sub destination"); 
-        subDestinationIndex += 1; // (subDestinationIndex + 1) % pointsAlongPath.Length; // no need of modulo here
+        if (overrideLastVisitedSegment)
+        {
+            lastVisitedPointOnSegmentIndex = subDestinationIndex;
+        }
+
+        overrideLastVisitedSegment = true;
+        subDestinationIndex = (lastVisitedPointOnSegmentIndex + 1) % pointsAlongPath.Length;
         SubDestination = pointsAlongPath[subDestinationIndex];
-        normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+
+        if (subDestinationIndex != 0)
+        {
+            normalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+        }
+        else
+        {
+            normalizedMoveDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
+        }
     }
 
-    // distance between two points on a segment
-    private float duration; 
+    private void InvertArray(Vector3[] array)
+    {
+        Array.Reverse(array);
+    }
+
+    // avoid calling BOTH this and the update
     private void CheckMicroDistance()
     {
         distanceFromNextSubNode = Vector3.Distance(entityToMoveTransform.position, new Vector3(
                                                                                     SubDestination.x, 
                                                                                     entityToMoveTransform.position.y, 
                                                                                     SubDestination.z));
-        duration += Time.fixedDeltaTime; 
+
         if (distanceFromNextSubNode <= SNAP_VALUE)
         {
-            if (subDestinationIndex == pointsAlongPath.Length && !loopPath) return; 
+            if (subDestinationIndex < PathController.Resolution - 1)
+            {
+                    entityToMoveTransform.position = new Vector3(pointsAlongPath[subDestinationIndex].x, 
+                                                                 entityToMoveTransform.position.y, 
+                                                                 pointsAlongPath[subDestinationIndex].z);
+            }
+            else // arrived at the end of path
+            {
+                if (isInverted)
+                {
+                    GameLogger.Log($"previous starting node on reaching target (INVERTED): {startingNodeIndex}");
+                    GameLogger.Log($"previous destination node on reaching target  (INVERTED): {destinationNodeIndex}");
 
-            GameLogger.Log("snapping to current sub node");
-            GameLogger.Log($"duration: {duration}"); 
-            entityToMoveTransform.position = new Vector3(pointsAlongPath[subDestinationIndex].x, entityToMoveTransform.position.y, pointsAlongPath[subDestinationIndex].z);
-            SetSubDestination();
+                    startingNodeIndex = destinationNodeIndex;
+                    destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+
+                    GameLogger.Log($"current starting node on reaching target  (INVERTED): {startingNodeIndex}");
+                    GameLogger.Log($"current destination node on reaching target  (INVERTED): {destinationNodeIndex}");
+
+                    /* if (cameFromLeafNode)
+                    {
+                        cameFromLeafNode = false;
+                        startingNodeIndex = destinationNodeIndex; 
+                        destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+
+                        // Debug.Break();
+                    } */
+                }
+                else
+                {
+                    GameLogger.Log($"previous starting node on reaching target  (DEFAULT): {startingNodeIndex}");
+                    GameLogger.Log($"previous destination node on reaching target  (DEFAULT): {destinationNodeIndex}");
+
+                    startingNodeIndex = destinationNodeIndex;
+                    destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+                    GameLogger.Log($"current starting node on reaching target  (DEFAULT): {startingNodeIndex}");
+                    GameLogger.Log($"current destination node on reaching target  (DEFAULT): {destinationNodeIndex}");
+                }
+
+                // Debug.Break();
+
+                if (destinationNodeIndex != -1 )
+                {
+                    GetNewPointsOnReachingDestinationNode();
+
+                    // repositions the entity at the start of path
+                    entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
+                }
+            }
+
+            if (destinationNodeIndex != -1)
+            {
+                SetSubDestination();
+            }
         }
     }
 
-    private float angleBetweenStartAndTargedNode = 100f; // hardcoded placeholder 
-
-    // duration = 6
-    private float framesToReachTargetNode = 300; // 50 * (1/NavigationSpeedMultiplier)
-    
     private void MoveEntityAlongPath()
     {
-        Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection, Color.blue); 
+        Debug.DrawRay(entityToMoveTransform.position, normalizedMoveDirection * 5f, Color.blue); 
         entityToMoveTransform.position += Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection;
-        //entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
-        entityToMoveTransform.rotation = Quaternion.Euler(
-            entityToMoveTransform.rotation.eulerAngles.x,
-            entityToMoveTransform.rotation.eulerAngles.y + (angleBetweenStartAndTargedNode / framesToReachTargetNode),
-            entityToMoveTransform.rotation.eulerAngles.z); 
+
+        // entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z) * (hasInverted ? -1 : 1)); 
 
         //Debug.Break(); 
-        /* entityToMoveTransform.Translate(
-            Time.fixedDeltaTime * navigationSpeedMultiplier * normalizedMoveDirection, 
-            Space.Self); */
     }
 
-    // distance from target node (end of current segment)
-    private void CheckMacroDistance()
-    {
-
-    }
-
-    // need rework. This will become CheckMacroDistance
-    private void CheckDistanceFromNextNode()
-    {
-        if (Vector3.Distance(transform.position, lastNodePosition) < SNAP_VALUE &&
-            destinationNodeIndex == pathNodes.Length - 1 && !loopPath) return; // arrived at the end of path
-
-        distanceFromNextNode = Vector3.Distance(transform.position, nextNodePosition);
-
-        // enter here only once
-        if (distanceFromNextNode < SNAP_VALUE)
-        {
-            GameLogger.Log("snapping to current node");
-            transform.position = new Vector3(pathNodes[destinationNodeIndex].GetNodePosition().x, transform.position.y, pathNodes[destinationNodeIndex].GetNodePosition().z);
-            // SetNextDestination(); // this is called too often
-        }
-    }
-
-    // when you reached target of macroDistance
-    private void SetNextDestination()
-    {
-        if (nodeArraySize == 0)
-            return;
-
-        GameLogger.Log("setting next destination node");
-
-        destinationNodeIndex = (destinationNodeIndex + 1) % nodeArraySize;
-        nextNodePosition = pathNodes[destinationNodeIndex].GetNodePosition();
-
-        transform.LookAt(nextNodePosition);
-    }
-
-    // DEBUG for feature IV
-    /* public void GoToPreviousPoint()
-    {
-        if (entityPathController.Points.Length == 0)
-            return;
-
-        DestPoint = (DestPoint - 1) % entityPathController.Points.Length;
-        destinationDirection = (entityPathController.Nodes[DestPoint].position - transform.position).normalized;
-        transform.LookAt(entityPathController.Nodes[DestPoint].position);
-    } */
 }

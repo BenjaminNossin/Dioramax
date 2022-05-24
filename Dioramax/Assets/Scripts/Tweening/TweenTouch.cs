@@ -22,7 +22,7 @@ public class TweenTouch : StoppableTween
     private bool swapState; // For Rails
 
     [Header("--DEBUG--")]
-    [SerializeField] private bool doTween = true; 
+    [SerializeField] private bool doTween = true;
 
     public void Start()
     {
@@ -45,18 +45,20 @@ public class TweenTouch : StoppableTween
 
         if (transform.CompareTag("Freezable"))
         {
-            Debug.Log("Salope");
-          //rend.material = td.FreezeMaterial;
-           // rend.material.SetFloat("Freezed", FrozenState);
-            // Attribute the freeze mMaterial to all Child transfrom
-
-            int i;
-            for (i = 0; i < transform.childCount; i++)
+            try
             {
-                Debug.Log("Caca");
-                transform.GetChild(i).GetComponent<Renderer>().material = td.FreezeMaterial;
-                transform.GetChild(i).GetComponent<Renderer>().material.SetFloat("Freezed", FrozenState);
+                int i;
+                for (i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).GetComponent<Renderer>().material = td.FreezeMaterial;
+                    transform.GetChild(i).GetComponent<Renderer>().material.SetFloat("Freezed", FrozenState);
+                }
             }
+            catch (MissingComponentException) { GameLogger.Log("lolmdr sa marche pa"); }
+
+            //rend.material = td.FreezeMaterial;
+            // rend.material.SetFloat("Freezed", FrozenState);
+            // Attribute the freeze mMaterial to all Child transfrom
         }
     }
 
