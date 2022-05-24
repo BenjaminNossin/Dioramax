@@ -9,6 +9,7 @@ public class PathController : MonoBehaviour
     public static PathController Instance;
 
     [Space, SerializeField, Range(1f, 5f)] private float lineThickness = 1f;
+    [Space, SerializeField, Range(30, 100)] private int segmentResolution = 50;
     [SerializeField] private Color handlesColor = Color.white;
 
     public static float LineThickness { get; private set; }
@@ -17,7 +18,7 @@ public class PathController : MonoBehaviour
     private PathNode[] Nodes; // even though it changes in editor, the value is reset to O when  hitting Play
 
     private Vector3 currentIndexNodePosition;
-    public static int Resolution = 20; 
+    public static int Resolution; 
 
     [Header("DEBUG")]
     public bool refreshNodesArrayOnReferenceLoss;
@@ -80,6 +81,7 @@ public class PathController : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
+        Resolution = segmentResolution;
     }
 
     private void Start()

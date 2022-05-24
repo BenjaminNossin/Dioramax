@@ -26021,7 +26021,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149031203531}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac9dea37827eaf349bb121990a0a9f61, type: 3}
   m_Name: 
@@ -32219,6 +32219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineThickness: 3
+  segmentResolution: 35
   handlesColor: {r: 1, g: 1, b: 1, a: 1}
   refreshNodesArrayOnReferenceLoss: 1
 --- !u!64 &8607213600099841500
@@ -32412,6 +32413,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2098419885573840218, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: tolerance
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098419885573840218, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: mainCamTransform
+      value: 
+      objectReference: {fileID: 1865566552}
     - target: {fileID: 2103806290885078437, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -32441,6 +32450,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3206202840286228948, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3206202840286228948, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: freezeOnStart
       value: 0
       objectReference: {fileID: 0}
@@ -32463,6 +32476,10 @@ PrefabInstance:
     - target: {fileID: 4350709458185565555, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459320080144698673, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4560772695730469105, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_IsActive
@@ -32550,7 +32567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: navigationSpeedMultiplier
-      value: 0.6
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: initialNodesDebugArray.Array.size
@@ -32624,6 +32641,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8123627769149938187, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8186117002422739591, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -32638,6 +32659,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526222365228571463, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637061311888268086, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637061311888268086, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637061311888268086, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8815989433609760839, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
@@ -32714,8 +32747,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6681776125435889505, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
-    - {fileID: 8018126285987710090, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
-    - {fileID: 3206202840286228948, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
 --- !u!23 &8905514867044337724
 MeshRenderer:
