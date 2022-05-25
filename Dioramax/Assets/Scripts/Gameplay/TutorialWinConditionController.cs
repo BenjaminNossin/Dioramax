@@ -32,7 +32,8 @@ public class TutorialWinConditionController : MonoBehaviour
 
     [Header("Final")]
     [SerializeField] private Collider starCollider;
-    [SerializeField] private Tween_Star_Finish tweenStarFinish; 
+    [SerializeField] private Tween_Star_Finish tweenStarFinish;
+
 
     /* [Header("-- DEBUG --")]
     [SerializeField] private bool overridePhaseIndex; 
@@ -43,14 +44,14 @@ public class TutorialWinConditionController : MonoBehaviour
     {
         TouchDetection.OnTutorialButtonDetection += TutorialButtonDetected;
         HideObjectOnTriggerEnter.OnBallTutorialComplete += TutorialBallDetected;
-        LevelManager.OnTutorialTweenStarFinish += ActivateTweenStarFinish; 
+        LevelManager.OnTutorialTweenStarFinish += ActivateOnFinish; 
     }
 
     private void OnDisable()
     {
         TouchDetection.OnTutorialButtonDetection -= TutorialButtonDetected;
         HideObjectOnTriggerEnter.OnBallTutorialComplete -= TutorialBallDetected;
-        LevelManager.OnTutorialTweenStarFinish -= ActivateTweenStarFinish;
+        LevelManager.OnTutorialTweenStarFinish -= ActivateOnFinish;
     }
 
     private void Start()
@@ -171,8 +172,8 @@ public class TutorialWinConditionController : MonoBehaviour
         starCollider.enabled = true; 
     }
 
-    private void ActivateTweenStarFinish()
+    private void ActivateOnFinish()
     {
-        tweenStarFinish.enabled = true; 
+        tweenStarFinish.enabled = true;
     }
 }

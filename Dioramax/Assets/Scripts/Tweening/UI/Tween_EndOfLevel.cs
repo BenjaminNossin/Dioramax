@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -15,11 +13,8 @@ public class Tween_EndOfLevel : MonoBehaviour
         transform.localScale = new Vector3(0, 0, 0);
 
     }
-
-        public void WinTween()
-        {
-
-       
+    public void WinTween()
+    {
         transform.DOScale(stretch_squash, TimeScale).SetEase(Ease.OutBack);//.SetLoops(-1, LoopType.Restart) ;
-        }
+    }
 }
