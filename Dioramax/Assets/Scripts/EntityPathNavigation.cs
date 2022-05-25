@@ -325,6 +325,11 @@ public class EntityPathNavigation : MonoBehaviour
     private void MoveEntityAlongPath()
     {
         entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
+        if (CurrentNavigationState == NavigationState.Backward)
+        {
+            GameDrawDebugger.DrawRay(entityToMoveTransform.position, Vector3.Scale(NormalizedRequiredDirection, Vector3.back) * 10f, Color.cyan);
+        }
+
         if (distanceFromNextSubNode >= SNAP_VALUE)
         {
             entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));

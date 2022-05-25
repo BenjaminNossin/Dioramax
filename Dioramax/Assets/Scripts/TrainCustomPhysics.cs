@@ -44,7 +44,8 @@ public class TrainCustomPhysics : MonoBehaviour
 
         dotGravityAndTrainForward = Vector3.Dot(transform.forward, mainCamTransform.up * -1); // indicates when moving backward
         dotGravityAndTrainForward = Mathf.Sign(dotGravityAndTrainForward);
-        EntityPathNavigation.CurrentNavigationState = (NavigationState)currentDirection; 
+        EntityPathNavigation.CurrentNavigationState = (NavigationState)dotGravityAndTrainForward;
+        GameLogger.Log($"{EntityPathNavigation.CurrentNavigationState}");
 
         // Debug.Break(); 
 
