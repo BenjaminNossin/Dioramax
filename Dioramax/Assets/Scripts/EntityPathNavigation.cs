@@ -33,6 +33,7 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private bool showDebugPoints;
     private GameObject debugObjReference;
     private GameObject[] debugObject_PathPoints;
+    public bool showSubDestination; 
 
 
     private void Awake()
@@ -246,10 +247,10 @@ public class EntityPathNavigation : MonoBehaviour
         {
             NormalizedRequiredDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
         }
-        else
+        /* else
         {
             NormalizedRequiredDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
-        }
+        } */
     }
 
     private void InvertArray(Vector3[] array)
@@ -307,8 +308,6 @@ public class EntityPathNavigation : MonoBehaviour
                     // repositions the entity at the start of path
                     entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
                 }
-
-                // Debug.Break();
             }
 
             if (destinationNodeIndex != -1)
@@ -326,8 +325,7 @@ public class EntityPathNavigation : MonoBehaviour
     private void MoveEntityAlongPath()
     {
         entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
-
-        if (TrainCustomPhysics.currentDirection == 1)
+        if (distanceFromNextSubNode >= SNAP_VALUE)
         {
             entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
         }

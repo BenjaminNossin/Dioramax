@@ -13,7 +13,7 @@ public class TrainCustomPhysics : MonoBehaviour
     private bool changeIsDone, canMove;
     private bool doneOnce;
 
-    private float dotGravityAndTrainForward; 
+    public static float dotGravityAndTrainForward { get; private set; } 
     public static float currentDirection, previousDirection;
     private void Start()
     {
