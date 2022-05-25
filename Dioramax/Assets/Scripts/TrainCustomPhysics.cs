@@ -42,6 +42,7 @@ public class TrainCustomPhysics : MonoBehaviour
 
         EntityPathNavigation.Instance.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
         EntityPathNavigation.CurrentNavigationState = (NavigationState)currentDirection;
+        Debug.Break(); 
 
         // changing from leaf or root
         if (currentDirection == -1 && previousDirection == 1)

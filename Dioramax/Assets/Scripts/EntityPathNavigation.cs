@@ -95,18 +95,30 @@ public class EntityPathNavigation : MonoBehaviour
             // here, I know my startingNodeIndex, but destination == -1
             if (destinationNodeIndex == -1)
             {
+                GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
                 // Debug.Break();
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
+
+                GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
             }
             else
             {
+                GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+
                 startingNodeIndex = destinationNodeIndex;
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
 
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
+
+                GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
             }
         }
         else if (CurrentNavigationState == NavigationState.Forward)
@@ -114,20 +126,32 @@ public class EntityPathNavigation : MonoBehaviour
             // coming from root node 
             if (destinationNodeIndex == -1 || PreviousNavigationState == NavigationState.NONE)
             {
+                GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
                 if (pathNodes[startingNodeIndex].IsRoot())
                 {
                     Init();
                 }
+
+                GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
             }
             else
             {
+                GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+
                 startingNodeIndex = destinationNodeIndex;
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
+
+                GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
             }
         }
 
@@ -253,14 +277,25 @@ public class EntityPathNavigation : MonoBehaviour
             {
                 if (CurrentNavigationState == NavigationState.Backward)
                 {
+                    GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                    GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+
+                    GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                    GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
                 }
                 else if (CurrentNavigationState == NavigationState.Forward)
                 {
-                    GameLogger.Log("setting destination node on reaching end"); 
+                    GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                    GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+                    GameLogger.Log($"current starting node index (FORWARD): {startingNodeIndex}");
+                    GameLogger.Log($"current destination node index (FORWARD): {destinationNodeIndex}");
                 }
 
                 // Debug.Break();
