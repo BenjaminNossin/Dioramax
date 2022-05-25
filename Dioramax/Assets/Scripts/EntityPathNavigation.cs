@@ -74,6 +74,14 @@ public class EntityPathNavigation : MonoBehaviour
     void Update()
     {
         GameDrawDebugger.DrawRay(entityToMoveTransform.position, NormalizedRequiredDirection * 5f, Color.blue);
+        if (CurrentNavigationState == NavigationState.Backward)
+        {
+            AbsoluteForwardDirection = NormalizedRequiredDirection * -1;
+            lookAtDirection = AbsoluteForwardDirection;
+
+            GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+        }
+
         if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
         {
             CheckMicroDistance();
@@ -322,17 +330,34 @@ public class EntityPathNavigation : MonoBehaviour
         _navigationSpeedMultiplier = navigationSpeedMultiplier * lerpedValue;
     }
 
+    private Vector3 lookAtDirection;
+    public bool doBreak, invertLookAtDirection; 
+    public static Vector3 AbsoluteForwardDirection { get; private set; }
     private void MoveEntityAlongPath()
     {
         entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
-        if (CurrentNavigationState == NavigationState.Backward)
+        lookAtDirection = new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z);
+        GameLogger.Log($"{CurrentNavigationState}");
+
+        if (invertLookAtDirection)
         {
-            GameDrawDebugger.DrawRay(entityToMoveTransform.position, Vector3.Scale(NormalizedRequiredDirection, Vector3.back) * 10f, Color.cyan);
+            lookAtDirection = new Vector3(SubDestination.x * -1, entityToMoveTransform.position.y, SubDestination.z * -1);
+            GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
         }
 
         if (distanceFromNextSubNode >= SNAP_VALUE)
         {
-            entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
+            if (doBreak)
+            {
+                GameLogger.Log($"look at");
+            }
+
+            entityToMoveTransform.LookAt(lookAtDirection);
         }
+
+        if (doBreak)
+        {
+            Debug.Break();
+        } 
     }
 }
