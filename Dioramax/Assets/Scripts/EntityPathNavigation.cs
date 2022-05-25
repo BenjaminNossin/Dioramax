@@ -72,7 +72,7 @@ public class EntityPathNavigation : MonoBehaviour
     private Vector3 lastVisitedPointOnSegmentPosition;
     void Update()
     {
-        GameDrawDebugger.DrawRay(entityToMoveTransform.position, NormalizedMoveDirection * 5f, Color.blue);
+        GameDrawDebugger.DrawRay(entityToMoveTransform.position, NormalizedRequiredDirection * 5f, Color.blue);
         if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
         {
             CheckMicroDistance();
@@ -227,7 +227,7 @@ public class EntityPathNavigation : MonoBehaviour
     private int subDestinationIndex;
     private Vector3 SubDestination;
     private float distanceFromNextSubNode;
-    public static Vector3 NormalizedMoveDirection { get; private set; }
+    public static Vector3 NormalizedRequiredDirection { get; private set; }
     private void SetSubDestination()
     {
         if (pointsAlongPath.Length == 0)
@@ -244,11 +244,11 @@ public class EntityPathNavigation : MonoBehaviour
 
         if (subDestinationIndex != 0)
         {
-            NormalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+            NormalizedRequiredDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
         }
         else
         {
-            NormalizedMoveDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
+            NormalizedRequiredDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
         }
     }
 
@@ -307,6 +307,8 @@ public class EntityPathNavigation : MonoBehaviour
                     // repositions the entity at the start of path
                     entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
                 }
+
+                // Debug.Break();
             }
 
             if (destinationNodeIndex != -1)
@@ -323,9 +325,11 @@ public class EntityPathNavigation : MonoBehaviour
 
     private void MoveEntityAlongPath()
     {
-        entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedMoveDirection;
+        entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
 
-        // entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z) * (hasInverted ? -1 : 1)); 
+        if (TrainCustomPhysics.currentDirection == 1)
+        {
+            entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z));
+        }
     }
-
 }

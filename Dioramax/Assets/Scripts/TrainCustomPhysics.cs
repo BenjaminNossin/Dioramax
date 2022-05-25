@@ -7,13 +7,14 @@ public class TrainCustomPhysics : MonoBehaviour
     [SerializeField, Range(0.05f, 2f)] private float gravityForceMultiplier = 1f;
     [SerializeField, Range(0.4f, 1f)] private float tolerance = 0.65f; 
 
-    private float dotProductCamAndDirection;
+    private float dotGravityAndRequiredDirection;
     private float remappedTolerance;
 
     private bool changeIsDone, canMove;
     private bool doneOnce;
 
-    private float currentDirection, previousDirection;
+    private float dotGravityAndTrainForward; 
+    public static float currentDirection, previousDirection;
     private void Start()
     {
         currentDirection = previousDirection = -1;
@@ -34,15 +35,18 @@ public class TrainCustomPhysics : MonoBehaviour
 
         GameDrawDebugger.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
 
-        canMove = IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f); 
+        canMove = IsBetweenMinAndMax(dotGravityAndRequiredDirection, tolerance, 1f); 
 
-        dotProductCamAndDirection = Vector3.Dot(mainCamTransform.up * -1, EntityPathNavigation.NormalizedMoveDirection);
-        currentDirection = Mathf.Sign(dotProductCamAndDirection);
-        remappedTolerance = Remap(dotProductCamAndDirection, tolerance * currentDirection, 1f * currentDirection, 0f, 1f * currentDirection);
-
+        dotGravityAndRequiredDirection = Vector3.Dot(mainCamTransform.up * -1, EntityPathNavigation.NormalizedRequiredDirection); // 1 (~ALWAYS), 0 (DO ONCE)
+        currentDirection = Mathf.Sign(dotGravityAndRequiredDirection);
+        remappedTolerance = Remap(dotGravityAndRequiredDirection, tolerance * currentDirection, 1f * currentDirection, 0f, 1f * currentDirection);
         EntityPathNavigation.Instance.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
-        EntityPathNavigation.CurrentNavigationState = (NavigationState)currentDirection;
-        Debug.Break(); 
+
+        dotGravityAndTrainForward = Vector3.Dot(transform.forward, mainCamTransform.up * -1); // indicates when moving backward
+        dotGravityAndTrainForward = Mathf.Sign(dotGravityAndTrainForward);
+        EntityPathNavigation.CurrentNavigationState = (NavigationState)currentDirection; 
+
+        // Debug.Break(); 
 
         // changing from leaf or root
         if (currentDirection == -1 && previousDirection == 1)
