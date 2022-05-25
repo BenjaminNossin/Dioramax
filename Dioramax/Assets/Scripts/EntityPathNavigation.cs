@@ -111,7 +111,7 @@ public class EntityPathNavigation : MonoBehaviour
         }
         else if (CurrentNavigationState == NavigationState.Forward)
         {
-            // coming from root node
+            // coming from root node or to leaf/root node
             if (destinationNodeIndex == -1 || PreviousNavigationState == NavigationState.NONE)
             {
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
@@ -265,12 +265,17 @@ public class EntityPathNavigation : MonoBehaviour
 
                 // Debug.Break();
 
-                if (destinationNodeIndex != -1 )
+                if (destinationNodeIndex != -1)
                 {
                     GetNewPointsOnReachingDestinationNode();
 
                     // repositions the entity at the start of path
                     entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
+                }
+                // coming to a root or leaf node. This will set canMove to false
+                else
+                {
+                    UpdateOnDirectionChange(); 
                 }
             }
 

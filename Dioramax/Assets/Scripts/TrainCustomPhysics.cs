@@ -29,40 +29,23 @@ public class TrainCustomPhysics : MonoBehaviour
         remappedTolerance = Remap(dotProductCamAndDirection, tolerance * direction, 1f * direction, 0f, 1f * direction);
 
         EntityPathNavigation.Instance.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
+        EntityPathNavigation.CurrentNavigationState = (NavigationState)direction;
 
         // within certain angle forward of backward
-        if (canMove)
+        // When Changing midway
+        /*if (canMove)
         {
-            // DONE ONCE
-            if (!changeIsDone)
-            {
-                GameLogger.Log("CHANGING EVENT");
-                changeIsDone = true;
-                EntityPathNavigation.CurrentNavigationState = (NavigationState)direction; 
-                Debug.Log($"current navigation state: {EntityPathNavigation.CurrentNavigationState}"); 
-            }
-
             // DONE ONCE
             if (EntityPathNavigation.CurrentNavigationState != EntityPathNavigation.PreviousNavigationState)
             {
                 GameLogger.Log("INVERTING EVENT");
                 EntityPathNavigation.Instance.UpdateOnDirectionChange();
             }
-        } 
-        // out of certain angle
-        else
-        {
-            // DONE ONCE
-            if (changeIsDone)
-            {
-                GameLogger.Log("OUT OF ALLOWED RANGE EVENT");
-                changeIsDone = false;
-            }
-        }
+        } */
     }
 
     private float Remap(float value, float from1, float to1, float from2, float to2) 
         => (value - from1) / (to1 - from1) * (to2 - from2) + from2; 
 
-    private bool IsBetweenMinAndMax(float value, float min, float max) => Mathf.Abs(value) >= min && value <= max; 
+    private bool IsBetweenMinAndMax(float value, float min, float max) => value >= min && value <= max; 
 }
