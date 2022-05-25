@@ -26,6 +26,12 @@ public class TrainCustomPhysics : MonoBehaviour
 
     private void UpdateEntities()
     {
+        // going forward for the first time
+        if (currentDirection == 1 && !doneOnce)
+        {
+            previousDirection = 1; 
+        }
+
         GameDrawDebugger.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
 
         canMove = IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f); 
@@ -38,24 +44,11 @@ public class TrainCustomPhysics : MonoBehaviour
         EntityPathNavigation.CurrentNavigationState = (NavigationState)currentDirection;
 
         // changing from leaf or root
-        if (currentDirection != previousDirection)
+        if (currentDirection == -1 && previousDirection == 1)
         {
-            previousDirection = currentDirection;
             GameLogger.Log("INVERTING EVENT");
             EntityPathNavigation.Instance.UpdateOnDirectionChange();
-        } 
-
-        // within certain angle forward of backward
-        // When Changing midway
-        /*if (canMove)
-        {
-            // DONE ONCE
-            if (EntityPathNavigation.CurrentNavigationState != EntityPathNavigation.PreviousNavigationState)
-            {
-                GameLogger.Log("INVERTING EVENT");
-                EntityPathNavigation.Instance.UpdateOnDirectionChange();
-            }
-        } */
+        }
     }
 
     private float Remap(float value, float from1, float to1, float from2, float to2) 
