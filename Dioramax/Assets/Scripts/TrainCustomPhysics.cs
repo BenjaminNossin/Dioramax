@@ -10,14 +10,20 @@ public class TrainCustomPhysics : MonoBehaviour
     private float dotProductCamAndDirection;
     private float remappedTolerance;
 
-    private bool changeIsDone, canMove; 
+    private bool changeIsDone, canMove;
+    private bool doneOnce;
+
+    private float currentDirection, previousDirection;
+    private void Start()
+    {
+        currentDirection = previousDirection = -1;
+    }
 
     void Update()
     {
         UpdateEntities();
     }
 
-    private float direction; 
     private void UpdateEntities()
     {
         GameDrawDebugger.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
@@ -25,11 +31,19 @@ public class TrainCustomPhysics : MonoBehaviour
         canMove = IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f); 
 
         dotProductCamAndDirection = Vector3.Dot(mainCamTransform.up * -1, EntityPathNavigation.NormalizedMoveDirection);
-        direction = Mathf.Sign(dotProductCamAndDirection);
-        remappedTolerance = Remap(dotProductCamAndDirection, tolerance * direction, 1f * direction, 0f, 1f * direction);
+        currentDirection = Mathf.Sign(dotProductCamAndDirection);
+        remappedTolerance = Remap(dotProductCamAndDirection, tolerance * currentDirection, 1f * currentDirection, 0f, 1f * currentDirection);
 
         EntityPathNavigation.Instance.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
-        EntityPathNavigation.CurrentNavigationState = (NavigationState)direction;
+        EntityPathNavigation.CurrentNavigationState = (NavigationState)currentDirection;
+
+        // changing from leaf or root
+        if (currentDirection != previousDirection)
+        {
+            previousDirection = currentDirection;
+            GameLogger.Log("INVERTING EVENT");
+            EntityPathNavigation.Instance.UpdateOnDirectionChange();
+        } 
 
         // within certain angle forward of backward
         // When Changing midway
