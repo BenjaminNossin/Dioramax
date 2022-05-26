@@ -6,8 +6,6 @@ using DG.Tweening;
 [ExecuteAlways]
 public class PathController : MonoBehaviour
 {
-    public static PathController Instance;
-
     [Space, SerializeField, Range(1f, 5f)] private float lineThickness = 1f;
     [Space, SerializeField, Range(30, 100)] private int segmentResolution = 50;
     [SerializeField] private Color handlesColor = Color.white;
@@ -64,11 +62,7 @@ public class PathController : MonoBehaviour
                             DrawPath(Nodes[i], Nodes[i].GetNextPossibleNodes()[j]); 
                         }
                     }
-                    catch (MissingReferenceException)
-                    {
-                        GameLogger.Log("The gameobject you added as child is missing a NodePath component. \n " +
-                            "Please add it, or take the gameobject out of the child list. "); 
-                    }
+                    catch (System.Exception) { }
                 }
             }
         } 
@@ -76,11 +70,6 @@ public class PathController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance)
-        {
-            Destroy(Instance);
-        }
-        Instance = this;
         Resolution = segmentResolution;
     }
 
@@ -139,17 +128,10 @@ public class PathController : MonoBehaviour
             for (int i = 0; i < transform.childCount; i++)
             {
                 Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
-                Nodes[i].nodeIndex = i; 
-                /* try
-                {
-                    Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
-                }
-                catch { } */
+                Nodes[i].NodeIndex = i; 
             }
         }
     }
-
-    public int GetNodeArraySize() => Nodes.Length;
 
     public PathNode[] GetPathNodes() => Nodes; 
 }

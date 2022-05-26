@@ -171,7 +171,7 @@ public class TouchDetection : MonoBehaviour
             if (switchDetected)
             {
                 GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.green, RAY_DEBUG_DURATION);
-                switchHitInfo.collider.GetComponent<Switcher>().InvertBoolAndDoSwitch(); 
+                switchHitInfo.collider.GetComponent<Switcher>().DoSwitchAndSetActiveNode(); 
             }
             #endregion
         }       

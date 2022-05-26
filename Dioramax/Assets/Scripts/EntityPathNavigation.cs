@@ -6,8 +6,7 @@ using System.Collections;
 public enum NavigationState { NONE, Forward = 1, Backward = -1 }
 public class EntityPathNavigation : MonoBehaviour
 {
-    public static EntityPathNavigation Instance;
-
+    [SerializeField] private PathController pathController;
     [SerializeField] private Transform entityToMoveTransform;
     [SerializeField] private Transform[] initialNodesDebugArray;
     [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
@@ -31,18 +30,18 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private GameObject nextDestination;
     [SerializeField] private int overriddenStartingNodeIndex;
     [SerializeField] private bool showDebugPoints;
+    [SerializeField] private bool showSubDestination;
+
     private GameObject debugObjReference;
     private GameObject[] debugObject_PathPoints;
-
+    public bool simulateMovement;
+    public bool simulateBackward;
+    public static bool SimulateMovement; 
 
     private void Awake()
     {
-        if (Instance)
-        {
-            Destroy(Instance);
-        }
-        Instance = this;
-        CurrentNavigationState = PreviousNavigationState; 
+        CurrentNavigationState = PreviousNavigationState;
+        SimulateMovement = simulateMovement; 
     }
 
     void Start()
@@ -57,9 +56,9 @@ public class EntityPathNavigation : MonoBehaviour
             }
         }
 
-        pathNodes = new PathNode[PathController.Instance.GetPathNodes().Length]; 
-        PathController.Instance.GetPathNodes().CopyTo(pathNodes, 0);
-        lastNodePosition = pathNodes[^1].GetNodePosition();
+        pathNodes = new PathNode[pathController.GetPathNodes().Length]; 
+        pathController.GetPathNodes().CopyTo(pathNodes, 0);
+        // lastNodePosition = pathNodes[^1].GetNodePosition();
 
         startingNodeIndex = overriddenStartingNodeIndex;
         destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
@@ -72,12 +71,43 @@ public class EntityPathNavigation : MonoBehaviour
     private Vector3 lastVisitedPointOnSegmentPosition;
     void Update()
     {
-        GameDrawDebugger.DrawRay(entityToMoveTransform.position, NormalizedMoveDirection * 5f, Color.blue);
-        if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
+        if (!simulateMovement)
         {
-            CheckMicroDistance();
-            MoveEntityAlongPath();
+            if (CurrentNavigationState == NavigationState.Backward)
+            {
+                AbsoluteForwardDirection = NormalizedRequiredDirection * -1;
+                lookAtDirection = AbsoluteForwardDirection;
+
+                GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+            }
+
+            if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
+            {
+                CheckMicroDistance();
+                MoveEntityAlongPath();
+            }
         }
+        else // TEMPORARY DEBUG
+        {
+            CurrentNavigationState = simulateBackward ? NavigationState.Backward : NavigationState.Forward;
+            _navigationSpeedMultiplier = 1f; 
+
+            if (CurrentNavigationState == NavigationState.Backward)
+            {
+                AbsoluteForwardDirection = NormalizedRequiredDirection * -1;
+                lookAtDirection = AbsoluteForwardDirection;
+
+                GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+            }
+
+            if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
+            {
+                CheckMicroDistance();
+                MoveEntityAlongPath();
+            }
+        }
+
+        GameDrawDebugger.DrawRay(entityToMoveTransform.position, NormalizedRequiredDirection * 5f, Color.blue);
     }
 
     private void Init()
@@ -95,18 +125,30 @@ public class EntityPathNavigation : MonoBehaviour
             // here, I know my startingNodeIndex, but destination == -1
             if (destinationNodeIndex == -1)
             {
+                // GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
                 // Debug.Break();
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
+
+                // GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                // GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
             }
             else
             {
+                // GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+
                 startingNodeIndex = destinationNodeIndex;
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
 
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
+
+                // GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                // GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
             }
         }
         else if (CurrentNavigationState == NavigationState.Forward)
@@ -114,20 +156,32 @@ public class EntityPathNavigation : MonoBehaviour
             // coming from root node 
             if (destinationNodeIndex == -1 || PreviousNavigationState == NavigationState.NONE)
             {
+                // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
                 if (pathNodes[startingNodeIndex].IsRoot())
                 {
                     Init();
                 }
+
+                // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
             }
             else
             {
+                // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+
                 startingNodeIndex = destinationNodeIndex;
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
+
+                // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
             }
         }
 
@@ -180,14 +234,14 @@ public class EntityPathNavigation : MonoBehaviour
         if (CurrentNavigationState == NavigationState.Backward)
         {
             // terrible code duplication
-            pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
+            pointsAlongPath = pathController.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
                 pathNodes[destinationNodeIndex], ref pointsAlongPath, true);
 
             SetInversionState(true); 
         }
         else 
         {
-            pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
+            pointsAlongPath = pathController.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
                 pathNodes[destinationNodeIndex], ref pointsAlongPath, false);
         }      
 
@@ -203,7 +257,7 @@ public class EntityPathNavigation : MonoBehaviour
     private int subDestinationIndex;
     private Vector3 SubDestination;
     private float distanceFromNextSubNode;
-    public static Vector3 NormalizedMoveDirection { get; private set; }
+    public static Vector3 NormalizedRequiredDirection { get; private set; }
     private void SetSubDestination()
     {
         if (pointsAlongPath.Length == 0)
@@ -220,12 +274,12 @@ public class EntityPathNavigation : MonoBehaviour
 
         if (subDestinationIndex != 0)
         {
-            NormalizedMoveDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
+            NormalizedRequiredDirection = (pointsAlongPath[subDestinationIndex] - pointsAlongPath[subDestinationIndex - 1]).normalized;
         }
-        else
+        /* else
         {
-            NormalizedMoveDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
-        }
+            NormalizedRequiredDirection = (pointsAlongPath[subDestinationIndex + 1] - pointsAlongPath[subDestinationIndex]).normalized;
+        } */
     }
 
     private void InvertArray(Vector3[] array)
@@ -253,14 +307,25 @@ public class EntityPathNavigation : MonoBehaviour
             {
                 if (CurrentNavigationState == NavigationState.Backward)
                 {
+                    // GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                    // GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
+
+                    // GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                    // GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
                 }
                 else if (CurrentNavigationState == NavigationState.Forward)
                 {
-                    GameLogger.Log("setting destination node on reaching end"); 
+                    // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                    // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+                    // GameLogger.Log($"current starting node index (FORWARD): {startingNodeIndex}");
+                    // GameLogger.Log($"current destination node index (FORWARD): {destinationNodeIndex}");
                 }
 
                 // Debug.Break();
@@ -286,11 +351,17 @@ public class EntityPathNavigation : MonoBehaviour
         _navigationSpeedMultiplier = navigationSpeedMultiplier * lerpedValue;
     }
 
+    private Vector3 lookAtDirection;
+    public static Vector3 AbsoluteForwardDirection { get; private set; }
     private void MoveEntityAlongPath()
     {
-        entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedMoveDirection;
+        entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
+        lookAtDirection = new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z);
+        // GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
 
-        // entityToMoveTransform.LookAt(new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z) * (hasInverted ? -1 : 1)); 
+        if (distanceFromNextSubNode >= SNAP_VALUE)
+        {
+            entityToMoveTransform.LookAt(lookAtDirection);
+        }
     }
-
 }
