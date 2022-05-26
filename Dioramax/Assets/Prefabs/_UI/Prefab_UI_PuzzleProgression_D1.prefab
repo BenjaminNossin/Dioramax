@@ -31,7 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6237893195176122938}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -183,7 +183,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6237893195176122938}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -259,11 +259,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6237893195799792006}
   - {fileID: 6237893195811496205}
+  - {fileID: 6237893195799792006}
   - {fileID: 6237893195797240454}
-  - {fileID: 6978310349479420354}
   - {fileID: 4030447502232872474}
+  - {fileID: 6978310349479420354}
   - {fileID: 4692916780313853792}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -329,14 +329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624e4e7735c964442bfd5da2c11dd95f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleImages:
-  - {fileID: 6237893195811496206}
-  - {fileID: 6237893195799792007}
-  - {fileID: 6237893195797240455}
-  winPuzzleSprite:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  puzzlesOn:
+  - {fileID: 5578399475906093820}
+  - {fileID: 6237893195799792005}
+  - {fileID: 4458366114489421650}
   previousDioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
 --- !u!1 &6237893195797240453
 GameObject:
@@ -445,7 +441,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6237893195176122938}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -521,7 +517,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6237893195176122938}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}

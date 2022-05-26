@@ -5,8 +5,7 @@ public class LevelInfosUI : MonoBehaviour
 {
     public static LevelInfosUI Instance;
 
-    [SerializeField] private Image[] puzzleImages = new Image[3];
-    [SerializeField] private Sprite[] winPuzzleSprite = new Sprite[3];
+    [SerializeField] private GameObject[] puzzlesOn = new GameObject[3];
 
     [Space, SerializeField] private DioramaInfos previousDioramaInfos; 
 
@@ -19,9 +18,8 @@ public class LevelInfosUI : MonoBehaviour
         Instance = this;
     }
 
-
     public void ActivatePuzzleUIOnWin(int index)
     {
-        puzzleImages[index].sprite = winPuzzleSprite[index]; 
+        puzzlesOn[index].SetActive(true);
     }
 }
