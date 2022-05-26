@@ -41,7 +41,7 @@ public class TutorialPromptsUI : MonoBehaviour
         StartCoroutine(ShowPanel(index, subIndex));
     }
 
-    private readonly WaitForSeconds WFS = new(1f);
+    private readonly WaitForSeconds WFS = new(0f);
     private IEnumerator ShowPanel(int index, int subIndex)
     {
         yield return WFS;
