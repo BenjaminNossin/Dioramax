@@ -139,12 +139,7 @@ public class PathController : MonoBehaviour
             for (int i = 0; i < transform.childCount; i++)
             {
                 Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
-                Nodes[i].nodeIndex = i; 
-                /* try
-                {
-                    Nodes[i] = transform.GetChild(i).GetComponent<PathNode>();
-                }
-                catch { } */
+                Nodes[i].NodeIndex = i; 
             }
         }
     }

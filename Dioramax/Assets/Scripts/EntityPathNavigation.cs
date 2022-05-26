@@ -337,8 +337,6 @@ public class EntityPathNavigation : MonoBehaviour
     {
         entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
         lookAtDirection = new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z);
-        GameLogger.Log($"{CurrentNavigationState}");
-
 
             // lookAtDirection = new Vector3(SubDestination.x * -1, entityToMoveTransform.position.y, SubDestination.z * -1);
             // GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
