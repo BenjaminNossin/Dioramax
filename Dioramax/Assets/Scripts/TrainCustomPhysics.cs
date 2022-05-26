@@ -10,59 +10,49 @@ public class TrainCustomPhysics : MonoBehaviour
     private float dotProductCamAndDirection;
     private float remappedTolerance;
 
-    private bool changeIsDone, canMove; 
+    private bool changeIsDone, canMove;
+    private bool doneOnce;
+
+    private float currentDirection, previousDirection;
+    private void Start()
+    {
+        currentDirection = previousDirection = -1;
+    }
 
     void Update()
     {
         UpdateEntities();
     }
 
-    private float direction; 
     private void UpdateEntities()
     {
+        // going forward for the first time
+        if (currentDirection == 1 && !doneOnce)
+        {
+            previousDirection = 1; 
+        }
+
         GameDrawDebugger.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
 
         canMove = IsBetweenMinAndMax(dotProductCamAndDirection, tolerance, 1f); 
 
         dotProductCamAndDirection = Vector3.Dot(mainCamTransform.up * -1, EntityPathNavigation.NormalizedMoveDirection);
-        direction = Mathf.Sign(dotProductCamAndDirection);
-        remappedTolerance = Remap(dotProductCamAndDirection, tolerance * direction, 1f * direction, 0f, 1f * direction);
+        currentDirection = Mathf.Sign(dotProductCamAndDirection);
+        remappedTolerance = Remap(dotProductCamAndDirection, tolerance * currentDirection, 1f * currentDirection, 0f, 1f * currentDirection);
 
         EntityPathNavigation.Instance.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
+        EntityPathNavigation.CurrentNavigationState = (NavigationState)currentDirection;
 
-        // within certain angle forward of backward
-        if (canMove)
+        // changing from leaf or root
+        if (currentDirection == -1 && previousDirection == 1)
         {
-            // DONE ONCE
-            if (!changeIsDone)
-            {
-                GameLogger.Log("CHANGING EVENT");
-                changeIsDone = true;
-                EntityPathNavigation.CurrentNavigationState = (NavigationState)direction; 
-                Debug.Log($"current navigation state: {EntityPathNavigation.CurrentNavigationState}"); 
-            }
-
-            // DONE ONCE
-            if (EntityPathNavigation.CurrentNavigationState != EntityPathNavigation.PreviousNavigationState)
-            {
-                GameLogger.Log("INVERTING EVENT");
-                EntityPathNavigation.Instance.UpdateOnDirectionChange();
-            }
-        } 
-        // out of certain angle
-        else
-        {
-            // DONE ONCE
-            if (changeIsDone)
-            {
-                GameLogger.Log("OUT OF ALLOWED RANGE EVENT");
-                changeIsDone = false;
-            }
+            GameLogger.Log("INVERTING EVENT");
+            EntityPathNavigation.Instance.UpdateOnDirectionChange();
         }
     }
 
     private float Remap(float value, float from1, float to1, float from2, float to2) 
         => (value - from1) / (to1 - from1) * (to2 - from2) + from2; 
 
-    private bool IsBetweenMinAndMax(float value, float min, float max) => Mathf.Abs(value) >= min && value <= max; 
+    private bool IsBetweenMinAndMax(float value, float min, float max) => value >= min && value <= max; 
 }

@@ -111,7 +111,7 @@ public class EntityPathNavigation : MonoBehaviour
         }
         else if (CurrentNavigationState == NavigationState.Forward)
         {
-            // coming from root node
+            // coming from root node 
             if (destinationNodeIndex == -1 || PreviousNavigationState == NavigationState.NONE)
             {
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
@@ -265,7 +265,7 @@ public class EntityPathNavigation : MonoBehaviour
 
                 // Debug.Break();
 
-                if (destinationNodeIndex != -1 )
+                if (destinationNodeIndex != -1)
                 {
                     GetNewPointsOnReachingDestinationNode();
 
