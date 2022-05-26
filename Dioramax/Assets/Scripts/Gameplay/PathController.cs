@@ -62,11 +62,7 @@ public class PathController : MonoBehaviour
                             DrawPath(Nodes[i], Nodes[i].GetNextPossibleNodes()[j]); 
                         }
                     }
-                    catch (MissingReferenceException)
-                    {
-                        GameLogger.Log("The gameobject you added as child is missing a NodePath component. \n " +
-                            "Please add it, or take the gameobject out of the child list. "); 
-                    }
+                    catch (System.Exception) { }
                 }
             }
         } 
