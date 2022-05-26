@@ -6,8 +6,7 @@ using System.Collections;
 public enum NavigationState { NONE, Forward = 1, Backward = -1 }
 public class EntityPathNavigation : MonoBehaviour
 {
-    public static EntityPathNavigation Instance;
-
+    [SerializeField] private PathController pathController;
     [SerializeField] private Transform entityToMoveTransform;
     [SerializeField] private Transform[] initialNodesDebugArray;
     [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
@@ -41,11 +40,6 @@ public class EntityPathNavigation : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance)
-        {
-            Destroy(Instance);
-        }
-        Instance = this;
         CurrentNavigationState = PreviousNavigationState;
         SimulateMovement = simulateMovement; 
     }
@@ -62,9 +56,9 @@ public class EntityPathNavigation : MonoBehaviour
             }
         }
 
-        pathNodes = new PathNode[PathController.Instance.GetPathNodes().Length]; 
-        PathController.Instance.GetPathNodes().CopyTo(pathNodes, 0);
-        lastNodePosition = pathNodes[^1].GetNodePosition();
+        pathNodes = new PathNode[pathController.GetPathNodes().Length]; 
+        pathController.GetPathNodes().CopyTo(pathNodes, 0);
+        // lastNodePosition = pathNodes[^1].GetNodePosition();
 
         startingNodeIndex = overriddenStartingNodeIndex;
         destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
@@ -131,21 +125,21 @@ public class EntityPathNavigation : MonoBehaviour
             // here, I know my startingNodeIndex, but destination == -1
             if (destinationNodeIndex == -1)
             {
-                GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
-                GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+                // GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
 
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
                 // Debug.Break();
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
 
-                GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
-                GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
+                // GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                // GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
             }
             else
             {
-                GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
-                GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+                // GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
 
                 startingNodeIndex = destinationNodeIndex;
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
@@ -153,8 +147,8 @@ public class EntityPathNavigation : MonoBehaviour
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
 
-                GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
-                GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
+                // GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                // GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
             }
         }
         else if (CurrentNavigationState == NavigationState.Forward)
@@ -162,8 +156,8 @@ public class EntityPathNavigation : MonoBehaviour
             // coming from root node 
             if (destinationNodeIndex == -1 || PreviousNavigationState == NavigationState.NONE)
             {
-                GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
-                GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+                // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
 
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
@@ -172,13 +166,13 @@ public class EntityPathNavigation : MonoBehaviour
                     Init();
                 }
 
-                GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
-                GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+                // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
             }
             else
             {
-                GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
-                GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+                // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
 
                 startingNodeIndex = destinationNodeIndex;
                 destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
@@ -186,8 +180,8 @@ public class EntityPathNavigation : MonoBehaviour
                 StoreLastVisitedPointOnSegmentPosition();
                 SetInversionState();
 
-                GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
-                GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+                // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
             }
         }
 
@@ -240,14 +234,14 @@ public class EntityPathNavigation : MonoBehaviour
         if (CurrentNavigationState == NavigationState.Backward)
         {
             // terrible code duplication
-            pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
+            pointsAlongPath = pathController.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
                 pathNodes[destinationNodeIndex], ref pointsAlongPath, true);
 
             SetInversionState(true); 
         }
         else 
         {
-            pointsAlongPath = PathController.Instance.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
+            pointsAlongPath = pathController.GetPointsAlongPathBetweenNodes(pathNodes[startingNodeIndex],
                 pathNodes[destinationNodeIndex], ref pointsAlongPath, false);
         }      
 
@@ -313,25 +307,25 @@ public class EntityPathNavigation : MonoBehaviour
             {
                 if (CurrentNavigationState == NavigationState.Backward)
                 {
-                    GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
-                    GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+                    // GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                    // GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
 
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
 
-                    GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
-                    GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
+                    // GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                    // GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
                 }
                 else if (CurrentNavigationState == NavigationState.Forward)
                 {
-                    GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
-                    GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+                    // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                    // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
 
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
-                    GameLogger.Log($"current starting node index (FORWARD): {startingNodeIndex}");
-                    GameLogger.Log($"current destination node index (FORWARD): {destinationNodeIndex}");
+                    // GameLogger.Log($"current starting node index (FORWARD): {startingNodeIndex}");
+                    // GameLogger.Log($"current destination node index (FORWARD): {destinationNodeIndex}");
                 }
 
                 // Debug.Break();
@@ -363,15 +357,11 @@ public class EntityPathNavigation : MonoBehaviour
     {
         entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
         lookAtDirection = new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z);
-        Debug.Log($"moving with a speed multiplier of {_navigationSpeedMultiplier}");
-
-        // lookAtDirection = new Vector3(SubDestination.x * -1, entityToMoveTransform.position.y, SubDestination.z * -1);
         // GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
-
 
         if (distanceFromNextSubNode >= SNAP_VALUE)
         {
-            // entityToMoveTransform.LookAt(lookAtDirection);
+            entityToMoveTransform.LookAt(lookAtDirection);
         }
     }
 }

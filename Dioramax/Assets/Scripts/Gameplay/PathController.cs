@@ -6,8 +6,6 @@ using DG.Tweening;
 [ExecuteAlways]
 public class PathController : MonoBehaviour
 {
-    public static PathController Instance;
-
     [Space, SerializeField, Range(1f, 5f)] private float lineThickness = 1f;
     [Space, SerializeField, Range(30, 100)] private int segmentResolution = 50;
     [SerializeField] private Color handlesColor = Color.white;
@@ -76,11 +74,6 @@ public class PathController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance)
-        {
-            Destroy(Instance);
-        }
-        Instance = this;
         Resolution = segmentResolution;
     }
 
@@ -143,8 +136,6 @@ public class PathController : MonoBehaviour
             }
         }
     }
-
-    public int GetNodeArraySize() => Nodes.Length;
 
     public PathNode[] GetPathNodes() => Nodes; 
 }

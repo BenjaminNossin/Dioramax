@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TrainCustomPhysics : MonoBehaviour
 {
+    [SerializeField] EntityPathNavigation entityPathNavigation;
     [SerializeField] private Transform mainCamTransform;
     [SerializeField, Range(0.05f, 2f)] private float gravityForceMultiplier = 1f;
     [SerializeField, Range(0.4f, 1f)] private float tolerance = 0.65f; 
@@ -41,7 +42,7 @@ public class TrainCustomPhysics : MonoBehaviour
 
         currentDirection = Mathf.Sign(dotGravityAndRequiredDirection);
         remappedTolerance = Remap(dotGravityAndRequiredDirection, tolerance * currentDirection, 1f * currentDirection, 0f, 1f * currentDirection);
-        EntityPathNavigation.Instance.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
+        entityPathNavigation.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
 
         dotGravityAndTrainForward = Vector3.Dot(transform.forward, mainCamTransform.up * -1); // indicates when moving backward
         dotGravityAndTrainForward = Mathf.Sign(dotGravityAndTrainForward);
@@ -62,7 +63,7 @@ public class TrainCustomPhysics : MonoBehaviour
         // changing from leaf or root
         if (currentDirection == -1 && previousDirection == 1)
         {
-            EntityPathNavigation.Instance.UpdateOnDirectionChange();
+            entityPathNavigation.UpdateOnDirectionChange();
         }
     }
 
