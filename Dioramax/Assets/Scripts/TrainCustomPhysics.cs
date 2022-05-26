@@ -22,6 +22,7 @@ public class TrainCustomPhysics : MonoBehaviour
 
     void Update()
     {
+        if (EntityPathNavigation.SimulateMovement) return; 
         UpdateEntities();
     }
 

@@ -35,7 +35,9 @@ public class EntityPathNavigation : MonoBehaviour
 
     private GameObject debugObjReference;
     private GameObject[] debugObject_PathPoints;
-
+    public bool simulateMovement;
+    public bool simulateBackward;
+    public static bool SimulateMovement; 
 
     private void Awake()
     {
@@ -44,7 +46,8 @@ public class EntityPathNavigation : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
-        CurrentNavigationState = PreviousNavigationState; 
+        CurrentNavigationState = PreviousNavigationState;
+        SimulateMovement = simulateMovement; 
     }
 
     void Start()
@@ -74,20 +77,43 @@ public class EntityPathNavigation : MonoBehaviour
     private Vector3 lastVisitedPointOnSegmentPosition;
     void Update()
     {
+        if (!simulateMovement)
+        {
+            if (CurrentNavigationState == NavigationState.Backward)
+            {
+                AbsoluteForwardDirection = NormalizedRequiredDirection * -1;
+                lookAtDirection = AbsoluteForwardDirection;
+
+                GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+            }
+
+            if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
+            {
+                CheckMicroDistance();
+                MoveEntityAlongPath();
+            }
+        }
+        else // TEMPORARY DEBUG
+        {
+            CurrentNavigationState = simulateBackward ? NavigationState.Backward : NavigationState.Forward;
+            _navigationSpeedMultiplier = 1f; 
+
+            if (CurrentNavigationState == NavigationState.Backward)
+            {
+                AbsoluteForwardDirection = NormalizedRequiredDirection * -1;
+                lookAtDirection = AbsoluteForwardDirection;
+
+                GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+            }
+
+            if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
+            {
+                CheckMicroDistance();
+                MoveEntityAlongPath();
+            }
+        }
+
         GameDrawDebugger.DrawRay(entityToMoveTransform.position, NormalizedRequiredDirection * 5f, Color.blue);
-        if (CurrentNavigationState == NavigationState.Backward)
-        {
-            AbsoluteForwardDirection = NormalizedRequiredDirection * -1;
-            lookAtDirection = AbsoluteForwardDirection;
-
-            GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
-        }
-
-        if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
-        {
-            CheckMicroDistance();
-            MoveEntityAlongPath();
-        }
     }
 
     private void Init()
@@ -337,10 +363,11 @@ public class EntityPathNavigation : MonoBehaviour
     {
         entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
         lookAtDirection = new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z);
+        Debug.Log($"moving with a speed multiplier of {_navigationSpeedMultiplier}");
 
-            // lookAtDirection = new Vector3(SubDestination.x * -1, entityToMoveTransform.position.y, SubDestination.z * -1);
-            // GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
-        
+        // lookAtDirection = new Vector3(SubDestination.x * -1, entityToMoveTransform.position.y, SubDestination.z * -1);
+        // GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+
 
         if (distanceFromNextSubNode >= SNAP_VALUE)
         {

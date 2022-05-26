@@ -32902,6 +32902,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8343517188012826508, guid: b945b174d9d289c4b8c31b93cbfa2011, type: 3}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
+      propertyPath: simulateMovement
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: previousDestination
       value: 
       objectReference: {fileID: 8343517188012826508, guid: a4bdd2860d466644f8928dbae13cac94, type: 3}
@@ -32935,7 +32939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: navigationSpeedMultiplier
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5601103542371835615, guid: 758e19ed46424f141981a13e94ee9fcc, type: 3}
       propertyPath: initialNodesDebugArray.Array.size
