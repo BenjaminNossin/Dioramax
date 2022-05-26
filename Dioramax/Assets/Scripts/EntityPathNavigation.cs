@@ -31,9 +31,10 @@ public class EntityPathNavigation : MonoBehaviour
     [SerializeField] private GameObject nextDestination;
     [SerializeField] private int overriddenStartingNodeIndex;
     [SerializeField] private bool showDebugPoints;
+    [SerializeField] private bool showSubDestination;
+
     private GameObject debugObjReference;
     private GameObject[] debugObject_PathPoints;
-    public bool showSubDestination; 
 
 
     private void Awake()
@@ -331,7 +332,6 @@ public class EntityPathNavigation : MonoBehaviour
     }
 
     private Vector3 lookAtDirection;
-    public bool doBreak, invertLookAtDirection; 
     public static Vector3 AbsoluteForwardDirection { get; private set; }
     private void MoveEntityAlongPath()
     {
@@ -339,25 +339,14 @@ public class EntityPathNavigation : MonoBehaviour
         lookAtDirection = new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z);
         GameLogger.Log($"{CurrentNavigationState}");
 
-        if (invertLookAtDirection)
-        {
-            lookAtDirection = new Vector3(SubDestination.x * -1, entityToMoveTransform.position.y, SubDestination.z * -1);
-            GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
-        }
+
+            // lookAtDirection = new Vector3(SubDestination.x * -1, entityToMoveTransform.position.y, SubDestination.z * -1);
+            // GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+        
 
         if (distanceFromNextSubNode >= SNAP_VALUE)
         {
-            if (doBreak)
-            {
-                GameLogger.Log($"look at");
-            }
-
-            entityToMoveTransform.LookAt(lookAtDirection);
+            // entityToMoveTransform.LookAt(lookAtDirection);
         }
-
-        if (doBreak)
-        {
-            Debug.Break();
-        } 
     }
 }

@@ -10,8 +10,8 @@ public class TrainCustomPhysics : MonoBehaviour
     private float dotGravityAndRequiredDirection;
     private float remappedTolerance;
 
-    private bool changeIsDone, canMove;
-    private bool doneOnce;
+    private bool changeDoneOnce, canMove;
+    private bool initDoneOnce;
 
     private float dotGravityAndTrainForward;
     private float currentDirection, previousDirection;
@@ -28,30 +28,39 @@ public class TrainCustomPhysics : MonoBehaviour
     private void UpdateEntities()
     {
         // going forward for the first time
-        if (currentDirection == 1 && !doneOnce)
+        if (currentDirection == 1 && !initDoneOnce)
         {
             previousDirection = 1; 
         }
 
         GameDrawDebugger.DrawRay(transform.position, mainCamTransform.up * -5, Color.red);
 
-        canMove = IsBetweenMinAndMax(dotGravityAndRequiredDirection, tolerance, 1f); 
-
         dotGravityAndRequiredDirection = Vector3.Dot(mainCamTransform.up * -1, EntityPathNavigation.NormalizedRequiredDirection); // 1 (~ALWAYS), 0 (DO ONCE)
+        canMove = IsBetweenMinAndMax(dotGravityAndRequiredDirection, tolerance, 1f);
+
         currentDirection = Mathf.Sign(dotGravityAndRequiredDirection);
         remappedTolerance = Remap(dotGravityAndRequiredDirection, tolerance * currentDirection, 1f * currentDirection, 0f, 1f * currentDirection);
         EntityPathNavigation.Instance.UpdateNavigationSpeed(canMove ? Mathf.Abs(remappedTolerance) : 0);
 
         dotGravityAndTrainForward = Vector3.Dot(transform.forward, mainCamTransform.up * -1); // indicates when moving backward
         dotGravityAndTrainForward = Mathf.Sign(dotGravityAndTrainForward);
-        EntityPathNavigation.CurrentNavigationState = (NavigationState)dotGravityAndTrainForward;
 
-        // Debug.Break(); 
+        if (IsBetweenMinAndMax(dotGravityAndRequiredDirection, tolerance, 1f, true) && !changeDoneOnce)
+        {
+            changeDoneOnce = true;
+            EntityPathNavigation.CurrentNavigationState = (NavigationState)currentDirection;
+            GameLogger.Log($"setting navigation state to {EntityPathNavigation.CurrentNavigationState}");
+        }
+        else if (!IsBetweenMinAndMax(dotGravityAndRequiredDirection, tolerance, 1f, true) && changeDoneOnce)
+        {
+            changeDoneOnce = false;
+            EntityPathNavigation.CurrentNavigationState = NavigationState.NONE;
+            GameLogger.Log($"setting navigation state to {EntityPathNavigation.CurrentNavigationState}");
+        }
 
         // changing from leaf or root
         if (currentDirection == -1 && previousDirection == 1)
         {
-            GameLogger.Log("INVERTING EVENT");
             EntityPathNavigation.Instance.UpdateOnDirectionChange();
         }
     }
@@ -59,5 +68,7 @@ public class TrainCustomPhysics : MonoBehaviour
     private float Remap(float value, float from1, float to1, float from2, float to2) 
         => (value - from1) / (to1 - from1) * (to2 - from2) + from2; 
 
-    private bool IsBetweenMinAndMax(float value, float min, float max) => value >= min && value <= max; 
+    private bool IsBetweenMinAndMax(float value, float min, float max, bool absValue = false) => absValue ? 
+                                                                                                 Mathf.Abs(value) >= min && value <= max : 
+                                                                                                           value >= min && value <= max; 
 }
