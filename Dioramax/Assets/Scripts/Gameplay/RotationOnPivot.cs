@@ -45,7 +45,7 @@ public class RotationOnPivot : MonoBehaviour
 
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenderers[i].material.SetInt("_Freezed", IsLocked ? 1 : 0);
+            meshRenderers[i].material.SetInt("Freezed", IsLocked ? 1 : 0);
         }
     }
 
@@ -70,6 +70,7 @@ public class RotationOnPivot : MonoBehaviour
 
     public void CheckWinConditionOnLock()
     {
+        Debug.Log($"checking win condition on lock for {gameObject.name}"); 
         if (Mathf.Abs(distanceFromRequiredAngle) <= snapValue)
         {
             transfToRotate.localRotation = Quaternion.identity;
@@ -100,7 +101,7 @@ public class RotationOnPivot : MonoBehaviour
 
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenderers[i].material.SetInt("_Freezed", IsLocked ? 1 : 0); 
+            meshRenderers[i].material.SetInt("Freezed", IsLocked ? 1 : 0); 
         }
 
         if (IsLocked)

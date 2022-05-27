@@ -43,7 +43,7 @@ public class TweenTouch : StoppableTween
         //Freeze on Start
         FrozenState = 1;
 
-        if (transform.CompareTag("Freezable"))
+        /* if (transform.CompareTag("Freezable"))
         {
             try
             {
@@ -59,7 +59,7 @@ public class TweenTouch : StoppableTween
             //rend.material = td.FreezeMaterial;
             // rend.material.SetFloat("Freezed", FrozenState);
             // Attribute the freeze mMaterial to all Child transfrom
-        }
+        } */
     }
 
     public void Tween()
@@ -87,8 +87,8 @@ public class TweenTouch : StoppableTween
         //Scale Object
         transform.DOScale(td.stretch_squash, TimeScale).SetDelay(td.delay).SetEase(Ease.OutExpo).OnComplete(() => transform.DOScale(originalScale, TimeScale).SetEase(Ease.OutBack));
 
-        // Freeze Objects 
-            if (transform.CompareTag("Freezable"))
+        // Freeze Objects
+        /* if (transform.CompareTag("Freezable"))
             {
                 int i;
 
@@ -118,7 +118,7 @@ public class TweenTouch : StoppableTween
                                     }
                           }
                     }
-            }
+            } */
 
     // End Freeze Objects
         
