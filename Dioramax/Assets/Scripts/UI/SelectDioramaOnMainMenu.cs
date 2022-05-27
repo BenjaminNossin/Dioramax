@@ -6,7 +6,7 @@ public class SelectDioramaOnMainMenu : MonoBehaviour
     [SerializeField] private bool isMainMenu = true; 
     private int selector; 
 
-    void Start()
+    void OnEnable()
     {
         if (isMainMenu)
         {

@@ -39,10 +39,10 @@ public class FreezeStateController : MonoBehaviour
 
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
+            meshRenderers[i].material.SetInt("Freezed", Freezed ? 1 : 0);
         }
 
-        if (!Freezed)
+        if (!Freezed && simulateEntityPhysics)
         {
             simulateEntityPhysics.AddRbToList();           
         }
@@ -53,7 +53,7 @@ public class FreezeStateController : MonoBehaviour
         Freezed = !Freezed;
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
+            meshRenderers[i].material.SetInt("Freezed", Freezed ? 1 : 0);
         }
 
         if (!useDebugTrain)
@@ -71,7 +71,7 @@ public class FreezeStateController : MonoBehaviour
 
     public void AddOrRemoveSelfRb()
     {
-        if (!useDebugTrain)
+        if (!useDebugTrain && simulateEntityPhysics)
         {
             if (Freezed)
             {
@@ -89,7 +89,7 @@ public class FreezeStateController : MonoBehaviour
         Freezed = state;
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenderers[i].material.SetInt("_Freezed", Freezed ? 1 : 0);
+            meshRenderers[i].material.SetInt("Freezed", Freezed ? 1 : 0);
         }
     }
 

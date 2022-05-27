@@ -817,7 +817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460100, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_TagString
-      value: Freezable
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_RootOrder
@@ -4169,86 +4169,6 @@ MonoBehaviour:
   scale: {x: 1.12, y: 0.95, z: 0.87}
   time_scale: 0.45
   UpAxis: {x: 0, y: 1, z: 0}
---- !u!1 &1325478873
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1325478874}
-  - component: {fileID: 1325478877}
-  - component: {fileID: 1325478876}
-  - component: {fileID: 1325478875}
-  m_Layer: 0
-  m_Name: Hole_Physics (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1325478874
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325478873}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.423, y: -0.491, z: -0.16}
-  m_LocalScale: {x: 1.1822715, y: 1.1822715, z: 1.1822715}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8214430527376360239}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1325478875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325478873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17c8a9948f579994b8aecadf8563ec1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityPuzzleName: 3
-  entityNumber: 2
-  overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
---- !u!114 &1325478876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325478873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d3059aedd9a1f47bba26990420a607, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToHideMask:
-    serializedVersion: 2
-    m_Bits: 256
-  winCondition: {fileID: 1325478875}
-  isTutorial: 0
---- !u!135 &1325478877
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325478873}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1344381471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4435,6 +4355,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   td: {fileID: 11400000, guid: 10a7a01f490639b48839e9d0e6d51f79, type: 2}
   doTween: 1
+--- !u!4 &1362153022 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7315971369682617576, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
+  m_PrefabInstance: {fileID: 6092739923621156825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1388352029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4929,7 +4854,7 @@ MonoBehaviour:
   entityPuzzleName: 2
   entityNumber: 2
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1459963606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5045,7 +4970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460100, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_TagString
-      value: Freezable
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_RootOrder
@@ -5646,7 +5571,7 @@ GameObject:
   - component: {fileID: 1585757342}
   m_Layer: 6
   m_Name: Tuyau1
-  m_TagString: Freezable
+  m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5684,7 +5609,7 @@ MonoBehaviour:
   entityPuzzleName: 2
   entityNumber: 0
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1585757340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6502,7 +6427,7 @@ MonoBehaviour:
   entityPuzzleName: 2
   entityNumber: 1
   overrideWinConditionCall: 0
-  simulateWinConditionIsMet: 1
+  simulateWinConditionIsMet: 0
 --- !u!114 &1754208486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9820,7 +9745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460100, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_TagString
-      value: Freezable
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1509116430494460101, guid: fe263f8af450ee243a40fa5cb717e449, type: 3}
       propertyPath: m_RootOrder
@@ -11081,15 +11006,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: overrideWinConditionCall
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627821, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: simulateWinConditionIsMet
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2318516155063627822, guid: a05907ee64be34740b141464a16f6f83, type: 3}
       propertyPath: objectToHideMask.m_Bits
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386770816206936568, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386770816206936570, guid: a05907ee64be34740b141464a16f6f83, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a05907ee64be34740b141464a16f6f83, type: 3}
@@ -17057,6 +16990,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6092739923713937716, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
+      propertyPath: dioramaName
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6092739923713937717, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
       propertyPath: dioramaTransf
       value: 
@@ -17117,6 +17054,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_3C_CameraCrane Diorama 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7315971369682617569, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
+      propertyPath: dioramaName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315971369682617572, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
+      propertyPath: maxZoomIn
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7315971369682617572, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
       propertyPath: dioramaTransf
       value: 
@@ -17138,6 +17083,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49bfe7d2f771d85468ba55681e2fd4cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6092739923621156827 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7315971368610970360, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
+  m_PrefabInstance: {fileID: 6092739923621156825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!33 &6134435312755073322
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20155,6 +20105,7 @@ MonoBehaviour:
     - phaseNumber: 3
       scriptsToSet:
       - {fileID: 4536692283406114579}
+      - {fileID: 5945685465084303630}
       - {fileID: 812116202610209915}
       - {fileID: 4787372253756997153}
       objToSet: []
@@ -20173,12 +20124,12 @@ MonoBehaviour:
   - {fileID: 2933330420651421321}
   - {fileID: 2933330420182888316}
   ratAnimationObj: {fileID: 1567824427}
-  cameraCrane: {fileID: 0}
-  cameras: {fileID: 0}
-  mainCamera: {fileID: 0}
-  decoyCamera: {fileID: 0}
+  cameraCrane: {fileID: 6092739923621156827}
+  cameras: {fileID: 1785895573}
+  mainCamera: {fileID: 1362153022}
+  decoyCamera: {fileID: 600599746}
   cameraTransformOnPhase2: {fileID: 184983660}
-  skipIntroCinematic: 1
+  skipIntroCinematic: 0
   overridePhaseSystem: 0
 --- !u!114 &7778398950724897747
 MonoBehaviour:
@@ -20997,8 +20948,8 @@ Transform:
   - {fileID: 1991084147}
   - {fileID: 603155642}
   - {fileID: 1436204027}
-  - {fileID: 1529941090}
-  - {fileID: 1325478874}
+  - {fileID: 1742767220}
+  - {fileID: 328251272}
   m_Father: {fileID: 6969808670163652971}
   m_RootOrder: 52
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
