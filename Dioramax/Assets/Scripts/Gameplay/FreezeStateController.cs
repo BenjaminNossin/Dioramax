@@ -42,7 +42,7 @@ public class FreezeStateController : MonoBehaviour
             meshRenderers[i].material.SetInt("Freezed", Freezed ? 1 : 0);
         }
 
-        if (!Freezed)
+        if (!Freezed && simulateEntityPhysics)
         {
             simulateEntityPhysics.AddRbToList();           
         }
@@ -71,7 +71,7 @@ public class FreezeStateController : MonoBehaviour
 
     public void AddOrRemoveSelfRb()
     {
-        if (!useDebugTrain)
+        if (!useDebugTrain && simulateEntityPhysics)
         {
             if (Freezed)
             {

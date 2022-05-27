@@ -7,7 +7,6 @@ public enum NavigationState { NONE, Forward = 1, Backward = -1 }
 public class EntityPathNavigation : MonoBehaviour
 {
     [SerializeField] private PathController pathController;
-    [SerializeField] private Transform entityToMoveTransform;
     [SerializeField] private Transform[] initialNodesDebugArray;
     [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
     private float _navigationSpeedMultiplier; 
@@ -78,7 +77,7 @@ public class EntityPathNavigation : MonoBehaviour
                 AbsoluteForwardDirection = NormalizedRequiredDirection * -1;
                 lookAtDirection = AbsoluteForwardDirection;
 
-                GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+                GameDrawDebugger.DrawRay(transform.position, lookAtDirection * 5f, Color.cyan);
             }
 
             if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
@@ -97,7 +96,7 @@ public class EntityPathNavigation : MonoBehaviour
                 AbsoluteForwardDirection = NormalizedRequiredDirection * -1;
                 lookAtDirection = AbsoluteForwardDirection;
 
-                GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
+                GameDrawDebugger.DrawRay(transform.position, lookAtDirection * 5f, Color.cyan);
             }
 
             if (destinationNodeIndex != -1 && !waitForNextFixedUpdate && _navigationSpeedMultiplier >= 0.05f)
@@ -107,13 +106,13 @@ public class EntityPathNavigation : MonoBehaviour
             }
         }
 
-        GameDrawDebugger.DrawRay(entityToMoveTransform.position, NormalizedRequiredDirection * 5f, Color.blue);
+        GameDrawDebugger.DrawRay(transform.position, NormalizedRequiredDirection * 5f, Color.blue);
     }
 
     private void Init()
     {
         GetNewPointsOnReachingDestinationNode();
-        entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
+        transform.position = pointsAlongPath[0];
 
         SetSubDestination();
     }
@@ -290,18 +289,13 @@ public class EntityPathNavigation : MonoBehaviour
     // avoid calling BOTH this and the update
     private void CheckMicroDistance()
     {
-        distanceFromNextSubNode = Vector3.Distance(entityToMoveTransform.position, new Vector3(
-                                                                                    SubDestination.x, 
-                                                                                    entityToMoveTransform.position.y, 
-                                                                                    SubDestination.z));
+        distanceFromNextSubNode = Vector3.Distance(transform.position, SubDestination); 
 
         if (distanceFromNextSubNode <= SNAP_VALUE)
         {
             if (subDestinationIndex < PathController.Resolution - 1)
             {
-                    entityToMoveTransform.position = new Vector3(pointsAlongPath[subDestinationIndex].x, 
-                                                                 entityToMoveTransform.position.y, 
-                                                                 pointsAlongPath[subDestinationIndex].z);
+                transform.position = pointsAlongPath[subDestinationIndex];  
             }
             else // arrived at the end of path
             {
@@ -335,7 +329,7 @@ public class EntityPathNavigation : MonoBehaviour
                     GetNewPointsOnReachingDestinationNode();
 
                     // repositions the entity at the start of path
-                    entityToMoveTransform.position = new Vector3(pointsAlongPath[0].x, entityToMoveTransform.position.y, pointsAlongPath[0].z);
+                    transform.position = pointsAlongPath[0];
                 }
             }
 
@@ -355,13 +349,13 @@ public class EntityPathNavigation : MonoBehaviour
     public static Vector3 AbsoluteForwardDirection { get; private set; }
     private void MoveEntityAlongPath()
     {
-        entityToMoveTransform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
-        lookAtDirection = new Vector3(SubDestination.x, entityToMoveTransform.position.y, SubDestination.z);
+        transform.position += Time.fixedDeltaTime * _navigationSpeedMultiplier * NormalizedRequiredDirection;
+        lookAtDirection = SubDestination;
         // GameDrawDebugger.DrawRay(entityToMoveTransform.position, lookAtDirection * 5f, Color.cyan);
 
         if (distanceFromNextSubNode >= SNAP_VALUE)
         {
-            entityToMoveTransform.LookAt(lookAtDirection);
+            transform.LookAt(lookAtDirection);
         }
     }
 }
