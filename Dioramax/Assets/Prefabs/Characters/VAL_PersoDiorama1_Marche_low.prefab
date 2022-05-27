@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 99044423270224789}
   - component: {fileID: 5537361393294290028}
   - component: {fileID: 492397719179955551}
+  - component: {fileID: 8237360574804665475}
+  - component: {fileID: 6047067232368653677}
   m_Layer: 0
   m_Name: VAL_PersoDiorama1_Marche_low
   m_TagString: Untagged
@@ -109,3 +111,30 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &8237360574804665475
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726259093864515887}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.527764, y: 18.670055, z: 26.465294}
+  m_Center: {x: -0.018121336, y: -1.5926772, z: 0.09346866}
+--- !u!114 &6047067232368653677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726259093864515887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22fc6db81a607445bc25ac6a04393fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  td: {fileID: 11400000, guid: 9f2e565d9d5b7894899575ce45feb6b8, type: 2}
+  doTween: 1
