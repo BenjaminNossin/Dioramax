@@ -24,14 +24,15 @@ public class HideObjectOnTriggerEnter : MonoBehaviour
             {
                 if (isTutorial)
                 {
-                    OnBallTutorialComplete(); 
+                    OnBallTutorialComplete();
                 }
                 else // holes for rat puzzle
                 {
                     LevelManager.Instance.ValidateWinCondition((int)DioramaPuzzleName.Rats, LevelManager.OverrideWinConditionNumber);
                     LevelManager.OverrideWinConditionNumber++;
-                    vfxRatTrou.Play();
                 }
+
+                vfxRatTrou.Play();
             }
 
             GameLogger.Log("object has been hidden and removed from the physics simulation"); 
