@@ -267,7 +267,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9041566231702209352
 Transform:
   m_ObjectHideFlags: 0
@@ -404,9 +404,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 0}
-  neighboursTransform: []
-  neightboursNodes: []
+  previousNode: {fileID: 9041566232266013948}
+  neighboursTransform:
+  - {fileID: 9041566232249988958}
+  neightboursNodes:
+  - {fileID: 9041566232249988959}
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &9041566232091029492
@@ -502,9 +504,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 0}
-  neighboursTransform: []
-  neightboursNodes: []
+  previousNode: {fileID: 9041566232009436656}
+  neighboursTransform:
+  - {fileID: 9041566230453848488}
+  neightboursNodes:
+  - {fileID: 9041566230453848489}
   controlPointIn: {x: 0, y: -0.03, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &9041566232266013922
@@ -553,8 +557,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousNode: {fileID: 0}
   neighboursTransform:
-  - {fileID: 0}
+  - {fileID: 9041566232009436663}
   neightboursNodes:
-  - {fileID: 0}
+  - {fileID: 9041566232009436656}
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: -0.09, y: 0.04, z: 0}
