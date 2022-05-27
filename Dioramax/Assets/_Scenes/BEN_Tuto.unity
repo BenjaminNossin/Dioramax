@@ -137,10 +137,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
   promptDisappearDelay: 0
-  requiredRotationDuration: 2
-  requiredIndividualZoomDuration: 0.8
+  requiredRotationDuration: 1
+  requiredIndividualZoomDuration: 0.6
   cameraCraneZRotation: {fileID: 1658879798}
-  requiredIndividualZRotation: 0.8
+  requiredIndividualZRotation: 0.6
   ballCollider: {fileID: 2843479948835258922}
   starCollider: {fileID: 2843479949610391056}
   tweenStarFinish: {fileID: 8491226721135744055}
@@ -617,6 +617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_UI_EndOfLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 1628473449948552114, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3038946060454250730, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -625,9 +629,29 @@ PrefabInstance:
       propertyPath: popupTween
       value: 
       objectReference: {fileID: 1508596270}
+    - target: {fileID: 3869924043997131634, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869924043997131634, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869924043997131635, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869924044683532822, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3869924044683532825, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ReloadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5740249089034989250, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6872879436860005956, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_RootOrder
