@@ -48,13 +48,16 @@ public class Switcher : MonoBehaviour
         {
             nextPossibleNodes[i].IsActiveNode = false; 
 
-            if (goToPositionA)
+            if (goToPositionA || nextPossibleNodes.Length <= 1)
             {
                 nextPossibleNodes[0].IsActiveNode = true;
             }
             else
             {
-                nextPossibleNodes[1].IsActiveNode = true;
+                if (nextPossibleNodes.Length > 1)
+                {
+                    nextPossibleNodes[1].IsActiveNode = true;
+                }
             }
         }
     }
