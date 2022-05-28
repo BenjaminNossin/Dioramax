@@ -19,7 +19,7 @@ public class PathNode : MonoBehaviour
 
     private PathNode nextActiveNode; // updated via switching
     private Vector3 selfPosition; // caching to avoid costly calls to the C++ side of engine
-    public int nodeIndex; 
+    public int NodeIndex { get; set; } 
 
     private void OnValidate()
     {
@@ -64,7 +64,7 @@ public class PathNode : MonoBehaviour
 
     PathNode returnedNode;
     public int GetNextPossibleNodesArraySize() => (int)(neighboursTransform?.Length);
-    public int GetPreviousNodeIndex() => previousNode ? previousNode.nodeIndex : -1;
+    public int GetPreviousNodeIndex() => previousNode ? previousNode.NodeIndex : -1;
     public int GetNextActiveNodeIndex()
     {
         if (IsLeafNode) return -1; 
@@ -82,7 +82,7 @@ public class PathNode : MonoBehaviour
             }
         }
 
-        return returnedNode.nodeIndex;
+        return returnedNode.NodeIndex;
     }
     public bool IsRoot() => previousNode == null; 
     public Vector3 GetControlPointToWorld(bool getIn = true) => transform.TransformPoint(getIn ? controlPointIn : controlPointOut);
