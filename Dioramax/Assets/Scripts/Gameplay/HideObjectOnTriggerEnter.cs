@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HideObjectOnTriggerEnter : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem vfxRatTrou; 
     [SerializeField] private LayerMask objectToHideMask;
     [SerializeField] private WinCondition winCondition;
     [SerializeField] private bool isTutorial;
@@ -23,13 +24,15 @@ public class HideObjectOnTriggerEnter : MonoBehaviour
             {
                 if (isTutorial)
                 {
-                    OnBallTutorialComplete(); 
+                    OnBallTutorialComplete();
                 }
-                else
+                else // holes for rat puzzle
                 {
                     LevelManager.Instance.ValidateWinCondition((int)DioramaPuzzleName.Rats, LevelManager.OverrideWinConditionNumber);
                     LevelManager.OverrideWinConditionNumber++;
                 }
+
+                vfxRatTrou.Play();
             }
 
             GameLogger.Log("object has been hidden and removed from the physics simulation"); 
