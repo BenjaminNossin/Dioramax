@@ -1,5 +1,6 @@
 using UnityEngine;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using UnityEngine.Audio;
 
 // abstract this out to have one for each level
 public enum GameState { NONE, Loading, Playing, Paused, Cinematic }
@@ -31,7 +32,15 @@ public class LevelManager : MonoBehaviour
 
     [Header("Carrousel")]
     [SerializeField] GameObject ratAnimationObj;
-    public static int OverrideWinConditionNumber { get; set; } 
+    public static int OverrideWinConditionNumber { get; set; }
+
+    [Header("Hydrant")]
+    [SerializeField] private AudioSource hydrantAudioSource;
+    [SerializeField] private AudioClip rumble;
+    [SerializeField] private AudioClip flow;
+    [SerializeField] private AudioMixerGroup rumbleGroup;
+    [SerializeField] private AudioMixerGroup flowGroup;
+
 
     [Header("CAMERA")]
     [SerializeField] private Transform cameraCrane;
@@ -39,6 +48,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform mainCamera;
     [SerializeField] private Transform decoyCamera;
     [SerializeField] private Transform cameraTransformOnPhase2;
+
+    [Header("AUDIO")]
+    [SerializeField] private AudioSource shieldDissolveAudiosource; 
 
     [Header("DEBUG")]
     public bool skipIntroCinematic; 
@@ -210,10 +222,12 @@ public class LevelManager : MonoBehaviour
         {
             // PLACEHOLDER
             GameLogger.Log("star final phase");
+
             phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].GetComponent<BoxCollider>().enabled = false;
             StartCoroutine(DelayFinish(phaseHolderName, phaseNumber));
         }
 
+        shieldDissolveAudiosource.Play();
         StartCoroutine(LerpStarDissolve()); 
     }
 
@@ -233,6 +247,7 @@ public class LevelManager : MonoBehaviour
     private System.Collections.IEnumerator LerpStarDissolve() // turn into async routine or separate thread
     {
         yield return waitForFixedUpdate;
+
         currentDissolveAmount = Mathf.Lerp(minDissolveAmount, maxDissolveAmount, currentTime);
         currentTime += Time.fixedDeltaTime / dissolveDuration;
 
@@ -283,6 +298,10 @@ public class LevelManager : MonoBehaviour
 
     private void ActivateBoucheIncendiePhase1(PhaseHolderName phaseHolderName, int phaseNumber)
     {
+        hydrantAudioSource.clip = rumble;
+        hydrantAudioSource.outputAudioMixerGroup = rumbleGroup;
+        hydrantAudioSource.Play();
+
         TriggerStarPhase(PhaseHolderName.Etoile, phaseNumber); // PLAYER SHOULD SEE THIS. temporary placement
 
         for (int i = 0; i < phaseHolders[(int)phaseHolderName].phases[phaseNumber].scriptsToSet.Count; i++)
@@ -319,6 +338,10 @@ public class LevelManager : MonoBehaviour
 
     private void ActivateBoucheIncendiePhase2(PhaseHolderName phaseHolderName, int phaseNumber)
     {
+        hydrantAudioSource.clip = flow;
+        hydrantAudioSource.outputAudioMixerGroup = flowGroup;
+        hydrantAudioSource.Play();
+
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(true);
 
         // activate cinematic 

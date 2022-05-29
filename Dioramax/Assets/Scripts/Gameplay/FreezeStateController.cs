@@ -57,6 +57,7 @@ public class FreezeStateController : MonoBehaviour
         for (int i = 0; i < meshRenderers.Length; i++)
         {
             meshRenderers[i].material.SetInt("Freezed", Freezed ? 1 : 0);
+
             audiosource.PlayOneShot(freezeUnfreezeAudioclips[Freezed ? 1 : 0]);
         }
 

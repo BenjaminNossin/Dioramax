@@ -1699,7 +1699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132486898185886580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -10.23}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 31, y: 31, z: 31}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6889,6 +6889,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2277233218550161825}
+  - component: {fileID: 3645690775313716658}
   m_Layer: 0
   m_Name: Diorama2Center
   m_TagString: Untagged
@@ -6912,6 +6913,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &3645690775313716658
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277233218550161830}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8059757260706949932, guid: 6a7fca7e322386b4995b32a40948a9b3, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2277233218618654308
 GameObject:
   m_ObjectHideFlags: 0
@@ -7000,7 +7097,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2277233218835871255}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -10.729989, y: 31.33, z: 5.72}
+  m_LocalPosition: {x: -10.729989, y: 21.11, z: 5.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7236,7 +7333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2277233218938219871}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -12.476578, y: 26.41, z: 12.67}
+  m_LocalPosition: {x: -12.476578, y: 16.44, z: 12.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7261,7 +7358,7 @@ MonoBehaviour:
   - {fileID: 7124768385290091234}
   neightboursNodes:
   - {fileID: 7124768385290091245}
-  controlPointIn: {x: 6.91, y: 4.95, z: 4.26}
+  controlPointIn: {x: 6.91, y: 4.76, z: 5.48}
   controlPointOut: {x: 1, y: -4.2, z: 0}
 --- !u!114 &2277233218938219865
 MonoBehaviour:
@@ -15387,7 +15484,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3870580429963456061}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -9.68}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 31, y: 31, z: 31}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18498,7 +18595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7124768385290091235}
   m_LocalRotation: {x: -0.65089524, y: 0.2762886, z: 0.2762886, w: 0.65089524}
-  m_LocalPosition: {x: -10.013693, y: 25.11, z: 11.65}
+  m_LocalPosition: {x: -10.013693, y: 16.326, z: 11.65}
   m_LocalScale: {x: 31, y: 31, z: 31}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18549,7 +18646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7124768385314907923}
   m_LocalRotation: {x: -0.65089524, y: 0.2762886, z: 0.2762886, w: 0.65089524}
-  m_LocalPosition: {x: -6.8237934, y: 24.81, z: 8.31}
+  m_LocalPosition: {x: -6.711, y: 16.404, z: 8.397}
   m_LocalScale: {x: 31, y: 31, z: 31}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18598,7 +18695,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7124768385716014370}
   m_LocalRotation: {x: -0.65089524, y: 0.2762886, z: 0.2762886, w: 0.65089524}
-  m_LocalPosition: {x: -16.508194, y: 28.43, z: 7.69}
+  m_LocalPosition: {x: -16.508194, y: 21.172, z: 7.69}
   m_LocalScale: {x: 31, y: 31, z: 31}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18920,7 +19017,7 @@ MonoBehaviour:
   previousNode: {fileID: 2277233220376891001}
   neighboursTransform: []
   neightboursNodes: []
-  controlPointIn: {x: 0, y: -0.01, z: 0}
+  controlPointIn: {x: 0, y: -0.01, z: -0.01}
   controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &7124768386936793264
 GameObject:
@@ -18947,7 +19044,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7124768386936793264}
   m_LocalRotation: {x: -0.65089524, y: 0.2762886, z: 0.2762886, w: 0.65089524}
-  m_LocalPosition: {x: -14.765994, y: 30.55, z: 11.03}
+  m_LocalPosition: {x: -14.765994, y: 20.977, z: 11.03}
   m_LocalScale: {x: 31, y: 31, z: 31}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19032,7 +19129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110d4b1821e2ba845a2d702adbec04f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineThickness: 3
+  lineThickness: 1
   segmentResolution: 35
   handlesColor: {r: 1, g: 1, b: 1, a: 1}
   refreshNodesArrayOnReferenceLoss: 1

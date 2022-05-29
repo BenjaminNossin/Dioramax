@@ -840,6 +840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMainMenu: 1
+  isLevelSelection: 0
   dioramaToLoad: 0
   dontDestroyOnLoad: 0
   fullPath: 
@@ -1379,6 +1380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5554092218447613474}
   - component: {fileID: 2290285768429759961}
+  - component: {fileID: 78824552}
   m_Layer: 5
   m_Name: TITLE
   m_TagString: Untagged
@@ -1395,7 +1397,7 @@ RectTransform:
   m_GameObject: {fileID: 6886613682885325178}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -790.0551}
-  m_LocalScale: {x: 0.96375, y: 0.96375, z: 0.96375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 950994500911632715}
@@ -1433,6 +1435,50 @@ MonoBehaviour:
   scale: {x: 1.2, y: 1.2, z: 1.2}
   time_scale: 10
   UpAxis: {x: 0, y: 1, z: 0}
+--- !u!114 &78824552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886613682885325178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Pressed
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 5131686484733936289}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6979702552185621986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,7 +1935,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6447589599748320614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2208,7 +2254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &932796700339045204
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2315,6 +2361,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 371673209782382240}
     m_Modifications:
+    - target: {fileID: 5080162964014228829, guid: fa45608431017b64d9e358d913f4c31d, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080162964014228829, guid: fa45608431017b64d9e358d913f4c31d, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080162964014228829, guid: fa45608431017b64d9e358d913f4c31d, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6213662400790552138, guid: fa45608431017b64d9e358d913f4c31d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2560,6 +2618,10 @@ PrefabInstance:
     - target: {fileID: 8311912544351977215, guid: b9c6fd97968d488418b742aced12737b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311912544351977215, guid: b9c6fd97968d488418b742aced12737b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8311912544351977215, guid: b9c6fd97968d488418b742aced12737b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument

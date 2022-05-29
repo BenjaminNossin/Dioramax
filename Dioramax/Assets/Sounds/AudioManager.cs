@@ -53,6 +53,13 @@ public class AudioManager : MonoBehaviour
         source.PlayOneShot(clips[Random.Range(0, clips.Length - 1)]); 
     }
 
+    public void PlaySoundPingPong(AudioSource source, AudioClip[] clips, int index, bool waitForEnd = false)
+    {
+        if (waitForEnd && source.isPlaying) return;
+
+        source.PlayOneShot(clips[index]);
+    }
+
     public void SetGroupVolume(AudioMixerGroup group, float value)
     {
         //audioMixer.SetFloat
