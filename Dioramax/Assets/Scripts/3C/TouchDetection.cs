@@ -11,7 +11,9 @@ public class TouchDetection : MonoBehaviour
     // Test screen distorsion effect 
     //[SerializeField] private ParticleSystem TouchDistorsion;
     //
-    [SerializeField] private DioramaName dioramaName; 
+    [SerializeField] private DioramaName dioramaName;
+    [SerializeField] private AudioSource noDetectionAudioSource;
+    [SerializeField] private AudioClip[] tapClips = new AudioClip[3]; 
 
     [Header("General")]
     [SerializeField] private LayerMask tweenableTouchMask;
@@ -28,6 +30,8 @@ public class TouchDetection : MonoBehaviour
 
     [Header("Diorama 2")]
     [SerializeField] private LayerMask switchMask;
+
+    private bool nothingDetected; 
     // fire (draggable)
 
     [Header("--DEBUG--")]
@@ -174,7 +178,23 @@ public class TouchDetection : MonoBehaviour
                 switchHitInfo.collider.GetComponent<Switcher>().DoSwitchAndSetActiveNode(); 
             }
             #endregion
-        }       
+        }
+
+        nothingDetected = !tuyauDetected && !carrouselBearDetected && !tweenableTouchDetected && !finishMaskDetected && !defaultGameplayEntityDetected &&
+        !switchDetected && !tutorialButtonDetected; 
+
+        if (nothingDetected)
+        {
+            GameLogger.Log("nothing detected");
+            noDetectionAudioSource.volume = 1f; 
+            AudioManager.Instance.PlayRandomSound(noDetectionAudioSource, tapClips); 
+        }
+        else
+        {
+            GameLogger.Log("something detected"); 
+            noDetectionAudioSource.volume = 0.5f;
+            AudioManager.Instance.PlayRandomSound(noDetectionAudioSource, tapClips);
+        }
     }
 
     private void ChildTweens(RaycastHit hit)
