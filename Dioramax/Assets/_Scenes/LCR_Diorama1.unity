@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.24924183, g: 0.33886242, b: 0.51423734, a: 1}
+  m_IndirectSpecularColor: {r: 0.2487049, g: 0.33728978, b: 0.5126996, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5304,6 +5304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d3059aedd9a1f47bba26990420a607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxRatTrou: {fileID: 0}
   objectToHideMask:
     serializedVersion: 2
     m_Bits: 256
@@ -6778,14 +6779,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tiling Clouds
       objectReference: {fileID: 0}
-    - target: {fileID: 2197641068795518570, guid: 730a02f6cd3368e439bdbcaec3a78d7e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5295401463810591313, guid: 730a02f6cd3368e439bdbcaec3a78d7e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6dec22713f2e8f6469840189a66f4a0a, type: 2}
     - target: {fileID: 8207786428424081019, guid: 730a02f6cd3368e439bdbcaec3a78d7e, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -20127,7 +20120,7 @@ MonoBehaviour:
   cameraCrane: {fileID: 6092739923621156827}
   cameras: {fileID: 1785895573}
   mainCamera: {fileID: 1362153022}
-  decoyCamera: {fileID: 600599746}
+  decoyCamera: {fileID: 0}
   cameraTransformOnPhase2: {fileID: 184983660}
   skipIntroCinematic: 0
   overridePhaseSystem: 0
@@ -20948,8 +20941,7 @@ Transform:
   - {fileID: 1991084147}
   - {fileID: 603155642}
   - {fileID: 1436204027}
-  - {fileID: 1742767220}
-  - {fileID: 328251272}
+  - {fileID: 1529941090}
   m_Father: {fileID: 6969808670163652971}
   m_RootOrder: 52
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
