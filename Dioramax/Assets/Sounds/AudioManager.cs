@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource ostAudioSource;
 
     [Space, SerializeField] private AudioClip[] OST = new AudioClip[4];
+    [SerializeField] private AudioMixerGroup[] OSTGroups = new AudioMixerGroup[4];
 
     public static AudioManager Instance;
 
@@ -36,6 +37,7 @@ public class AudioManager : MonoBehaviour
         PlayingSharedOST = currentOST == OST[0];
 
         ostAudioSource.clip = currentOST;
+        ostAudioSource.outputAudioMixerGroup = OSTGroups[index]; 
 
         GameLogger.Log($"current ost {ostAudioSource.clip}"); 
         ostAudioSource.Stop();
