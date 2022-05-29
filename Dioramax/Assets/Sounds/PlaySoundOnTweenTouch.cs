@@ -6,7 +6,9 @@ public class PlaySoundOnTweenTouch : MonoBehaviour
     [SerializeField] private AudioClip clipOnTouchTween;
     [SerializeField] private AudioClip[] randArrayClipsOnTouchTween = new AudioClip[3];
     [SerializeField] private AudioClip[] pingPongOnTouchTween = new AudioClip[2];
-    [SerializeField] private bool isTutoCatButton; 
+    [SerializeField] private bool isTutoCatButton;
+    [SerializeField] private bool isMill;
+    [SerializeField] private bool isHydrant;
 
 
     private bool isOn; 
@@ -23,7 +25,9 @@ public class PlaySoundOnTweenTouch : MonoBehaviour
         }
         else if (playType == SoundPlayType.NONE)
         {
-            if (isTutoCatButton && TutorialWinConditionController.stateIsPuzzle1) return; 
+            if (isTutoCatButton && TutorialWinConditionController.stateIsPuzzle1
+                || LevelManager.Instance.ValidatedPuzzleAmount == 1 && isHydrant
+                || LevelManager.Instance.ValidatedPuzzleAmount == 2 && isMill) return; 
 
             AudioManager.Instance.PlaySound(audioSource, clipOnTouchTween);
         }
