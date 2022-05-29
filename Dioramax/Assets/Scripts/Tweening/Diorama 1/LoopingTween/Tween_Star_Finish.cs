@@ -3,6 +3,7 @@ using DG.Tweening;
 
 public class Tween_Star_Finish : MonoBehaviour
 {
+    [SerializeField] private AudioSource starFreeAudioSource;
 
     private float ObjectMaxHeight;
     private float ObjectInitialHeight;
@@ -34,11 +35,13 @@ public class Tween_Star_Finish : MonoBehaviour
 
     public void Start()
     {
+        starFreeAudioSource.Play();
+
         //init 
         initialRotation = transform.localRotation.eulerAngles;
         ObjectInitialHeight = transform.position.y;
         ObjectMaxHeight = up_max_position + transform.position.y;
-
+        
 
         //Animation
         //vfx sparkle finish

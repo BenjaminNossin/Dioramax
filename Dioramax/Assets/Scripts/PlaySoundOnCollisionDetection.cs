@@ -9,7 +9,10 @@ public class PlaySoundOnCollisionDetection : MonoBehaviour
     {
         if (Mathf.Pow(2, collision.gameObject.layer) == objectMask)
         {
-            audioSource.Play();
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
     }
 }
