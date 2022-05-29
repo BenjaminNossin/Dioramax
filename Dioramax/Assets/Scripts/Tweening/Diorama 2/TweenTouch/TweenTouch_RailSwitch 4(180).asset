@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: TweenTouch_RailSwitch 4(180)
   m_EditorClassIdentifier: 
   delay: 0
+  DelayStopVFX: 0
   up_max_position: 0.405
   time_bounce: 1
-  stretch_squash: {x: 1.15, y: 1.15, z: 1.15}
+  stretch_squash: {x: 35.65, y: 35.65, z: 35.65}
   time_scale: 1
   rotation_degrees: 180
   time_rotation: 1
   EaseOutCubic: 1
-  Punch: 0
+  EaseOutCirc: 0
+  EaseInBack: 0
   RotationAxis: {x: 0, y: 0, z: 1}
+  FreezeMaterial: {fileID: 0}
