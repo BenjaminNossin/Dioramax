@@ -11,13 +11,12 @@ GameObject:
   - component: {fileID: 8207786428424081019}
   - component: {fileID: 8671490912213691620}
   - component: {fileID: 5295401463810591313}
-  - component: {fileID: 751852056}
   m_Layer: 0
   m_Name: Tiling Clouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8207786428424081019
 Transform:
@@ -62,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c8c4a8ff9b6bfc4abd2a8e2b48cbba2, type: 2}
+  - {fileID: 2100000, guid: 33c11cbd49082b14e84a2298dcc448da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,23 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &751852056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2197641068795518570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111453c4969e1ab4db486cdb15360f4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationAxis: {x: 0, y: 1, z: 0}
-  rotation_degrees: 360
-  time_rotation: 40
-  up_max_position: 0
-  TimeUp: 1
-  scale: {x: 546.971, y: 546.971, z: 546.971}
-  time_scale: 0
-  UpAxis: {x: 0, y: 1, z: 0}
