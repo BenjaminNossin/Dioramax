@@ -1,8 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI; 
 
 public class LevelInfosUI : MonoBehaviour
 {
+    [SerializeField] private AudioSource puzzleWinAudiosource; 
+
     public static LevelInfosUI Instance;
 
     [SerializeField] private GameObject[] puzzlesOn = new GameObject[3];
@@ -20,6 +21,7 @@ public class LevelInfosUI : MonoBehaviour
 
     public void ActivatePuzzleUIOnWin(int index)
     {
+        puzzleWinAudiosource.Play();
         puzzlesOn[index].SetActive(true);
     }
 }

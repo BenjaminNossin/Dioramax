@@ -4,8 +4,9 @@ using System.Collections;
 
 public class TutorialPromptsUI : MonoBehaviour
 {
-    public static TutorialPromptsUI Instance; 
+    public static TutorialPromptsUI Instance;
 
+    [SerializeField] private AudioSource audiosource;
     [SerializeField] private TutorialTextHolder tutorialTextHolder;
     [SerializeField] private GameObject textHolderPanel;
     [SerializeField] private TMP_Text tmpText;
@@ -45,6 +46,9 @@ public class TutorialPromptsUI : MonoBehaviour
     private IEnumerator ShowPanel(int index, int subIndex)
     {
         yield return WFS;
+
+        audiosource.Play();
+
         textHolderPanel.SetActive(true);
         tutorialTextHolder.ShowPrompt(index, subIndex);
     }

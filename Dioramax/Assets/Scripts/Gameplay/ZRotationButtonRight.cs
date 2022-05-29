@@ -1,10 +1,15 @@
 using UnityEngine.EventSystems;
+using UnityEngine;
 
 public class ZRotationButtonRight : ZRotationButton
 {
+    [SerializeField] private AudioSource audiosource; 
+
     public override void OnPointerEnter(PointerEventData eventData)
     {
-        if (WaitingForNextFrames) return; 
+        if (WaitingForNextFrames) return;
+
+        audiosource.Play();
 
         if (eventData.pointerCurrentRaycast.gameObject == gameObject)
         {
@@ -17,6 +22,8 @@ public class ZRotationButtonRight : ZRotationButton
 
     public override void OnPointerExit(PointerEventData eventData)
     {
+        audiosource.Stop();
+
         base.OnPointerExit(eventData);
 
         if (eventData.pointerCurrentRaycast.gameObject == gameObject)
