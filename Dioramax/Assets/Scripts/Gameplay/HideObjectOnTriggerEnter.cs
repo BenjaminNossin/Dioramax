@@ -6,6 +6,7 @@ public class HideObjectOnTriggerEnter : MonoBehaviour
     [SerializeField] private LayerMask objectToHideMask;
     [SerializeField] private WinCondition winCondition;
     [SerializeField] private bool isTutorial;
+    [SerializeField] private AudioSource audioSource; 
 
     public static System.Action OnBallTutorialComplete { get; set; }
 
@@ -14,7 +15,8 @@ public class HideObjectOnTriggerEnter : MonoBehaviour
         if (Mathf.Pow(2, other.gameObject.layer) == objectToHideMask)
         {
             other.gameObject.SetActive(false);
-            other.transform.GetComponent<SimulateEntityPhysics>().RemoveRbFromList(); 
+            other.transform.GetComponent<SimulateEntityPhysics>().RemoveRbFromList();
+            audioSource.Play(); 
 
             if (!winCondition.OverrideWinConditionCall)
             {

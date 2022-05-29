@@ -13,7 +13,9 @@ public class TouchDetection : MonoBehaviour
     //
     [SerializeField] private DioramaName dioramaName;
     [SerializeField] private AudioSource noDetectionAudioSource;
-    [SerializeField] private AudioClip[] tapClips = new AudioClip[3]; 
+    [SerializeField] private AudioClip[] tapClips = new AudioClip[3];
+    [SerializeField] private AudioSource finishAudioSource;
+
 
     [Header("General")]
     [SerializeField] private LayerMask tweenableTouchMask;
@@ -88,6 +90,7 @@ public class TouchDetection : MonoBehaviour
             // show victory UI
             EndOfLevelUI.Instance.ShowEndOfLevelPanel();
             LevelManager.Instance.DeactivateObjectsOnLevelEnd();
+            finishAudioSource.Play();
         }
 
         if (tweenableTouchDetected)

@@ -8,6 +8,7 @@ public class TutorialWinConditionController : MonoBehaviour
     public static bool Phase1IsRead { get; set; }
 
     [Space, SerializeField, Range(0f, 1f)] private float promptDisappearDelay = 0.5f;
+    [SerializeField] private AudioSource catButtonAudioSource;
 
     // XY rotation
     [Header("XY Rotation Tutorial")]
@@ -144,6 +145,8 @@ public class TutorialWinConditionController : MonoBehaviour
         if (tutorialPhase != 3) return; 
 
         GameLogger.Log("suceeded Button Touch tutorial");
+        catButtonAudioSource.Play();
+
         LevelInfosUI.Instance.ActivatePuzzleUIOnWin(0);
 
         LevelManager.Instance.ValidatedPuzzleAmount = 1;
