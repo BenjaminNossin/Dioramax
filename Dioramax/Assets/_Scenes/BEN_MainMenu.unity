@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 0.63
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 697d8c4f4b3496542a2da1166c9dd0d2, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: f4e04eefa2a736b489530ad9bf7c7c1e, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11959539, g: 0.36891258, b: 0.38292575, a: 1}
+  m_IndirectSpecularColor: {r: 0.108712964, g: 0.12310159, b: 0.12777227, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -260,11 +260,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1095589174975991982, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1095589175147459806, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1095589175481972953, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: m_ClearFlags
@@ -325,11 +325,11 @@ PrefabInstance:
     - target: {fileID: 6593231963713341633, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: dioramas.Array.data[0]
       value: 
-      objectReference: {fileID: 66652173}
+      objectReference: {fileID: 483271807}
     - target: {fileID: 6593231963713341633, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: dioramas.Array.data[1]
       value: 
-      objectReference: {fileID: 66652172}
+      objectReference: {fileID: 930208463}
     - target: {fileID: 7459751973369969453, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -380,16 +380,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
---- !u!1 &66652172 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1095589174975991982, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
-  m_PrefabInstance: {fileID: 66652171}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &66652173 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1095589175147459806, guid: f8cf669ccc30db249950c4e0a03cb0c6, type: 3}
-  m_PrefabInstance: {fileID: 66652171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &78824552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,6 +424,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &483271807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8729677580418699763, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
+  m_PrefabInstance: {fileID: 1360891499358104676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &930208463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7888844706944365150, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
+  m_PrefabInstance: {fileID: 1360891499358104676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1241178781
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,11 +733,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7888844706944365150, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729677580418699763, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8821333069401380518, guid: 14e5e75361ff71544aca5c7d61c776e8, type: 3}
       propertyPath: m_IsActive
