@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using DG.Tweening;
+using DG;
 
 public class AudioManager : MonoBehaviour
 {
@@ -26,7 +28,7 @@ public class AudioManager : MonoBehaviour
     {
         if (waitForEnd && source.isPlaying) return; 
 
-        source.PlayOneShot(clip); 
+        source.PlayOneShot(clip);
     }
 
     private AudioClip currentOST;
