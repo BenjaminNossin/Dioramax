@@ -251,7 +251,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &128856929
 Transform:
   m_ObjectHideFlags: 0
@@ -600,7 +600,7 @@ PrefabInstance:
       objectReference: {fileID: 1321504215}
     - target: {fileID: 5015858117158818456, guid: cf51864a9f7b2c24aa76017b358a3ac3, type: 3}
       propertyPath: simulateMovement
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5015858117158818456, guid: cf51864a9f7b2c24aa76017b358a3ac3, type: 3}
       propertyPath: navigationSpeedMultiplier
@@ -879,6 +879,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: ea3b6eed91a8e404c8b76ce527eeff8e, type: 2}
   passengersTrain: {fileID: 2186884406108488989}
   passengersAnimator: {fileID: 2009419365}
+  ignoreLocomotive: 1
 --- !u!4 &1150647286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4349909878436736491, guid: f51e13c071e05134abaddbb13494be0f, type: 3}
@@ -903,6 +904,7 @@ MonoBehaviour:
   linkableFreezeControllers:
   - {fileID: 0}
   freezeAllOnDetach: 1
+  locomotive: {fileID: 0}
 --- !u!1 &1198738567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,7 +1285,7 @@ GameObject:
   - component: {fileID: 1560740006}
   - component: {fileID: 1560740007}
   m_Layer: 0
-  m_Name: Mine_StickEvent
+  m_Name: Obstacle_Eclairs
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1351,6 +1353,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: fa75216d425ab0e459e253c28308575c, type: 2}
   passengersTrain: {fileID: 0}
   passengersAnimator: {fileID: 0}
+  ignoreLocomotive: 1
 --- !u!114 &1560740007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1367,7 +1370,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   obj: {fileID: 1734070212}
-  setActive: 0
+  setActive: 1
+  ignoreLocomotive: 1
 --- !u!1 &1670150610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,6 +1458,107 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4874913741095980702, guid: 700590c15b0335c4e834ff50b8cd4355, type: 3}
   m_PrefabInstance: {fileID: 3243229437892863953}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1788021733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1788021738}
+  - component: {fileID: 1788021737}
+  - component: {fileID: 1788021736}
+  - component: {fileID: 1788021735}
+  - component: {fileID: 1788021734}
+  m_Layer: 0
+  m_Name: Obstacle_Macarons
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1788021734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788021733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fccc81c6acc0ab489acf93010f4a8da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectableEntityMask:
+    serializedVersion: 2
+    m_Bits: 256
+  obj: {fileID: 1734070212}
+  setActive: 0
+  ignoreLocomotive: 1
+--- !u!114 &1788021735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788021733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7811307c4125443881e6d34ad5479d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectableEntityMask:
+    serializedVersion: 2
+    m_Bits: 256
+  camAnimator: {fileID: 1366260791}
+  clip: {fileID: 7400000, guid: fa75216d425ab0e459e253c28308575c, type: 2}
+  passengersTrain: {fileID: 0}
+  passengersAnimator: {fileID: 0}
+  ignoreLocomotive: 1
+--- !u!114 &1788021736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788021733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4cce7c1af63d740ba43773dd29d078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectableEntityMask:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!65 &1788021737
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788021733}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1788021738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788021733}
+  m_LocalRotation: {x: -0, y: 0.5187559, z: -0, w: 0.85492235}
+  m_LocalPosition: {x: -2.394, y: 8.49, z: 3.654}
+  m_LocalScale: {x: 1, y: 1.9002, z: 2.0334}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 62.498, z: 0}
 --- !u!4 &1818923795 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4811662028204594315, guid: 964f466f58e1be947a13cc1d7655e834, type: 3}
@@ -22841,7 +22946,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1583132363903723926
 Transform:
   m_ObjectHideFlags: 0
@@ -34471,7 +34576,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2854575347202155073
 Transform:
   m_ObjectHideFlags: 0
@@ -36213,7 +36318,7 @@ MonoBehaviour:
   tranfToRotate: {fileID: 3785207930059617544}
   orientationA: {x: 0, y: 0, z: 0}
   orientationB: {x: 0, y: 0, z: 55}
-  AIsInitialPosition: 0
+  AIsInitialPosition: 1
 --- !u!4 &3243229438589443025
 Transform:
   m_ObjectHideFlags: 0
@@ -36262,8 +36367,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousNode: {fileID: 3243229438906963399}
   neighboursTransform:
+  - {fileID: 5798485026725738879}
   - {fileID: 5798485025070898978}
   neightboursNodes:
+  - {fileID: 5798485026725738878}
   - {fileID: 5798485025070898977}
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
@@ -41908,8 +42015,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousNode: {fileID: 3243229439056700350}
-  neighboursTransform: []
-  neightboursNodes: []
+  neighboursTransform:
+  - {fileID: 5798485025952902988}
+  neightboursNodes:
+  - {fileID: 5798485025952902979}
   controlPointIn: {x: 6.91, y: 4.76, z: 5.48}
   controlPointOut: {x: 1, y: -4.2, z: 0}
 --- !u!114 &3243229439239534839

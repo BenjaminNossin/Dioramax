@@ -18,14 +18,25 @@ public class TrainsManager : MonoBehaviour
     [Space] public bool freezeAllOnDetach = true;  
     public static System.Action OnDetachChildren { get; set; }
 
+    [SerializeField] private GameObject locomotive; 
+
     private void OnEnable()
     {
-        TouchDetection.OnTrainDetection += UpdateAllFreezeStates; 
+        TouchDetection.OnTrainDetection += UpdateAllFreezeStates;
+        StopTrainOnTriggerEnter.OnFinishingObstacle1 += ActivateLocomotive;
+
     }
 
     private void OnDisable()
     {
         TouchDetection.OnTrainDetection -= UpdateAllFreezeStates;
+        StopTrainOnTriggerEnter.OnFinishingObstacle1 -= ActivateLocomotive;
+
+    }
+
+    private void ActivateLocomotive()
+    {
+        locomotive.SetActive(true);
     }
 
     private void Awake()

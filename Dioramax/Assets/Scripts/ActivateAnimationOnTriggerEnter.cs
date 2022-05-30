@@ -13,7 +13,8 @@ public class ActivateAnimationOnTriggerEnter : MonoBehaviour
     [SerializeField] private Animator passengersAnimator;
 
     private Collider selfCollider;
-    private EntityPathNavigation entityPathNavigation; 
+    private EntityPathNavigation entityPathNavigation;
+    public bool ignoreLocomotive = true;
 
 
     private void Start()
@@ -26,7 +27,10 @@ public class ActivateAnimationOnTriggerEnter : MonoBehaviour
     {
         if (Mathf.Pow(2, other.gameObject.layer) == detectableEntityMask)
         {
-            wagon = other; 
+            wagon = other;
+            entityPathNavigation = wagon.GetComponent<EntityPathNavigation>();
+
+            if (!entityPathNavigation.isWagon && ignoreLocomotive) return; 
 
             selfCollider.enabled = false;
 

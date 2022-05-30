@@ -1,9 +1,12 @@
 using UnityEngine;
 
+
 public class StopTrainOnTriggerEnter : MonoBehaviour
 {
     [SerializeField] private LayerMask detectableEntityMask;
     private Collider selfCollider;
+
+    public static System.Action OnFinishingObstacle1; 
 
     private void Start()
     {
@@ -20,7 +23,18 @@ public class StopTrainOnTriggerEnter : MonoBehaviour
             {
                 entityPathNavigation.enabled = false;
                 selfCollider.enabled = false;
+                StartCoroutine(DeactivateWagon());
             }
         }
     }
+
+    private readonly WaitForSeconds WFS = new(2f);
+    System.Collections.IEnumerator DeactivateWagon()
+    {
+        yield return WFS;
+        entityPathNavigation.gameObject.SetActive(false);
+
+        OnFinishingObstacle1();
+    }
+
 }

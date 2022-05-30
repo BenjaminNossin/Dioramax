@@ -8,6 +8,8 @@ public class SetObjectOnTriggerEnter : MonoBehaviour
     [SerializeField] private bool setActive;
 
     private Collider selfCollider;
+    public bool ignoreLocomotive = true;
+    private EntityPathNavigation entityPathNavigation;
 
     private void Start()
     {
@@ -18,6 +20,10 @@ public class SetObjectOnTriggerEnter : MonoBehaviour
     {
         if (Mathf.Pow(2, other.gameObject.layer) == detectableEntityMask)
         {
+            entityPathNavigation = other.GetComponent<EntityPathNavigation>();
+
+            if (!entityPathNavigation.isWagon && ignoreLocomotive) return; 
+
             obj.SetActive(setActive);
             selfCollider.enabled = false;
         }
