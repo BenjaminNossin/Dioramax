@@ -112,11 +112,12 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     /// <param name="rotationForce">The speed of displacement</param>
     public void UpdateXYRotation(Vector3 _swipeDirection, float _swipeForce)
     {
-        // not very opti. Find bottom touch once and then just check him
-        for (int i = 0; i < Input.touchCount; i++)
+        /* for (int i = 0; i < Input.touchCount; i++)
         {
-            if (PointIsInsideRectangle(380, 35, 780, 160, Input.GetTouch(i).position)) return; 
-        } 
+            if (PointIsUnderYValue(160, Input.GetTouch(i).position)) return; 
+        } */
+
+        if (PointIsUnderYValue(160, Input.GetTouch(0).position)) return;
 
         YXRotation = true;
         ZRotation_GFCurve = false;
@@ -134,6 +135,9 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     {
         return point.x > xMin && point.x < xMax && point.y > yMin && point.y < yMax;
     }
+
+    private bool PointIsUnderYValue(float y, Vector2 point) => point.y <= y;
+    
 
 
     int direction, storedDirection; 
