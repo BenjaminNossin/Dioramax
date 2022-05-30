@@ -88,4 +88,9 @@ public class PathNode : MonoBehaviour
     public Vector3 GetControlPointToWorld(bool getIn = true) => transform.TransformPoint(getIn ? controlPointIn : controlPointOut);
     public Vector3 GetControlPointINPosition() => transform.TransformPoint(controlPointIn); 
     public Vector3 GetControlPointOUTPosition() => transform.TransformPoint(controlPointOut);
+    public void SetNextNode(PathNode nextNode)
+    {
+        neightboursNodes = new PathNode[1]; 
+        neightboursNodes[0] = nextNode;
+    }
 }
