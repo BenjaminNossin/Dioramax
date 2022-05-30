@@ -14,7 +14,7 @@ public class CustomSceneManager : MonoBehaviour
     private bool isSharing;
 
     public string fullPath;
-    private AsyncOperation asyncOp; 
+    private AsyncOperation asyncOp;
 
     private void Awake()
     {
@@ -22,16 +22,6 @@ public class CustomSceneManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
-    }
-
-    private void OnEnable()
-    {
-        UIFadeIn.OnFadeInComplete += AllowSceneActivation;
-    }
-
-    private void OnDisable()
-    {
-        UIFadeIn.OnFadeInComplete -= AllowSceneActivation;
     }
 
     private void Start()
@@ -44,8 +34,7 @@ public class CustomSceneManager : MonoBehaviour
         if (isMainMenu)
         {
             asyncOp = SceneManager.LoadSceneAsync((int)dioramaToLoad + 1, LoadSceneMode.Single);
-            asyncOp.allowSceneActivation = false;
-
+            StartCoroutine(AllowSceneActivation());
             UIFadeIn.Instance.DoFadeIn();
         }
     }
@@ -54,16 +43,14 @@ public class CustomSceneManager : MonoBehaviour
     {
         if (index > SceneManager.sceneCountInBuildSettings - 1 || index < 0) return;
         asyncOp = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
-        asyncOp.allowSceneActivation = false;
-
+        StartCoroutine(AllowSceneActivation());
         UIFadeIn.Instance.DoFadeIn();
     }
 
     public void ReloadScene()
     {
         asyncOp = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-        asyncOp.allowSceneActivation = false;
-
+        StartCoroutine(AllowSceneActivation());
         UIFadeIn.Instance.DoFadeIn();
     }
 
@@ -74,8 +61,7 @@ public class CustomSceneManager : MonoBehaviour
         if (currentScene == 4) return;
 
         asyncOp = SceneManager.LoadSceneAsync(currentScene + 1, LoadSceneMode.Single);
-        asyncOp.allowSceneActivation = false;
-
+        StartCoroutine(AllowSceneActivation());
         UIFadeIn.Instance.DoFadeIn();
     }
 
@@ -153,12 +139,13 @@ public class CustomSceneManager : MonoBehaviour
         File.WriteAllBytes(fullPath, imageBytesJPG);
     }
 
-    public void AllowSceneActivation()
+    private readonly WaitForSeconds fadeWFS = new(0.8f);
+    private IEnumerator  AllowSceneActivation()
     {
-        if (asyncOp != null)
-        {
-            asyncOp.allowSceneActivation = true;
-        }
+        asyncOp.allowSceneActivation = false;
+
+        yield return fadeWFS;
+        asyncOp.allowSceneActivation = true;        
     }
 }
 

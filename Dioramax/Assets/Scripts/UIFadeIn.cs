@@ -18,18 +18,10 @@ public class UIFadeIn : MonoBehaviour
         }
 
         Instance = this;
-        GameLogger.Log("creating fade in instance");
     }
 
     public void DoFadeIn()
     {
-        GameLogger.Log("doing fade in");
         fadeInAnimator.Play(fadeInClip.name);
-    }
-
-    public void CallOnFadeInComplete()
-    {
-        GameLogger.Log("on fade in complete"); 
-        OnFadeInComplete();
     }
 }

@@ -16,13 +16,10 @@ public class UIFadeOut : MonoBehaviour
         }
 
         Instance = this;
-        GameLogger.Log("creating fade out instance");
     }
-
 
     public void DoFadeOut()
     {
-        GameLogger.Log("doing fade out"); 
         fadeOutAnimator.Play(fadeOutClip.name);
     }
 }
