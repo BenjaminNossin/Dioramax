@@ -113,10 +113,10 @@ public class EntityPathNavigation : MonoBehaviour
         GameDrawDebugger.DrawRay(transform.position, NormalizedRequiredDirection * 5f, Color.blue);
     }
 
-    private void Init()
+    private void Init(int index = 0)
     {
         GetNewPointsOnReachingDestinationNode();
-        transform.position = pointsAlongPath[0];
+        transform.position = pointsAlongPath[index];
 
         SetSubDestination();
     }
@@ -361,5 +361,18 @@ public class EntityPathNavigation : MonoBehaviour
         {
             transform.LookAt(lookAtDirection);
         }
+    }
+
+    public void LoadNewPath(PathController _pathController, int startIndex = 0)
+    {
+        pathNodes = new PathNode[_pathController.GetPathNodes().Length];
+        _pathController.GetPathNodes().CopyTo(pathNodes, 0);
+
+        startingNodeIndex = startIndex;
+        destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+        pointsAlongPath = new Vector3[PathController.Resolution];
+
+        Init(startIndex);
     }
 }
