@@ -74,7 +74,7 @@ public class TouchDetection : MonoBehaviour
     private FreezeStateController freezeStateController;
     public void TryCastToTarget(Vector3 touchStart, Vector3 toucheEnd)
     {
-        if (!canCast) return; // PLACEHOLDER until done via FixedUpdated and not LateUpdate
+        if (!canCast || dioramaName == DioramaName.Diorama2) return; 
 
         GameDrawDebugger.DrawRay(touchStart, (toucheEnd - touchStart) * CAST_LENGTH, Color.red, RAY_DEBUG_DURATION);
 

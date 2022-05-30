@@ -38,7 +38,9 @@ public class EntityPathNavigation : MonoBehaviour
     public bool simulateMovement;
     public bool simulateBackward;
     public static bool SimulateMovement;
-    public bool isWagon; 
+    public bool isWagon;
+
+    public static Action<Transform> OnActivation; 
 
     private void Awake()
     {
@@ -48,6 +50,8 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Start()
     {
+        // OnActivation(transform);
+
         TrainsManager.AllTrainsFreezeController.Add(stateController);
 
         if (showDebugPoints)
