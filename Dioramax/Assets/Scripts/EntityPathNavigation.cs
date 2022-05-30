@@ -373,6 +373,16 @@ public class EntityPathNavigation : MonoBehaviour
 
         pointsAlongPath = new Vector3[PathController.Resolution];
 
+        if (showDebugPoints)
+        {
+            debugObject_PathPoints = new GameObject[PathController.Resolution];
+            for (int i = 0; i < debugObject_PathPoints.Length; i++)
+            {
+                debugObjReference = Instantiate(debugObject, Vector3.zero, Quaternion.identity);
+                debugObject_PathPoints[i] = debugObjReference;
+            }
+        }
+
         Init(startIndex);
     }
 }
