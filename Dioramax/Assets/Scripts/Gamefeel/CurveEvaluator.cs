@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class CurveEvaluator : MonoBehaviour
 {
     [SerializeField] private AnimationCurve animCurve;
-    [SerializeField, Range(0.25f, 50)] private float curveMaxDuration = 2f;
+    [SerializeField, Range(0f, 50)] private float curveMaxDuration = 2f;
     public bool EvaluateCurve { get; private set; } 
     private bool routineHasBeenCalled;
     private float time = -0.2f;

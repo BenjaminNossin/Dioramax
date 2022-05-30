@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6978310349479420354}
   - component: {fileID: 5156166249324395939}
   - component: {fileID: 4781798004435012427}
+  - component: {fileID: 8812731985897308221}
   m_Layer: 5
   m_Name: Rats_ON
   m_TagString: Untagged
@@ -76,6 +77,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8812731985897308221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815361446693398246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adc1a5a8af348f4db4eb733e1b90245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stretch_squash: 0.555
+  TimeScale: 1
 --- !u!1 &4458366114489421650
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +102,7 @@ GameObject:
   - component: {fileID: 4692916780313853792}
   - component: {fileID: 6118629320597324898}
   - component: {fileID: 4300034230874442483}
+  - component: {fileID: 6299899546626018713}
   m_Layer: 5
   m_Name: CarrouselI_ON
   m_TagString: Untagged
@@ -152,6 +168,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6299899546626018713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458366114489421650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adc1a5a8af348f4db4eb733e1b90245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stretch_squash: 0.555
+  TimeScale: 1
 --- !u!1 &5578399475906093820
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +193,7 @@ GameObject:
   - component: {fileID: 4030447502232872474}
   - component: {fileID: 3936704095321601006}
   - component: {fileID: 3201446980628591408}
+  - component: {fileID: 2876140076363984074}
   m_Layer: 5
   m_Name: Tuyaux_ON
   m_TagString: Untagged
@@ -228,6 +259,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2876140076363984074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578399475906093820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adc1a5a8af348f4db4eb733e1b90245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stretch_squash: 0.555
+  TimeScale: 1
 --- !u!1 &6237893195176122932
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,8 +378,12 @@ MonoBehaviour:
   puzzleWinAudiosource: {fileID: 7122858499622904393}
   puzzlesOn:
   - {fileID: 5578399475906093820}
-  - {fileID: 6237893195799792005}
+  - {fileID: 815361446693398246}
   - {fileID: 4458366114489421650}
+  puzzlesOff:
+  - {fileID: 6237893195811496204}
+  - {fileID: 6237893195799792005}
+  - {fileID: 6237893195797240453}
   previousDioramaInfos: {fileID: 11400000, guid: 18c21e018134e404e9cb3c6045bfefc7, type: 2}
 --- !u!82 &7122858499622904393
 AudioSource:

@@ -117,7 +117,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
             if (PointIsUnderYValue(160, Input.GetTouch(i).position)) return; 
         } */
 
-        if (PointIsUnderYValue(160, Input.GetTouch(0).position)) return;
+        if (Input.touchCount == 1 && PointIsUnderYValue(160, Input.GetTouch(0).position)) return;
 
         YXRotation = true;
         ZRotation_GFCurve = false;
