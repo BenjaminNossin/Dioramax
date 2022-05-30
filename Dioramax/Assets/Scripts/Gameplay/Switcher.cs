@@ -17,13 +17,12 @@ public class Switcher : MonoBehaviour
 
     private void Start()
     {
-        goToPositionA = AIsInitialPosition;
-        tranfToRotate.localRotation = Quaternion.Euler(goToPositionA ? orientationA : orientationB); // almost same as Switch() except from bool inversion. Try to refactor
         selfPathNode = GetComponent<PathNode>();
-
-        // bad to call GetNextPossibleNodesTransform() twice
         nextPossibleNodes = new PathNode[selfPathNode.GetNextPossibleNodes().Length];
         selfPathNode.GetNextPossibleNodes().CopyTo(nextPossibleNodes, 0);
+        
+        goToPositionA = AIsInitialPosition;
+        tranfToRotate.localRotation = Quaternion.Euler(goToPositionA ? orientationA : orientationB);     
 
         SetActiveNode();
     }
@@ -48,7 +47,7 @@ public class Switcher : MonoBehaviour
         {
             nextPossibleNodes[i].IsActiveNode = false; 
 
-            if (goToPositionA || nextPossibleNodes.Length <= 1)
+            if (goToPositionA || nextPossibleNodes.Length == 1)
             {
                 nextPossibleNodes[0].IsActiveNode = true;
             }

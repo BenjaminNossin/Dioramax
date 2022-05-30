@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class CurveEvaluator : MonoBehaviour
 {
     [SerializeField] private AnimationCurve animCurve;
-    [SerializeField, Range(0.25f, 50)] private float curveMaxDuration = 2f;
+    [SerializeField, Range(0f, 50)] private float curveMaxDuration = 2f;
     public bool EvaluateCurve { get; private set; } 
     private bool routineHasBeenCalled;
     private float time = -0.2f;
@@ -27,10 +27,9 @@ public class CurveEvaluator : MonoBehaviour
     /// <param name="time"> The time at which to evaluate </param>
     /// <param name="duration"> The duration of the curve evaluation </param>
     /// <returns> The curve Y value at give time </returns>
-    public float Evaluate(UnityAction call, float swipeNormalizedForce)
+    public float DoXYRotationCurve(UnityAction call, float multiplier = 1f)
     {
-        _curveMaxDuration = curveMaxDuration * swipeNormalizedForce;
-        // GameLogger.Log($"duration : {_curveMaxDuration}"); 
+        _curveMaxDuration = curveMaxDuration * multiplier;
 
         if (!routineHasBeenCalled)
         {
@@ -47,6 +46,50 @@ public class CurveEvaluator : MonoBehaviour
 
         return default; 
     }
+
+    public float DoZRotationCurve(UnityAction call, float multiplier = 1f)
+    {
+        _curveMaxDuration = curveMaxDuration * multiplier;
+
+        if (!routineHasBeenCalled)
+        {
+            gameFeelCurveEndEnvent.AddListener(call);
+            routineHasBeenCalled = true;
+            StartCoroutine(nameof(SetEvaluationState), _curveMaxDuration);
+            time = 0f; 
+        }
+
+        if (EvaluateCurve)
+        {
+            time += Time.fixedDeltaTime / _curveMaxDuration;
+            return animCurve.Evaluate(time);
+        }
+
+        return default;
+    }
+
+    public float DoZoomCurve(UnityAction call, float multiplier = 1f)
+    {
+        _curveMaxDuration = curveMaxDuration * multiplier;
+
+        if (!routineHasBeenCalled)
+        {
+            gameFeelCurveEndEnvent.AddListener(call);
+            routineHasBeenCalled = true;
+            StartCoroutine(nameof(SetEvaluationState), _curveMaxDuration);
+            time = 0f;
+        }
+
+        if (EvaluateCurve)
+        {
+            time += Time.fixedDeltaTime / _curveMaxDuration;
+
+            return animCurve.Evaluate(time);
+        }
+
+        return default;
+    }
+
 
     private WaitForSeconds waitForSeconds;
     private System.Collections.IEnumerator SetEvaluationState(float duration)

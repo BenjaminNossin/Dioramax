@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
-using System;
 using System.Collections;
 
 public class CustomSceneManager : MonoBehaviour
 {
     [SerializeField] private bool isMainMenu;
+    [SerializeField] private bool isLevelSelection;
     [SerializeField] private DioramaName dioramaToLoad = DioramaName.Tutorial; // will be modified via save system with SetDioramaToLoad
 
     [Header("--DEBUG--")]
@@ -14,6 +14,7 @@ public class CustomSceneManager : MonoBehaviour
     private bool isSharing;
 
     public string fullPath;
+    private AsyncOperation asyncOp;
 
     private void Awake()
     {
@@ -23,23 +24,34 @@ public class CustomSceneManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        UIFadeOut.Instance.DoFadeOut();      
+    }
+
     public void LoadLastSavedDiorama()
     {
         if (isMainMenu)
         {
-            SceneManager.LoadSceneAsync((int)dioramaToLoad + 1, LoadSceneMode.Single);
-            // have a fade out screen. When it's done, allowSceneActivation = true; 
+            asyncOp = SceneManager.LoadSceneAsync((int)dioramaToLoad + 1, LoadSceneMode.Single);
+            StartCoroutine(AllowSceneActivation());
+            UIFadeIn.Instance.DoFadeIn();
         }
     }
 
     public void LoadScene(int index)
     {
         if (index > SceneManager.sceneCountInBuildSettings - 1 || index < 0) return;
-        SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
+        asyncOp = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
+        StartCoroutine(AllowSceneActivation());
+        UIFadeIn.Instance.DoFadeIn();
     }
+
     public void ReloadScene()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        asyncOp = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        StartCoroutine(AllowSceneActivation());
+        UIFadeIn.Instance.DoFadeIn();
     }
 
     private int currentScene;
@@ -48,7 +60,9 @@ public class CustomSceneManager : MonoBehaviour
         currentScene = SceneManager.GetActiveScene().buildIndex;
         if (currentScene == 4) return;
 
-        SceneManager.LoadSceneAsync(currentScene + 1, LoadSceneMode.Single);
+        asyncOp = SceneManager.LoadSceneAsync(currentScene + 1, LoadSceneMode.Single);
+        StartCoroutine(AllowSceneActivation());
+        UIFadeIn.Instance.DoFadeIn();
     }
 
     public void Share()
@@ -123,6 +137,15 @@ public class CustomSceneManager : MonoBehaviour
 
         //Save image to file
         File.WriteAllBytes(fullPath, imageBytesJPG);
+    }
+
+    private readonly WaitForSeconds fadeWFS = new(0.8f);
+    private IEnumerator  AllowSceneActivation()
+    {
+        asyncOp.allowSceneActivation = false;
+
+        yield return fadeWFS;
+        asyncOp.allowSceneActivation = true;        
     }
 }
 

@@ -16,7 +16,8 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     [Space, SerializeField, Range(0, 50)] private float rotationSensitivity = 5f;
     public float RotationSensitivity { get; set; }
 
-    public static bool YXRotation { get; set; } 
+    public static bool YXRotation { get; set; }
+    public static bool ZRotation_GFCurve { get; set; }
 
     private UnityAction OnEvaluationEndedCallback;
 
@@ -26,6 +27,7 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
+    [SerializeField] CurveEvaluator ZRotationGamefeelCurve; 
     [SerializeField, Range(50, 400)] private float maxAllowedSwipeForce = 200f;
 
     private bool updateGamefeelCurve;
@@ -40,6 +42,9 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
         TouchDetection.OnDoubleTapDetection += SetCameraRotationOnDoubleTap;
 
+        ZRotationButton.OnPointerEnter_StopPreviousGamefeelCurve += InterruptPreviousCurveOnNewTouch; 
+        ZRotationButton.OnPointerExit_GamefeelCurve += DoZRotationGamefeelCurve;
+
         OnEvaluationEndedCallback += ResetBoolValues;
     }
 
@@ -49,7 +54,18 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
         TouchDetection.OnDoubleTapDetection -= SetCameraRotationOnDoubleTap;
 
+        ZRotationButton.OnPointerEnter_StopPreviousGamefeelCurve -= InterruptPreviousCurveOnNewTouch;
+        ZRotationButton.OnPointerExit_GamefeelCurve -= DoZRotationGamefeelCurve; 
+
         OnEvaluationEndedCallback -= ResetBoolValues;
+    }
+
+    private void DoZRotationGamefeelCurve()
+    {
+        GameLogger.Log("on pointer exit gamefeelcurve");
+        updateGamefeelCurve = true;
+        ZRotation_GFCurve = true; 
+        YXRotation = false; 
     }
 
 
@@ -72,15 +88,18 @@ public class DioravityCameraCraneRotation : MonoBehaviour
                     force = Mathf.Clamp(swipeForce / maxAllowedSwipeForce, 0, 1);
                 }
 
-                curveValue = gamefeelCurve.Evaluate(OnEvaluationEndedCallback, force); 
+                curveValue = gamefeelCurve.DoXYRotationCurve(OnEvaluationEndedCallback, force); 
                 UpdateXYRotation(swipeDirection, swipeForce * curveValue);
             }
+            else if (ZRotation_GFCurve)
+            {
+                curveValue = ZRotationForce * ZRotationGamefeelCurve.DoZRotationCurve(OnEvaluationEndedCallback);
+                UpdateZRotation();
+            }
         }
-
-        // diorama keeps rotating for some frames even after button up. Check for some calls that are performance heavy
-        if (ZRotationButton.ButtonIsSelected)
+        else if (ZRotationButton.ButtonIsSelected)
         {
-            UpdateZRotation(); //  * gamefeelCurve.Evaluate(OnEvaluationEndedCallback));
+            UpdateZRotation();
         }
     }
 
@@ -93,13 +112,15 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     /// <param name="rotationForce">The speed of displacement</param>
     public void UpdateXYRotation(Vector3 _swipeDirection, float _swipeForce)
     {
-        // not very opti. Find bottom touch once and then just check him
-        for (int i = 0; i < Input.touchCount; i++)
+        /* for (int i = 0; i < Input.touchCount; i++)
         {
-            if (PointIsInsideRectangle(380, 35, 780, 160, Input.GetTouch(i).position)) return; 
-        } 
+            if (PointIsUnderYValue(160, Input.GetTouch(i).position)) return; 
+        } */
+
+        if (Input.touchCount == 1 && PointIsUnderYValue(160, Input.GetTouch(0).position)) return;
 
         YXRotation = true;
+        ZRotation_GFCurve = false;
 
         swipeDirection = _swipeDirection;
         swipeForce = _swipeForce;
@@ -115,8 +136,11 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         return point.x > xMin && point.x < xMax && point.y > yMin && point.y < yMax;
     }
 
+    private bool PointIsUnderYValue(float y, Vector2 point) => point.y <= y;
+    
 
-    int direction;
+
+    int direction, storedDirection; 
     /// <summary>
     /// No object moves during this rotation. It is applied to the camera parent, around its Z axis. This is how the physics-based mechanic is triggered
     /// </summary>
@@ -125,11 +149,20 @@ public class DioravityCameraCraneRotation : MonoBehaviour
     public void UpdateZRotation() // increase rotation speed over time (rotationForce = Lerp(min, max, t))
     {
         YXRotation = false;
-        direction = ZRotationButton.LeftIsSelected ? -1 : ZRotationButton.RightIsSelected ? 1 : 0; 
+        ZRotation_GFCurve = true; 
 
-        transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZRotationForce * direction);
+        if (updateGamefeelCurve)
+        {
+            transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * curveValue * storedDirection);
+        }
+        else
+        {
+            direction = ZRotationButton.LeftIsSelected ? -1 : ZRotationButton.RightIsSelected ? 1 : 0;
+            storedDirection = direction; 
 
-        // I just want two values : 0 to 360 (tuyaux) and 0 to 180/0 to -180 (train)
+            transform.localEulerAngles += new Vector3(0f, 0f, Time.deltaTime * ZRotationForce * direction);
+        }
+
         ZLocalRotation = transform.localEulerAngles.z; 
         ZRotation = transform.eulerAngles.z;
         ZAngleWithIdentityRotation = ZLocalRotation > 180f ?
@@ -149,11 +182,15 @@ public class DioravityCameraCraneRotation : MonoBehaviour
         {
             gamefeelCurve.EndGamefeelCurve();
         }
+        else if (ZRotationGamefeelCurve.EvaluateCurve)
+        {
+            ZRotationGamefeelCurve.EndGamefeelCurve();
+        }
     }
 
     private void TriggerGamefeelCurveOnInputStateChange(TouchState previous)
     {
-        if (previous == TouchState.XYRotating) // OR zoom 
+        if (previous == TouchState.XYRotating || ZRotationButton.ButtonIsSelected) 
         {
             updateGamefeelCurve = true;
         }
@@ -161,9 +198,9 @@ public class DioravityCameraCraneRotation : MonoBehaviour
 
     private void ResetBoolValues()
     {
-        // GameLogger.Log("on ended rotation callback");
+        GameLogger.Log("on ended callback");
         updateGamefeelCurve = false;
-        YXRotation = false;
+        YXRotation = ZRotation_GFCurve = false;
         needToSetForce = true; 
     }
 }

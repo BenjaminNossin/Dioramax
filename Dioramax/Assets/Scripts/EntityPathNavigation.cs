@@ -6,14 +6,16 @@ using System.Collections;
 public enum NavigationState { NONE, Forward = 1, Backward = -1 }
 public class EntityPathNavigation : MonoBehaviour
 {
-    [SerializeField] private PathController pathController;
+    [SerializeField] private FreezeStateController stateController;
+
+    [Space, SerializeField] private PathController pathController;
     [SerializeField] private Transform[] initialNodesDebugArray;
-    [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
+    [SerializeField, Range(0f, 4f)] private float navigationSpeedMultiplier = 1f;
     private float _navigationSpeedMultiplier; 
 
     private PathNode[] pathNodes;
     private Vector3 lastNodePosition; // reached the end of track
-
+    
     private const float SNAP_VALUE = 0.05f;
     private Vector3[] pointsAlongPath;
 
@@ -35,7 +37,8 @@ public class EntityPathNavigation : MonoBehaviour
     private GameObject[] debugObject_PathPoints;
     public bool simulateMovement;
     public bool simulateBackward;
-    public static bool SimulateMovement; 
+    public static bool SimulateMovement;
+    public bool isWagon; 
 
     private void Awake()
     {
@@ -45,6 +48,8 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Start()
     {
+        TrainsManager.AllTrainsFreezeController.Add(stateController);
+
         if (showDebugPoints)
         {
             debugObject_PathPoints = new GameObject[PathController.Resolution];
@@ -89,7 +94,7 @@ public class EntityPathNavigation : MonoBehaviour
         else // TEMPORARY DEBUG
         {
             CurrentNavigationState = simulateBackward ? NavigationState.Backward : NavigationState.Forward;
-            _navigationSpeedMultiplier = 1f; 
+            _navigationSpeedMultiplier = navigationSpeedMultiplier; 
 
             if (CurrentNavigationState == NavigationState.Backward)
             {
@@ -109,10 +114,10 @@ public class EntityPathNavigation : MonoBehaviour
         GameDrawDebugger.DrawRay(transform.position, NormalizedRequiredDirection * 5f, Color.blue);
     }
 
-    private void Init()
+    private void Init(int index = 0)
     {
         GetNewPointsOnReachingDestinationNode();
-        transform.position = pointsAlongPath[0];
+        transform.position = pointsAlongPath[index];
 
         SetSubDestination();
     }
@@ -301,25 +306,25 @@ public class EntityPathNavigation : MonoBehaviour
             {
                 if (CurrentNavigationState == NavigationState.Backward)
                 {
-                    // GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
-                    // GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
+                    GameLogger.Log($"previous starting node index (BACKWARD): {startingNodeIndex}");
+                    GameLogger.Log($"previous destination node index (BACKWARD): {destinationNodeIndex}");
 
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetPreviousNodeIndex();
 
-                    // GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
-                    // GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
+                    GameLogger.Log($"current starting node index (BACKWARD): {startingNodeIndex}");
+                    GameLogger.Log($"current destination node index (BACKWARD): {destinationNodeIndex}");
                 }
                 else if (CurrentNavigationState == NavigationState.Forward)
                 {
-                    // GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
-                    // GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
+                    GameLogger.Log($"previous starting node index (FORWARD): {startingNodeIndex}");
+                    GameLogger.Log($"previous destination node index (FORWARD): {destinationNodeIndex}");
 
                     startingNodeIndex = destinationNodeIndex;
                     destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
-                    // GameLogger.Log($"current starting node index (FORWARD): {startingNodeIndex}");
-                    // GameLogger.Log($"current destination node index (FORWARD): {destinationNodeIndex}");
+                    GameLogger.Log($"current starting node index (FORWARD): {startingNodeIndex}");
+                    GameLogger.Log($"current destination node index (FORWARD): {destinationNodeIndex}");
                 }
 
                 // Debug.Break();
@@ -357,5 +362,28 @@ public class EntityPathNavigation : MonoBehaviour
         {
             transform.LookAt(lookAtDirection);
         }
+    }
+
+    public void LoadNewPath(PathController _pathController, int startIndex = 0)
+    {
+        pathNodes = new PathNode[_pathController.GetPathNodes().Length];
+        _pathController.GetPathNodes().CopyTo(pathNodes, 0);
+
+        startingNodeIndex = startIndex;
+        destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
+
+        pointsAlongPath = new Vector3[PathController.Resolution];
+
+        if (showDebugPoints)
+        {
+            debugObject_PathPoints = new GameObject[PathController.Resolution];
+            for (int i = 0; i < debugObject_PathPoints.Length; i++)
+            {
+                debugObjReference = Instantiate(debugObject, Vector3.zero, Quaternion.identity);
+                debugObject_PathPoints[i] = debugObjReference;
+            }
+        }
+
+        Init(startIndex);
     }
 }
