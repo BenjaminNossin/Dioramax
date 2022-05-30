@@ -35822,6 +35822,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_UI_EndOfLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 3276348502962031667, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+      propertyPath: up_max_position
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3869924044412881639, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -35874,7 +35878,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3276348502962031667, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
+    - {fileID: 8033947697837056666, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0332aeac534b4474a9cfb1cdf2c601ac, type: 3}
 --- !u!114 &3243229438088757360
 MonoBehaviour:
