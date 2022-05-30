@@ -22,7 +22,6 @@ public class LoadNewPathOnTriggerEnter : MonoBehaviour
     {
         if (Mathf.Pow(2, other.gameObject.layer) == detectableEntityMask)
         {
-            // other.GetComponent<Animator>().enabled = true;
             other.GetComponent<EntityPathNavigation>().LoadNewPath(pathController, startingIndex);
             selfCollider.enabled = false;
 
