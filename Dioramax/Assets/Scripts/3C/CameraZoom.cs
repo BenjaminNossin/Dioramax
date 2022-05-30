@@ -14,7 +14,7 @@ public class CameraZoom : MonoBehaviour
     [SerializeField, Range(0.1f, 50)] private float maxZoomIn = 45;
     [SerializeField, Range (70, 150)] private float maxZoomOut = 70;
     [SerializeField, Range(10f, 60f)] private float zoomSpeed = 40f;
-    private float currentMoveSpeed;
+    private float curvedSpeed;
     private Vector3 dioramaPosition;
     private float lerpedDistance0;
     private float lerpedDistance;
@@ -25,8 +25,8 @@ public class CameraZoom : MonoBehaviour
 
     private bool zoomStartIsRegistered;
 
-    public static bool ZoomingOut { get; set; }
-    public static bool ZoomingIn { get; set; } // for tutorial. !ZoomingOut != ZoomingIn
+    public static bool ZoomingOut { get; private set; }
+    public static bool ZoomingIn { get; private set; } // for tutorial. !ZoomingOut != ZoomingIn
 
     private bool zoomingIn, zoomingOut; // DEBUG
 
@@ -38,26 +38,29 @@ public class CameraZoom : MonoBehaviour
 
     private float zoomValue;
 
-    // GAMEFEEL STILL WIP (need to check how far I am from min or max zoom value
     [Header("Gamefeel")]
     [SerializeField] CurveEvaluator gamefeelCurve;
     private bool updateGamefeelCurve;
 
     UnityAction OnEvaluationEndedCallback;
 
-    /*private void OnEnable()
+    private void OnEnable()
     {
         Controls.OnTouchStarted += InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded += TriggerGamefeelCurveOnInputStateChange;
-        OnEvaluationEndedCallback += SetToFalse;
+
+
+        OnEvaluationEndedCallback += ResetBoolValues;
     }
 
     private void OnDisable()
     {
         Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
         Controls.OnTouchEnded -= TriggerGamefeelCurveOnInputStateChange;
-        OnEvaluationEndedCallback -= SetToFalse;
-    } */
+
+
+        OnEvaluationEndedCallback -= ResetBoolValues;
+    } 
 
     private void Start()
     {
@@ -73,17 +76,13 @@ public class CameraZoom : MonoBehaviour
     {
         zoomingIn = ZoomingIn;
         zoomingOut = ZoomingOut;
-    }
 
-    /* private void Update()
-    {
         if (updateGamefeelCurve)
         {
-            // GameLogger.Log("zoom gamefeel");
-            currentMoveSpeed = moveSpeed * gamefeelCurve.Evaluate(OnEvaluationEndedCallback); 
-            UpdatePinch(touchTop, touchBottom); // even more stupid to check tose again in the function..  
+            curvedSpeed = zoomSpeed * gamefeelCurve.DoZoomCurve(OnEvaluationEndedCallback);
+            ZoomInOrOut(touchTop, touchBottom);
         }
-    } */
+    }
 
     // NEVER USED
     public void SetPinchRegisterValue(bool value)
@@ -92,8 +91,8 @@ public class CameraZoom : MonoBehaviour
     }
 
     private float topPosition;
-    private Vector2 previousDelta, currentDelta;
-    private float xDelta, yDelta;
+    // private Vector2 previousDelta, currentDelta;
+    //private float xDelta, yDelta;
     private Vector2 middlePoint; 
 
     public Vector2 GetMiddlePoint(Touch _touch0, Touch _touch1)
@@ -121,22 +120,22 @@ public class CameraZoom : MonoBehaviour
     public void ZoomInOrOut(Touch _touch0, Touch _touch1)
     {
         GetMiddlePoint(_touch0, _touch1); 
-        currentDelta = touchTop.deltaPosition;
+        //currentDelta = touchTop.deltaPosition;
         currentTouch0Delta = _touch0.deltaPosition; // DEBUG
 
         // distance entre maxZoomOut et dioramaTransf.position - maxZoomIn
         currentDistance = Vector3.Distance(transfToMove.position, dioramaTransf.position) - maxZoomIn; 
-        // current distance ira de 0 à maxZoomIn+MaxZoomOut
-        // lerpedDistance =  // 25 -> 0; 100 -> 1
 
         zoomPointEnd = mainCam.ScreenToWorldPoint(new Vector3(middlePoint.x, middlePoint.y, 10f)); // hardcoded 10f CAN BE PROBLEMATIC
         // it can be weird to zoom like crazy even though only ONE finger from the pinch moved
         // use touchTop.deltaPosition : NO NEED FOR IF/ELSE
-        if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved)
+        if (touchTop.phase == TouchPhase.Moved || touchBottom.phase == TouchPhase.Moved || updateGamefeelCurve)
         {
-            dotProduct = Vector2.Dot(Controls.InitialTouch0Direction.normalized, (currentTouch0Delta).normalized);
-            ZoomingOut = Mathf.Sign(dotProduct) == -1;
-            // GameLogger.Log("dot product is : " + dotProduct);
+            if (!updateGamefeelCurve)
+            {
+                dotProduct = Vector2.Dot(Controls.InitialTouch0Direction.normalized, (currentTouch0Delta).normalized);
+                ZoomingOut = Mathf.Sign(dotProduct) == -1;
+            }
 
             canZoomIn = zoomValue > maxZoomIn;
             canZoomOut = zoomValue < maxZoomOut;
@@ -144,13 +143,12 @@ public class CameraZoom : MonoBehaviour
             {
                 if (canZoomOut)
                 {
-                    // GameLogger.Log("zooming out");
                     zoomValue++;
                     ZoomingIn = false; 
 
-                    transfToMove.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                    transfToMove.position -= (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * 
                         (updateGamefeelCurve ?
-                        currentMoveSpeed :
+                        curvedSpeed :
                         zoomSpeed);
                 }
             }
@@ -158,18 +156,40 @@ public class CameraZoom : MonoBehaviour
             {
                 if (canZoomIn)
                 {
-                    // GameLogger.Log("zooming in");
                     zoomValue--;
-                    ZoomingIn = true; 
+                    ZoomingIn = true;
 
-                    transfToMove.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime *
+                    transfToMove.position += (zoomPointEnd - mainCam.transform.position).normalized * Time.deltaTime * 
                         (updateGamefeelCurve ?
-                        currentMoveSpeed :
+                        curvedSpeed :
                         zoomSpeed);
                 }
             }
         }
 
-        previousDelta = currentDelta;
+        // previousDelta = currentDelta;
+    }
+
+    private void InterruptPreviousCurveOnNewTouch()
+    {
+        if (gamefeelCurve.EvaluateCurve)
+        {
+            gamefeelCurve.EndGamefeelCurve();
+        }
+    }
+
+    private void TriggerGamefeelCurveOnInputStateChange(TouchState currentState)
+    {
+        if (currentState == TouchState.Zooming)
+        {
+            updateGamefeelCurve = true;
+        }
+    }
+
+    private void ResetBoolValues()
+    {
+        GameLogger.Log("on zoom ended callback");
+        updateGamefeelCurve = false;
+        ZoomingOut = ZoomingIn = false; 
     }
 }

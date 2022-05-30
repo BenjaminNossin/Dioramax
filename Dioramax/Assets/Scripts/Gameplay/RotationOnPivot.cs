@@ -19,6 +19,7 @@ public class RotationOnPivot : MonoBehaviour
     [Header("Other")]
     [SerializeField] private TweenTouch tweenTouch;
     [SerializeField] private Collider tweenCollider;
+    [SerializeField] private AudioSource lockedAudiosource;
     private Collider selfCollider; 
 
 
@@ -77,6 +78,8 @@ public class RotationOnPivot : MonoBehaviour
 
             if (!validPositionIsRegistered)
             {
+                lockedAudiosource.Play();
+
                 validPositionIsRegistered = true;
                 winCondition.UpdateWinCondition(true);
 

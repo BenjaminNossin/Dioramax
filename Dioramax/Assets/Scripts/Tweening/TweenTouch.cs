@@ -2,12 +2,17 @@ using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
+public enum SoundPlayType { NONE = -1, Rand, PingPong }
 public class TweenTouch : StoppableTween
 {
     public TweeningData td;
 
+    [Header("Audio")]
+    [SerializeField] private PlaySoundOnTweenTouch soundTweenTouch; 
+    [SerializeField] private SoundPlayType playType;
+
     // TempPosition
-   
+
     private float ObjectMaxHeight;
     private float ObjectInitialHeight;
     private Vector3 originalScale;
@@ -65,7 +70,12 @@ public class TweenTouch : StoppableTween
     public void Tween()
     {
         if (!doTween) return;
-        
+
+        if (soundTweenTouch)
+        {
+            soundTweenTouch.Play(playType);
+        }
+
         //Particle effects Active selon le tag 
         if (VFX)
         {

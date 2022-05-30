@@ -15,6 +15,7 @@ public class Tween_EndOfLevel : MonoBehaviour
     }
     public void WinTween()
     {
+        GameLogger.Log("doing win tween"); 
         transform.DOScale(stretch_squash, TimeScale).SetEase(Ease.OutBack);//.SetLoops(-1, LoopType.Restart) ;
     }
 }

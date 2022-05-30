@@ -9,6 +9,9 @@ public class FreezeStateController : MonoBehaviour
     [Space, SerializeField] private bool freezeOnStart;
     [SerializeField] private SimulateEntityPhysics simulateEntityPhysics;
 
+    [Space, SerializeField] AudioSource audiosource; 
+    [SerializeField] AudioClip[] freezeUnfreezeAudioclips = new AudioClip[2];
+
     [Header("--DEBUG--")]
     [SerializeField] private bool useDebugTrain;
     [SerializeField] private bool keepIndividualFreeze; 
@@ -21,7 +24,7 @@ public class FreezeStateController : MonoBehaviour
     {
         if (otherFreeze)
         {
-            Debug_StickTrains.OnDetachChildren += FreezeSelfAndReference; 
+            TrainsManager.OnDetachChildren += FreezeSelfAndReference; 
         }
     }
 
@@ -29,7 +32,7 @@ public class FreezeStateController : MonoBehaviour
     {
         if (otherFreeze)
         {
-            Debug_StickTrains.OnDetachChildren -= FreezeSelfAndReference; 
+            TrainsManager.OnDetachChildren -= FreezeSelfAndReference; 
         }
     }
 
@@ -54,6 +57,8 @@ public class FreezeStateController : MonoBehaviour
         for (int i = 0; i < meshRenderers.Length; i++)
         {
             meshRenderers[i].material.SetInt("Freezed", Freezed ? 1 : 0);
+
+            audiosource.PlayOneShot(freezeUnfreezeAudioclips[Freezed ? 1 : 0]);
         }
 
         if (!useDebugTrain)
@@ -62,14 +67,14 @@ public class FreezeStateController : MonoBehaviour
         }
         else
         {
-            if (!keepIndividualFreeze && Debug_StickTrains.IsOn)
+            if (!keepIndividualFreeze && TrainsManager.IsOn)
             {
                 otherFreeze.SetFreezeState(Freezed);
             }
         }
     }
 
-    public void AddOrRemoveSelfRb()
+    private void AddOrRemoveSelfRb()
     {
         if (!useDebugTrain && simulateEntityPhysics)
         {
@@ -90,6 +95,7 @@ public class FreezeStateController : MonoBehaviour
         for (int i = 0; i < meshRenderers.Length; i++)
         {
             meshRenderers[i].material.SetInt("Freezed", Freezed ? 1 : 0);
+            audiosource.PlayOneShot(freezeUnfreezeAudioclips[Freezed ? 1 : 0]);
         }
     }
 

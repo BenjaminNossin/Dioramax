@@ -8,6 +8,7 @@ public class TutorialWinConditionController : MonoBehaviour
     public static bool Phase1IsRead { get; set; }
 
     [Space, SerializeField, Range(0f, 1f)] private float promptDisappearDelay = 0.5f;
+    [SerializeField] private AudioSource catButtonAudioSource;
 
     // XY rotation
     [Header("XY Rotation Tutorial")]
@@ -128,6 +129,7 @@ public class TutorialWinConditionController : MonoBehaviour
             if (zRotationRightCounter >= requiredIndividualZRotation && zRotationLeftCounter >= requiredIndividualZRotation)
             {
                 GameLogger.Log("suceeded Z Rotation tutorial");
+                stateIsPuzzle1 = true;
                 tutorialPhase = 3;
                 TutorialPromptsUI.Instance.ShowNextPrompt(tutorialPhase, 0);
             }
@@ -139,11 +141,15 @@ public class TutorialWinConditionController : MonoBehaviour
         }
     }
 
+    public static bool stateIsPuzzle1; 
     private void TutorialButtonDetected()
     {
-        if (tutorialPhase != 3) return; 
+        if (tutorialPhase != 3) return;
+        stateIsPuzzle1 = false; 
 
         GameLogger.Log("suceeded Button Touch tutorial");
+        catButtonAudioSource.Play();
+
         LevelInfosUI.Instance.ActivatePuzzleUIOnWin(0);
 
         LevelManager.Instance.ValidatedPuzzleAmount = 1;

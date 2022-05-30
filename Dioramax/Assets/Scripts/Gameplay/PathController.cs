@@ -7,7 +7,7 @@ using DG.Tweening;
 public class PathController : MonoBehaviour
 {
     [Space, SerializeField, Range(1f, 5f)] private float lineThickness = 1f;
-    [Space, SerializeField, Range(30, 100)] private int segmentResolution = 50;
+    [Space, SerializeField, Range(10, 100)] private int segmentResolution = 50;
     [SerializeField] private Color handlesColor = Color.white;
 
     public static float LineThickness { get; private set; }
