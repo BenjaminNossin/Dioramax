@@ -6,7 +6,9 @@ using System.Collections;
 public enum NavigationState { NONE, Forward = 1, Backward = -1 }
 public class EntityPathNavigation : MonoBehaviour
 {
-    [SerializeField] private PathController pathController;
+    [SerializeField] private FreezeStateController stateController;
+
+    [Space, SerializeField] private PathController pathController;
     [SerializeField] private Transform[] initialNodesDebugArray;
     [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
     private float _navigationSpeedMultiplier; 
@@ -45,6 +47,8 @@ public class EntityPathNavigation : MonoBehaviour
 
     void Start()
     {
+        TrainsManager.AllTrainsFreezeController.Add(stateController);
+
         if (showDebugPoints)
         {
             debugObject_PathPoints = new GameObject[PathController.Resolution];

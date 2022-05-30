@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic; 
 
-public class Debug_StickTrains : MonoBehaviour
+public class TrainsManager : MonoBehaviour
 {
-    [SerializeField] private Transform parent;
+    [SerializeField] private Transform parentOnStickTrain;
 
     [Space, SerializeField] private Transform locoStickPoint;
     [SerializeField] private Transform wagonStickPoint;
@@ -13,7 +13,7 @@ public class Debug_StickTrains : MonoBehaviour
     [SerializeField] private FreezeStateController[] linkableFreezeControllers;  
 
     public static bool IsOn;
-    public static Transform Parent;
+    public static Transform ParentOnStickTrain;
 
     [Space] public bool freezeAllOnDetach = true;  
     public static System.Action OnDetachChildren { get; set; }
@@ -35,7 +35,7 @@ public class Debug_StickTrains : MonoBehaviour
 
     private void Start()
     {
-        Parent = parent;
+        ParentOnStickTrain = parentOnStickTrain;
     }
 
     public void StickOnOrOff()
@@ -44,14 +44,14 @@ public class Debug_StickTrains : MonoBehaviour
         if (IsOn)
         {
             wagonStickPoint.SetPositionAndRotation(locoStickPoint.position, Quaternion.Euler(locoStickPoint.rotation.eulerAngles));
-            Parent.SetPositionAndRotation(locoStickPoint.position, Quaternion.Euler(locoStickPoint.rotation.eulerAngles));
+            ParentOnStickTrain.SetPositionAndRotation(locoStickPoint.position, Quaternion.Euler(locoStickPoint.rotation.eulerAngles));
 
-            locoStickPoint.SetParent(Parent);
-            wagonStickPoint.SetParent(Parent);
+            locoStickPoint.SetParent(ParentOnStickTrain);
+            wagonStickPoint.SetParent(ParentOnStickTrain);
         }
         else
         {
-            Parent.DetachChildren();
+            ParentOnStickTrain.DetachChildren();
 
             if (freezeAllOnDetach)
             {
