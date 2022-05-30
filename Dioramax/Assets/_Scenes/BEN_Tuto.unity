@@ -472,6 +472,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 1
+  isMill: 0
+  isHydrant: 0
 --- !u!1001 &87482176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2461,7 +2463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: zoomSpeed
-      value: 40
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: maxZoomOut
@@ -2534,6 +2536,10 @@ PrefabInstance:
     - target: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.592
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440736432978876802, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: curveMaxDuration
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
@@ -3181,6 +3187,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6106996995621437214, guid: 8471744b9d4ec24488c51396e7595c9c, type: 3}
       propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6392966951676349204, guid: 8471744b9d4ec24488c51396e7595c9c, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6660764013906138261, guid: 8471744b9d4ec24488c51396e7595c9c, type: 3}
@@ -4911,12 +4921,32 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: -2141055195431995339, guid: 6a7fca7e322386b4995b32a40948a9b3, type: 2}
+    - target: {fileID: 197533735999482025, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 197533735999482025, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 197533735999482025, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740406665072691542, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: stretch_squash
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 3817721417828143952, guid: d409474129803524280538f93dd1cac4, type: 3}
       propertyPath: puzzleOff.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3817721417828143952, guid: d409474129803524280538f93dd1cac4, type: 3}
       propertyPath: puzzlesOn.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817721417828143952, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: puzzlesOff.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3817721417828143952, guid: d409474129803524280538f93dd1cac4, type: 3}
@@ -4935,6 +4965,14 @@ PrefabInstance:
       propertyPath: puzzlesOn.Array.data[1]
       value: 
       objectReference: {fileID: 3361968758461756399}
+    - target: {fileID: 3817721417828143952, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: puzzlesOff.Array.data[0]
+      value: 
+      objectReference: {fileID: 3361968758461756398}
+    - target: {fileID: 3817721417828143952, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: puzzlesOff.Array.data[1]
+      value: 
+      objectReference: {fileID: 3361968758461756397}
     - target: {fileID: 3817721417828143953, guid: d409474129803524280538f93dd1cac4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5031,9 +5069,49 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3817721419928273133, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817721419928273133, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817721419928273133, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 3817721419928273134, guid: d409474129803524280538f93dd1cac4, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817721419948304486, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817721419948304486, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817721419948304486, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008052820322035105, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: stretch_squash
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162385603543691121, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162385603543691121, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162385603543691121, guid: d409474129803524280538f93dd1cac4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 7582523842916380557, guid: d409474129803524280538f93dd1cac4, type: 3}
       propertyPath: m_IsActive
@@ -5320,6 +5398,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!1 &4013816628848364601
 GameObject:
   m_ObjectHideFlags: 0
@@ -5529,6 +5609,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!23 &4235161393904155437
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6338,6 +6420,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!33 &6230265855631048921
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6683,6 +6767,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 23d34431ee1cea54a9a2a4283458590d, type: 3}
   - {fileID: 8300000, guid: 4e9a2280e5807e442ad589b2f2685cea, type: 3}
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &6721992598985352209
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6997,6 +7083,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &7496227952765109342
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7191,6 +7279,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &7699800140223325683
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7462,6 +7552,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!1 &7778189497987069261
 GameObject:
   m_ObjectHideFlags: 0
@@ -7924,6 +8016,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!33 &8501874860852309772
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7978,6 +8072,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &8501874860852309776
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8277,6 +8373,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!4 &8712061106407443809
 Transform:
   m_ObjectHideFlags: 0
@@ -8340,6 +8438,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 23d34431ee1cea54a9a2a4283458590d, type: 3}
   - {fileID: 8300000, guid: 4e9a2280e5807e442ad589b2f2685cea, type: 3}
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &8712061106407443814
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8700,6 +8800,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &9021558760700333712
 AudioSource:
   m_ObjectHideFlags: 0

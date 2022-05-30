@@ -14,7 +14,7 @@ public class CustomSceneManager : MonoBehaviour
     private bool isSharing;
 
     public string fullPath;
-    private AsyncOperation asyncOp; 
+    private AsyncOperation asyncOp;
 
     private void Awake()
     {
@@ -24,14 +24,18 @@ public class CustomSceneManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        UIFadeOut.Instance.DoFadeOut();      
+    }
+
     public void LoadLastSavedDiorama()
     {
         if (isMainMenu)
         {
             asyncOp = SceneManager.LoadSceneAsync((int)dioramaToLoad + 1, LoadSceneMode.Single);
-
-            StartCoroutine(LoadSceneDelay());
-            // have a fade out screen. When it's done, allowSceneActivation = true; 
+            StartCoroutine(AllowSceneActivation());
+            UIFadeIn.Instance.DoFadeIn();
         }
     }
 
@@ -39,12 +43,15 @@ public class CustomSceneManager : MonoBehaviour
     {
         if (index > SceneManager.sceneCountInBuildSettings - 1 || index < 0) return;
         asyncOp = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
-        StartCoroutine(LoadSceneDelay());
+        StartCoroutine(AllowSceneActivation());
+        UIFadeIn.Instance.DoFadeIn();
     }
+
     public void ReloadScene()
     {
         asyncOp = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-        StartCoroutine(LoadSceneDelay());
+        StartCoroutine(AllowSceneActivation());
+        UIFadeIn.Instance.DoFadeIn();
     }
 
     private int currentScene;
@@ -54,7 +61,8 @@ public class CustomSceneManager : MonoBehaviour
         if (currentScene == 4) return;
 
         asyncOp = SceneManager.LoadSceneAsync(currentScene + 1, LoadSceneMode.Single);
-        StartCoroutine(LoadSceneDelay());
+        StartCoroutine(AllowSceneActivation());
+        UIFadeIn.Instance.DoFadeIn();
     }
 
     public void Share()
@@ -131,13 +139,13 @@ public class CustomSceneManager : MonoBehaviour
         File.WriteAllBytes(fullPath, imageBytesJPG);
     }
 
-    private WaitForSeconds loadWFS = new(0.8f);
-    private IEnumerator LoadSceneDelay()
+    private readonly WaitForSeconds fadeWFS = new(0.8f);
+    private IEnumerator  AllowSceneActivation()
     {
         asyncOp.allowSceneActivation = false;
 
-        yield return loadWFS;
-        asyncOp.allowSceneActivation = true; 
+        yield return fadeWFS;
+        asyncOp.allowSceneActivation = true;        
     }
 }
 

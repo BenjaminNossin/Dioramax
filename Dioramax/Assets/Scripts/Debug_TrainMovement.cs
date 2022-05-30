@@ -23,7 +23,7 @@ public class Debug_TrainMovement : MonoBehaviour
 
     private void Start()
     {
-        Debug_StickTrains.AllTrainsFreezeController.Add(stateController); 
+        TrainsManager.AllTrainsFreezeController.Add(stateController); 
     }
 
     private void Update()
@@ -35,9 +35,9 @@ public class Debug_TrainMovement : MonoBehaviour
     {
         if (canBeTeleported)
         {
-            if (isGameplayTrain && Debug_StickTrains.IsOn)
+            if (isGameplayTrain && TrainsManager.IsOn)
             {
-                Debug_StickTrains.Parent.SetPositionAndRotation(targetTransf.position, Quaternion.Euler(targetTransf.rotation.eulerAngles));
+                TrainsManager.ParentOnStickTrain.SetPositionAndRotation(targetTransf.position, Quaternion.Euler(targetTransf.rotation.eulerAngles));
             }
             else
             {

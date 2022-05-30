@@ -24,7 +24,7 @@ public class FreezeStateController : MonoBehaviour
     {
         if (otherFreeze)
         {
-            Debug_StickTrains.OnDetachChildren += FreezeSelfAndReference; 
+            TrainsManager.OnDetachChildren += FreezeSelfAndReference; 
         }
     }
 
@@ -32,7 +32,7 @@ public class FreezeStateController : MonoBehaviour
     {
         if (otherFreeze)
         {
-            Debug_StickTrains.OnDetachChildren -= FreezeSelfAndReference; 
+            TrainsManager.OnDetachChildren -= FreezeSelfAndReference; 
         }
     }
 
@@ -67,14 +67,14 @@ public class FreezeStateController : MonoBehaviour
         }
         else
         {
-            if (!keepIndividualFreeze && Debug_StickTrains.IsOn)
+            if (!keepIndividualFreeze && TrainsManager.IsOn)
             {
                 otherFreeze.SetFreezeState(Freezed);
             }
         }
     }
 
-    public void AddOrRemoveSelfRb()
+    private void AddOrRemoveSelfRb()
     {
         if (!useDebugTrain && simulateEntityPhysics)
         {

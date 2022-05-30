@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 987553755397139737}
   - component: {fileID: 1911070939023927682}
   - component: {fileID: 7168197844715213029}
+  - component: {fileID: 1374461723}
   m_Layer: 5
   m_Name: FadeOut
   m_TagString: Untagged
@@ -54,14 +55,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914845922762157107}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -85,7 +86,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914845922762157107}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3af5f91835787414f906d9f946d21a24, type: 2}
   m_CullingMode: 0
@@ -97,6 +98,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1374461723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914845922762157107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189531f6b82ccac4ba48bbbe0979c300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeOutAnimator: {fileID: 7168197844715213029}
+  fadeOutClip: {fileID: 7400000, guid: 360131d2d8f4beb419b6493e8b3f5f90, type: 2}
 --- !u!1 &2407628586850658264
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,6 +124,7 @@ GameObject:
   - component: {fileID: 2407628586850658271}
   - component: {fileID: 2407628586850658270}
   - component: {fileID: 2407628586850658265}
+  - component: {fileID: 9177512186056610062}
   m_Layer: 5
   m_Name: UI_FadeInOut
   m_TagString: Untagged
@@ -171,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -199,6 +215,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &9177512186056610062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2407628586850658264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598f1fbf797f648488548e3fc272f1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2407628588516268360
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +239,7 @@ GameObject:
   - component: {fileID: 2407628588516268364}
   - component: {fileID: 2407628588516268367}
   - component: {fileID: 2407628588516268366}
+  - component: {fileID: 125370760574631685}
   m_Layer: 5
   m_Name: FadeIn
   m_TagString: Untagged
@@ -253,14 +282,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2407628588516268360}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -284,7 +313,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2407628588516268360}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: dc99877b21cdad6469f42d663cf16c2b, type: 2}
   m_CullingMode: 0
@@ -296,3 +325,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &125370760574631685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2407628588516268360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92d023a8442883469db88d2c68cf6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInAnimator: {fileID: 2407628588516268366}
+  fadeInClip: {fileID: 7400000, guid: 5354a434dc1c66247890593657fa7858, type: 2}

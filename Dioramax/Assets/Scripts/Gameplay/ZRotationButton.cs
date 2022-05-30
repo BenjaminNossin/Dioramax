@@ -9,6 +9,9 @@ public abstract class ZRotationButton : MonoBehaviour, IPointerEnterHandler, IPo
     public static bool RightIsSelected { get; protected set; }
     public static bool WaitingForNextFrames { get; private set; } // because somehow Unity calls OnPointerEnter again after OnPOinterExit..
 
+    public static System.Action OnPointerExit_GamefeelCurve { get; set; }
+    public static System.Action OnPointerEnter_StopPreviousGamefeelCurve { get; set; }
+
     private void Awake()
     {
         ButtonIsSelected = false;
@@ -26,17 +29,22 @@ public abstract class ZRotationButton : MonoBehaviour, IPointerEnterHandler, IPo
         }
     }
 
-    public abstract void OnPointerEnter(PointerEventData eventData); 
+    public virtual void OnPointerEnter(PointerEventData eventData)
+    {
+        OnPointerEnter_StopPreviousGamefeelCurve(); 
+    }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
+        OnPointerExit_GamefeelCurve();
         StartCoroutine(Wait()); 
     }
 
+    private readonly WaitForSeconds WFS = new(0.05f); 
     private IEnumerator Wait()
     {
         WaitingForNextFrames = true;
-        yield return new WaitForFixedUpdate(); 
+        yield return WFS; 
 
         WaitingForNextFrames = false; 
     }
