@@ -90,10 +90,9 @@ public class Controls : MonoBehaviour
         {
             if (CurrentState == TouchState.Zooming)
             {
-                GameLogger.Log("calling out of double touch frames");
-                CameraZoom.ZoomingIn = CameraZoom.ZoomingOut = false;
-
                 transitionningOutOfDoubleTouch = true;
+
+                OnTouchEnded(CurrentState);
 
                 ResetDoubleTouchValues();
 
@@ -135,9 +134,6 @@ public class Controls : MonoBehaviour
 
                     // SHOULD BE DONE IN FIXED UPDATE
                     touchDetection.TryCastToTarget(cameraPosition, touch0CurrentPosition);
-
-                    // if something draggable is detected, enter drag and NOT rotating state
-                    // if blablabla.. -> SetTouchState(doubleTap ? TouchState.DoubleTap : TouchState.Drag);
 
                     doubleTap = true; // for the next entering of Began if done within short delay
                     // GameLogger.Log("touch state is " + touchState);
@@ -193,6 +189,8 @@ public class Controls : MonoBehaviour
 
                     if (!middlePointIsSet)
                     {
+                        OnTouchStarted();
+
                         middlePointIsSet = true;
                         middlePoint = cameraZoom.GetMiddlePoint(currentTouch0, currentTouch1);
                         InitialTouch0Direction = (currentTouch0.position - middlePoint).normalized;

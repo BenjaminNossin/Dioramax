@@ -472,6 +472,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 1
+  isMill: 0
+  isHydrant: 0
 --- !u!1001 &87482176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2461,7 +2463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: zoomSpeed
-      value: 40
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3533724392168430049, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: maxZoomOut
@@ -2534,6 +2536,10 @@ PrefabInstance:
     - target: {fileID: 3533724393244289021, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.592
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440736432978876802, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
+      propertyPath: curveMaxDuration
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8417a5475b992cd4b9faaee496b9fbd1, type: 3}
@@ -5320,6 +5326,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!1 &4013816628848364601
 GameObject:
   m_ObjectHideFlags: 0
@@ -5529,6 +5537,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!23 &4235161393904155437
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6338,6 +6348,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!33 &6230265855631048921
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6683,6 +6695,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 23d34431ee1cea54a9a2a4283458590d, type: 3}
   - {fileID: 8300000, guid: 4e9a2280e5807e442ad589b2f2685cea, type: 3}
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &6721992598985352209
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6997,6 +7011,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &7496227952765109342
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7191,6 +7207,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &7699800140223325683
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7462,6 +7480,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!1 &7778189497987069261
 GameObject:
   m_ObjectHideFlags: 0
@@ -7924,6 +7944,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!33 &8501874860852309772
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7978,6 +8000,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &8501874860852309776
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8277,6 +8301,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ccca7cc2833c9e45beb9c3ade98a46f, type: 3}
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!4 &8712061106407443809
 Transform:
   m_ObjectHideFlags: 0
@@ -8340,6 +8366,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 23d34431ee1cea54a9a2a4283458590d, type: 3}
   - {fileID: 8300000, guid: 4e9a2280e5807e442ad589b2f2685cea, type: 3}
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &8712061106407443814
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8700,6 +8728,8 @@ MonoBehaviour:
   randArrayClipsOnTouchTween: []
   pingPongOnTouchTween: []
   isTutoCatButton: 0
+  isMill: 0
+  isHydrant: 0
 --- !u!82 &9021558760700333712
 AudioSource:
   m_ObjectHideFlags: 0

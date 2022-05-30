@@ -30,7 +30,6 @@ public class CurveEvaluator : MonoBehaviour
     public float DoXYRotationCurve(UnityAction call, float multiplier = 1f)
     {
         _curveMaxDuration = curveMaxDuration * multiplier;
-        GameLogger.Log($"duration : {_curveMaxDuration}"); 
 
         if (!routineHasBeenCalled)
         {
@@ -84,6 +83,7 @@ public class CurveEvaluator : MonoBehaviour
         if (EvaluateCurve)
         {
             time += Time.fixedDeltaTime / _curveMaxDuration;
+
             return animCurve.Evaluate(time);
         }
 

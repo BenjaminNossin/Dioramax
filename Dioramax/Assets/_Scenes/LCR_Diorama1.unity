@@ -17124,6 +17124,10 @@ PrefabInstance:
       propertyPath: animCurve.m_Curve.Array.data[1].tangentMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3733216852831765639, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
+      propertyPath: curveMaxDuration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6092739923713937716, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
       propertyPath: dioramaName
       value: 1
@@ -17202,7 +17206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7315971369682617572, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
       propertyPath: zoomSpeed
-      value: 40
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 7315971369682617572, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
       propertyPath: dioramaTransf
@@ -17211,7 +17215,7 @@ PrefabInstance:
     - target: {fileID: 7315971369682617572, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
       propertyPath: gamefeelCurve
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6092739923621156829}
     - target: {fileID: 8430058548442996089, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
       propertyPath: curveMaxDuration
       value: 0.5
@@ -17291,6 +17295,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6092739923713937706, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
   m_PrefabInstance: {fileID: 6092739923621156825}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6092739923621156829 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3733216852831765639, guid: adc1b5f1785b8f84da1e0b413cdb627e, type: 3}
+  m_PrefabInstance: {fileID: 6092739923621156825}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6fafeab0fc6974493159fee99cb476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &6134435312755073322
 MeshFilter:
   m_ObjectHideFlags: 0
