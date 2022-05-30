@@ -33,9 +33,15 @@ public class ActivateAnimationOnTriggerEnter : MonoBehaviour
             camAnimator.enabled = true;
             camAnimator.Play(clip.name);
 
-            passengersAnimator.enabled = true;
+            if (passengersAnimator)
+            {
+                passengersAnimator.enabled = true;
+            }
 
-            passengersTrain.SetActive(true);
+            if (passengersTrain)
+            {
+                passengersTrain.SetActive(true);
+            }
 
             StartCoroutine(nameof(SetInversion));
         }

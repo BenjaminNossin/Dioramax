@@ -10,7 +10,7 @@ public class EntityPathNavigation : MonoBehaviour
 
     [Space, SerializeField] private PathController pathController;
     [SerializeField] private Transform[] initialNodesDebugArray;
-    [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
+    [SerializeField, Range(0f, 4f)] private float navigationSpeedMultiplier = 1f;
     private float _navigationSpeedMultiplier; 
 
     private PathNode[] pathNodes;
@@ -37,7 +37,8 @@ public class EntityPathNavigation : MonoBehaviour
     private GameObject[] debugObject_PathPoints;
     public bool simulateMovement;
     public bool simulateBackward;
-    public static bool SimulateMovement; 
+    public static bool SimulateMovement;
+    public bool isWagon; 
 
     private void Awake()
     {
@@ -93,7 +94,7 @@ public class EntityPathNavigation : MonoBehaviour
         else // TEMPORARY DEBUG
         {
             CurrentNavigationState = simulateBackward ? NavigationState.Backward : NavigationState.Forward;
-            _navigationSpeedMultiplier = 1f; 
+            _navigationSpeedMultiplier = navigationSpeedMultiplier; 
 
             if (CurrentNavigationState == NavigationState.Backward)
             {
