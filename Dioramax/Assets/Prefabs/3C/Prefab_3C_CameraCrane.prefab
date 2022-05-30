@@ -740,6 +740,7 @@ GameObject:
   - component: {fileID: 3533724393244289021}
   - component: {fileID: 3533724393244289010}
   - component: {fileID: 3533724393244289011}
+  - component: {fileID: 5720745082425564687}
   - component: {fileID: 7964244908747386689}
   - component: {fileID: 3329036745582398296}
   - component: {fileID: 1865566559}
@@ -785,6 +786,7 @@ MonoBehaviour:
   ZRotationForce: 80
   rotationSensitivity: 5
   gamefeelCurve: {fileID: 3533724393244289011}
+  ZRotationGamefeelCurve: {fileID: 5720745082425564687}
   maxAllowedSwipeForce: 400
 --- !u!114 &3533724393244289011
 MonoBehaviour:
@@ -832,6 +834,52 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   curveMaxDuration: 15
+--- !u!114 &5720745082425564687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533724393244289020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6fafeab0fc6974493159fee99cb476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.012972441
+      value: 0.98373395
+      inSlope: -0.038011044
+      outSlope: -0.038011044
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.07147071
+    - serializedVersion: 3
+      time: 1
+      value: 0.9714065
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  curveMaxDuration: 2
 --- !u!114 &7964244908747386689
 MonoBehaviour:
   m_ObjectHideFlags: 0

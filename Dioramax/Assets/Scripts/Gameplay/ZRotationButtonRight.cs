@@ -9,6 +9,8 @@ public class ZRotationButtonRight : ZRotationButton
     {
         if (WaitingForNextFrames) return;
 
+        base.OnPointerEnter(eventData);
+
         audiosource.Play();
 
         if (eventData.pointerCurrentRaycast.gameObject == gameObject)
