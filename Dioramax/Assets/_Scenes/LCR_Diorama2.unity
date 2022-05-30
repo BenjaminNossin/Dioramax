@@ -866,7 +866,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   pathController: {fileID: 1583132363583273591}
-  startingIndex: 4
+  startingIndex: 3
 --- !u!1 &1321504212 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5015858117158818460, guid: cf51864a9f7b2c24aa76017b358a3ac3, type: 3}
@@ -22127,11 +22127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 1583132364283928413}
+  previousNode: {fileID: 1583132363990342283}
   neighboursTransform:
-  - {fileID: 1583132363990342282}
+  - {fileID: 1583132364283928412}
   neightboursNodes:
-  - {fileID: 1583132363990342283}
+  - {fileID: 1583132364283928413}
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &1583132363374212060
@@ -22164,7 +22164,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583132363583273590}
-  m_RootOrder: 1
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46}
 --- !u!114 &1583132363425423178
 MonoBehaviour:
@@ -22178,11 +22178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 1583132364500476834}
+  previousNode: {fileID: 1583132363903723927}
   neighboursTransform:
-  - {fileID: 1583132363903723926}
+  - {fileID: 1583132364500476837}
   neightboursNodes:
-  - {fileID: 1583132363903723927}
+  - {fileID: 1583132364500476834}
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &1583132363425423180
@@ -22215,7 +22215,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583132363583273590}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46}
 --- !u!4 &1583132363481810454
 Transform:
@@ -22230,7 +22230,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583132363583273590}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46}
 --- !u!114 &1583132363481810455
 MonoBehaviour:
@@ -22244,13 +22244,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 1583132363990342283}
+  previousNode: {fileID: 1583132364136770208}
   neighboursTransform:
-  - {fileID: 1583132364136770211}
+  - {fileID: 1583132363990342282}
   neightboursNodes:
-  - {fileID: 1583132364136770208}
+  - {fileID: 1583132363990342283}
   controlPointIn: {x: 0, y: 0, z: 0}
-  controlPointOut: {x: 0, y: 0, z: -0.02}
+  controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &1583132363481810457
 GameObject:
   m_ObjectHideFlags: 0
@@ -22280,14 +22280,14 @@ Transform:
   m_LocalScale: {x: 0.032258064, y: 0.032258056, z: 0.032258056}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1583132364283928412}
-  - {fileID: 1583132363374212061}
-  - {fileID: 1583132363990342282}
-  - {fileID: 1583132363481810454}
-  - {fileID: 1583132364136770211}
-  - {fileID: 1583132364500476837}
-  - {fileID: 1583132363425423181}
   - {fileID: 1583132363903723926}
+  - {fileID: 1583132363425423181}
+  - {fileID: 1583132364500476837}
+  - {fileID: 1583132364136770211}
+  - {fileID: 1583132363481810454}
+  - {fileID: 1583132363990342282}
+  - {fileID: 1583132363374212061}
+  - {fileID: 1583132364283928412}
   m_Father: {fileID: 6651810421791039681}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22304,7 +22304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineThickness: 3
-  segmentResolution: 35
+  segmentResolution: 15
   handlesColor: {r: 1, g: 1, b: 1, a: 1}
   refreshNodesArrayOnReferenceLoss: 1
 --- !u!1 &1583132363583273593
@@ -22337,7 +22337,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583132363583273590}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46}
 --- !u!114 &1583132363903723927
 MonoBehaviour:
@@ -22351,9 +22351,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 1583132363425423178}
-  neighboursTransform: []
-  neightboursNodes: []
+  previousNode: {fileID: 0}
+  neighboursTransform:
+  - {fileID: 1583132363425423181}
+  neightboursNodes:
+  - {fileID: 1583132363425423178}
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &1583132363903723929
@@ -22386,7 +22388,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583132363583273590}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46}
 --- !u!114 &1583132363990342283
 MonoBehaviour:
@@ -22400,13 +22402,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 1583132363374212058}
+  previousNode: {fileID: 1583132363481810455}
   neighboursTransform:
-  - {fileID: 1583132363990342282}
+  - {fileID: 1583132363374212061}
   neightboursNodes:
-  - {fileID: 1583132363481810455}
-  controlPointIn: {x: 0, y: 0, z: 0}
-  controlPointOut: {x: -0.03, y: 0, z: 0.1}
+  - {fileID: 1583132363374212058}
+  controlPointIn: {x: -0.02, y: 0, z: 0.1}
+  controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &1583132363990342285
 GameObject:
   m_ObjectHideFlags: 0
@@ -22436,11 +22438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 1583132363481810455}
+  previousNode: {fileID: 1583132364500476834}
   neighboursTransform:
-  - {fileID: 1583132364500476837}
+  - {fileID: 1583132363481810454}
   neightboursNodes:
-  - {fileID: 1583132364500476834}
+  - {fileID: 1583132363481810455}
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &1583132364136770210
@@ -22473,7 +22475,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583132363583273590}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46}
 --- !u!4 &1583132364283928412
 Transform:
@@ -22488,7 +22490,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583132363583273590}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46}
 --- !u!114 &1583132364283928413
 MonoBehaviour:
@@ -22502,11 +22504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 0}
-  neighboursTransform:
-  - {fileID: 1583132363374212061}
-  neightboursNodes:
-  - {fileID: 1583132363374212058}
+  previousNode: {fileID: 1583132363374212058}
+  neighboursTransform: []
+  neightboursNodes: []
   controlPointIn: {x: 0, y: 0, z: 0}
   controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &1583132364283928415
@@ -22538,13 +22538,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c6c5d41d638645bcafefddd343c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousNode: {fileID: 1583132364136770208}
+  previousNode: {fileID: 1583132363425423178}
   neighboursTransform:
-  - {fileID: 1583132363425423181}
+  - {fileID: 1583132364136770211}
   neightboursNodes:
-  - {fileID: 1583132363425423178}
-  controlPointIn: {x: 0, y: 0, z: 0}
-  controlPointOut: {x: 0, y: 0.02, z: 0.18}
+  - {fileID: 1583132364136770208}
+  controlPointIn: {x: 0, y: 0, z: 0.16}
+  controlPointOut: {x: 0, y: 0, z: 0}
 --- !u!1 &1583132364500476836
 GameObject:
   m_ObjectHideFlags: 0
@@ -22575,7 +22575,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583132363583273590}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46}
 --- !u!1 &1605856440555762195
 GameObject:
