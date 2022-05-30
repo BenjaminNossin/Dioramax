@@ -10,12 +10,12 @@ public class EntityPathNavigation : MonoBehaviour
 
     [Space, SerializeField] private PathController pathController;
     [SerializeField] private Transform[] initialNodesDebugArray;
-    [SerializeField, Range(0f, 2f)] private float navigationSpeedMultiplier = 1f;
+    [SerializeField, Range(0f, 4f)] private float navigationSpeedMultiplier = 1f;
     private float _navigationSpeedMultiplier; 
 
     private PathNode[] pathNodes;
     private Vector3 lastNodePosition; // reached the end of track
-
+    
     private const float SNAP_VALUE = 0.05f;
     private Vector3[] pointsAlongPath;
 
@@ -37,7 +37,8 @@ public class EntityPathNavigation : MonoBehaviour
     private GameObject[] debugObject_PathPoints;
     public bool simulateMovement;
     public bool simulateBackward;
-    public static bool SimulateMovement; 
+    public static bool SimulateMovement;
+    public bool isWagon; 
 
     private void Awake()
     {
@@ -93,7 +94,7 @@ public class EntityPathNavigation : MonoBehaviour
         else // TEMPORARY DEBUG
         {
             CurrentNavigationState = simulateBackward ? NavigationState.Backward : NavigationState.Forward;
-            _navigationSpeedMultiplier = 1f; 
+            _navigationSpeedMultiplier = navigationSpeedMultiplier; 
 
             if (CurrentNavigationState == NavigationState.Backward)
             {
@@ -372,6 +373,16 @@ public class EntityPathNavigation : MonoBehaviour
         destinationNodeIndex = pathNodes[startingNodeIndex].GetNextActiveNodeIndex();
 
         pointsAlongPath = new Vector3[PathController.Resolution];
+
+        if (showDebugPoints)
+        {
+            debugObject_PathPoints = new GameObject[PathController.Resolution];
+            for (int i = 0; i < debugObject_PathPoints.Length; i++)
+            {
+                debugObjReference = Instantiate(debugObject, Vector3.zero, Quaternion.identity);
+                debugObject_PathPoints[i] = debugObjReference;
+            }
+        }
 
         Init(startIndex);
     }
