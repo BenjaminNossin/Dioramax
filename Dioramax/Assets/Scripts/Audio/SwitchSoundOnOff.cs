@@ -20,7 +20,11 @@ public class SwitchSoundOnOff : MonoBehaviour
 
         decibels = 0f;
         CancelInvoke(nameof(DecreaseSound));
-        audioMixer.SetFloat("masterVolume", decibels);
+
+        if (audioMixer)
+        {
+            audioMixer.SetFloat("masterVolume", decibels);
+        }
 
         if (showSoundOffIcon)
         {
@@ -30,12 +34,15 @@ public class SwitchSoundOnOff : MonoBehaviour
 
     private void DecreaseSound()
     {
-        decibels -= 80f * Time.deltaTime;
-        audioMixer.SetFloat("masterVolume", decibels);
-
-        if (decibels <= -80f)
+        if (audioMixer)
         {
-            CancelInvoke(nameof(DecreaseSound));
+            decibels -= 80f * Time.deltaTime;
+            audioMixer.SetFloat("masterVolume", decibels);
+
+            if (decibels <= -80f)
+            {
+                CancelInvoke(nameof(DecreaseSound));
+            }
         }
     }
 
