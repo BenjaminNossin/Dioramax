@@ -4,7 +4,12 @@ using UnityEngine;
 public class ActivateAnimationOnTriggerEnter : MonoBehaviour
 {
     [SerializeField] private LayerMask detectableEntityMask;
-    [SerializeField] private Animator animatorToActivate; 
+
+    [Header("Cinematics")]
+    [SerializeField] private Animator camAnimator;
+    [SerializeField] private AnimationClip clip;
+    [SerializeField] private GameObject passengersTrain;
+    [SerializeField] private Animator passengersAnimator;
 
     private Collider selfCollider;
 
@@ -17,9 +22,14 @@ public class ActivateAnimationOnTriggerEnter : MonoBehaviour
     {
         if (Mathf.Pow(2, other.gameObject.layer) == detectableEntityMask)
         {
-            // other.GetComponent<Animator>().enabled = true;
-            animatorToActivate.enabled = true; 
             selfCollider.enabled = false;
+
+            camAnimator.enabled = true;
+            camAnimator.Play(clip.name);
+
+            passengersAnimator.enabled = true;
+
+            passengersTrain.SetActive(true); 
         }
     }
 }

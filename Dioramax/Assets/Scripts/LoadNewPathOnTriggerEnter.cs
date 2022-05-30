@@ -7,6 +7,7 @@ public class LoadNewPathOnTriggerEnter : MonoBehaviour
     [SerializeField] private PathController pathController;
     [SerializeField] private int startingIndex;
 
+    [Header("Cinematics")]
     [SerializeField] private Animator camAnimator;
     [SerializeField] private AnimationClip clip; 
 
