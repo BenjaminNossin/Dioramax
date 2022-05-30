@@ -15,11 +15,24 @@ public class ActivateAnimationOnTriggerEnter : MonoBehaviour
     private Collider selfCollider;
     private EntityPathNavigation entityPathNavigation;
     public bool ignoreLocomotive = true;
+    public bool ignoreInversion;
+    public bool activateSelfColliderAfterDelay;
+    [Range(0.25f, 5f)] public float delay = 2f;
 
 
     private void Start()
     {
         selfCollider = GetComponent<Collider>();
+
+        if (activateSelfColliderAfterDelay)
+        {
+            Invoke(nameof(ActivateCollider), delay);
+        }
+    }
+
+    private void ActivateCollider()
+    {
+        selfCollider.enabled = true;
     }
 
     private Collider wagon; 
@@ -47,6 +60,7 @@ public class ActivateAnimationOnTriggerEnter : MonoBehaviour
                 passengersTrain.SetActive(true);
             }
 
+            if (ignoreInversion) return; 
             StartCoroutine(nameof(SetInversion));
         }
     }

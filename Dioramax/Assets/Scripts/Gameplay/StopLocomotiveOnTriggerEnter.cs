@@ -29,11 +29,11 @@ public class StopLocomotiveOnTriggerEnter : MonoBehaviour
         }
     }
 
-    private readonly WaitForSeconds WFS = new(3.5f);
+    private readonly WaitForSeconds WFS = new(3.25f);
     System.Collections.IEnumerator ReactivateLocomotive()
     {
         yield return WFS;
+        EntityPathNavigation.CurrentNavigationState = NavigationState.Forward;
         entityPathNavigation.enabled = true; 
-
     }
 }

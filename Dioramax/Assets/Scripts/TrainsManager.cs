@@ -18,7 +18,7 @@ public class TrainsManager : MonoBehaviour
     [Space] public bool freezeAllOnDetach = true;  
     public static System.Action OnDetachChildren { get; set; }
 
-    [SerializeField] private GameObject locomotive; 
+    [SerializeField] private EntityPathNavigation locomotive; 
 
     private void OnEnable()
     {
@@ -36,7 +36,7 @@ public class TrainsManager : MonoBehaviour
 
     private void ActivateLocomotive()
     {
-        locomotive.SetActive(true);
+        locomotive.enabled = true;
     }
 
     private void Awake()
