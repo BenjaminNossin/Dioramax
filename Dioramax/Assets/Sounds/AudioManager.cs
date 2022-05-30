@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
         }
 
         Instance = this;
+        GameLogger.Log("creating audiomanager");
     }
 
     public void PlaySound(AudioSource source, AudioClip clip, bool waitForEnd = false)
