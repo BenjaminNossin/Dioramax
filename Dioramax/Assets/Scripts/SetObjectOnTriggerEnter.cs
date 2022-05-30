@@ -11,6 +11,9 @@ public class SetObjectOnTriggerEnter : MonoBehaviour
     public bool ignoreLocomotive = true;
     private EntityPathNavigation entityPathNavigation;
 
+    public bool deactivateSelfAfterDelay;
+    [Range(0f, 5f)] public float delay = 3f; 
+
     private void Start()
     {
         selfCollider = GetComponent<Collider>();
@@ -26,6 +29,11 @@ public class SetObjectOnTriggerEnter : MonoBehaviour
 
             obj.SetActive(setActive);
             selfCollider.enabled = false;
+
+            if (deactivateSelfAfterDelay)
+            {
+                Destroy(gameObject, delay);
+            }
         }
     }
 }

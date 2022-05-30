@@ -15,7 +15,7 @@ public class EntityPathNavigation : MonoBehaviour
 
     private PathNode[] pathNodes;
     private Vector3 lastNodePosition; // reached the end of track
-
+    
     private const float SNAP_VALUE = 0.05f;
     private Vector3[] pointsAlongPath;
 
