@@ -42,15 +42,12 @@ public class EntityPathNavigation : MonoBehaviour
 
     public static Action<Transform> OnActivation; 
 
-    private void Awake()
-    {
-        CurrentNavigationState = PreviousNavigationState;
-        SimulateMovement = simulateMovement; 
-    }
-
     void Start()
     {
         // OnActivation(transform);
+
+        CurrentNavigationState = PreviousNavigationState;
+        SimulateMovement = simulateMovement;
 
         TrainsManager.AllTrainsFreezeController.Add(stateController);
 

@@ -52,7 +52,7 @@ public class CameraZoom : MonoBehaviour
 
         OnEvaluationEndedCallback += ResetBoolValues;
     }
-
+    
     private void OnDisable()
     {
         Controls.OnTouchStarted -= InterruptPreviousCurveOnNewTouch;
@@ -68,6 +68,7 @@ public class CameraZoom : MonoBehaviour
         Input.multiTouchEnabled = true;
         zoomValue = mainCam.fieldOfView;
         canZoomIn = canZoomOut = true;
+        ZoomingOut = zoomingIn = false; 
 
         dioramaPosition = dioramaTransf.position;
     }
