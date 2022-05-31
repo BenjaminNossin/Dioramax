@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 7143658608661232729}
   - component: {fileID: 1674414242900466646}
   - component: {fileID: 1389500446114665039}
-  - component: {fileID: 5444957697478042594}
-  - component: {fileID: 3871194606419187970}
   m_Layer: 0
   m_Name: Star_Ourson
   m_TagString: Untagged
@@ -29,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1489795876848322961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.81, y: 4.191, z: -5.624}
-  m_LocalScale: {x: 0.049001284, y: 0.049001284, z: 0.049001284}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,37 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5444957697478042594
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489795876848322961}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &3871194606419187970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489795876848322961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111453c4969e1ab4db486cdb15360f4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationAxis: {x: 0, y: 1, z: 0}
-  rotation_degrees: 360
-  time_rotation: 5
-  up_max_position: 0
-  TimeUp: 0
-  scale: {x: 0.07, y: 0.07, z: 0.07}
-  time_scale: 2
-  UpAxis: {x: 0, y: 1, z: 0}

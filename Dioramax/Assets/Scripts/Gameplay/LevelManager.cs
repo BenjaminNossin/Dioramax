@@ -384,6 +384,8 @@ public class LevelManager : MonoBehaviour
 
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].particlesToSet[0].Play();
         phaseHolders[(int)phaseHolderName].phases[phaseNumber].collidersToSet[0].enabled = false; // bears can now be detected
+        phaseHolders[(int)phaseHolderName].phases[phaseNumber].objToSet[0].SetActive(false);
+
         IsPhase3 = true; 
     }
 
